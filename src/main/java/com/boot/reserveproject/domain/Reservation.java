@@ -3,6 +3,7 @@ package com.boot.reserveproject.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.mapping.ToOne;
 
 import javax.persistence.*;
 
@@ -17,6 +18,11 @@ public class Reservation {
     private Long no;
 
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Member member;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private Camp camp;
 
 }
 
