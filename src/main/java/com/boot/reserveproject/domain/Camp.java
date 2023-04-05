@@ -33,11 +33,14 @@ public class Camp {
     private String zipcode; //  우편번호 ( 주소 )
     private String addr1; //  주소 ( 주소 )
     private String addr2; //  상세주소 ( 주소 )
+
     private Long mapX; //  경도 : X
     private Long mapY; //  위도 : Y
+
     private String direction; //  오시는길
     private String tel; //  전화번호
     private String homepage; //  홈페이지
+
     private String resveUrl; //  예약페이지 링크
     private String resveCl; //  예약방법 ( 전화, 온라인 등 )
 
