@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{mobile/fragments/header :: header}" />
 <body>
-    <h1>모바일</h1>
+<div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"/>
+<h1>모바일인덱스</h1>
+<div th:replace="~{mobile/fragments/footer :: footer}" />
 </body>
 </html>
