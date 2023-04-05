@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
 <body>
-
+<div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<div>
+    <form method="post" action="/member/join">
+        <table>
+            <tr>
+                <td>ID</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>PW</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>PW확인</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>주민등록번호</td>
+                <td><input type="text">-<input type="text"></td>
+            </tr>
+            <tr>
+                <td>주소</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td><input type="email"></td>
+            </tr>
+            <tr>
+                <td>번호</td>
+                <td><input type="text"></td>
+            </tr>
+            <tr>
+                <input type="submit" value="가입"/>
+            </tr>
+        </table>
+    </form>
+</div>
+<div th:replace="fragments/footer :: footer"/>
 </body>
 </html>
