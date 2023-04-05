@@ -1,9 +1,7 @@
 package com.boot.reserveproject.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.mapping.ToOne;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -28,7 +26,7 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Member member;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Camp camp;
 
 }

@@ -2,8 +2,6 @@ package com.boot.reserveproject.controller;
 
 import com.boot.reserveproject.domain.Member;
 import com.boot.reserveproject.service.MemberService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequestMapping("/member")
 public class MemberController {
     //private final MemberService service = new MemberService();
     private final MemberService service;
 
-    @Autowired
     MemberController(MemberService memberService) {
         this.service = memberService;
     }
@@ -25,7 +23,7 @@ public class MemberController {
         return "members/joinForm";
     }
 
-    @PostMapping
+    @PostMapping("member/join")
     public String create(@ModelAttribute MemberForm form, Model model) {
         Member member =new Member();
 
