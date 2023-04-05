@@ -8,5 +8,8 @@
     height: 100px;
     position: fixed;
     color:green;
-    background-color: black;
+    background-color: lightgreen;
+}
+.view{
+    padding-top: 100px;
 }
