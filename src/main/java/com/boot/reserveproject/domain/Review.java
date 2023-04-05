@@ -15,5 +15,9 @@ public class Review {
     @Column(name = "reviewNo")
     private Long no;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Member writer;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private Camp camp;
 }

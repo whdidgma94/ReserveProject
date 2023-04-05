@@ -3,7 +3,6 @@ package com.boot.reserveproject.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -27,20 +26,20 @@ public class Member {
     @NotBlank(message = "이름은 필수 입력 항목입니다.")
     private String name;
     @NotBlank(message = "주소는 필수 입력 항목입니다.")
-    private String Address;
+    private String address;
     @NotBlank(message = "주민등록번호는 필수 입력 항목입니다.")
     private String regNum;
     @NotBlank(message = "이메일은 필수 입력 항목입니다.")
     @Email
-    private String Email;
+    private String email;
     @NotBlank(message = "전화번호는 필수 입력 항목입니다.")
     private String phone;
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "member")
-//    private List<Review> reviews = new ArrayList<>();
-//
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "member")
-//    private List<Reservation> reservations = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Review> reviews = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Reservation> reservations = new ArrayList<>();
 }
