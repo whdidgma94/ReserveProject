@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>어서Y</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<script>
+    window.load(selectPlatform());
+    function selectPlatform(){
+        var userAgent = navigator.userAgent;
+        if(userAgent.match(/Mobi|Mobile/i)){
+            location.href="mobile/index";
+        }
+        else{
+            location.href="pc/index";
+        }
+    }
+</script>
+</body>
+</html>

@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @Slf4j
-public class HomeController {
-    @RequestMapping("/")
-    public String index(){
-        return "index";
+public class MobileController {
+    @RequestMapping("/mobile/index")
+    public String mobileIndex(){
+        return "mobile/index";
     }
 }
