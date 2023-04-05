@@ -1,5 +1,6 @@
 package com.boot.reserveproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -35,11 +36,11 @@ public class Member {
     @NotBlank(message = "전화번호는 필수 입력 항목입니다.")
     private String phone;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "member")
-    private List<Review> reviews = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "member")
-    private List<Reservation> reservations = new ArrayList<>();
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "member")
+//    private List<Review> reviews = new ArrayList<>();
+//
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "member")
+//    private List<Reservation> reservations = new ArrayList<>();
 }
