@@ -1,4 +1,4 @@
 package com.boot.reserveproject.domain;
 
-public class camp {
+public class Camp {
 }
