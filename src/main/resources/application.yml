@@ -2,12 +2,11 @@ spring:
   output:
     ansi:
       enabled: always
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/welcomeYdb?serverTimezone=UTC&useSSL=false
-    username: root
-    password: root
+    url: jdbc:mysql://welcomeydb.cf7a7qhcvsyv.us-east-2.rds.amazonaws.com/welcomeydb?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: admin
+    password: yyyy302gh
 
   jpa:
     show-sql: true
@@ -15,8 +14,8 @@ spring:
     database: mysql
     hibernate:
       ddl-auto: update
-#      show_sql: true
-#      format_sql: true
+    #      show_sql: true
+    #      format_sql: true
 
     # JDBC TimeZone Setting
     properties:
