@@ -19,10 +19,7 @@ public class Camp {
     private Long lineIntro; // 숙소 부제
     private Long intro; // 숙소 소개
     private Long allar; // 숙소 면적
-    private Long trsagntNo;
-    private Long bizrno;
-    private Long facltDivNm;
-    private Long mangeDivNm;
+
     private Long mgcDiv; // 운영 기관 ( 민간, 위탁 )
     private Long manageSttus; //  운영 상태 ( 운영중인지 표시 )
     private Long hvofBgnde; //  휴장기간.휴무기간 시작일
@@ -30,6 +27,7 @@ public class Camp {
     private Long featureNm; //  특징 ( 짧은설명글 )
     private Long induty; //  업종
     private Long lctCl; //  입지 ( 주변 입지 ex.호수 )
+
     private Long doNm; //  도 ( 주소 )
     private Long sigunguNm; //  시군구 ( 주소 )
     private Long zipcode; //  우편번호 ( 주소 )
@@ -42,11 +40,13 @@ public class Camp {
     private Long homepage; //  홈페이지
     private Long resveUrl; //  예약페이지 링크
     private Long resveCl; //  예약방법 ( 전화, 온라인 등 )
+
     private Long gnrlSiteCo; //  야영장개수 ( 주요시설 )
     private Long autoSiteCo; //  자동차야영장개수 ( 주요시설 )
     private Long glampSiteCo; //  글램핑개수 ( 주요시설 )
     private Long caravSiteCo; //  카라반개수 ( 주요시설 )
     private Long indvdlCaravSiteCo; //  개인카라반개수 ( 주요시설 )
+
     private Long sitedStnc; //  간격
     private Long siteMg1Width; //  가로크기 ( 사이트1 )
     private Long siteMg1Vrticl; //  세로크기 ( 사이트1 )
@@ -64,6 +64,7 @@ public class Camp {
     private Long siteBottomCl4; // 자갈 ( 바닥형태 단위:면 )
     private Long siteBottomCl5; // 맨흙 ( 바닥형태 단위:면 )
     // 형태 종류가 각각 다 다름, 없는 경우도 있음
+
     private Long tooltip; // 툴팁 ( 주변 환경 설명 ex.관광지,음식점 )
     // 없는 경우도 있음
     private Long glampInnerFclty; // 글램핑 내부 시설 ( 옵션 )
