@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "camp")
 public class Camp {
     @Id
-    @Column(name = "campId")
+    @Column(name = "contentId")
     private Long contentId; // 콘텐츠 id ( 이미지검색 api에 필요, 중복x )
     private String facltNm; // 숙소 이름
     private String lineIntro; // 숙소 부제

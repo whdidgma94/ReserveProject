@@ -18,9 +18,9 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "memberNo")
-    private Long no;
+    private Long id;
     @NotBlank(message = "ID는 필수 입력 항목입니다.")
-    private String id;
+    private String loginId;
     @NotBlank(message = "PW는 필수 입력 항목입니다.")
     private String pw;
     @NotBlank(message = "이름은 필수 입력 항목입니다.")
