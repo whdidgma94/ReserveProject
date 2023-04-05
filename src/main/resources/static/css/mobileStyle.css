@@ -5,6 +5,19 @@
 }
 .header{
     position: fixed;
+    width: 100%;
+    height:200px;
     color:green;
     background-color: black;
+}
+.footer{
+    border: 2px solid #B8860B;
+    width:100%;
+    height:200px;
+    position: fixed;
+    bottom: 0;
+}
+.view{
+    padding-top:200px;
+    margin-bottom: 200px;
 }
