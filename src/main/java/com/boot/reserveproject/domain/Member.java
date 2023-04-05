@@ -34,6 +34,7 @@ public class Member {
     private String email;
     @NotBlank(message = "전화번호는 필수 입력 항목입니다.")
     private String phone;
+    private String gender;
 
     @JsonIgnore
     @OneToMany(mappedBy = "member")

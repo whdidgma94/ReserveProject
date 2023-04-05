@@ -1,9 +1,11 @@
 package com.boot.reserveproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -11,9 +13,8 @@ import javax.persistence.*;
 @Table(name = "camp")
 public class Camp {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "campId")
-    private String contentId; // 콘텐츠 id ( 이미지검색 api에 필요, 중복x )
+    private Long contentId; // 콘텐츠 id ( 이미지검색 api에 필요, 중복x )
     private String facltNm; // 숙소 이름
     private String lineIntro; // 숙소 부제
     private String intro; // 숙소 소개
@@ -97,5 +98,10 @@ public class Camp {
     private String animalCmgCl; // 애완동물 출입 ( ex.가능, 소형견가능 등 )
     private String firstImageUrl; // 대표이미지
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private Reservation reservation;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "camp")
+    private List<Review> reviews;
 }
