@@ -15,11 +15,12 @@ class CampApiControllerTest {
         CampApiController api = new CampApiController();
         List<HashMap<String, Object>> basedList = api.getBasedList("1");
 
-        System.out.println("Based List:");
+        System.out.println("Based List1 :");
         for (HashMap<String, Object> basedMap : basedList) {
             System.out.println(basedMap);
         }
 
+        System.out.println("\nBased List2 :");
         for (HashMap<String, Object> basedMap : basedList) {
             Collection<Object> values = basedMap.values();
             for (Object value : values) {
