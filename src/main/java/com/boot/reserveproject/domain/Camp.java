@@ -44,30 +44,12 @@ public class Camp {
     private String resveUrl; //  예약페이지 링크
     private String resveCl; //  예약방법 ( 전화, 온라인 등 )
 
-    private Long gnrlSiteCo; //  야영장개수 ( 주요시설 )
-    private Long autoSiteCo; //  자동차야영장개수 ( 주요시설 )
-    private Long glampSiteCo; //  글램핑개수 ( 주요시설 )
-    private Long caravSiteCo; //  카라반개수 ( 주요시설 )
-    private Long indvdlCaravSiteCo; //  개인카라반개수 ( 주요시설 )
-
-    private Long sitedStnc; //  간격
-    private Long siteMg1Width; //  가로크기 ( 사이트1 )
-    private Long siteMg1Vrticl; //  세로크기 ( 사이트1 )
-    private Long siteMg1Co; //  사이트개수 ( 사이트1 )
-    private Long siteMg2Width; //  가로크기 ( 사이트2 )
-    private Long siteMg2Vrticl; //  세로크기 ( 사이트2 )
-    private Long siteMg2Co; //  사이트개수 ( 사이트2 )
-    private Long siteMg3Width; //  세로크기 ( 사이트3 )
-    private Long siteMg3Vrticl; //  가로크기 ( 사이트3 )
-    private Long siteMg3Co; //  사이트개수 ( 사이트3 )
-    // 사이트 종류가 각각 다 다름, 없는 경우도 있음
-
-    private Long siteBottomCl1; // 잔디 ( 바닥형태 단위:면 )
-    private Long siteBottomCl2; // 파쇄석 ( 바닥형태 단위:면 )
-    private Long siteBottomCl3; // 데크 ( 바닥형태 단위:면 )
-    private Long siteBottomCl4; // 자갈 ( 바닥형태 단위:면 )
-    private Long siteBottomCl5; // 맨흙 ( 바닥형태 단위:면 )
-    // 형태 종류가 각각 다 다름, 없는 경우도 있음
+    private String siteCount; // 주요시설 , 야영시설개수
+    private Long sitedStnc; // 사이트 간격
+    private String site; // 사이트 별 크기
+    // 사이트 종류가 없는 경우도 있음
+    private String siteBottom; // ( 바닥형태)
+    // 형태 종류가 각각 다 다름, 사이트 면적만있고 형태 없는 경우도 있음
 
     private String tooltip; // 툴팁 ( 주변 환경 설명 ex.관광지,음식점 )
     // 없는 경우도 있음
