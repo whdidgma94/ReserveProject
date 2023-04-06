@@ -23,7 +23,7 @@
                 console.log(`${city} : ${temp}'C (${desc})`);
 
                 const result = `<div><img src="${imgUrl}"><p>${city}&nbsp;${temp}'C</p>${desc}<p></p></div>`;
-                $('.weather').prepend(result);
+                $('body').prepend(result);
             }
         });
     });
