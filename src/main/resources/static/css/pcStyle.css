@@ -21,40 +21,62 @@ body{
     flex-direction:row;
     justify-content:space-between;
     align-items:center;
-
+    z-index:2;
 }
 .view{
-    width:70%;
+    width:90%;
     padding-top: 100px;
+    margin-left:5%;
+    background-color:coral;
 }
 .icon{
     font-size:40px;
     cursor:pointer;
+    text-align:center;
 }
 .header .icon{
     margin-right:40px;
 }
 .logo{
     margin-left:40px;
-    font-size:40px;
     cursor:pointer;
 }
-
+.logo img{
+    width:200px;
+}
 .side-bar{
     display:flex;
     z-index:3;
-    background-color:skyblue;
+    background-color:wheat;
     width:50%;
     height:100vh;
     position:fixed;
     right:-40%;
     opacity: 0;
     transition: all 1s ease-in-out;
+    box-shadow:0px 0px 50px 5px lightgray;
 }
 .side-bar.active{
     opacity: 1;
     right:0;
 }
 ul{
+    padding-top:80px;
     list-style: none;
+}
+.side-bar ul li{
+    margin-bottom:10px;
+    margin-left:40px;
+}
+.label{
+    text-align:center;
+}
+.content{
+    cursor:pointer;
+    border:2px solid gray;
+    background:lightgreen;
+}
+.blur{
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
 }
