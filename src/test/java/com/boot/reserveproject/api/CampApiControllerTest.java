@@ -35,12 +35,10 @@ class CampApiControllerTest {
     public void test2() {
         CampApiController api = new CampApiController();
         String[] imageList = api.getImageList(4L);
-
         System.out.println("\n -- image List");
         for (String image : imageList) {
             System.out.println(image);
         }
-
     }
 
 }
