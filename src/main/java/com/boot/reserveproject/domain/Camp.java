@@ -20,7 +20,7 @@ public class Camp {
     private String intro; // 숙소 소개
     private String allar; // 숙소 면적
 
-    private String mgcDiv; // 운영 기관 ( 민간, 위탁 )
+    private String facltDivNm; // 사업 주체 ( 민간, 위탁 )
     private String manageSttus; //  운영 상태 ( 운영중인지 표시 )
     private String hvofBgnde; //  휴장기간.휴무기간 시작일
     private String hvofEnddle; //  휴장기간.휴무기간 종료일
@@ -57,10 +57,11 @@ public class Camp {
     private Long siteMg2Width; //  가로크기 ( 사이트2 )
     private Long siteMg2Vrticl; //  세로크기 ( 사이트2 )
     private Long siteMg2Co; //  사이트개수 ( 사이트2 )
-    private Long iteMg3Width; //  세로크기 ( 사이트3 )
+    private Long siteMg3Width; //  세로크기 ( 사이트3 )
     private Long siteMg3Vrticl; //  가로크기 ( 사이트3 )
     private Long siteMg3Co; //  사이트개수 ( 사이트3 )
     // 사이트 종류가 각각 다 다름, 없는 경우도 있음
+
     private Long siteBottomCl1; // 잔디 ( 바닥형태 단위:면 )
     private Long siteBottomCl2; // 파쇄석 ( 바닥형태 단위:면 )
     private Long siteBottomCl3; // 데크 ( 바닥형태 단위:면 )
