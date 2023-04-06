@@ -14,6 +14,7 @@
     flex-direction:row;
     justify-content:space-between;
     align-items:center;
+    z-index:2;
 }
 .footer{
     width:100%;
@@ -47,6 +48,16 @@ li{
     justify-content:center;
     align-items:center;
 }
+.side-bar ul li{
+    height : 100px;
+    width:100px;
+}
+.side-bar ul{
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    background-color:wheat;
+}
 .icon{
     display: flex;
     justify-content: center;
@@ -55,7 +66,7 @@ li{
 .footer-label{
     display: flex;
     justify-content: center;
-    font-size:40px;
+    font-size:50px;
     font-family: 'Dongle', sans-serif;
 }
 .logo{
@@ -65,4 +76,25 @@ li{
 }
 .header .icon{
     margin-right:40px;
+}
+.side-bar{
+    display:flex;
+    z-index:0;
+    background-color:wheat;
+    width:50%;
+    height:100vh;
+    position:fixed;
+    right:-40%;
+    opacity: 0;
+    transition: all 1s ease-in-out;
+    /*box-shadow:0px 0px 50px 5px lightgray;*/
+}
+.side-bar.active{
+    opacity: 1;
+    right:0;
+    z-index:3;
+}
+.blur{
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
 }
