@@ -2,64 +2,59 @@ package com.boot.reserveproject.controller;
 
 import com.boot.reserveproject.domain.Member;
 import com.boot.reserveproject.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("/member")
+@RequiredArgsConstructor
 public class MemberController {
-    //private final MemberService service = new MemberService();
-    private final MemberService service;
 
-    MemberController(MemberService memberService) {
-        this.service = memberService;
+    private final MemberService memberService;
+
+    @GetMapping("/member/new")
+    public String createForm(Model model) {
+        model.addAttribute("memberForm", new MemberForm());
+        return "pc/member/memberJoinForm";
     }
 
-    @GetMapping
-    public String createForm() {
-        return "members/joinForm";
-    }
+    @PostMapping("/member/new")
+    public String create(@Valid MemberForm form, BindingResult result) {
 
-    @PostMapping("member/join")
-    public String create(@ModelAttribute MemberForm form, Model model) {
-        Member member =new Member();
-
-        try {
-            service.join(member);
-        } catch (IllegalStateException e) {
-            model.addAttribute("msg", e.getMessage());
-            return "members/joinForm";
-        }
-        return "redirect:/member/members";
-    }
-
-    @GetMapping("/members")  // member/members
-    public String getMemberList(Model model) {
-        List<Member> list = null;
-        try {
-            list = service.findAllMembers();
-        } catch (IllegalStateException e) {
-            return "members/joinForm";
+        if (result.hasErrors()) {
+            return "pc/member/memberJoinForm";
         }
 
-        model.addAttribute("list", list);
 
-        return "members/list";
+        Member member = new Member();
+        member.setName(form.getName());
+        member.setLoginId(form.getLoginId());
+        member.setPw(form.getPw());
+        member.setEmail(form.getEmail());
+        member.setAddress(form.getAddress());
+        member.setPhone(form.getPhone());
+        member.setRegNum1(form.getRegNum1());
+        member.setRegNum2(form.getRegNum2());
+        if(form.getRegNum2().substring(0,1).equals("1")||form.getRegNum2().substring(0,1).equals("3")){
+            member.setGender("male");
+        }else{
+            member.setGender("female");
+        }
+        memberService.join(member);
+        return "pc/index";
     }
 
-    @GetMapping("{keyId}")
-    public String deleteMember(@PathVariable Long keyId) {
-        service.removeMember(keyId);
-        return "redirect:/member/members";
+    @GetMapping("/members")
+    public String list(Model model) {
+        List<Member> members = memberService.findAllMembers();
+        model.addAttribute("members", members);
+        return "pc/member/memberJoinForm";
     }
 
-    @ResponseBody
-    @DeleteMapping("{keyId}")
-    public String deleteMemberAjax(@PathVariable Long keyId) {
-        service.removeMember(keyId);
-        return "ok";
-    }
 }
