@@ -15,6 +15,5 @@ class CampApiControllerTest {
         CampApiController api = new CampApiController();
         List<HashMap<String, Object>> basedList = api.getBasedList("1");
 
-        System.out.println(basedList);
     }
 }
