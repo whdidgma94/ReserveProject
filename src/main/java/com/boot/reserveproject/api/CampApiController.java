@@ -5,11 +5,8 @@ import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +14,7 @@ import java.util.List;
 
 public class CampApiController {
     public List<HashMap<String, Object>> getBasedList(String pageNum) {
-        String base_url = "apis.data.go.kr/B551011/GoCamping/";
+        String base_url = "https://apis.data.go.kr/B551011/GoCamping/";
         String subject = "basedList";
         String page = "?pageNo="+pageNum+"&MobileOS=ETC&MobileApp=%EC%97%AC%EA%B8%B0%EC%99%80%EC%9D%B4";
         String api_key = "&serviceKey=qm8FKb8D52kHWNgstNLDyuuLD%2Bh2H8dvHvULfHsDN23RLMAPmvGDcv%2BG7P%2B5fAEonCEHTQTl%2F1X2WJvP9IUM4Q%3D%3D";
@@ -45,7 +42,7 @@ public class CampApiController {
             JSONObject obj = (JSONObject) parser.parse(sb.toString());
 
           ////
-            JSONArray objArray = (JSONArray) obj.get("results");
+            JSONArray objArray = (JSONArray) obj.get("response");
 
             basedList = new ArrayList<HashMap<String, Object>>();
 
@@ -65,8 +62,8 @@ public class CampApiController {
 
                     basedList.add(basedMap);
                 }
-
             }
+
             conn.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
