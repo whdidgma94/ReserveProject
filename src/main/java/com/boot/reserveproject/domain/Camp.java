@@ -41,9 +41,6 @@ public class Camp {
     private String tel; //  전화번호
     private String homepage; //  홈페이지
 
-    private String resveUrl; //  예약페이지 링크
-    private String resveCl; //  예약방법 ( 전화, 온라인 등 )
-
     private String siteCount; // 주요시설 , 야영시설개수
     private Long sitedStnc; // 사이트 간격
     private String site; // 사이트 별 크기
@@ -61,17 +58,14 @@ public class Camp {
     private String trlerAcmpnyAt; // 개인 트레일러 동반여부 (Y,N)
     private String caravAcmpnyAt; // 개인 카라반 동반여부 (Y,N)
 
-    private Long toiletCo; // 화장실 개수 ( 부대시설 )
-    private Long swrmCo; // 샤워실 개수 ( 부대시설 )
-    private Long wtrplCo; // 개수대 개수 ( 부대시설 )
-    private String brazierCl; // 화로대 ( ex.개별 ) ( 부대시설 )
-    private String sbrsCl; // 부대시설
-    private String sbrsEtc; // 기타부대시설
+    private String sanitary; // 위생시설 개수 ( 부대시설 )
 
-    private Long extshrCo; // 소화기 개수 ( 소방시설 )
-    private Long frprvtWrppCo; // 방화수 개수 ( 소방시설 )
-    private Long frprvtSandCo; // 방화사 개수 ( 소방시설 )
-    private Long fireSensorCo; // 화재감지기 개수 ( 소방시설 )
+    private String brazierCl; // 화로대 ( ex.개별 ) ( 부대시설 )
+    private String sbrsCl; // 부대시설 (기본적으로 있는시설)
+
+    private String sbrsEtc; // 기타부대시설 (차별화된시설)
+
+    private String fpSystem; // 안전시설현황
 
     private String posblFcltyCl; // 주변이용가능시설
     private String posblFcltyEtc; // 기타주변이용가능시설
