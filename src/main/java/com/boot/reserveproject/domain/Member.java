@@ -22,7 +22,8 @@ public class Member {
     private String pw;
     private String name;
     private String address;
-    private String regNum;
+    private String regNum1;
+    private String regNum2;
     @Email
     private String email;
     private String phone;
