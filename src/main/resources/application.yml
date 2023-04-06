@@ -35,3 +35,9 @@ server:
   servlet:
     encoding:
       force-response: true
+
+naver-cloud-sms:
+  accessKey: "EV53EtrDkCGR8bHufLr6"
+  secretKey: "qu2XhcFfeOzRyapuvtF5VP4HDHrTXpPtJwivC6I3"
+  serviceId: "ncp:sms:kr:305699022048:reserveproject"
+  senderPhone: "010-4134-2824"
