@@ -1,11 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-    .fieldError {
-        border-color: #bd2130;
-    }
-</style>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <head th:replace="pc/fragments/header :: header"/>
 <body>
 <div th:replace="pc/fragments/bodyHeader :: bodyHeader"/>
@@ -62,7 +59,6 @@
 </body>
 <script>
     function sendPhone() {
-        console.log($("#phoneNumber").val());
         if ($("#phoneNumber").val()) {
             let query = {
                 phoneNumber: $("#phoneNumber").val()
@@ -73,7 +69,7 @@
                 url: "/sendMsg",
                 data: query,
                 success: function (data) {
-                    if (data == false) {
+                    if (data == "false") {
                         swal('중복체크', '이미 가입된 번호입니다.', 'error');
                         $("#phoneNumber").val('');
                     } else {
@@ -100,7 +96,7 @@
                 url: "/phoneAuth",
                 data: query,
                 success: function (data) {
-                    if (data == false) {
+                    if (data == "false") {
                         swal('입력 오류', '인증번호가 일치하지 않습니다.', 'error');
                         $("#authNumber").val('');
                     } else {
