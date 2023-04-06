@@ -22,7 +22,7 @@ public class SmsController {
     private final HttpServletResponse response;
 
     @PostMapping("/sendMsg")
-    public String smsSend() throws IOException {
+    public String sendMsg() throws IOException {
         String phone = request.getParameter("phoneNumber");
         if (!memberService.validPhoneNumber(phone)) {
             response.getWriter().print("false");
