@@ -29,8 +29,6 @@ public class MemberController {
         if (result.hasErrors()) {
             return "pc/member/memberJoinForm";
         }
-
-
         Member member = new Member();
         member.setName(form.getName());
         member.setLoginId(form.getLoginId());
