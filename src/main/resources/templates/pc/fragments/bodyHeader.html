@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="header" th:fragment="bodyHeader">
-    <div class="logo">어서와영</div>
-    <div class="icon" onclick="viewSideBar()"><i class="fa-solid fa-bars"></i></div>
+    <div class="logo"> <img src="/img/임시로고.png"></div>
+    <div class="icon open-sidebar-btn" onclick="viewSideBar()"><i class="fa-solid fa-bars"></i></div>
 </div>
 <div class="side-bar" th:fragment="side-bar">
     <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
+        <li>
+            <div class="content">
+                <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                <div class="label">지역명 검색</div>
+            </div>
+        </li>
+        <li>
+            <div class="content">
+                <div class="icon"><i class="fa-solid fa-map-location"></i></div>
+                <div class="label">지도로 검색</div>
+            </div>
+        </li>
+        <li>
+            <div class="content">
+                <div class="icon"><i class="fa-solid fa-list"></i></div>
+                <div class="label">카테고리별 검색</div>
+            </div>
+        </li>
+        <li>
+            <div class="content">
+                <div class="icon"><i class="fa-solid fa-heart" style="color:red"></i></div>
+                <div class="label">찜</div>
+            </div>
+        </li>
+        <li>
+            <div class="content">
+                <div class="icon"><i class="fa-solid fa-user"></i></div>
+                <div class="label">마이페이지</div>
+            </div>
+        </li>
     </ul>
 </div>
