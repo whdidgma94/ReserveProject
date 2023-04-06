@@ -40,7 +40,7 @@ class CampApiControllerTest {
         for (String image : imageList) {
             System.out.println(image);
         }
-
     }
+
 
 }
