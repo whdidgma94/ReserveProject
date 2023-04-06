@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -21,13 +19,11 @@ import java.util.Random;
 public class SmsController {
     private final MemberService memberService;
     private final HttpServletRequest request;
-    private final HttpServletResponse response;
     @PostMapping("/sendMsg")
-    public String smsSend() throws IOException {
+    public boolean smsSend() {
         String phone = request.getParameter("phoneNumber");
         if (!memberService.validPhoneNumber(phone)) {
-            response.getWriter().print("false");
-            return "pc/member/memberJoinForm";
+            return false;
         }
         String api_key = "NCSPKXA0I2T4OKRX";
         String api_secret = "HYOAKFIG9QMULUXQDKSCRZMROULK0GZI";
@@ -43,7 +39,7 @@ public class SmsController {
 
         String msg = "[어서y]인증번호는 [" + numStr + "] 입니다";
 
-        HashMap<String, String> params = new HashMap<String, String>();
+        HashMap<String, String> params = new HashMap<>();
         params.put("to", phone);
         params.put("from", "010-4134-2824");
         params.put("type", "SMS");
@@ -51,7 +47,7 @@ public class SmsController {
         params.put("app_version", "test app 1.2");
 
         try {
-            JSONObject obj = (JSONObject) sms.send(params);
+            JSONObject obj = sms.send(params);
             System.out.println(obj.toString());
         } catch (CoolsmsException e) {
             System.out.println(e.getMessage());
@@ -59,10 +55,10 @@ public class SmsController {
         }
         HttpSession session = request.getSession();
         session.setAttribute("rd", numStr);
-        return "pc/member/memberJoinForm";
+        return true;
     }
 
-    @PostMapping("phoneAuth")
+    @PostMapping("/phoneAuth")
     @ResponseBody
     public Boolean phoneAuth() {
         HttpSession session = request.getSession();
