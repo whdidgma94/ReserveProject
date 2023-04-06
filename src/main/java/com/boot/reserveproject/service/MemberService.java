@@ -48,5 +48,11 @@ public class MemberService {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다"));
     }
-
+    public boolean validPhoneNumber(String phone){
+        List<Member> members = memberRepository.selectPhoneNumber(phone);
+        if (!members.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
 }

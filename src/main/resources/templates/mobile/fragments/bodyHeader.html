@@ -6,36 +6,44 @@
     <div class="icon open-sidebar-btn"><i class="fa-solid fa-bars"></i></div>
 </div>
 <div class="side-bar" th:fragment="side-bar">
-    <ul>
-        <li>
-            <div class="content">
-                <div class="icon"><i class="fa-solid fa-magnifying-glass"></i></div>
-                <div class="label">지역명 검색</div>
-            </div>
-        </li>
-        <li>
-            <div class="content">
-                <div class="icon"><i class="fa-solid fa-map-location"></i></div>
-                <div class="label">지도로 검색</div>
-            </div>
-        </li>
-        <li>
-            <div class="content">
-                <div class="icon"><i class="fa-solid fa-list"></i></div>
-                <div class="label">카테고리별 검색</div>
-            </div>
-        </li>
-        <li>
-            <div class="content">
-                <div class="icon"><i class="fa-solid fa-heart" style="color:red"></i></div>
-                <div class="label">찜</div>
-            </div>
-        </li>
-        <li>
-            <div class="content">
-                <div class="icon"><i class="fa-solid fa-user"></i></div>
-                <div class="label">마이페이지</div>
-            </div>
-        </li>
-    </ul>
+    <nav class="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    지역명 검색
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa-solid fa-map-location"></i>
+                    지도로 검색
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa-solid fa-list"></i>
+                    카테고리별 검색
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa-solid fa-heart" style="color:red"></i>
+                    찜
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa-solid fa-user"></i>
+                    마이페이지
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/member/new">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    로그인
+                </a>
+            </li>
+        </ul>
+    </nav>
 </div>

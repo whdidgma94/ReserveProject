@@ -12,4 +12,7 @@ import java.util.List;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m from Member m where m.loginId = :loginId")
     List<Member> selectAll(@Param("loginId") String loginId);
+
+    @Query("select m from Member m where m.phone = :phone")
+    List<Member> selectPhoneNumber(@Param("phone") String phone);
 }
