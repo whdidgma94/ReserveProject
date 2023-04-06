@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8u9s7as9cy">
+</script>
+<div id="map" style="width:100%; height:800px;"></div>
+
+<script>
+  var HOME_PATH = window.HOME_PATH || '.';
+  var bookstore = new naver.maps.LatLng(37, 37),
+          map = new naver.maps.Map('map', {
+            center: bookstore.destinationPoint(37, 37),
+            zoom: 17
+          }),
+          marker = new naver.maps.Marker({
+            map: map,
+            position: bookstore
+          });
+  var contentString = [
+    '<div class="iw_inner">',
+    '<h3>우리집</h3>',
+    '<p>우리집</p>',
+
+    ,
+    '</div>'
+  ].join('');
+  var infowindow = new naver.maps.InfoWindow({
+    content: contentString
+  });
+
+  infowindow.open(map, marker);
+</script>
+</body>
+</html>

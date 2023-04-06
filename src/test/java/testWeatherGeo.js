@@ -29,11 +29,13 @@
     imgUrl = "https://openweathermap.org/img/wn/"+icon+"@2x.png";
     console.log(`${city} : ${temp}'C (${desc})`);
     // console.log('imgUrl:',imgUrl);
+        const result = `<div><img src="${imgUrl}"><br><p>${city}<br>${temp}'C</p>${desc}<p></p></div>`;
+        $('body').prepend(result);
 
-    const result = `<div><img src="${imgUrl}"><br><p>${city}<br>${temp}'C</p>${desc}<p></p></div>`;
-    $('body').prepend(result);
+
 }
 });
 
 }
+
 
