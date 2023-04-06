@@ -1,11 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<style>
-    .fieldError {
-        border-color: #bd2130;
-    }
-</style>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 <head th:replace="pc/fragments/header :: header"/>
 <body>
 <div th:replace="pc/fragments/bodyHeader :: bodyHeader"/>
@@ -39,19 +36,19 @@
         </div>
         <div class="form-group">
             <label th:for="phone">Phone</label>
-            <input type="text" name="phoneNumber" th:field="*{phone}" class="form-control" placeholder="Phone을 입력하세요">
-            <input type="button" name="phoneBtn" onclick="sendPhone()" value="인증 번호 발송"/>
+            <input type="text" id="phoneNumber" th:field="*{phone}" class="form-control" placeholder="Phone을 입력하세요">
+            <input type="button" id="phoneBtn" onclick="sendPhone()" value="인증 번호 발송"/>
         </div>
         <div id="authNumberInput" style="display: none;">
             <div class="form-group">
                 <label th:for="authNumber">인증번호</label>
-                <input type="text" name="authNumber" class="form-control" placeholder="인증번호를 입력하세요">
-                <input type="button" name="authBtn" onclick="AuthCode()" value="확인"/>
+                <input type="text" id="authNumber" class="form-control" placeholder="인증번호를 입력하세요">
+                <input type="button" id="authBtn" onclick="AuthCode()" value="확인"/>
             </div>
         </div>
             <div class="form-group">
                 <label th:for="email">Email</label>
-                <input type="text" name="email" th:field="*{email}" class="form-control" placeholder="Email을 입력하세요">
+                <input type="text" id="email" th:field="*{email}" class="form-control" placeholder="Email을 입력하세요">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">가입</button>
@@ -62,23 +59,24 @@
 </body>
 <script>
     function sendPhone() {
-        if ($("input[name=phoneNumber]").val()) {
+        if ($("#phoneNumber").val()) {
             let query = {
-                phoneNumber: $("input[name=phoneNumber]").val()
+                phoneNumber: $("#phoneNumber").val()
             };
+            console.log($("#phoneNumber").val());
             $.ajax({
                 type: "post",
-                url: "sendMsg",
+                url: "/sendMsg",
                 data: query,
                 success: function (data) {
                     if (data == "false") {
                         swal('중복체크', '이미 가입된 번호입니다.', 'error');
-                        $("input[name=phoneNumber]").val('');
+                        $("#phoneNumber").val('');
                     } else {
                         swal('인증 성공', '인증 번호가 발송 되었습니다.', 'success');
-                        $("input[name=phoneNumber]").prop('disabled', true);
+                        $("#phoneNumber").prop('disabled', true);
                         $("#authNumberInput").show();
-                        $("input[name=authCode]").focus();
+                        $("#authNumber").focus();
                     }
                 }
             })
@@ -86,24 +84,27 @@
     }
 
     function AuthCode() {
-        if ($("input[name=authNumber]").val()) {
+
+        if ($("#authNumber").val()) {
             let query = {
-                code: $("input[name=authNumber]").val()
+                code: $("#authNumber").val()
+
             };
+
             $.ajax({
                 type: "post",
-                url: "phoneAuth",
+                url: "/phoneAuth",
                 data: query,
                 success: function (data) {
-                    if (data == false) {
+                    if (data == "false") {
                         swal('입력 오류', '인증번호가 일치하지 않습니다.', 'error');
-                        $("input[name=authNumber]").val('');
+                        $("#authNumber").val('');
                     } else {
                         swal('인증 성공', '인증이 완료되었습니다.', 'success');
-                        $("input[name=authNumber]").prop('disabled', true);
-                        $("input[name=phoneBtn]").hide();
-                        $("input[name=authBtn]").hide();
-                        $("input[name=email]").focus();
+                        $("#authNumber").prop('disabled', true);
+                        $("#phoneBtn").hide();
+                        $("#authBtn").hide();
+                        $("#email").focus();
                     }
                 }
             });
