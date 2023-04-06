@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{pc/fragments/header :: header}" />
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8u9s7as9cy">
+</script>
+<script src="/js/map-api.js"></script>
+<body>
+<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
+<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
+<div class="view">
+    <h1>지도로검색</h1>
+    <div th:replace="~{pc/fragments/footer :: footer}" />
+</div>
+
+
+</body>
+</html>
