@@ -28,7 +28,7 @@ public class MemberService {
 
     private void validMemberId(String loginId) {
         List<Member> members = memberRepository.selectAll(loginId);
-        if (members.isEmpty()) {
+        if (!members.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원아이디입니다");
         }
     }
