@@ -9,8 +9,7 @@
 <div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
 <div class="view">
     <h1>시작</h1>
-    <img th:src="${camp.firstImageUrl}"
-         th:onclick="|details(${camp.contentId})|"/>
+    <img th:src="${camp.firstImageUrl}" th:onclick="|details(${camp.contentId})|"/>
     <h1>피씨</h1>
     <h1>피씨</h1>
     <h1>피씨</h1>
@@ -63,11 +62,7 @@
 </body>
 <script>
     function details(contentId) {
-        $.ajax({
-            url: "/detailCamp",
-            type: "post",
-            data: {contentId: contentId}
-        });
+        location.href = "detailCamp?contentId="+contentId;
     }
 </script>
 </html>
