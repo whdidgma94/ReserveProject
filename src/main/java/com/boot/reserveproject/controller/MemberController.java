@@ -26,15 +26,13 @@ public class MemberController {
 
     @PostMapping("/member/new")
     public String create(@Valid MemberForm form, BindingResult result) {
-        if (result.hasErrors()) {
-            return "pc/member/memberJoinForm";
-        }
+
         Member member = new Member();
         member.setName(form.getName());
         member.setLoginId(form.getLoginId());
         member.setPw(form.getPw());
         member.setEmail(form.getEmailId()+"@"+form.getEmailDomain());
-        member.setZipcode(form.getZipcode());
+        member.setPostcode(form.getPostcode());
         member.setRoadAddress(form.getRoadAddress());
         member.setJibunAddress(form.getJibunAddress());
         member.setDetailAddress(form.getDetailAddress());

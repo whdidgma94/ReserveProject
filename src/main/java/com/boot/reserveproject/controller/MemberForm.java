@@ -16,7 +16,7 @@ public class MemberForm {
     @NotBlank
     private String name;
     @NotBlank
-    private String zipcode;
+    private String postcode;
     @NotBlank
     private String roadAddress;
     @NotBlank
