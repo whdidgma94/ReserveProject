@@ -43,8 +43,8 @@ function initMap() {
     let infoWindows = new Array(); // 정보창을 담는 배열
 
     var map = new naver.maps.Map('map', {
-        center: new naver.maps.LatLng(37.552758094502494, 126.98732600494576), //지도 시작 지점
-        zoom: 15
+        center: new naver.maps.LatLng(36.792907, 127.782980), //지도 시작 지점
+        zoom: 7
     });
 
 
