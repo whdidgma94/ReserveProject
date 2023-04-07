@@ -13,7 +13,7 @@ class CampApiControllerTest {
     @Test
     public void test() {
         CampApiController api = new CampApiController();
-        List<HashMap<String, Object>> basedList = api.getBasedList("1");
+        List<HashMap<String, Object>> basedList = api.getBasedList("3175");
 
         System.out.println(" -- Based List1 :");
         for (HashMap<String, Object> basedMap : basedList) {

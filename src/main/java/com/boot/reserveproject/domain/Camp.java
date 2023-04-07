@@ -7,9 +7,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+
 @Getter
 @Setter
+@Entity
 @Table(name = "camp")
 public class Camp {
     @Id
@@ -18,13 +19,11 @@ public class Camp {
     private String facltNm; // 숙소 이름
     private String lineIntro; // 숙소 부제
     private String intro; // 숙소 소개
-    private String allar; // 숙소 면적
 
     private String facltDivNm; // 사업 주체 ( 민간, 위탁 )
     private String manageSttus; //  운영 상태 ( 운영중인지 표시 )
     private String hvofBgnde; //  휴장기간.휴무기간 시작일
     private String hvofEnddle; //  휴장기간.휴무기간 종료일
-    private String featureNm; //  특징 ( 짧은설명글 )
     private String induty; //  업종
     private String lctCl; //  입지 ( 주변 입지 ex.호수 )
 
@@ -34,8 +33,8 @@ public class Camp {
     private String addr1; //  주소 ( 주소 )
     private String addr2; //  상세주소 ( 주소 )
 
-    private Long mapX; //  경도 : X
-    private Long mapY; //  위도 : Y
+    private Double mapX; //  경도 : X
+    private Double mapY; //  위도 : Y
 
     private String direction; //  오시는길
     private String tel; //  전화번호
@@ -62,7 +61,6 @@ public class Camp {
 
     private String brazierCl; // 화로대 ( ex.개별 ) ( 부대시설 )
     private String sbrsCl; // 부대시설 (기본적으로 있는시설)
-
     private String sbrsEtc; // 기타부대시설 (차별화된시설)
 
     private String fpSystem; // 안전시설현황

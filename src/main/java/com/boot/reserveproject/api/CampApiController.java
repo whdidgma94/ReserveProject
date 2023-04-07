@@ -2,6 +2,7 @@ package com.boot.reserveproject.api;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Controller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,11 +12,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+@Controller
 public class CampApiController {
     public List<HashMap<String, Object>> getBasedList(String pageNum) {
         String base_url = "https://apis.data.go.kr/B551011/GoCamping/";
         String subject = "basedList";
-        String page = "?numOfRows=2&pageNo=" + pageNum + "&MobileOS=ETC&MobileApp=%EC%97%AC%EA%B8%B0%EC%99%80%EC%9D%B4";
+        String page = "?numOfRows=1&pageNo=" + pageNum + "&MobileOS=ETC&MobileApp=%EC%97%AC%EA%B8%B0%EC%99%80%EC%9D%B4";
         String api_key = "&serviceKey=qm8FKb8D52kHWNgstNLDyuuLD%2Bh2H8dvHvULfHsDN23RLMAPmvGDcv%2BG7P%2B5fAEonCEHTQTl%2F1X2WJvP9IUM4Q%3D%3D&_type=json";
 
         String apiUrl = base_url + subject + page + api_key;
@@ -35,6 +37,7 @@ public class CampApiController {
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
+            System.out.println(sb.toString());
             JSONObject obj = new JSONObject(sb.toString());
             JSONObject obj2 = obj.getJSONObject("response").getJSONObject("body");
             JSONArray objArray = obj2.getJSONObject("items").getJSONArray("item");
@@ -47,9 +50,8 @@ public class CampApiController {
 
                 basedMap.put("contentId", jb.get("contentId"));
                 basedMap.put("facltNm", jb.get("facltNm"));
-//                    basedMap.put("lineIntro", jb.get("lineIntro"));
-//                    basedMap.put("intro", jb.get("intro"));
-                basedMap.put("allar", jb.get("allar"));
+                basedMap.put("lineIntro", jb.get("lineIntro"));
+                basedMap.put("intro", jb.get("intro"));
 
                 basedMap.put("facltDivNm", jb.get("facltDivNm"));
                 basedMap.put("manageSttus", jb.get("manageSttus"));
@@ -65,6 +67,7 @@ public class CampApiController {
                 basedMap.put("zipcode", jb.get("zipcode"));
                 basedMap.put("addr1", jb.get("addr1"));
                 basedMap.put("addr2", jb.get("addr2"));
+
                 //위도경도
                 basedMap.put("mapX", jb.get("mapX"));
                 basedMap.put("mapY", jb.get("mapY"));

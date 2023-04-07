@@ -1,13 +1,16 @@
+
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{pc/fragments/header :: header}" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<head th:replace="~{pc/fragments/header :: header}"/>
 <script src=""></script>
 <body>
 <div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
 <div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
 <div class="view">
     <h1>시작</h1>
-    <h1>피씨</h1>
+    <img th:src="${camp.firstImageUrl}"
+         th:onclick="|details(${camp.contentId})|"/>
     <h1>피씨</h1>
     <h1>피씨</h1>
     <h1>피씨</h1>
@@ -55,7 +58,16 @@
     <h1>피씨</h1>
     <h1>피씨</h1>
     <h1>끝</h1>
-    <div th:replace="~{pc/fragments/footer :: footer}" />
+    <div th:replace="~{pc/fragments/footer :: footer}"/>
 </div>
 </body>
+<script>
+    function details(contentId) {
+        $.ajax({
+            url: "/detailCamp",
+            type: "post",
+            data: {contentId: contentId}
+        });
+    }
+</script>
 </html>
