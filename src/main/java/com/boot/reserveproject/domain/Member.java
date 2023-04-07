@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +20,12 @@ public class Member {
     private String loginId;
     private String pw;
     private String name;
-    private String address;
+    private String zipcode;
+    private String roadAddress;
+    private String jibunAddress;
+    private String detailAddress;
     private String regNum1;
     private String regNum2;
-    @Email
     private String email;
     private String phone;
     private String gender;

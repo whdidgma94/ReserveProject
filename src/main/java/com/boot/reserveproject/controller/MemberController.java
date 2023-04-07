@@ -33,8 +33,11 @@ public class MemberController {
         member.setName(form.getName());
         member.setLoginId(form.getLoginId());
         member.setPw(form.getPw());
-        member.setEmail(form.getEmail());
-        member.setAddress(form.getAddress());
+        member.setEmail(form.getEmailId()+"@"+form.getEmailDomain());
+        member.setZipcode(form.getZipcode());
+        member.setRoadAddress(form.getRoadAddress());
+        member.setJibunAddress(form.getJibunAddress());
+        member.setDetailAddress(form.getDetailAddress());
         member.setPhone(form.getPhone());
         member.setRegNum1(form.getRegNum1());
         member.setRegNum2(form.getRegNum2());
