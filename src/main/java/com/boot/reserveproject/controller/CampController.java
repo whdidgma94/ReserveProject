@@ -21,9 +21,8 @@ public class CampController {
         return "pc/index";
     }
 
-    @PostMapping("/detailCamp")
-    @ResponseBody
-    public String getDetailsCamp(@RequestBody Long contentId, Model model) {
+    @GetMapping("detailCamp")
+    public String getDetailsCamp(@RequestParam Long contentId, Model model) {
         Camp camp = campService.getCampById(contentId);
         model.addAttribute("camp", camp);
         return "pc/camp/campDetail";
