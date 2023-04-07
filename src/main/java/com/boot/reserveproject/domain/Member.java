@@ -20,7 +20,7 @@ public class Member {
     private String loginId;
     private String pw;
     private String name;
-    private String zipcode;
+    private String postcode;
     private String roadAddress;
     private String jibunAddress;
     private String detailAddress;
