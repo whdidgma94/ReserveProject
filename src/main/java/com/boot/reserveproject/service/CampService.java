@@ -16,4 +16,5 @@ public class CampService {
         Optional<Camp> camp = campRepository.findById(contentId);
         return camp.orElse(null);
     }
+
 }

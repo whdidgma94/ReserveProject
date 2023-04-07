@@ -15,5 +15,9 @@ import java.util.Optional;
 @Component
 public interface CampRepository extends JpaRepository<Camp, Long> {
     @Query("select c from Camp c where c.contentId = :contentId")
+
     List<Camp> selectOne(@Param("contentId") Long contentId);
+    List<Camp> findByfacltNmContaining(String keyword);
+    List<Camp> findBythemaEnvrnClContaining(String keyword);
+    List<Camp> findByaddr1Containing(String keyword);
 }
