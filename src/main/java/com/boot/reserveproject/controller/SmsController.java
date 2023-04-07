@@ -26,7 +26,7 @@ public class SmsController {
     }
     @ResponseBody
     @PostMapping("/sendMsg")
-    public String sendMsg(@RequestParam("phoneNumber") String phone, HttpSession session) {
+    public String sendMsg(@RequestParam("phone") String phone, HttpSession session) {
         if (!memberService.validPhoneNumber(phone)) {
             return "false";
         } else {
