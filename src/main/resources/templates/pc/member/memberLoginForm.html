@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<head th:replace="pc/fragments/header :: header"/>
 <body>
-
+<div th:replace="pc/fragments/bodyHeader :: bodyHeader"/>
+<div class="view">
+    <div class = "login-wrapper">
+        <div class = "inputId"></div>
+        <div class = "inputPw"></div>
+        <div class = "b"></div>
+    </div>
+</div>
+<div th:replace="pc/fragments/footer :: footer"/>
 </body>
 </html>

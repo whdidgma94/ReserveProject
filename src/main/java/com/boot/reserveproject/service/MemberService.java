@@ -21,16 +21,16 @@ public class MemberService {
 
     @Transactional
     public Long join(Member member) {
-        validMemberId(member.getLoginId());
         memberRepository.save(member);
         return member.getId();
     }
 
-    private void validMemberId(String loginId) {
+    public boolean validId(String loginId){
         List<Member> members = memberRepository.selectAll(loginId);
         if (!members.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 회원아이디입니다");
+            return false;
         }
+        return true;
     }
 
     public List<Member> findAllMembers() {
