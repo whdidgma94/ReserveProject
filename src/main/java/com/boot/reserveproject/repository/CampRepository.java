@@ -12,6 +12,8 @@ import java.util.List;
 public interface CampRepository extends JpaRepository<Camp, Long> {
 
     List<Camp> findByfacltNmContaining(String keyword);
+    List<Camp> findBythemaEnvrnClContaining(String keyword);
+    List<Camp> findByaddr1Containing(String keyword);
 
 
 }

@@ -31,6 +31,14 @@ public class CampService {
         List<Camp> campList = campRepository.findByfacltNmContaining(keyword);
         return campList;
     }
+    public List<Camp> getCampListByTheme(String keyword){
+        List<Camp> campList = campRepository.findBythemaEnvrnClContaining(keyword);
+        return campList;
+    }
+    public List<Camp> getCampListByAddress(String keyword){
+        List<Camp> campList = campRepository.findByaddr1Containing(keyword);
+        return campList;
+    }
 
 
 }
