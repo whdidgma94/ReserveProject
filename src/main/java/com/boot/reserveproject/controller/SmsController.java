@@ -3,9 +3,10 @@ package com.boot.reserveproject.controller;
 import com.boot.reserveproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,15 +19,16 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class SmsController {
     private final MemberService memberService;
-    private final HttpServletRequest request;
-    private final HttpServletResponse response;
 
+    @GetMapping("/form")
+    public String goForm(){
+        return "pc/member/memberJoinForm";
+    }
+    @ResponseBody
     @PostMapping("/sendMsg")
-    public String sendMsg() throws IOException {
-        String phone = request.getParameter("phoneNumber");
+    public String sendMsg(@RequestParam("phoneNumber") String phone, HttpSession session) {
         if (!memberService.validPhoneNumber(phone)) {
-            response.getWriter().print("false");
-            return "pc/member/memberJoinForm";
+            return "false";
         } else {
             String api_key = "NCSPKXA0I2T4OKRX";
             String api_secret = "HYOAKFIG9QMULUXQDKSCRZMROULK0GZI";
@@ -56,28 +58,23 @@ public class SmsController {
 //                System.out.println(e.getMessage());
 //                System.out.println(e.getCode());
 //            }
-            HttpSession session = request.getSession();
             session.setAttribute("rd", numStr);
-            response.getWriter().print("true");
         }
-        return "pc/member/memberJoinForm";
+        return "true";
     }
 
     @PostMapping("/phoneAuth")
     @ResponseBody
-    public String phoneAuth() throws IOException {
-        HttpSession session = request.getSession();
+    public String phoneAuth(@RequestParam("code") String code,HttpSession session) throws IOException {
         String rd = (String) session.getAttribute("rd");
-        String code = request.getParameter("code");
 
         System.out.println(rd + " : " + code);
 
         if (rd.equals(code)) {
             session.removeAttribute("rd");
-            response.getWriter().print("true");
+            return "true";
         } else {
-            response.getWriter().print("false");
+            return "false";
         }
-        return "pc/member/memberJoinForm";
     }
 }
