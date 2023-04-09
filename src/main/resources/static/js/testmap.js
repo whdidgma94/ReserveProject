@@ -1,7 +1,7 @@
 
 let latitude =0;
 let longitude =0;
-
+let myKey='4cafcd3f6ac34355b1f99ce7d42f1068';
 
 
 window.onload = function(){
@@ -18,11 +18,13 @@ window.onload = function(){
     longitude=127.028312;
 
 
-    getMap();
+
+    getWeather();
+
 }
 
 
-function getMap() {
+function getMap(a,b,c,d) {
     var myLocation=new naver.maps.LatLng(latitude,longitude),
         map= new naver.maps.Map('map',{
             center:myLocation.destinationPoint(latitude,longitude),
@@ -32,12 +34,19 @@ function getMap() {
             map:map,
             position:myLocation
         })
+
+    var city=a;
+    alert(city+"씨티씨티");
+    var temp=b;
+    var desc=c;
+    var imgUrl=d;
+
     var contentString = [
         '<div class="iw_inner">',
         '<a href="#">그린아이티아카데미</a>',
         '<p>그린아이티아카데미학원입니다.</p>',
-        '<br />',
-        ,
+        ''+city+'&nbsp;기온:&nbsp;'+temp+'&nbsp;"C<br/>',
+        ''+desc+'<img src="'+imgUrl+'"><br/>',
         '</div>'
     ].join('');
     var infowindow = new naver.maps.InfoWindow({
@@ -53,6 +62,29 @@ function getMap() {
     infowindow.open(map, marker);
 
 
+
+}
+function getWeather(){
+
+    console.log("현재 위치는 : " + latitude + ", "+ longitude);
+    $.ajax({
+        method :"get",
+        url : `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${myKey}&lang=kr`,
+        success: function(res){
+
+            console.log(res);
+            let weather = res;
+            var city = res.name;
+
+            var temp = Math.round((res.main.temp-273.15)*100)/100; // K to C
+            var desc = res.weather[0].description;
+            var icon = res.weather[0].icon;
+            var imgUrl = "https://openweathermap.org/img/wn/"+icon+"@2x.png";
+            getMap(city,temp,desc,imgUrl);
+
+
+        }
+    });
 
 }
 
@@ -81,8 +113,8 @@ $(document).ready(function() {
                         alert("검색결과가 존재하지 않습니다.");
                         return;
                     }
+                    init(campList);
 
-                    initMap(campList);
 
 
                 } catch (e) {
@@ -95,25 +127,58 @@ $(document).ready(function() {
 });
 
 
-
-
-
-function initMap(campList) {
+function init(campList){
     var mapDiv = document.getElementById("map");
     mapDiv.innerHTML = "";
-    alert(campList[0].facltNm+"    "+campList[0].mapY+"    "+campList[0].mapX);
 
     var areaArr = new Array();  // 지역을 담는 배열 ( 지역명/위도경도 )
+    var count = 0;
     for (let i = 0; i < campList.length; i++) {
-        areaArr.push({
-            name: campList[i].facltNm,
-            lat: campList[i].mapY,
-            lng: campList[i].mapX,
-            address: campList[i].addr1,
-            img: campList[i].firstImageUrl,
-            theme: campList[i].themaEnvrnCl
+        var a = campList[i].mapY;
+        var b = campList[i].mapX;
+        var city;
+        var temp;
+        var desc;
+        var imgUrl;
+        $.ajax({
+            method :"get",
+            url : `https://api.openweathermap.org/data/2.5/weather?lat=${a}&lon=${b}&appid=${myKey}&lang=kr`,
+            success: function(res){
+                console.log(res);
+                let weather = res;
+                city = res.name;
+                temp = Math.round((res.main.temp-273.15)*100)/100; // K to C
+                desc = res.weather[0].description;
+                var icon = res.weather[0].icon;
+                imgUrl = "https://openweathermap.org/img/wn/"+icon+"@2x.png";
+
+                // 날씨 정보를 받아서 배열에 추가
+                areaArr.push({
+                    name: campList[i].facltNm,
+                    lat: campList[i].mapY,
+                    lng: campList[i].mapX,
+                    address: campList[i].addr1,
+                    img: campList[i].firstImageUrl,
+                    theme: campList[i].themaEnvrnCl,
+                    city: city,
+                    temp: temp,
+                    desc: desc,
+                    imgUrl: imgUrl
+                });
+
+                count++;
+                if (count === campList.length) {
+                    initMap(areaArr);
+                }
+            }
         });
     }
+}
+
+
+
+function initMap(areaArr) {
+
 
 
 
@@ -145,7 +210,9 @@ function initMap(campList) {
             content: '<div style="width:300px;text-align:center;padding:10px;"><a href="#">'
                 + areaArr[i].name + '</a><p>'+areaArr[i].address+'</p>' +
                 (areaArr[i].theme != null ? '<p>' + areaArr[i].theme + '</p>' : '') +
-                '<img style="width:200px;height:70px;" src="' + areaArr[i].img + '"></img>' +
+                '<img style="width:200px;height:70px;" src="' + areaArr[i].img + '"></img><br>' +
+                ''+areaArr[i].city+'&nbsp;현재기온:&nbsp;'+areaArr[i].temp+'&nbsp;"C<br/>'+
+            ''+areaArr[i].desc+'<img src="'+areaArr[i].imgUrl+'"><br/>'+
 
                 '</div>'
 
