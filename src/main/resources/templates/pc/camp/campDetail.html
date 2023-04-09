@@ -62,9 +62,20 @@
                 </tbody>
             </table>
         </div>
+        <div class="imageList">
+            <th:block th:each="image : ${campImageList}">
+                    <img style="width: 15%" th:src="${image}" alt="">
+            </th:block>
+        </div>
     </div>
 </div>
+
+
+
 <div th:replace=" pc/fragments/footer :: footer"></div>
 
 </body>
+
+
+
 </html>
