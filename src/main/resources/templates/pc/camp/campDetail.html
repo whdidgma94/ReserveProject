@@ -63,9 +63,9 @@
             </table>
         </div>
         <div class="imageList">
-            <div class="imageBox">
-                <img th:src="${campImageList[0]}" alt="">
-            </div>
+            <th:block th:each="image : ${campImageList}">
+                    <img style="width: 15%" th:src="${image}" alt="">
+            </th:block>
         </div>
     </div>
 </div>
