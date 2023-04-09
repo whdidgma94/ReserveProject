@@ -1,6 +1,7 @@
 package com.boot.reserveproject.controller;
 
 import com.boot.reserveproject.domain.Member;
+import com.boot.reserveproject.form.MemberForm;
 import com.boot.reserveproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,10 +31,9 @@ public class MemberController {
 
     @PostMapping("/member/new")
     public String create(@Valid MemberForm form, BindingResult result) {
-//        if(result.hasErrors()){
-//            log.info("error = {}" , result.getAllErrors());
-//            return "redirect:/member/new";
-//        }
+        if(result.hasErrors()){
+            return "redirect:/member/new";
+        }
 
         Member member = new Member();
         member.setName(form.getName());
