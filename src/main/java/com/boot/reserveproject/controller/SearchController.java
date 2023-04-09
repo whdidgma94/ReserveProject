@@ -23,15 +23,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SearchController {
     private final CampService campService;
-    @GetMapping("/search/mapIntro")
+    @GetMapping("/search/map")
     public String showMapIntro() {
         return "pc/search/searchMap";
     }
 
-    @GetMapping("/search/map")
-    public ResponseEntity<Object> showMap(@RequestParam(value="keyword", required=false) String keyword, @RequestParam("type") String type) {
-        if (keyword == null) {
-            return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/pc/search/searchMap").build();
+    @GetMapping("/search/mapSearch")
+    public ResponseEntity<Object> showMap(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value = "type", required = false) String type) {
+
+        if (keyword == null|| type == null) {
+            System.out.println("서치맵들어옴");
+            return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/search/searchMap").build();
         }
         // keyword가 존재하는 경우 이하 코드 실행
         List<Camp> campList = new ArrayList<>();

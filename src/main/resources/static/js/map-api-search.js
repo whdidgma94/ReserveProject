@@ -10,16 +10,21 @@
             var type = $('select[name="type"]').val();
             // 검색 요청 보내기
             $.ajax({
-                url: '/search/map',
+                url: '/search/mapSearch',
                 type: 'GET',
                 data: {
                     keyword: keyword,
                     type: type
                 },
                 success: function(result) {
+
                     try {
                         var campList = $.parseJSON(result);
-
+                        var scriptElement = document.getElementById('map-api-intro-script');
+                        if (scriptElement) {
+                            // script element가 존재하는 경우
+                            scriptElement.parentNode.removeChild(scriptElement); // script element 삭제
+                        }
                         initMap(campList);
 
 
@@ -36,6 +41,7 @@
 
 
 function initMap(campList) {
+
     alert(campList[0].facltNm+"    "+campList[0].mapY+"    "+campList[0].mapX);
 
     var areaArr = new Array();  // 지역을 담는 배열 ( 지역명/위도경도 )
@@ -73,9 +79,9 @@ function initMap(campList) {
 
         /* 정보창 */
         var infoWindow = new naver.maps.InfoWindow({
-            content: '<div style="width:200px;text-align:center;padding:10px;"><b>'
-                + areaArr[i].name + '</b><p>'+areaArr[i].address+'</p>' +
-                '<img src="' + areaArr[i].img + '"></img>' +
+            content: '<div style="width:300px;text-align:center;padding:10px;"><a href="#">'
+                + areaArr[i].name + '</a><p>'+areaArr[i].address+'</p>' +
+                '<img style="width:200px;height:70px;" src="' + areaArr[i].img + '"></img>' +
                 '</div>'
 
         }); // 클릭했을 때 띄워줄 정보 HTML 작성
