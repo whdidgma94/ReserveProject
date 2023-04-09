@@ -15,9 +15,7 @@
     }
     form{
         width: 90%;
-        height: 100vh;
         background-color: white;
-        padding : 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -131,7 +129,7 @@
         </div>
 
         <div class="form-group">
-            <input type="button" id="joinBtn" class="btn btn-primary" onclick="join()">가입</input>
+            <input type="button" id="joinBtn" class="btn btn-primary" onclick="join()" value="가입" />
         </div>
 
         <input id="email1" type="hidden" th:field="*{emailDomain}"/>
