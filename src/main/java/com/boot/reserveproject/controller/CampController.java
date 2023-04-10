@@ -31,7 +31,6 @@ public class CampController {
         //campApiController에 있는 이미지 api
         String[] campImageList = campApiController.getImageList(contentId);
         model.addAttribute("campImageList", campImageList);
-
         return "pc/camp/campDetail";
     }
 

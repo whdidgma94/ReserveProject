@@ -1,6 +1,7 @@
 package com.boot.reserveproject.controller;
 
 import com.boot.reserveproject.domain.Member;
+import com.boot.reserveproject.form.LoginForm;
 import com.boot.reserveproject.form.MemberForm;
 import com.boot.reserveproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -8,11 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 @Slf4j
@@ -23,14 +22,14 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/member/new")
-    public String createForm(Model model) {
+    public String joinForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
 
         return "pc/member/memberJoinForm";
     }
 
     @PostMapping("/member/new")
-    public String create(@Valid MemberForm form, BindingResult result) {
+    public String joinMember(@Valid MemberForm form, BindingResult result) {
         if(result.hasErrors()){
             return "redirect:/member/new";
         }
@@ -57,6 +56,22 @@ public class MemberController {
         memberService.join(member);
         return "pc/index";
     }
+    @GetMapping("/member/login")
+    public String loginForm(Model model) {
+        model.addAttribute("loginForm", new LoginForm());
+        return "pc/member/memberLoginForm";
+    }
+    @PostMapping("/member/login")
+    private String loginMember(@Valid LoginForm form, BindingResult result, HttpSession session) {
+//        if (result.hasErrors()) {
+//            return "redirect:/member/login";
+//        }
+        if (memberService.checkLogin(form.getLoginId(), form.getPw())) {
+            session.setAttribute("log", form.getLoginId());
+        }
+        return "pc/index";
+    }
+
 
     @GetMapping("/members")
     public String list(Model model) {

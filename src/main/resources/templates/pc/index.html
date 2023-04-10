@@ -10,7 +10,9 @@
 <div class="view">
     <h1>시작</h1>
     <img th:src="${camp.firstImageUrl}" th:onclick="|details(${camp.contentId})|"/>
-    <h1>피씨</h1>
+
+    <h3 th:if="${session.log != null}" th:text="${session.log}"></h3>
+
     <h1>피씨</h1>
     <h1>피씨</h1>
     <h1>피씨</h1>

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 public class PcController {
     @RequestMapping("/pc/index")
-    public String mobileIndex(){
+    public String pcIndex(){
         return "pc/index";
     }
 }
