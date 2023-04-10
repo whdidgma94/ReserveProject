@@ -72,7 +72,11 @@ public class MemberController {
         }
         return "redirect:/main";
     }
-
+    @GetMapping("/member/logout")
+    private String logout(HttpSession session){
+        session.removeAttribute("log");
+        return "redirect:/main";
+    }
 
     @GetMapping("/members")
     public String list(Model model) {

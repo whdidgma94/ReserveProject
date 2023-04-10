@@ -8,7 +8,6 @@
 <div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
 <div class="view">
     <h1>시작</h1>
-    <h3 th:if="${session.log != null}" th:text="${session.log}"></h3>
     <div class="tempCampBox">
         <img style="width: 15%" th:src="${camp.firstImageUrl}" th:onclick="|details(${camp.contentId})|"/>
         <div class="campTextBox">
