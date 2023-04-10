@@ -25,28 +25,24 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" th:href="${session.log != null} ? '/member/mine' : 'member/login'">
                 <i class="fa-solid fa-heart" style="color:red"></i>
                 찜
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" th:href="${session.log != null} ? '/member/myPage' : 'member/login'">
                 <i class="fa-solid fa-user"></i>
                 마이페이지
             </a>
         </li>
         <li class="nav-item">
-            <a th:if="${session.log == null}" class="nav-link" href="member/login">
+            <a class="nav-link" th:href="${session.log == null} ? 'member/login' : 'member/logout'">
                 <i class="fa-solid fa-right-to-bracket"></i>
-                로그인
+                <span th:text="${session.log == null} ? '로그인' : '로그아웃'"></span>
             </a>
-            <a th:if="${session.log != null}" class="nav-link" href="member/logout">
-                <i class="fa-solid fa-right-to-bracket"></i>
-                로그아웃
-            </a>
-
         </li>
+
     </ul>
     <div>캐릭터 자리</div>
     <div>

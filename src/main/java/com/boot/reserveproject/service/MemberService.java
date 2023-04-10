@@ -61,4 +61,8 @@ public class MemberService {
         }
         return true;
     }
+
+    public Member selectMemberById(String loginId){
+        return memberRepository.selectMemberByLoginId(loginId);
+    }
 }

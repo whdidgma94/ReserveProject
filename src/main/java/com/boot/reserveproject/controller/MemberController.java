@@ -63,9 +63,9 @@ public class MemberController {
     }
     @PostMapping("/member/login")
     private String loginMember(@Valid LoginForm form, BindingResult result, HttpSession session) {
-//        if (result.hasErrors()) {
-//            return "redirect:/member/login";
-//        }
+        if (result.hasErrors()) {
+            return "redirect:/member/login";
+        }
         if (memberService.checkLogin(form.getLoginId(), form.getPw())) {
             session.setAttribute("log", form.getLoginId());
 
@@ -92,6 +92,11 @@ public class MemberController {
             return "true";
         }
         return "false";
+    }
+    @GetMapping("/member/myPage")
+    public String myPage(HttpSession session, Model model){
+        model.addAttribute("member", memberService.selectMemberById((String) session.getAttribute("log")));
+        return "pc/member/memberMyPage";
     }
 
 }
