@@ -150,14 +150,27 @@ function initMap(campList) {
     infoWindow.close();
     markers = new Array(); // 마커 정보를 담는 배열
     infoWindows = new Array(); // 정보창을 담는 배열
+
     for (var i = 0; i < areaArr.length; i++) {
         // 지역을 담은 배열의 길이만큼 for문으로 마커와 정보창을 채워주자 !
+
 
         marker = new naver.maps.Marker({
             map: map,
             title: areaArr[i].name, // 지역구 이름
-            position: new naver.maps.LatLng(areaArr[i].lat , areaArr[i].lng) // 지역구의 위도 경도 넣기
+            position: new naver.maps.LatLng(areaArr[i].lat , areaArr[i].lng), // 지역구의 위도 경도 넣기
+            icon: {
+                url: '../img/marker.png',
+                size: new naver.maps.Size(25, 25),
+                origin: new naver.maps.Point(0, 0),
+                anchor: new naver.maps.Point(25, 26)
+            }
         });
+        // marker = new naver.maps.Marker({
+        //     map: map,
+        //     title: areaArr[i].name, // 지역구 이름
+        //     position: new naver.maps.LatLng(areaArr[i].lat , areaArr[i].lng) // 지역구의 위도 경도 넣기
+        // });
 
         /* 정보창 */
         infoWindow = new naver.maps.InfoWindow({
