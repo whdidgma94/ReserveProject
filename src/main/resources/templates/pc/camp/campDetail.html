@@ -5,8 +5,10 @@
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8u9s7as9cy"></script>
 <head th:replace="pc/fragments/header :: header"/>
 <meta charset="UTF-8">
-<script th:src="@{/js/camp-map.js}"></script>
+
+
 <body>
+
 <div th:replace="pc/fragments/bodyHeader :: bodyHeader"/>
 
 <div class="camp_detail">
@@ -69,13 +71,62 @@
             </th:block>
         </div>
     </div>
-    <div id="map" style="width:100%;height:800px;"></div>
+    <button class="btn btn-primary" onclick="createMap()">위치 보기</button>
+    <div id="map" style="width:100%;height:800px; display: none;"></div>
+
 </div>
 
 <div th:replace=" pc/fragments/footer :: footer"></div>
 
 </body>
+<script>
+    let latitude =0;
+    let longitude =0;
+    let myKey='4cafcd3f6ac34355b1f99ce7d42f1068';
+    function createMap(){
+        const map = document.querySelector("#map");
+        map.style.display="block";
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            latitude= [[${camp.mapY}]];
+            longitude= [[${camp.mapX}]];
+            getMap();
+        });
 
+    }
+    function getMap() {
+        let myLocation=new naver.maps.LatLng(latitude,longitude),
+            map= new naver.maps.Map('map',{
+                center:myLocation.destinationPoint(latitude,longitude),
+                zoom:17
+            }),
+            marker = new naver.maps.Marker({
+                map:map,
+                position:myLocation
+            })
+        let contentString = [
+            '<div class="iw_inner">',
+            '<a href="#">[[${camp.facltNm}]]</a>',
+            '<p>[[${camp.lineIntro}]]</p>',
+            '<br />',
+            ,
+            '</div>'
+        ].join('');
+        let infowindow = new naver.maps.InfoWindow({
+            content: contentString
+        });
+        naver.maps.Event.addListener(marker, "click", function(e) {
+            if (infowindow.getMap()) {
+                infowindow.close();
+            } else {
+                infowindow.open(map, marker);
+            }
+        });
+        infowindow.open(map, marker);
+
+
+
+    }
+</script>
 
 
 </html>
