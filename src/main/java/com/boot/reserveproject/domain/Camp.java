@@ -82,4 +82,5 @@ public class Camp {
     @JsonIgnore
     @OneToMany(mappedBy = "camp")
     private List<Review> reviews;
+
 }

@@ -21,21 +21,26 @@ public class CampService {
 
 
     }
-    public List<Camp> getCampListByName(String keyword){
-        List<Camp> campList = campRepository.findByfacltNmContaining(keyword);
+
+    public List<Camp> getCampListByName(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword){
+//        List<Camp> campList = campRepository.findByfacltNmContaining(keyword);
+//        return campList;
+        List<Camp> campList = campRepository.findCampWithinBoundsWithName(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+        return campList;
+
+    }
+    public List<Camp> getCampListByTheme(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword){
+        List<Camp> campList = campRepository.findCampWithinBoundsWithTheme(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
         return campList;
     }
-    public List<Camp> getCampListByTheme(String keyword){
-        List<Camp> campList = campRepository.findBythemaEnvrnClContaining(keyword);
-        return campList;
-    }
-    public List<Camp> getCampListByAddress(String keyword){
-        List<Camp> campList = campRepository.findByaddr1Containing(keyword);
+    public List<Camp> getCampListByAddress(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword){
+        List<Camp> campList = campRepository.findCampWithinBoundsWithAddress(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
         return campList;
     }
     public Camp getCampById(Long contentId) {
         Optional<Camp> camp = campRepository.findById(contentId);
         return camp.orElse(null);
     }
+
 
 }

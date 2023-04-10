@@ -6,6 +6,7 @@ import com.boot.reserveproject.service.CampService;
 import com.boot.reserveproject.service.MemberService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -29,8 +31,17 @@ public class SearchController {
     }
 
     @GetMapping("/search/mapSearch")
-    public ResponseEntity<Object> showMap(@RequestParam(value="keyword", required=false) String keyword, @RequestParam(value = "type", required = false) String type) {
-
+    public ResponseEntity<Object> showMap(@RequestParam(value = "boundsObj", required = false) String boundsObjStr, @RequestParam(value="keyword", required=false) String keyword, @RequestParam(value = "type", required = false) String type) {
+        JSONObject boundsObjJson = new JSONObject(boundsObjStr);
+        double southWestLat = boundsObjJson.getJSONObject("southWest").getDouble("y");
+        double southWestLng = boundsObjJson.getJSONObject("southWest").getDouble("x");
+        double northEastLat = boundsObjJson.getJSONObject("northEast").getDouble("y");
+        double northEastLng = boundsObjJson.getJSONObject("northEast").getDouble("x");
+        double[]arr={southWestLat,southWestLng,northEastLng,northEastLat};
+        System.out.println("southWestLat: " + southWestLat);
+        System.out.println("southWestLng: " + southWestLng);
+        System.out.println("northEastLat: " + northEastLat);
+        System.out.println("northEastLng: " + northEastLng);
         if (keyword == null|| type == null) {
             System.out.println("서치맵들어옴");
             return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/search/searchMap").build();
@@ -39,11 +50,15 @@ public class SearchController {
         List<Camp> campList = new ArrayList<>();
         try {
             if (type.equals("name")) {
-                campList = searchByName(keyword);
+                campList = searchByName(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+
+
+
+
             } else if (type.equals("theme")) {
-                campList = searchByTheme(keyword);
+                campList = searchByTheme(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
             } else if (type.equals("location")) {
-                campList = searchByAddress(keyword);
+                campList = searchByAddress(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
             }
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(campList);
@@ -55,20 +70,21 @@ public class SearchController {
     }
 
 
-    public List<Camp> searchByName(String keyword) {
-        List<Camp> campList= campService.getCampListByName(keyword);
+
+    public List<Camp> searchByName(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword) {
+        List<Camp> campList= campService.getCampListByName(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
         System.out.println("해당 검색어를 포함한 캠핑장의 이름의 개수는: "+campList.size());
         return campList;
     }
 
-    public List<Camp> searchByTheme(String keyword) {
-        List<Camp> campList=campService.getCampListByTheme(keyword);
+    public List<Camp> searchByTheme(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword) {
+        List<Camp> campList=campService.getCampListByTheme(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
         System.out.println("테마들어옴");
         return campList;
     }
 
-    public List<Camp> searchByAddress(String keyword) {
-        List<Camp>campList=campService.getCampListByAddress(keyword);
+    public List<Camp> searchByAddress(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword) {
+        List<Camp>campList=campService.getCampListByAddress(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
         System.out.println("위치 들어옴");
         return campList;
 
