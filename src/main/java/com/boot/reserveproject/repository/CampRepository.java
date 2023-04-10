@@ -14,7 +14,15 @@ import java.util.List;
 public interface CampRepository extends JpaRepository<Camp, Long> {
     @Query("select c from Camp c where c.contentId = :contentId")
     List<Camp> selectOne(@Param("contentId") Long contentId);
+
+    @Query("select c from Camp c where c.id = :id")
+    Camp selectOneById(@Param("id") Long id);
+
     List<Camp> findByfacltNmContaining(String keyword);
     List<Camp> findBythemaEnvrnClContaining(String keyword);
     List<Camp> findByaddr1Containing(String keyword);
+
+    @Query("select c from Camp c where c.themaEnvrnCl = :themaEnvrnCl")
+    List<Camp> selectThemaEnvrnCl(@Param("themaEnvrnCl") String themaEnvrnCl);
+
 }

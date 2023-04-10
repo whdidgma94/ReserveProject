@@ -16,16 +16,17 @@ public class Camp {
     @Id
     @Column(name = "contentId")
     private Long contentId; // 콘텐츠 id ( 이미지검색 api에 필요, 중복x )
+    private Long id;
     private String facltNm; // 숙소 이름
     private String lineIntro; // 숙소 부제
     private String intro; // 숙소 소개
 
-    private String facltDivNm; // 사업 주체 ( 민간, 위탁 )
+    private String facltDivNm; // 사업 주체 ( 민간, 위탁 )   //
     private String manageSttus; //  운영 상태 ( 운영중인지 표시 )
     private String hvofBgnde; //  휴장기간.휴무기간 시작일
     private String hvofEnddle; //  휴장기간.휴무기간 종료일
-    private String induty; //  업종
-    private String lctCl; //  입지 ( 주변 입지 ex.호수 )
+    private String induty; //  업종                     ------ 카라반, 일반, 자동차
+    private String lctCl; //  입지 ( 주변 입지 ex.호수 )    ------ 산 숲 계곡 해변 강 호수
 
     private String doNm; //  도 ( 주소 )
     private String sigunguNm; //  시군구 ( 주소 )
@@ -60,7 +61,7 @@ public class Camp {
     private String sanitary; // 위생시설 개수 ( 부대시설 )
 
     private String brazierCl; // 화로대 ( ex.개별 ) ( 부대시설 )
-    private String sbrsCl; // 부대시설 (기본적으로 있는시설)
+    private String sbrsCl; // 부대시설 (기본적으로 있는시설)      ----- 옵션
     private String sbrsEtc; // 기타부대시설 (차별화된시설)
 
     private String fpSystem; // 안전시설현황
@@ -69,11 +70,11 @@ public class Camp {
     private String posblFcltyEtc; // 기타주변이용가능시설
     private String clturEventAt; // 자체문화행사 여부 (Y,N)
     private String clturEvent; // 자체문화행사명
-    private String exprnProgrmAt; // 체험프로그램 여부 (Y,N)
+    private String exprnProgrmAt; // 체험프로그램 여부 (Y,N)            ------- 체험
     private String exprnProgrm; // 체험프로그램종류
 
-    private String themaEnvrnCl; // 테마환경 ( ex.낚시,물놀이 등 )
-    private String animalCmgCl; // 애완동물 출입 ( ex.가능, 소형견가능 등 )
+    private String themaEnvrnCl; // 테마환경 ( ex.낚시,물놀이 등 )    -------  테마종류
+    private String animalCmgCl; // 애완동물 출입 ( ex.가능, 소형견가능 등 )  -------  애완동물
     private String firstImageUrl; // 대표이미지
 
     @OneToOne(fetch = FetchType.LAZY)
