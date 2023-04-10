@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -9,10 +8,20 @@
 <div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
 <div class="view">
     <h1>시작</h1>
-    <img th:src="${camp.firstImageUrl}" th:onclick="|details(${camp.contentId})|"/>
+    <div class="tempCampBox">
+        <img style="width: 15%" th:src="${camp.firstImageUrl}" th:onclick="|details(${camp.contentId})|"/>
+        <div class="campTextBox">
+            <div class="campText">
+                [ <span th:text="${camp.doNm}"></span>
+                <span th:text="${camp.sigunguNm}"></span> ]
+            </div>
+            <div class="campText" th:text="${camp.facltNm}"></div>
+            <div class="campText" th:text="${camp.lineIntro}"></div>
+            <div class="campText" th:text="${camp.lineIntro}"></div>
 
-    <h3 th:if="${session.log != null}" th:text="${session.log}"></h3>
-
+        </div>
+    </div>
+    <h1>피씨</h1>
     <h1>피씨</h1>
     <h1>피씨</h1>
     <h1>피씨</h1>

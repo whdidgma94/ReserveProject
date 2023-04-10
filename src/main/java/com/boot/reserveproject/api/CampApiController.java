@@ -186,7 +186,7 @@ public class CampApiController {
     public String[] getImageList(Long contentId) {
         String base_url = "https://apis.data.go.kr/B551011/GoCamping/";
         String subject = "imageList";
-        String api_key = "?MobileOS=WIN&MobileApp=wwwadf&serviceKey=qm8FKb8D52kHWNgstNLDyuuLD%2Bh2H8dvHvULfHsDN23RLMAPmvGDcv%2BG7P%2B5fAEonCEHTQTl%2F1X2WJvP9IUM4Q%3D%3D&_type=json";
+        String api_key = "?numOfRows=20&pageNo=1&MobileOS=WIN&MobileApp=welcome&serviceKey=qm8FKb8D52kHWNgstNLDyuuLD%2Bh2H8dvHvULfHsDN23RLMAPmvGDcv%2BG7P%2B5fAEonCEHTQTl%2F1X2WJvP9IUM4Q%3D%3D&_type=json";
         String contentIdNum = "&contentId=" + contentId;
 
         String apiUrl = base_url + subject + api_key + contentIdNum;
