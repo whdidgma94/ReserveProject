@@ -1,9 +1,12 @@
-//학원 위도,경도
-let latitude ;
-let longitude;
-var map;
-var marker;
-var center;
+
+let latitude ;//학원위도
+let longitude;//학원경도
+var map;//네이버지도가 정보가 담기는 객체
+var marker;//네이버지도의 마커의 정보가 담기는 객체
+var infoWindow;//네이버지도의 마커의 정보창
+let areaArr;//db 로부터 받아온 campList 의 필요한 정보가 담기는 객체
+let markers;//마커들이 속한 배열(검색시 생성);
+let infoWindows;//정보창들이 속한 배열(검색시 생성);
 
 
 window.onload = function(){
@@ -42,17 +45,17 @@ function getMap() {
         ,
         '</div>'
     ].join('');
-    var infowindow = new naver.maps.InfoWindow({
+        infoWindow = new naver.maps.InfoWindow({
         content: contentString
     });
     naver.maps.Event.addListener(marker, "click", function(e) {
-        if (infowindow.getMap()) {
-            infowindow.close();
+        if (infoWindow.getMap()) {
+            infoWindow.close();
         } else {
-            infowindow.open(map, marker);
+            infoWindow.open(map, marker);
         }
     });
-    infowindow.open(map, marker);
+    infoWindow.open(map, marker);
 
 
 
@@ -91,11 +94,12 @@ $(document).ready(function() {
             },
 
             success: function(result) {
-                alert("에이잭스");
+
                 try {
                     var campList = $.parseJSON(result);
                     if(campList ==null || campList.length==0){
                         alert("검색결과가 존재하지 않습니다.");
+
                         return;
                     }
 
@@ -116,14 +120,10 @@ $(document).ready(function() {
 
 
 function initMap(campList) {
-    marker=null;
-
-    alert("들어는 오니?");
-    var mapDiv = document.getElementById("map");
-    //mapDiv.innerHTML = "";
 
 
-    var areaArr = new Array();  // 지역을 담는 배열 ( 지역명/위도경도 )
+
+    areaArr = new Array();  // 지역을 담는 배열 ( 지역명/위도경도 )
     for (let i = 0; i < campList.length; i++) {
         areaArr.push({
             name: campList[i].facltNm,
@@ -134,21 +134,48 @@ function initMap(campList) {
             theme: campList[i].themaEnvrnCl
         });
     }
+    if(markers!=null){
+        for(let i=0;i<markers.length;i++){
+            markers[i].setMap(null);
+        }
+    }
+    if(infoWindows!=null){
+        for(let i=0;i<infoWindows.length;i++){
+            infoWindows[i].close();
+        }
+    }
 
 
+    marker.setMap(null);
+    infoWindow.close();
+    markers = new Array(); // 마커 정보를 담는 배열
+    infoWindows = new Array(); // 정보창을 담는 배열
+    for (var i = 0; i < areaArr.length; i++) {
+        // 지역을 담은 배열의 길이만큼 for문으로 마커와 정보창을 채워주자 !
 
-    let markers = new Array(); // 마커 정보를 담는 배열
-    let infoWindows = new Array(); // 정보창을 담는 배열
+        marker = new naver.maps.Marker({
+            map: map,
+            title: areaArr[i].name, // 지역구 이름
+            position: new naver.maps.LatLng(areaArr[i].lat , areaArr[i].lng) // 지역구의 위도 경도 넣기
+        });
 
+        /* 정보창 */
+        infoWindow = new naver.maps.InfoWindow({
+            content: '<div style="width:300px;text-align:center;padding:10px;"><a href="#">'
+                + areaArr[i].name + '</a><p>'+areaArr[i].address+'</p>' +
+                (areaArr[i].theme != null ? '<p>' + areaArr[i].theme + '</p>' : '') +
+                '<img style="width:200px;height:70px;" src="' + areaArr[i].img + '"></img>' +
+
+                '</div>'
+
+        }); // 클릭했을 때 띄워줄 정보 HTML 작성
+
+        markers.push(marker); // 생성한 마커를 배열에 담는다.
+        infoWindows.push(infoWindow); // 생성한 정보창을 배열에 담는다.
+    }
     // 이전에 생성된 지도 객체가 존재할 경우 지도 객체를 삭제합니다.
 
 
-    // map = new naver.maps.Map('map', {
-    //     center: new naver.maps.LatLng(36.792907, 127.782980), //지도 시작 지점
-    //     zoom: 7
-    // });
-
-    abc(markers,areaArr,infoWindows);
 
 
 
@@ -163,51 +190,25 @@ function initMap(campList) {
         console.log(markers[i] , getClickHandler(i));
         naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i)); // 클릭한 마커 핸들러
     }
+    function getClickHandler(seq) {
 
+        return function(e) {  // 마커를 클릭하는 부분
+            var marker = markers[seq], // 클릭한 마커의 시퀀스로 찾는다.
+                infoWindow = infoWindows[seq]; // 클릭한 마커의 시퀀스로 찾는다
 
-}
-function abc(markers,areaArr,infoWindows){
-    for (var i = 0; i < areaArr.length; i++) {
-        // 지역을 담은 배열의 길이만큼 for문으로 마커와 정보창을 채워주자 !
-
-        var marker = new naver.maps.Marker({
-
-            title: areaArr[i].name, // 지역구 이름
-            position: new naver.maps.LatLng(areaArr[i].lat , areaArr[i].lng) // 지역구의 위도 경도 넣기
-        });
-
-        /* 정보창 */
-        var infoWindow = new naver.maps.InfoWindow({
-            content: '<div style="width:300px;text-align:center;padding:10px;"><a href="#">'
-                + areaArr[i].name + '</a><p>'+areaArr[i].address+'</p>' +
-                (areaArr[i].theme != null ? '<p>' + areaArr[i].theme + '</p>' : '') +
-                '<img style="width:200px;height:70px;" src="' + areaArr[i].img + '"></img>' +
-
-                '</div>'
-
-        }); // 클릭했을 때 띄워줄 정보 HTML 작성
-
-        markers.push(marker); // 생성한 마커를 배열에 담는다.
-        infoWindows.push(infoWindow); // 생성한 정보창을 배열에 담는다.
-    }
-    naver.maps.Event.addListener(map, 'idle', function() {
-        updateMarkers(map, markers);
-    });
-}
-
-function getClickHandler(seq) {
-
-    return function(e) {  // 마커를 클릭하는 부분
-        var marker = markers[seq], // 클릭한 마커의 시퀀스로 찾는다.
-            infoWindow = infoWindows[seq]; // 클릭한 마커의 시퀀스로 찾는다
-
-        if (infoWindow.getMap()) {
-            infoWindow.close();
-        } else {
-            infoWindow.open(map, marker); // 표출
+            if (infoWindow.getMap()) {
+                infoWindow.close();
+            } else {
+                infoWindow.open(map, marker); // 표출
+            }
         }
     }
+
+
 }
+
+
+
 
 
 
