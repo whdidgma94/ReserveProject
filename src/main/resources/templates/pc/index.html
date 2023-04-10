@@ -1,26 +1,52 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<head th:replace="~{pc/fragments/header :: header}"/>
 <script src=""></script>
+<head th:replace="~{pc/fragments/header :: header}">
+    <style>
+        .tempCampBox {
+            box-sizing: border-box;
+            border: 1px black solid;
+        }
+    </style>
+</head>
 <body>
 <div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
 <div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
 <div class="view">
     <h1>시작</h1>
-    <div class="tempCampBox">
-        <img style="width: 15%" th:src="${camp.firstImageUrl}" th:onclick="|details(${camp.contentId})|"/>
-        <div class="campTextBox">
-            <div class="campText">
-                [ <span th:text="${camp.doNm}"></span>
-                <span th:text="${camp.sigunguNm}"></span> ]
+    <div th:each="camp, idx : ${campList}">
+        <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">
+            <div class="campBoxLeft">
+                <img style="width: 15%" th:src="${camp.firstImageUrl}"/>
             </div>
-            <div class="campText" th:text="${camp.facltNm}"></div>
-            <div class="campText" th:text="${camp.lineIntro}"></div>
-            <div class="campText" th:text="${camp.lineIntro}"></div>
-
+            <div class="campBoxRight">
+                <div class="campText">
+                    [ <span th:text="${camp.doNm}"></span>
+                    <span th:text="${camp.sigunguNm}"></span> ]
+                </div>
+                <div class="campText" th:text="${camp.facltNm}"></div>
+                <div class="campText" th:text="${camp.lineIntro}"></div>
+            </div>
+            <div class="campBoxBottom">
+                <div class="campSbrsClBox">
+                    <div th:each="sbrsCl : ${sbrsClList[__${idx.index}__]}">
+                        <div class="campText" th:each="C : ${sbrsCl}">
+                            <div th:text="${C}"></div>
+                        </div>
+                    </div>
+                </div>
+<!--                <div class="campSbrsClBox">-->
+<!--                    <div th:each="thema : ${themaList[__${idx.index}__]}">-->
+<!--                        <div class="campText" th:each="T : ${thema}">-->
+<!--                            <div th:text="${T}"></div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
         </div>
     </div>
+
     <h1>피씨</h1>
     <h1>피씨</h1>
     <h1>피씨</h1>
@@ -73,7 +99,7 @@
 </body>
 <script>
     function details(contentId) {
-        location.href = "detailCamp?contentId="+contentId;
+        location.href = "detailCamp?contentId=" + contentId;
     }
 </script>
 </html>

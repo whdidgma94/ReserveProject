@@ -33,9 +33,17 @@ public class CampService {
         List<Camp> campList = campRepository.findByaddr1Containing(keyword);
         return campList;
     }
-    public Camp getCampById(Long contentId) {
+    public Camp getCampBycontentId(Long contentId) {
         Optional<Camp> camp = campRepository.findById(contentId);
         return camp.orElse(null);
     }
 
+    public Camp getCampById(Long id) {
+        Optional<Camp> camp = campRepository.findById(id);
+        return camp.orElse(null);
+    }
+
+    public Camp selectOneById(Long id) {
+        return campRepository.selectOneById(id);
+    }
 }

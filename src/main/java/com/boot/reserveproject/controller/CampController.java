@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
 public class CampController {
     @Autowired
@@ -17,10 +21,52 @@ public class CampController {
     @Autowired
     private CampApiController campApiController;
 
+//    @GetMapping("/main")
+//    public String getCamp(Model model) {
+//
+//        List<Camp> campList = new ArrayList<>();
+//        for (int i = 1; i <= 5; i++) {
+//            Camp camp = campService.getCampById((long) i);
+//            campList.add(camp);
+//        }
+//        model.addAttribute("campList", campList);
+////
+////        List<String[]> sbrsClList = new ArrayList<>();
+////        for (int i = 0; i < campList.size(); i++) {
+////            String[] sbrsCl = campList.get(i).getSbrsCl().split(",");
+////            sbrsClList.add(sbrsCl);
+////        }
+////        model.addAttribute("sbrsClList", sbrsClList);
+//        return "pc/index";
+//    }
+
     @GetMapping("/main")
     public String getCamp(Model model) {
-        Camp camp = campService.getCampById(4L);
-        model.addAttribute("camp", camp);
+        List<Camp> campList = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            Camp camp = campService.selectOneById((long) i);
+            if (camp != null) {
+                campList.add(camp);
+            }
+        }
+        model.addAttribute("campList", campList);
+
+        List<List<String>> sbrsClList = new ArrayList<>();
+        List<List<String>> themaList = new ArrayList<>();
+        for (int i = 0; i < campList.size(); i++) {
+            String tempSbrsCl = campList.get(i).getSbrsCl();
+            String[] sbrsCl = tempSbrsCl.split(",");
+            sbrsClList.add(Arrays.asList(sbrsCl));
+
+            String[] thema = {"없음"};
+            if (!campList.get(i).getThemaEnvrnCl().equals("")) {
+                thema = campList.get(i).getThemaEnvrnCl().split(",");
+            }
+          themaList.add(Arrays.asList(thema));
+            System.out.println(Arrays.toString(thema));
+        }
+        model.addAttribute("sbrsClList", sbrsClList);
+        model.addAttribute("themaList", themaList);
         return "pc/index";
     }
 
