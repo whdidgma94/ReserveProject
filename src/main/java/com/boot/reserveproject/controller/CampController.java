@@ -16,7 +16,7 @@ public class CampController {
     @Autowired
     private CampApiController campApiController;
 
-    @GetMapping("main")
+    @GetMapping("/main")
     public String getCamp(Model model) {
         Camp camp = campService.getCampById(4L);
         model.addAttribute("camp", camp);

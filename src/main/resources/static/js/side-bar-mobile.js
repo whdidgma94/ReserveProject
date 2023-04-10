@@ -1,22 +1,4 @@
 let mSideBarCheck = false;
-let openSidebarBtn = document.querySelector('.open-sidebar-btn');
-
-window.onload = function (){
-    openSidebarBtn = document.querySelector('.open-sidebar-btn');
-    test();
-}
-function test(){
-    if (openSidebarBtn) {
-        console.log("1"+openSidebarBtn);
-        openSidebarBtn.addEventListener('touchend', () => {
-            console.log("2"+openSidebarBtn);
-            mViewSideBar();
-        });
-    } else {
-        console.error('.open-sidebar-btn not found');
-    }
-
-}
 
 function mHandleGlobalClick(event) {
     const sideBar = document.querySelector('.side-bar');
@@ -31,7 +13,7 @@ function mHandleGlobalClick(event) {
         navMenu.classList.remove('blur');
         mSideBarCheck = false;
 
-        document.removeEventListener('touchend', mHandleGlobalClick);
+        document.removeEventListener('click', mHandleGlobalClick);
     }
 }
 
@@ -48,6 +30,6 @@ function mViewSideBar() {
     mSideBarCheck = true;
 
     setTimeout(() => {
-        document.addEventListener('touchend', mHandleGlobalClick);
+        document.addEventListener('click', mHandleGlobalClick);
     }, 0);
 }
