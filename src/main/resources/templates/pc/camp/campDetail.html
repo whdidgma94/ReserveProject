@@ -2,9 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8u9s7as9cy"></script>
 <head th:replace="pc/fragments/header :: header"/>
 <meta charset="UTF-8">
+<script th:src="@{/js/camp-map.js}"></script>
 <body>
 <div th:replace="pc/fragments/bodyHeader :: bodyHeader"/>
 
@@ -68,9 +69,8 @@
             </th:block>
         </div>
     </div>
+    <div id="map" style="width:100%;height:800px;"></div>
 </div>
-
-
 
 <div th:replace=" pc/fragments/footer :: footer"></div>
 

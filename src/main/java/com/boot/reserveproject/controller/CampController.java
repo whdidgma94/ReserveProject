@@ -16,7 +16,7 @@ public class CampController {
     @Autowired
     private CampApiController campApiController;
 
-    @GetMapping("main")
+    @GetMapping("/main")
     public String getCamp(Model model) {
         Camp camp = campService.getCampById(4L);
         model.addAttribute("camp", camp);
@@ -31,7 +31,6 @@ public class CampController {
         //campApiController에 있는 이미지 api
         String[] campImageList = campApiController.getImageList(contentId);
         model.addAttribute("campImageList", campImageList);
-
         return "pc/camp/campDetail";
     }
 
