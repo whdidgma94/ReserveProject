@@ -88,9 +88,5 @@ public class MemberController {
         }
         return "false";
     }
-    @GetMapping("/member/login")
-    public String login() {
 
-        return "pc/index";
-    }
 }
