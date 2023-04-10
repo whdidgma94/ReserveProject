@@ -1,6 +1,7 @@
 package com.boot.reserveproject.service;
 
 import com.boot.reserveproject.api.CampApiController;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -23,4 +24,9 @@ class CampApiServiceTest {
 //            System.out.println("진행페이지 = " + i + "/" +maxPageNum);
 //        }
 //    }
+
+    //테마종류 확인
+
+
+
 }

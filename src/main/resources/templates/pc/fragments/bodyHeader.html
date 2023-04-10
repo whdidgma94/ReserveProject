@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="header" th:fragment="bodyHeader">
-    <div class="logo"> <img src="/img/임시로고.png"></div>
+    <div class="logo" onclick="location.href='/main'"> <img src="/img/임시로고.png"></div>
     <div class="icon open-sidebar-btn" onclick="viewSideBar()"><i class="fa-solid fa-bars"></i></div>
 </div>
 <div class="side-bar" th:fragment="side-bar">
@@ -25,23 +25,27 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" th:href="${session.log != null} ? '/member/mine' : 'member/login'">
                 <i class="fa-solid fa-heart" style="color:red"></i>
                 찜
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" th:href="${session.log != null} ? '/member/myPage' : 'member/login'">
                 <i class="fa-solid fa-user"></i>
                 마이페이지
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/member/new">
+            <a class="nav-link" th:href="${session.log == null} ? 'member/login' : 'member/logout'">
                 <i class="fa-solid fa-right-to-bracket"></i>
-                로그인
+                <span th:text="${session.log == null} ? '로그인' : '로그아웃'"></span>
             </a>
         </li>
+
     </ul>
     <div>캐릭터 자리</div>
+    <div>
+    <h3 th:if="${session.log != null}" th:text="${session.log}"></h3>
+    </div>
 </div>

@@ -15,4 +15,10 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select m from Member m where m.phone = :phone")
     List<Member> selectPhoneNumber(@Param("phone") String phone);
+
+    @Query("select m from Member m where m.loginId = :loginId and m.pw = :pw")
+    Member checkLogin(@Param("loginId") String loginId, @Param("pw") String pw);
+
+    @Query("select m from Member m where m.loginId = :loginId")
+    Member selectMemberByLoginId(@Param("loginId") String loginId);
 }

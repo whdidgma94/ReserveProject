@@ -32,7 +32,13 @@ public class MemberService {
         }
         return true;
     }
-
+    public boolean checkLogin(String loginId, String pw){
+        Member member = memberRepository.checkLogin(loginId, pw);
+        if(member != null){
+            return true;
+        }
+        return false;
+    }
     public List<Member> findAllMembers() {
         List<Member> list = memberRepository.findAll();
         if (list.isEmpty()) throw new IllegalStateException("데이터가 존재하지않습니다");
@@ -54,5 +60,9 @@ public class MemberService {
             return false;
         }
         return true;
+    }
+
+    public Member selectMemberById(String loginId){
+        return memberRepository.selectMemberByLoginId(loginId);
     }
 }

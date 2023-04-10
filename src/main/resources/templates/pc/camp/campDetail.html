@@ -2,80 +2,198 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-<head th:replace="pc/fragments/header :: header"/>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8u9s7as9cy"></script>
+<head th:replace="pc/fragments/header :: header"></head>
 <meta charset="UTF-8">
-<body>
-<div th:replace="pc/fragments/bodyHeader :: bodyHeader"/>
 
-<div class="camp_detail">
-    <div class="detail_box01">
-        <div class="detail_mainImage">
-            <img th:src="${camp.firstImageUrl}" alt="">
-        </div>
-        <div>
-            <table class="basicInfo">
-                <colgroup>
-                    <col style="width: 30%;"/>
-                    <col style="width: 70%;"/>
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th scope="col">주소</th>
-                    <td th:text="${camp.addr1}"></td>
-                </tr>
-                <tr class="camp_call_pcVer">
-                    <th scope="col">문의처</th>
-                    <td th:text="${camp.tel}"></td>
-                </tr>
-                <tr>
-                    <th scope="col">캠핑장 환경</th>
-                    <td>
-                        <span th:text="${camp.facltDivNm}"></span>/
-                        <span th:text="${camp.manageSttus}"></span>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="col">캠핑장 유형</th>
-                    <td th:text="${camp.induty}"></td>
-                </tr>
-                <tr>
-                    <th scope="col">운영기간</th>
-                    <td th:text="${camp.operPdCl}"></td>
-                </tr>
-                <tr>
-                    <th scope="col">운영일</th>
-                    <td th:text="${camp.operDeCl}"></td>
-                </tr>
-                <tr>
-                    <th scope="col">홈페이지</th>
-                    <td>
-                        <a href="${camp.homepage}" target="_blank" title="새창열림">
-                            <i class="ico_link"><span class="skip">새창으로</span></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="col">주변이용가능시설</th>
-                    <td th:text="${camp.posblFcltyCl}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="imageList">
-            <th:block th:each="image : ${campImageList}">
-                    <img style="width: 15%" th:src="${image}" alt="">
-            </th:block>
+
+<body>
+
+<div th:replace="pc/fragments/bodyHeader :: bodyHeader"></div>
+<div th:replace="pc/fragments/bodyHeader :: side-bar"></div>
+
+
+<!--    <div th:text="${camp.facltNm}"></div>-->
+<!--    <div th:text="${camp.lineIntro}"></div>-->
+<!--    <div th:text="${camp.intro}"></div>-->
+<!--    <div th:text="${camp.manageSttus}"></div>-->
+<!--    <div th:text="${camp.induty}"></div>-->
+<!--    <div th:text="${camp.lctCl}"></div>-->
+<!--    <div th:text="${camp.direction}"></div>-->
+<!--    <div th:text="${camp.siteCount}"></div>-->
+<!--    <div th:text="${camp.sitedStnc}"></div>-->
+<!--    <div th:text="${camp.site}"></div>-->
+<!--    <div th:text="${camp.siteBottom}"></div>-->
+<!--    <div th:text="${camp.tooltip}"></div>-->
+<!--    <div th:text="${camp.glampInnerFclty}"></div>-->
+<!--    <div th:text="${camp.caravInnerFclty}"></div>-->
+<!--    <div th:text="${camp.operPdCl}"></div>-->
+<!--    <div th:text="${camp.operDeCl}"></div>-->
+<!--    <div th:text="${camp.trlerAcmpnyAt}"></div>-->
+<!--    <div th:text="${camp.caravAcmpnyAt}"></div>-->
+<!--    <div th:text="${camp.sanitary}"></div>-->
+<!--    <div th:text="${camp.brazierCl}"></div>-->
+<!--    <div th:text="${camp.sbrsCl}"></div>-->
+<!--    <div th:text="${camp.sbrsEtc}"></div>-->
+<!--    <div th:text="${camp.fpSystem}"></div>-->
+<!--    <div th:text="${camp.posblFcltyCl}"></div>-->
+<!--    <div th:text="${camp.posblFcltyEtc}"></div>-->
+<!--    <div th:text="${camp.clturEventAt}"></div>-->
+<!--    <div th:text="${camp.clturEvent}"></div>-->
+<!--    <div th:text="${camp.exprnProgrmAt}"></div>-->
+<!--    <div th:text="${camp.exprnProgrm}"></div>-->
+<!--    <div th:text="${camp.themaEnvrnCl}"></div>-->
+<!--    <div th:text="${camp.animalCmgCl}"></div>-->
+<div class="container py-4">
+    <div class="camp_detail view">
+        <h1 th:text="${camp.facltNm}"></h1>
+        <div class="row">
+            <div class="col-md-7 mb-4">
+                <div class="card">
+                    <img class="card-img-top" th:src="${camp.firstImageUrl}" alt="">
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th scope="col">주소</th>
+                                <td th:text="${camp.addr1}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">문의처</th>
+                                <td th:text="${camp.tel}"><i class="fas fa-phone-alt"></i></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">캠핑장 환경</th>
+                                <td>
+                                    <span th:text="${camp.facltDivNm}"></span>/
+                                    <span th:text="${camp.manageSttus}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="col">캠핑장 유형</th>
+                                <td th:text="${camp.induty}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">운영기간</th>
+                                <td th:text="${camp.operPdCl}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">운영일</th>
+                                <td th:text="${camp.operDeCl}"></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">홈페이지</th>
+                                <td>
+                                    <a class="btn btn-link p-0" th:href="${camp.homepage}" target="_blank" title="새창열림">
+                                        <i class="fas fa-link"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="col">주변이용가능시설</th>
+                                <td th:text="${camp.posblFcltyCl}"><i class="far fa-check-circle"></i></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 mb-4">
+                <div id="map" style="height: 300px;"></div>
+                <h3>부대시설</h3>
+                <div class="sbrsCl"></div>
+            </div>
         </div>
     </div>
 </div>
-
-
-
-<div th:replace=" pc/fragments/footer :: footer"></div>
-
+<div th:replace="pc/fragments/footer :: footer"></div>
 </body>
+<script>
+    let latitude =0;
+    let longitude =0;
+    let myKey='4cafcd3f6ac34355b1f99ce7d42f1068';
+    function createMap(){
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            latitude= [[${camp.mapY}]];
+            longitude= [[${camp.mapX}]];
+            getMap();
+        });
+    }
+    function getMap() {
+        let myLocation=new naver.maps.LatLng(latitude,longitude),
+            map= new naver.maps.Map('map',{
+                center:myLocation.destinationPoint(latitude,longitude),
+                zoom:17
+            }),
+            marker = new naver.maps.Marker({
+                map:map,
+                position:myLocation
+            })
+        let contentString = [
+            '<div class="iw_inner">',
+            '<a href="#">[[${camp.facltNm}]]</a>',
+            '<p>[[${camp.lineIntro}]]</p>',
+            '<br />',
+            ,
+            '</div>'
+        ].join('');
+        let infowindow = new naver.maps.InfoWindow({
+            content: contentString
+        });
+        naver.maps.Event.addListener(marker, "click", function(e) {
+            if (infowindow.getMap()) {
+                infowindow.close();
+            } else {
+                infowindow.open(map, marker);
+            }
+        });
+        infowindow.open(map, marker);
+    }
+    window.onload = function(){
+        createMap();
+        let sbrsCl = `[[${camp.sbrsCl}]]`;
+        const sbrsClDiv = document.querySelector(".sbrsCl");
+        let clList = sbrsCl.split(",");
+        console.log(sbrsCl);
+        console.log(sbrsClDiv);
+        console.log(clList);
+        for(let i = 0 ; i < clList.length ; i++){
+            if(clList[i]==="전기"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>전기</div><i class="fa-solid fa-bolt"></i></div>`;
+            }else if(clList[i]==="무선인터넷"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>와이파이</div><i class="fa-solid fa-wifi"></i></div>`;
+            }
+            else if(clList[i]==="장작판매"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>장작판매</div><i class="fa-sharp fa-solid fa-fire"></i></div>`;
+            }
+            else if(clList[i]==="온수"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>온수</div><i class="fa-solid fa-thermometer-full"></i></div>`;
+            }
+            else if(clList[i]==="트렘폴린"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>트렘폴린</div><i class="fa-solid fa-person-arrow-up-from-line"></i></div>`;
+            }
+            else if(clList[i]==="물놀이장"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>물놀이장</div><i class="fa-solid fa-swimmer"></i></div>`;
+            }
+            else if(clList[i]==="놀이터"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>놀이터</div><i class="fa-solid fa-rocket"></i></div>`;
+            }
+            else if(clList[i]==="산책로"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>산책로</div><i class="fa-solid fa-hiking"></i></div>`;
+            }
+            else if(clList[i]==="운동시설"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>운동시설</div><i class="fa-solid fa-dumbbell"></i></div>`;
+            }
+            else if(clList[i]==="마트.편의점"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>마트/편의점</div><i class="fa-solid fa-shopping-cart"></i></div>`;
+            }
+            else if(clList[i]==="운동장"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>운동장</div><i class="fa-solid fa-baseball-ball"></i></div>`;
+            }
+        }
 
+    }
+</script>
 
 
 </html>
