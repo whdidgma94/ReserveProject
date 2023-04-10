@@ -37,12 +37,19 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="member/login">
+            <a th:if="${session.log == null}" class="nav-link" href="member/login">
                 <i class="fa-solid fa-right-to-bracket"></i>
-                회원가입
+                로그인
+            </a>
+            <a th:if="${session.log != null}" class="nav-link" href="member/logout">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                로그아웃
             </a>
 
         </li>
     </ul>
     <div>캐릭터 자리</div>
+    <div>
+    <h3 th:if="${session.log != null}" th:text="${session.log}"></h3>
+    </div>
 </div>

@@ -86,3 +86,20 @@ ul{
 .form-group .btn{
     margin-left:20px;
 }
+.sbrsCl{
+    display:flex;
+    flex-direction:row;
+    flex-wrap : wrap;
+    gap : 10px;
+}
+.sbrsContent{
+    display:flex;
+    flex-direction:column;
+    border:1px solid black;
+    width:100px;
+    height:100px;
+    font-size:20px;
+    text-align:center;
+    border-radius:10px;
+    justify-content:space-around;
+}
