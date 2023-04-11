@@ -38,6 +38,7 @@ public class AuthController {
         }
         String code = authService.sendPhone(phone, "auth");
         session.setAttribute("authCode", code);
+        System.out.println("authCode = " + code);
         return "true";
     }
 

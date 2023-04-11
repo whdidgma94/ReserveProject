@@ -109,7 +109,7 @@
         <div id="authNumberInput" style="display: none;">
             <div class="form-group">
                 <label th:for="authNumber">인증번호</label>
-                <input type="number" id="authNumber" class="form-control number-only">
+                <input type="text" id="authNumber" class="form-control number-only">
                 <input type="button" id="authBtn" class="btn btn-primary" onclick="AuthCode()" value="확인"/>
             </div>
         </div>
@@ -144,7 +144,8 @@
 </body>
 <script>
     function join() {
-        $("joinForm").submit();
+        swal('환영합니다','가입이 완료되었습니다', 'success');
+        $("#joinForm").submit();
     }
 
     function idCheck() {
@@ -294,7 +295,7 @@
 
             $.ajax({
                 type: "post",
-                url: "/phoneAuth",
+                url: "/Auth",
                 data: query,
                 success: function (data) {
                     if (data == "false") {

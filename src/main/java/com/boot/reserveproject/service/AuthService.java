@@ -30,7 +30,6 @@ public class AuthService {
         String api_secret = "HYOAKFIG9QMULUXQDKSCRZMROULK0GZI";
 
         Message sms = new Message(api_key, api_secret);
-        Random rd = new Random();
         String code = createCode();
         String msg = "";
         if (type.equals("password")) {
@@ -39,7 +38,7 @@ public class AuthService {
             msg = "[어서y]인증번호는 [" + code + "] 입니다";
 
         }
-
+        System.out.println("phone="+phone);
         HashMap<String, String> params = new HashMap<>();
         params.put("to", phone);
         params.put("from", "010-4134-2824");
