@@ -4,6 +4,8 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8u9s7as9cy"></script>
 <head th:replace="pc/fragments/header :: header"></head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+    <script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
 <meta charset="UTF-8">
 
 
@@ -18,7 +20,6 @@
 <!--    <div th:text="${camp.lctCl}"></div>-->
 <!--    <div th:text="${camp.direction}"></div>-->
 
-<!--    <div th:text="${camp.tooltip}"></div>-->
 <!--    <div th:text="${camp.glampInnerFclty}"></div>-->
 <!--    <div th:text="${camp.caravInnerFclty}"></div>-->
 <!--    <div th:text="${camp.operPdCl}"></div>-->
@@ -27,10 +28,10 @@
 <!--    <div th:text="${camp.caravAcmpnyAt}"></div>-->
 <!--    <div th:text="${camp.sanitary}"></div>-->
 <!--    <div th:text="${camp.brazierCl}"></div>-->
-<!--    <div th:text="${camp.sbrsCl}"></div>-->
+
 <!--    <div th:text="${camp.sbrsEtc}"></div>-->
 <!--    <div th:text="${camp.fpSystem}"></div>-->
-<!--    <div th:text="${camp.posblFcltyCl}"></div>-->
+
 <!--    <div th:text="${camp.posblFcltyEtc}"></div>-->
 <!--    <div th:text="${camp.clturEventAt}"></div>-->
 <!--    <div th:text="${camp.clturEvent}"></div>-->
@@ -101,11 +102,26 @@
         <div class="row">
             <h3>캠핑장 소개</h3>
             <table class="table table-bordered">
-                <td th:text="${camp.intro}"></td>
+                <tr>
+                    <td th:text="${camp.intro}"></td>
+                </tr>
+                <tr th:if="${camp.tooltip}">
+                    <td th:text="${camp.tooltip}"></td>
+                </tr>
             </table>
         </div>
         <div class="row">
-            <div class="table-responsive">
+            <img th:src="${camp.firstImageUrl}" class="campMainImg">
+        </div>
+        <div class="row">
+            <div class="slider">
+                <div th:each="campImg : ${campImageList}">
+                    <img th:src="${campImg}" class="campImg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="table-responsive campInfoTable">
                 <h3>사이트 정보</h3>
                 <table class="table table-bordered">
                     <tbody>
@@ -128,14 +144,39 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
         <div class="row">
-            <div th:text="${camp.tooltip}"></div>
+            <div class="table-responsive campInfoTable">
+                <h3>기타 정보</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <td>애완동물 출입 여부</td>
+                        <td th:text="${camp.animalCmgCl}"></td>
+                    </tr>
+                    <tr>
+                        <td>자체 문화행사 여부</td>
+                        <td th:text="${camp.clturEventAt}"></td>
+                    </tr>
+                    <tr>
+                        <td>체험 프로그램 여부</td>
+                        <td th:text="${camp.exprnProgrmAt}"></td>
+                    </tr>
+                    <tr>
+                        <td>개인 트레일러 동반 여부</td>
+                        <td th:text="${camp.trlerAcmpnyAt}"></td>
+                    </tr>
+                    <tr>
+                        <td>개인 카라반 동반 여부</td>
+                        <td th:text="${camp.caravAcmpnyAt}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
-<div th:replace="pc/fragments/footer :: footer"></div>
+    <div th:replace="pc/fragments/footer :: footer"></div>
 </body>
 <script>
     let latitude =0;
@@ -219,6 +260,36 @@
         }
 
     }
+    $(document).ready(function(){
+        $('.slider').slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+            nextArrow: '<button type="button" class="slick-next">Next</button>',
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 520,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                }
+            ]
+        });
+
+        $('.campImg').click(function(){
+            let src = $(this).attr('src');
+            $('.campMainImg').attr('src',src);
+        });
+
+    });
 </script>
 
 
