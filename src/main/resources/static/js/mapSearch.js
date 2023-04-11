@@ -131,7 +131,8 @@ function initMap(campList) {
             lng: campList[i].mapX,
             address: campList[i].addr1,
             img: campList[i].firstImageUrl,
-            theme: campList[i].themaEnvrnCl
+            theme: campList[i].themaEnvrnCl,
+            id: campList[i].contentId
         });
     }
     if(markers!=null){
@@ -174,7 +175,7 @@ function initMap(campList) {
 
         /* 정보창 */
         infoWindow = new naver.maps.InfoWindow({
-            content: '<div style="width:300px;text-align:center;padding:10px;"><a href="#">'
+            content: '<div style="width:300px;text-align:center;padding:10px;"><a href="../detailCamp?contentId=' + areaArr[i].id + '">'
                 + areaArr[i].name + '</a><p>'+areaArr[i].address+'</p>' +
                 (areaArr[i].theme != null ? '<p>' + areaArr[i].theme + '</p>' : '') +
                 '<img style="width:200px;height:70px;" src="' + areaArr[i].img + '"></img>' +

@@ -207,7 +207,7 @@ function initMap(areaArr) {
 
         /* 정보창 */
         var infoWindow = new naver.maps.InfoWindow({
-            content: '<div style="width:300px;text-align:center;padding:10px;"><a href="#">'
+            content: '<div style="width:300px;text-align:center;padding:10px;"><a href="detailCamp">'
                 + areaArr[i].name + '</a><p>'+areaArr[i].address+'</p>' +
                 (areaArr[i].theme != null ? '<p>' + areaArr[i].theme + '</p>' : '') +
                 '<img style="width:200px;height:70px;" src="' + areaArr[i].img + '"></img><br>' +

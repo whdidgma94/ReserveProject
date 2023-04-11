@@ -13,17 +13,11 @@
 <div th:replace="pc/fragments/bodyHeader :: side-bar"></div>
 
 
-<!--    <div th:text="${camp.facltNm}"></div>-->
-<!--    <div th:text="${camp.lineIntro}"></div>-->
-<!--    <div th:text="${camp.intro}"></div>-->
 <!--    <div th:text="${camp.manageSttus}"></div>-->
 <!--    <div th:text="${camp.induty}"></div>-->
 <!--    <div th:text="${camp.lctCl}"></div>-->
 <!--    <div th:text="${camp.direction}"></div>-->
-<!--    <div th:text="${camp.siteCount}"></div>-->
-<!--    <div th:text="${camp.sitedStnc}"></div>-->
-<!--    <div th:text="${camp.site}"></div>-->
-<!--    <div th:text="${camp.siteBottom}"></div>-->
+
 <!--    <div th:text="${camp.tooltip}"></div>-->
 <!--    <div th:text="${camp.glampInnerFclty}"></div>-->
 <!--    <div th:text="${camp.caravInnerFclty}"></div>-->
@@ -52,7 +46,7 @@
                 <div class="card">
                     <img class="card-img-top" th:src="${camp.firstImageUrl}" alt="">
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table table-bordered">
                             <tbody>
                             <tr>
                                 <th scope="col">주소</th>
@@ -104,6 +98,41 @@
                 <div class="sbrsCl"></div>
             </div>
         </div>
+        <div class="row">
+            <h3>캠핑장 소개</h3>
+            <table class="table table-bordered">
+                <td th:text="${camp.intro}"></td>
+            </table>
+        </div>
+        <div class="row">
+            <div class="table-responsive">
+                <h3>사이트 정보</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <td>사이트 개수</td>
+                        <td th:text="${camp.siteCount}"></td>
+                    </tr>
+                    <tr>
+                        <td>사이트 간격</td>
+                        <td th:text="${camp.sitedStnc}"></td>
+                    </tr>
+                    <tr>
+                        <td>사이트 별 크기</td>
+                        <td th:text="${camp.site}"></td>
+                    </tr>
+                    <tr>
+                        <td>사이트 종류</td>
+                        <td th:text="${camp.siteBottom}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="row">
+            <div th:text="${camp.tooltip}"></div>
+        </div>
     </div>
 </div>
 <div th:replace="pc/fragments/footer :: footer"></div>
@@ -154,9 +183,6 @@
         let sbrsCl = `[[${camp.sbrsCl}]]`;
         const sbrsClDiv = document.querySelector(".sbrsCl");
         let clList = sbrsCl.split(",");
-        console.log(sbrsCl);
-        console.log(sbrsClDiv);
-        console.log(clList);
         for(let i = 0 ; i < clList.length ; i++){
             if(clList[i]==="전기"){
                 sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>전기</div><i class="fa-solid fa-bolt"></i></div>`;

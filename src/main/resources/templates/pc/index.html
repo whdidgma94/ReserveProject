@@ -2,14 +2,70 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src=""></script>
-<head th:replace="~{pc/fragments/header :: header}">
-    <style>
-        .tempCampBox {
-            box-sizing: border-box;
-            border: 1px black solid;
-        }
-    </style>
-</head>
+<head th:replace="~{pc/fragments/header :: header}"/>
+<style>
+    .tempCampBox {
+        box-sizing: border-box;
+        border: 1px black solid;
+        height: 300px;
+        width: 100%;
+
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        flex-direction: column;
+    }
+    .campBoxTop {
+        height: 250px;
+        width: 100%;
+
+        display: flex;
+    }
+    .campBoxLeft{
+        width: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .campBoxRight{
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+
+        margin-top: 20px;
+    }
+    .campText {
+        width: 100%;
+        height: 30px;
+        text-align: center;
+    }
+    .campSbrsClBox {
+        width: 100%;
+        height: 150px;
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .campSbrsClItem{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        width: 45px;
+        height: 45px;
+        margin: 0 1px 0 1px;
+        border: 1px solid black;
+        border-radius: 15px;
+    }
+    .fa-solid{
+        font-size: 20px;
+    }
+
+</style>
 <body>
 <div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
 <div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
@@ -17,83 +73,41 @@
     <h1>시작</h1>
     <div th:each="camp, idx : ${campList}">
         <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">
-            <div class="campBoxLeft">
-                <img style="width: 15%" th:src="${camp.firstImageUrl}"/>
-            </div>
-            <div class="campBoxRight">
-                <div class="campText">
-                    [ <span th:text="${camp.doNm}"></span>
-                    <span th:text="${camp.sigunguNm}"></span> ]
+            <div class="campBoxTop">
+                <div class="campBoxLeft">
+                    <img style="width: 98%" th:src="${camp.firstImageUrl}"/>
                 </div>
-                <div class="campText" th:text="${camp.facltNm}"></div>
-                <div class="campText" th:text="${camp.lineIntro}"></div>
-            </div>
-            <div class="campBoxBottom">
-                <div class="campSbrsClBox">
-                    <div th:each="sbrsCl : ${sbrsClList[__${idx.index}__]}">
-                        <div class="campText" th:each="C : ${sbrsCl}">
-                            <div th:text="${C}"></div>
+                <div class="campBoxRight">
+                    <div class="campText">
+                        [ <span th:text="${camp.doNm}"></span>
+                        <span th:text="${camp.sigunguNm}"></span> ]
+                    </div>
+                    <div class="campText" th:text="${camp.facltNm}"></div>
+                    <div class="campText" th:text="${camp.lineIntro}"></div>
+                    <div class="campSbrsClBox">
+                        <div class="campSbrsCl" th:each="sbrsCl : ${sbrsClList[__${idx.index}__]}" >
+                            <div class="campSbrsClItem" th:each="C : ${sbrsCl}">
+                                <i th:if="${C == '전기'}" class="fa-solid fa-bolt"></i>
+                                <i th:if="${C == '무선인터넷'}" class="fa-solid fa-wifi"></i>
+                                <i th:if="${C == '장작판매'}" class="fa-sharp fa-solid fa-fire"></i>
+                                <i th:if="${C == '온수'}" class="fa-solid fa-thermometer-full"></i>
+                                <i th:if="${C == '트렘폴린'}" class="fa-solid fa-person-arrow-up-from-line"></i>
+                                <i th:if="${C == '물놀이장'}" class="fa-solid fa-swimmer"></i>
+                                <i th:if="${C == '놀이터'}" class="fa-solid fa-rocket"></i>
+                                <i th:if="${C == '산책로'}" class="fa-solid fa-hiking"></i>
+                                <i th:if="${C == '운동시설'}" class="fa-solid fa-dumbbell"></i>
+                                <i th:if="${C == '마트.편의점'}" class="fa-solid fa-shopping-cart"></i>
+                                <i th:if="${C == '운동장'}" class="fa-solid fa-baseball-ball"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-<!--                <div class="campSbrsClBox">-->
-<!--                    <div th:each="thema : ${themaList[__${idx.index}__]}">-->
-<!--                        <div class="campText" th:each="T : ${thema}">-->
-<!--                            <div th:text="${T}"></div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+            </div>
+            <div class="campBoxBottom">
+
             </div>
         </div>
     </div>
-
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>피씨</h1>
-    <h1>끝</h1>
     <div th:replace="~{pc/fragments/footer :: footer}"/>
 </div>
 </body>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{pc/fragments/header :: header}"/>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+
+<body>
+<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
+<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
+
+<div class="view">
+  <h1>지역별검색</h1>
+  <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
+  <form id="nsdiSearchForm" action="#" class="form_data" onsubmit="return false;search();">
+
+    <select id="sido_code">
+      <option>선택</option>
+    </select>
+    <select id="sigoon_code">
+      <option>선택</option>
+    </select>
+
+
+  </form>
+  <script>
+    const replaceList = [
+      ["서울특별시", "서울시"],
+      ["부산광역시", "부산시"],
+      ["대구광역시", "대구시"],
+      ["인천광역시", "인천시"],
+      ["광주광역시", "광주시"],
+      ["대전광역시", "대전시"],
+      []
+
+
+      // ... 추가 조건
+    ];
+    let key='F3DA23BB-17C0-3F0B-87F2-FEC846489FDC';
+    $.support.cors = true;
+
+    $(function(){
+      $.ajax({
+        type: "get",
+        url: "https://api.vworld.kr/req/data?key=F3DA23BB-17C0-3F0B-87F2-FEC846489FDC&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIDO_INFO",
+        async: false,
+        dataType: 'jsonp',
+        success: function(data) {
+          let html = "<option>선택</option>";
+
+          data.response.result.featureCollection.features.forEach(function(f){
+            console.log(f.properties)
+            let locationCd = f.properties.ctprvn_cd;
+            let locationNm = f.properties.ctp_kor_nm;
+
+            html +=`<option value="${locationCd}">${locationNm}</option>`
+
+          })
+
+          $('#sido_code').html(html);
+
+        },
+        error: function(xhr, stat, err) {}
+      });
+
+
+      $(document).on("change","#sido_code",function(){
+        let thisVal = $(this).val();
+
+        $.ajax({
+          type: "get",
+          url: "https://api.vworld.kr/req/data?key=F3DA23BB-17C0-3F0B-87F2-FEC846489FDC&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
+          data : {attrfilter : 'sig_cd:like:'+thisVal},
+          async: false,
+          dataType: 'jsonp',
+          success: function(data) {
+            let html = "<option>선택</option>";
+
+            data.response.result.featureCollection.features.forEach(function(f){
+              console.log(f.properties)
+              let 행정구역코드 = f.properties.sig_cd;
+              let 행정구역명 = f.properties.sig_kor_nm;
+
+              html +=`<option value="${행정구역코드}">${행정구역명}</option>`
+
+            })
+            $('#sigoon_code').html(html);
+            $('#dong_code').html(html);
+
+
+          },
+          error: function(xhr, stat, err) {}
+        });
+      });
+
+    })
+  </script>
+  <div th:replace="~{pc/fragments/footer :: footer}" />
+</div>
+
+</body>
+</html>
