@@ -180,6 +180,7 @@
             $("#emailDomain").val(domain);
             $("#emailDomain").prop('disabled', true);
         }
+        $("#email1").val($("#emailDomain").val());
     }
 
     function execDaumPostcode() {
@@ -275,8 +276,8 @@
                     }
                     console.log("1 = " + $("#phone").val() + ", " + $("#emailDomain").val());
 
-                    $("#email1").val($("#emailDomain").val());
-                    $("#phone2").val($("#phone").val());
+
+                    $("#phone2").val($("#phone").val().replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
                 },
                 error: function (request, status, error) {
                     console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);

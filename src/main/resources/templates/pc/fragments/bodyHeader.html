@@ -38,7 +38,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="${session.log == null} ? 'member/login' : 'member/logout'">
+            <a class="nav-link" th:href="${session.log == null} ? '/member/login' : '/member/logout'">
                 <i class="fa-solid fa-right-to-bracket"></i>
                 <span th:text="${session.log == null} ? '로그인' : '로그아웃'"></span>
             </a>
