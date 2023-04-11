@@ -25,20 +25,22 @@ public class MemberService {
         return member.getId();
     }
 
-    public boolean validId(String loginId){
+    public boolean validId(String loginId) {
         List<Member> members = memberRepository.selectAll(loginId);
         if (!members.isEmpty()) {
             return false;
         }
         return true;
     }
-    public boolean checkLogin(String loginId, String pw){
+
+    public boolean checkLogin(String loginId, String pw) {
         Member member = memberRepository.checkLogin(loginId, pw);
-        if(member != null){
+        if (member != null) {
             return true;
         }
         return false;
     }
+
     public List<Member> findAllMembers() {
         List<Member> list = memberRepository.findAll();
         if (list.isEmpty()) throw new IllegalStateException("데이터가 존재하지않습니다");
@@ -54,7 +56,8 @@ public class MemberService {
         return memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다"));
     }
-    public boolean validPhoneNumber(String phone){
+
+    public boolean validPhoneNumber(String phone) {
         List<Member> members = memberRepository.selectPhoneNumber(phone);
         if (!members.isEmpty()) {
             return false;
@@ -62,7 +65,23 @@ public class MemberService {
         return true;
     }
 
-    public Member selectMemberById(String loginId){
+    public boolean validEmail(String email) {
+        List<Member> members = memberRepository.selectEmail(email);
+        if (!members.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    public void updateTemp(String type, String address, String code) {
+        if (type.equals("phone")) {
+            memberRepository.updateTempByPhone(code, address);
+        } else {
+            memberRepository.updateTempByEmail(code, address);
+        }
+    }
+
+    public Member selectMemberById(String loginId) {
         return memberRepository.selectMemberByLoginId(loginId);
     }
 }

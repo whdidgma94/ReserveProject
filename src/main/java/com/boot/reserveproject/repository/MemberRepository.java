@@ -15,10 +15,17 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select m from Member m where m.phone = :phone")
     List<Member> selectPhoneNumber(@Param("phone") String phone);
+    @Query("select m from Member m where m.email = :email")
+    List<Member> selectEmail(@Param("email") String email);
 
     @Query("select m from Member m where m.loginId = :loginId and m.pw = :pw")
     Member checkLogin(@Param("loginId") String loginId, @Param("pw") String pw);
 
     @Query("select m from Member m where m.loginId = :loginId")
     Member selectMemberByLoginId(@Param("loginId") String loginId);
+
+    @Query("update Member m set m.pw = :code where m.phone = :phone")
+    void updateTempByPhone(@Param("code") String code, @Param("phone") String phone);
+    @Query("update Member m set m.pw = :code where m.email = :email")
+    void updateTempByEmail(@Param("code") String code, @Param("email") String email);
 }

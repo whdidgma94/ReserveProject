@@ -13,13 +13,15 @@
     .number-only[type=number] {
         -moz-appearance: textfield;
     }
-    form{
+
+    form {
         width: 90%;
         background-color: white;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
+
     .form-group {
         width: 100%;
         display: flex;
@@ -32,7 +34,8 @@
     input[type="password"] {
         width: 200px;
     }
-    label{
+
+    label {
         width: 20%;
         font-weight: bold;
     }
@@ -55,8 +58,8 @@
         </div>
         <div class="form-group">
             <label th:for="pw">비밀번호</label>
-            <input id="pwInput1" type="password" th:field="*{pw}" class="form-control"><img width="40px" height="40px"
-                                                                                            src="/img/보이기.png">
+            <input id="pwInput1" type="password" th:field="*{pw}" class="form-control">
+            <img width="30px" height="30px" onclick="toggleImage()" src="/img/보이기.png">
         </div>
         <div class="form-group">
             <label th:for="pwConfirm">비밀번호 확인</label>
@@ -98,7 +101,7 @@
             <label th:for="phone">전화번호</label>
             <input type="number" th:field="*{phone}" class="form-control number-only"
                    placeholder="-를 제외한 숫자만 입력하세요">
-            <input type="button" id="phoneBtn" class="btn btn-primary" onclick="sendPhone()" value="인증번호 발송"/>
+            <input type="button" id="phoneBtn" class="btn btn-primary" onclick="sendPhone()" value="인증번호 받기"/>
             <div id="timer"></div>
         </div>
 
@@ -114,7 +117,7 @@
             <label th:for="emailId">Email</label>
             <div class="input-group">
                 <input type="text" th:field="*{emailId}" class="form-control">
-                    <span class="input-group-text">@</span>
+                <span class="input-group-text">@</span>
                 <input type="text" th:field="*{emailDomain}" class="form-control">
                 <select class="select form-control" onchange="setEmailDomain(this.value);">
                     <option value="">직접입력</option>
@@ -130,7 +133,7 @@
         </div>
 
         <div class="form-group">
-            <input type="button" id="joinBtn" class="btn btn-primary" onclick="join()" value="가입" />
+            <input type="button" id="joinBtn" class="btn btn-primary" onclick="join()" value="가입"/>
         </div>
 
         <input id="email1" type="hidden" th:field="*{emailDomain}"/>
@@ -140,13 +143,14 @@
 <div th:replace="pc/fragments/footer :: footer"/>
 </body>
 <script>
-    function join(){
+    function join() {
         $("joinForm").submit();
     }
+
     function idCheck() {
         if ($("#loginId").val()) {
             let query = {
-                loginId: $("#loginId").val()
+                loginId: $("#loginId").val(),
             };
             $.ajax({
                 type: "post",
@@ -232,7 +236,8 @@
         }
         if ($("#phone").val()) {
             let query = {
-                phone: $("#phone").val()
+                phone: $("#phone").val().replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+                type: "join"
             };
             console.log($("#phone").val());
             $.ajax({

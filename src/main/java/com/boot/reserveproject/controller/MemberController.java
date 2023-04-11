@@ -99,5 +99,18 @@ public class MemberController {
         return "pc/member/memberMyPage";
     }
 
+    @GetMapping("/member/findId")
+    public String findIdForm(Model model) {
+        model.addAttribute("memberForm", new MemberForm());
+
+        return "pc/member/memberFindId";
+    }
+
+    @GetMapping("/member/findPw")
+    public String findPw(Model model) {
+        model.addAttribute("memberForm", new MemberForm());
+
+        return "pc/member/memberFindId";
+    }
 
 }
