@@ -79,6 +79,9 @@
               console.log(f.properties)
               let 행정구역코드 = f.properties.sig_cd;
               let 행정구역명 = f.properties.sig_kor_nm;
+              행정구역명 = 행정구역명.replace(/\s+.*/, '');
+
+
 
               html +=`<option value="${행정구역코드}">${행정구역명}</option>`
 
