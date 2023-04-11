@@ -22,7 +22,7 @@
             <label for="phone">전화번호</label>
             <input type="number" id="phone" class="form-control number-only"
                    placeholder="-를 제외한 숫자만 입력하세요"/>
-            <input type="button" id="phoneBtn" class="btn btn-primary" th:onclick="'sendPhone(\'' + ${type} + '\')'" value="인증번호 받기"/>
+            <input type="button" id="phoneBtn" class="btn btn-primary" onclick="sendPhone()" value="인증번호 받기"/>
             <div class="timer"></div>
             <label for="authNumber">인증번호</label>
             <input type="number" id="authNumber" class="form-control number-only" disabled>
@@ -53,8 +53,7 @@
                     <option value="yahoo.com">yahoo.com</option>
                 </select>
             </div>
-            <input type="button" id="emailBtn" class="btn btn-primary" th:onclick="'sendEmail(\'' + ${type} + '\')'"
-                   value="인증번호 받기"/>
+            <input type="button" id="emailBtn" class="btn btn-primary" onclick="sendEmail()" value="인증번호 받기"/>
             <div class="timer"></div>
             <label for="authNumber">인증번호</label>
             <input type="text" id="emailauthNumber" class="form-control number-only" disabled>
@@ -91,14 +90,13 @@
             $("#emailDomain").prop('disabled', true);
         }
     }
-    function sendEmail(type) {
+    function sendEmail() {
         console.log($("#emailId").val());
         console.log($("#emailDomain").val());
         if ($("#emailId").val()&&$("#emailDomain").val()) {
             let query = {
                 email: $("#emailId").val()+"@"+$("#emailDomain").val()
             };
-            
             $.ajax({
                 type: "post",
                 url: "/email",
@@ -141,7 +139,7 @@
             })
         }
     }
-    function sendPhone(type) {
+    function sendPhone() {
         const phoneInput = document.getElementById('phone');
         if (phoneInput) {
             const phone = phoneInput.value;

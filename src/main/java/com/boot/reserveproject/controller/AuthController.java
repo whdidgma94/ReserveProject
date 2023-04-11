@@ -84,7 +84,6 @@ public class AuthController {
         if(memberService.validEmail(email)){
             return "false";
         }
-        System.out.println("email = " + email);
         EmailMessage emailMessage = EmailMessage.builder()
                 .to(email)
                 .subject("[어서y] 이메일 인증 코드")
@@ -92,7 +91,6 @@ public class AuthController {
 
         String code = authService.sendMail(emailMessage, "email");
         session.setAttribute("authCode", code);
-        System.out.println("1code = " + code);
         return "true";
     }
 
