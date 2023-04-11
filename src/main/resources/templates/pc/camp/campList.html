@@ -1,10 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src=""></script>
+<head th:replace="~{pc/fragments/header :: header}">
+    <style>
+        .tempCampBox {
+            box-sizing: border-box;
+            border: 1px black solid;
+        }
+    </style>
 </head>
 <body>
+<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
+<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
+<div class="view">
+    <h1>시작</h1>
+    <div th:each="camp, idx : ${campList}">
+        <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">
+            <div class="campBoxLeft">
+                <img style="width: 15%" th:src="${camp.firstImageUrl}"/>
+            </div>
+            <div class="campBoxRight">
+                <div class="campText">
+                    [ <span th:text="${camp.doNm}"></span>
+                    <span th:text="${camp.sigunguNm}"></span> ]
+                </div>
+                <div class="campText" th:text="${camp.facltNm}"></div>
+                <div class="campText" th:text="${camp.lineIntro}"></div>
+            </div>
+            <div class="campBoxBottom">
+                <div class="campSbrsClBox">
+                    <!--                <div class="sbrsCl sbrsCl-[[${idx.index}]]">th:text='[[${idx.index}]]'</div>-->
+                    <div class="campSbrsClBox" th:each="sbrsCl : ${sbrsClList[__${idx.index}__]}">
+                        <div class="campText" th:each="C : ${sbrsCl}" th:text="${C}"></div>
+                    </div>
+                </div>
+                <!--                <div class="campSbrsClBox">-->
+                <!--                    <div th:each="thema : ${themaList[__${idx.index}__]}">-->
+                <!--                        <div class="campText" th:each="T : ${thema}">-->
+                <!--                            <div th:text="${T}"></div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+            </div>
+        </div>
+    </div>
 
+    <div th:replace="~{pc/fragments/footer :: footer}"/>
+</div>
 </body>
+<script>
+    function details(contentId) {
+        location.href = "detailCamp?contentId=" + contentId;
+    }
+
+    // function showSbrsCl(camp) {
+    //     let sbrsCl = `[[${camp.sbrsCl}]]`;
+    //     const sbrsClDiv = document.querySelector(".sbrsCl");
+    //     let clList = sbrsCl.split(",");
+    //     console.log(sbrsCl);
+    //     console.log(sbrsClDiv);
+    //     console.log(clList);
+    //     for(let i = 0 ; i < clList.length ; i++){
+    //         if(clList[i]==="전기"){
+    //             sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>전기</div><i class="fa-solid fa-bolt"></i></div>`;
+    //         }else if(clList[i]==="무선인터넷"){
+    //             sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>와이파이</div><i class="fa-solid fa-wifi"></i></div>`;
+    //         }
+    //         else if(clList[i]==="장작판매"){
+    //             sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>장작판매</div><i class="fa-sharp fa-solid fa-fire"></i></div>`;
+    //         }
+    //         else if(clList[i]==="온수"){
+    //             sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>온수</div><i class="fa-solid fa-thermometer-full"></i></div>`;
+    //         }
+    //         else if(clList[i]==="트렘폴린"){
+    //             sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>트렘폴린</div><i class="fa-solid fa-person-arrow-up-from-line"></i></div>`;
+    //         }
+    //         else if(clList[i]==="물놀이장"){
+    //             sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>물놀이장</div><i class="fa-solid fa-swimmer"></i></div>`;
+    //         }
+    //         else if(clList[i]==="놀이터"){
+    //             sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>놀이터</div><i class="fa-solid fa-rocket"></i></div>`;
+    //         }
+    //         else if(clList[i]==="산책로"){
+    //             sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>산책로</div><i class="fa-solid fa-hiking"></i></div>`;
+    //         }
+    //         else if(clList[i]==="운동시설"){
+    //             sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>운동시설</div><i class="fa-solid fa-dumbbell"></i></div>`;
+    //         }
+    //         else if(clList[i]==="마트.편의점"){
+    //             sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>마트/편의점</div><i class="fa-solid fa-shopping-cart"></i></div>`;
+    //         }
+    //         else if(clList[i]==="운동장"){
+    //             sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>운동장</div><i class="fa-solid fa-baseball-ball"></i></div>`;
+    //         }
+    //     }
+    // }
+    // window.onload = function () {
+    //     const tempCampBoxes = document.querySelectorAll(".tempCampBox");
+    //     for (let i = 0; i < tempCampBoxes.length; i++) {
+    //         showSbrsCl(tempCampBoxes[i].dataset);
+    //     }
+    // };
+
+
+</script>
+</html>
+
 </html>
