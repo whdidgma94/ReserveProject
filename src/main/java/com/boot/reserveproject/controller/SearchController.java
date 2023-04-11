@@ -65,6 +65,10 @@ public class SearchController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("search/address")
+    public String showAddressList(){
+        return "pc/search/searchAddress";
+    }
 
 
 
