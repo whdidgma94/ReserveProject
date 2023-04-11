@@ -82,8 +82,9 @@ li{
 }
 .logo{
     margin-left:40px;
-    font-size: 90px;
-    font-family: 'Dongle', sans-serif;
+}
+.logo img{
+    width:40%;
 }
 .header .icon{
     margin-right:40px;
