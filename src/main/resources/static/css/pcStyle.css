@@ -15,13 +15,15 @@ body{
     height: 100px;
     position: fixed;
     color:green;
-    background-color: lightgreen;
+    background-color: white;
     border-radius:0px 0px 10px 10px;
     display:flex;
     flex-direction:row;
     justify-content:space-between;
     align-items:center;
     z-index:2;
+    -webkit-box-shadow: 0px 2px 27px 2px rgba(0,0,0,0.32);
+    box-shadow: 0px 2px 27px 2px rgba(0,0,0,0.32);
 }
 .view{
     width:90%;
@@ -102,4 +104,17 @@ ul{
     text-align:center;
     border-radius:10px;
     justify-content:space-around;
+}
+.site-info{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding :10px;
+}
+.site-info .row div{
+    padding:10px;
+    border:1px solid;
+}
+.row{
+    margin:10px;
 }
