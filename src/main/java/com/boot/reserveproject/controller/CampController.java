@@ -32,19 +32,6 @@ public class CampController {
         return "pc/camp/campList";
     }
 
-//    @GetMapping("/themaList")
-//    public List<String> getThemaList() {
-//        return campService.findAllThema();
-//    }
-//    @GetMapping("/camp/{thema}")
-//    public Camp getCampByThema(@PathVariable String thema) {
-//        return campService.findByThema(thema);
-//    }
-//    @GetMapping("/camp/search")
-//    public List<Camp> searchCampsByLocation(@RequestParam String keyword) {
-//        return campService.findByLocation(keyword);
-//    }
-
     private void campString(Model model) {
         List<Camp> campList = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
@@ -86,7 +73,4 @@ public class CampController {
         model.addAttribute("campImageList", campImageList);
         return "pc/camp/campDetail";
     }
-
-
-
 }

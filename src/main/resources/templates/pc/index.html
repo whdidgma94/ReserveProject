@@ -131,14 +131,13 @@
     <div class="ranViewBox">
         <div class="ranViewTitleBox">
             <button onclick="prevWord()">Previous</button>
-            <div id="ranThema"></div>
+            <div id="rancltCl"></div>
             <button onclick="nextWord()">Next</button>
         </div>
         <div class="ranViewImageBox">
             <div class="ranViewImage" th:each="camp : ${campList}" th:onclick="|details(${camp.contentId})|">
                 <img style="width: 200%" th:src="${camp.firstImageUrl}"/>
             </div>
-
         </div>
     </div>
     <hr>
@@ -192,43 +191,55 @@
         location.href = "detailCamp?contentId=" + contentId;
     }
 
-    var themaList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];
+    var cltList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];
     var index = 0;
-    var ranThemaBox = document.getElementById("ranThema");
+    var ranCltBox = document.getElementById("rancltCl");
     function prevWord() {
         if (index <= 0) {
-            index = themaList.length - 1;
+            index = cltList.length - 1;
         } else {
             index--;
         }
-        ranThemaBox.innerHTML = themaList[index];
+        ranCltBox.innerHTML = cltList[index];
     }
     function nextWord() {
-        if (index >= themaList.length - 1) {
+        if (index >= cltList.length - 1) {
             index = 0;
         } else {
             index++;
         }
-        ranThemaBox.innerHTML = themaList[index];
+        ranCltBox.innerHTML = cltList[index];
     }
-    ranThemaBox.innerHTML = themaList[index];
+    ranCltBox.innerHTML = cltList[index];
 
-    // function loadThemaList() {
+    // function fetchData() {
+    //     var keyword = document.getElementById("rancltCl").innerHTML;
+    //
     //     $.ajax({
-    //         url: "/themaList",
     //         type: "GET",
-    //         dataType: "json",
-    //         console.log("ajax들어왔다")
+    //         url: "/api/camps?keyword=" + keyword,
+    //         console.log("1")
     //         success: function(data) {
-    //             console.log("ajax들어왔다-성공적")
+    //             var ranViewImageBox = document.querySelector(".ranViewImageBox");
+    //             ranViewImageBox.innerHTML = "";
+    //             console.log("2")
+    //             data.forEach(function(camp) {
+    //                 var ranViewImage = document.createElement("div");
+    //                 ranViewImage.classList.add("ranViewImage");
+    //
+    //                 var img = document.createElement("img");
+    //                 img.style.width = "200%";
+    //                 img.src = camp.firstImageUrl;
+    //
+    //                 ranViewImage.appendChild(img);
+    //                 ranViewImageBox.appendChild(ranViewImage);
+    //             });
     //         },
-    //         error: function(xhr, status, error) {
-    //             console.log("ajax들어왔다-실패적")
-    //             console.log(error);
+    //         error: function() {
+    //             console.log("Error occurred during data fetching.");
     //         }
     //     });
     // }
-    // loadThemaList();
 
 </script>
 </html>

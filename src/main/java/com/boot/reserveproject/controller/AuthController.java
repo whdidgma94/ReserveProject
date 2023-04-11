@@ -31,7 +31,7 @@ public class AuthController {
             if (!memberService.validPhoneNumber(phone)) {
                 return "false";
             }
-        }else if(type.equals("findIdByPhone")){
+        } else if (type.equals("findIdByPhone")) {
             if (memberService.validPhoneNumber(phone)) {
                 return "false";
             }
@@ -55,33 +55,29 @@ public class AuthController {
             return "false";
         }
     }
-    @ResponseBody
+
     @PostMapping("/password")
     public String sendPassword(@RequestParam("type") String type, @RequestParam("address") String address) {
-        if(type.equals("email")){
-            if(memberService.validEmail(address)){
-                return "false";
-            }
+        String code = null;
+        if (type.equals("email")) {
             EmailMessage emailMessage = EmailMessage.builder()
                     .to(address)
                     .subject("[어서y] 임시 비밀번호 발급")
                     .build();
-        authService.sendMail(emailMessage, "password");
-        }else if(type.equals("phone")){
-            if (memberService.validPhoneNumber(address)) {
-                return "false";
-            }
-            authService.sendPhone(address, "password");
+            code = authService.sendMail(emailMessage, "password");
+        } else if (type.equals("phone")) {
+            code = authService.sendPhone(address, "password");
         }
+        System.out.println("type = "+type);
+        memberService.updateTemp(type,address,code);
 
-
-
-        return "true";
+        return "pc/index";
     }
+
     @ResponseBody
     @PostMapping("/email")
     public String sendAuthMail(@RequestParam("email") String email, HttpSession session) {
-        if(memberService.validEmail(email)){
+        if (memberService.validEmail(email)) {
             return "false";
         }
         EmailMessage emailMessage = EmailMessage.builder()

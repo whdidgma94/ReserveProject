@@ -54,4 +54,9 @@ public class CampService {
         List<Camp> campList = campRepository.selectListByLocation(sido,sigoon);
         return campList;
     }
+
+    public List<Camp> findBylctCl(String keyword){
+        List<Camp> campList = campRepository.findBylctCl(keyword);
+        return campList;
+    }
 }
