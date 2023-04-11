@@ -28,6 +28,7 @@ public class MemberController {
         return "pc/member/memberJoinForm";
     }
 
+
     @PostMapping("/member/new")
     public String joinMember(@Valid MemberForm form, BindingResult result) {
         if(result.hasErrors()){
