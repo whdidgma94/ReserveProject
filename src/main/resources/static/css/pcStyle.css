@@ -14,7 +14,7 @@ body{
     width: 70%;
     height: 100px;
     position: fixed;
-    color:green;
+    color:lightgray;
     background-color: white;
     border-radius:0px 0px 10px 10px;
     display:flex;
