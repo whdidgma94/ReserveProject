@@ -124,3 +124,47 @@ ul{
 .row{
     margin:10px;
 }
+.slider{
+    width:100%;
+}
+.campImg{
+    width:100%;
+    cursor:pointer;
+}
+.campInfoTable td{
+    width:50%;
+}
+.campMainImg{
+    width:100%;
+}
+.slick-prev,
+.slick-next {
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    display: block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 0;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.slick-prev {
+    left: 20px;
+}
+
+.slick-next {
+    right: 20px;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
