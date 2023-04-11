@@ -3,7 +3,6 @@ package com.boot.reserveproject.service;
 
 import com.boot.reserveproject.domain.EmailMessage;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import net.nurigo.java_sdk.api.Message;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -16,7 +15,6 @@ import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Random;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -38,7 +36,6 @@ public class AuthService {
             msg = "[어서y]인증번호는 [" + code + "] 입니다";
 
         }
-        System.out.println("phone="+phone);
         HashMap<String, String> params = new HashMap<>();
         params.put("to", phone);
         params.put("from", "010-4134-2824");
@@ -57,25 +54,21 @@ public class AuthService {
     }
 
     public String sendMail(EmailMessage emailMessage, String type) {
-        String authNum = createCode();
+        String code = createCode();
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-
-        if (type.equals("password")) memberService.updateTemp("email", emailMessage.getTo(), authNum);
 
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
             mimeMessageHelper.setTo(emailMessage.getTo());
             mimeMessageHelper.setSubject(emailMessage.getSubject());
-            mimeMessageHelper.setText(setContext(authNum, type), true);
+            mimeMessageHelper.setText(setContext(code, type), true);
             javaMailSender.send(mimeMessage);
 
-            log.info("Success");
 
-            return authNum;
+            return code;
 
         } catch (MessagingException e) {
-            log.info("fail");
             throw new RuntimeException(e);
         }
     }
@@ -100,7 +93,6 @@ public class AuthService {
         return key.toString();
     }
 
-    // thymeleaf를 통한 html 적용
     public String setContext(String code, String type) {
         Context context = new Context();
         context.setVariable("code", code);

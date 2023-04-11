@@ -12,57 +12,63 @@
         <hr>
         <span th:text="${type == 'id'}? '아이디를 찾을 방법을 선택하세요' : '비밀번호를 찾을 방법을 선택하세요'"></span>
     </div>
-        <label for="findByPhone">
-            <input type="radio" id="findByPhone" name="authMethod">
-            회원 정보에 등록한 휴대전화로 인증
-        </label>
-        <div id="byPhone">
-            <label th:style="${type=='id'}? 'display:none'">이름</label>
-            <input type="text" id="name" class="form-control number-only" th:style="${type=='id'}? 'display:none'"/>
-            <label for="phone">전화번호</label>
-            <input type="number" id="phone" class="form-control number-only"
-                   placeholder="-를 제외한 숫자만 입력하세요"/>
-            <input type="button" id="phoneBtn" class="btn btn-primary" onclick="sendPhone()" value="인증번호 받기"/>
-            <div class="timer"></div>
-            <label for="authNumber">인증번호</label>
-            <input type="number" id="authNumber" class="form-control number-only" disabled>
-            <input type="button" id="authBtn" class="btn btn-primary" onclick="AuthCode('#authNumber')" value="확인" style="display: none;"/>
-        </div>
+    <label for="findByPhone">
+        <input type="radio" id="findByPhone" name="authMethod">
+        회원 정보에 등록한 휴대전화로 인증
+    </label>
+    <div id="byPhone">
+        <label th:style="${type=='id'}? 'display:none'">이름</label>
+        <input type="text" id="name" class="form-control number-only" th:style="${type=='id'}? 'display:none'"/>
+        <label for="phone">전화번호</label>
+        <input type="number" id="phone" class="form-control number-only"
+               placeholder="-를 제외한 숫자만 입력하세요"/>
+        <input type="button" id="phoneBtn" class="btn btn-primary" onclick="sendPhone()" value="인증번호 받기"/>
+        <div class="timer"></div>
+        <label for="authNumber">인증번호</label>
+        <input type="number" id="authNumber" class="form-control number-only" disabled>
+        <input type="button" id="authBtn" class="btn btn-primary" onclick="AuthCode('#authNumber')" value="확인"
+               style="display: none;"/>
     </div>
-    <hr>
-        <label for="findByEmail">
-            <input type="radio" id="findByEmail" name="authMethod">
-            회원 정보에 등록한 이메일로 인증
-        </label>
-        <div id="byEmail">
-            <label th:style="${type=='id'}? 'display:none'">이름</label>
-            <input type="text" id="emailname" class="form-control number-only" th:style="${type=='id'}? 'display:none'"/>
-            <label th:for="emailId">Email</label>
-            <div class="input-group">
-                <input type="text" id="emailId" class="form-control">
-                <span class="input-group-text">@</span>
-                <input type="text" id="emailDomain" class="form-control">
-                <select class="select form-control" onchange="setEmailDomain(this.value);">
-                    <option value="">직접입력</option>
-                    <option value="naver.com">naver.com</option>
-                    <option value="gmail.com">gmail.com</option>
-                    <option value="hanmail.net">hanmail.net</option>
-                    <option value="hotmail.com">hotmail.com</option>
-                    <option value="korea.com">korea.com</option>
-                    <option value="nate.com">nate.com</option>
-                    <option value="yahoo.com">yahoo.com</option>
-                </select>
-            </div>
-            <input type="button" id="emailBtn" class="btn btn-primary" onclick="sendEmail()" value="인증번호 받기"/>
-            <div class="timer"></div>
-            <label for="authNumber">인증번호</label>
-            <input type="text" id="emailauthNumber" class="form-control number-only" disabled>
-            <input type="button" id="emailauthBtn" class="btn btn-primary" onclick="AuthCode('#emailauthNumber')" value="확인" style="display: none;"/>
-        </div>
+</div>
+<hr>
+<label for="findByEmail">
+    <input type="radio" id="findByEmail" name="authMethod">
+    회원 정보에 등록한 이메일로 인증
+</label>
+<div id="byEmail">
+    <label th:style="${type=='id'}? 'display:none'">이름</label>
+    <input type="text" id="emailname" class="form-control number-only" th:style="${type=='id'}? 'display:none'"/>
+    <label th:for="emailId">Email</label>
+    <div class="input-group">
+        <input type="text" id="emailId" class="form-control">
+        <span class="input-group-text">@</span>
+        <input type="text" id="emailDomain" class="form-control">
+        <select class="select form-control" onchange="setEmailDomain(this.value);">
+            <option value="">직접입력</option>
+            <option value="naver.com">naver.com</option>
+            <option value="gmail.com">gmail.com</option>
+            <option value="hanmail.net">hanmail.net</option>
+            <option value="hotmail.com">hotmail.com</option>
+            <option value="korea.com">korea.com</option>
+            <option value="nate.com">nate.com</option>
+            <option value="yahoo.com">yahoo.com</option>
+        </select>
     </div>
+    <input type="button" id="emailBtn" class="btn btn-primary" onclick="sendEmail()" value="인증번호 받기"/>
+    <div class="timer"></div>
+    <label for="authNumber">인증번호</label>
+    <input type="text" id="emailauthNumber" class="form-control number-only" disabled>
+    <input type="button" id="emailauthBtn" class="btn btn-primary"
+           onclick="AuthCode('#emailauthNumber')"
+           value="확인" style="display: none;"/>
+
+</div>
+</div>
 <div th:replace="pc/fragments/footer :: footer"/>
 </body>
-<script>
+<script th:inline="javascript">
+    let type = [[${type}]];
+
     document.getElementById("findByPhone").checked = true;
     document.getElementById("byPhone").style.display = "block";
     document.getElementById("byEmail").style.display = "none";
@@ -81,6 +87,7 @@
     });
 
     let timer;
+
     function setEmailDomain(domain) {
         if (domain == "") {
             $("#emailDomain").val("");
@@ -90,12 +97,11 @@
             $("#emailDomain").prop('disabled', true);
         }
     }
+
     function sendEmail() {
-        console.log($("#emailId").val());
-        console.log($("#emailDomain").val());
-        if ($("#emailId").val()&&$("#emailDomain").val()) {
+        if ($("#emailId").val() && $("#emailDomain").val()) {
             let query = {
-                email: $("#emailId").val()+"@"+$("#emailDomain").val()
+                email: $("#emailId").val() + "@" + $("#emailDomain").val()
             };
             $.ajax({
                 type: "post",
@@ -139,6 +145,7 @@
             })
         }
     }
+
     function sendPhone() {
         const phoneInput = document.getElementById('phone');
         if (phoneInput) {
@@ -152,7 +159,7 @@
         if ($("#phone").val()) {
             let query = {
                 phone: $("#phone").val().replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
-                type:"findIdByPhone"
+                type: "findIdByPhone"
             };
             $.ajax({
                 type: "post",
@@ -214,7 +221,32 @@
                         swal('인증 성공', '인증이 완료되었습니다.', 'success');
                         clearInterval(timer);
                         $(".timer").text("");
+                        let url = "";
+                        if (type === 'id') {
+                            url = "/id"
+                        } else {
+                            url = "/password"
+                        }
+                        if ($("#phone").val()) {
+                            query = {
+                                address: $("#phone").val().replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+                                type: "phone"
+                            };
+                        } else {
+                            query = {
+                                address: $("#emailId").val() + "@" + $("#emailDomain").val(),
+                                type: "email"
+                            };
+                        }
 
+                        $.ajax({
+                            type: "post",
+                            url: url,
+                            data: query,
+                            success: function (data) {
+                                swal('전송 완료', '임시 비밀번호가 전송되었습니다. 확인 후 로그인 해주세요.', 'success');
+                            }
+                        });
                     }
                 }
             });
