@@ -46,7 +46,8 @@ public class AuthController {
     @ResponseBody
     public String auth(@RequestParam("code") String code, HttpSession session) throws IOException {
         String authCode = (String) session.getAttribute("authCode");
-
+        System.out.println("2code = " + code);
+        System.out.println("2authCode = " + authCode);
         if (authCode.equals(code)) {
             session.removeAttribute("authCode");
             return "true";
@@ -83,6 +84,7 @@ public class AuthController {
         if(memberService.validEmail(email)){
             return "false";
         }
+        System.out.println("email = " + email);
         EmailMessage emailMessage = EmailMessage.builder()
                 .to(email)
                 .subject("[어서y] 이메일 인증 코드")
@@ -90,6 +92,7 @@ public class AuthController {
 
         String code = authService.sendMail(emailMessage, "email");
         session.setAttribute("authCode", code);
+        System.out.println("1code = " + code);
         return "true";
     }
 
