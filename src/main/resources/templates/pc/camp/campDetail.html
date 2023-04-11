@@ -46,7 +46,7 @@
                 <div class="card">
                     <img class="card-img-top" th:src="${camp.firstImageUrl}" alt="">
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table table-bordered">
                             <tbody>
                             <tr>
                                 <th scope="col">주소</th>
@@ -100,29 +100,33 @@
         </div>
         <div class="row">
             <h3>캠핑장 소개</h3>
-            <div th:text="${camp.intro}"></div>
+            <table class="table table-bordered">
+                <td th:text="${camp.intro}"></td>
+            </table>
         </div>
         <div class="row">
-            <div style="width: 100%;">
+            <div class="table-responsive">
                 <h3>사이트 정보</h3>
-                <div class="site-info">
-                    <div class="row">
-                        <div class="col-sm-3">사이트 개수</div>
-                        <div class="col-sm-9" th:text="${camp.siteCount}"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">사이트 간격</div>
-                        <div class="col-sm-9" th:text="${camp.sitedStnc}"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">사이트 별 크기</div>
-                        <div class="col-sm-9" th:text="${camp.site}"></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-3">사이트 종류</div>
-                        <div class="col-sm-9" th:text="${camp.siteBottom}"></div>
-                    </div>
-                </div>
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <td>사이트 개수</td>
+                        <td th:text="${camp.siteCount}"></td>
+                    </tr>
+                    <tr>
+                        <td>사이트 간격</td>
+                        <td th:text="${camp.sitedStnc}"></td>
+                    </tr>
+                    <tr>
+                        <td>사이트 별 크기</td>
+                        <td th:text="${camp.site}"></td>
+                    </tr>
+                    <tr>
+                        <td>사이트 종류</td>
+                        <td th:text="${camp.siteBottom}"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>
