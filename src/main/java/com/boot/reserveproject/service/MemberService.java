@@ -79,6 +79,9 @@ public class MemberService {
         } else {
             memberRepository.updateTempByEmail(code, address);
         }
+        System.out.println("address = " + address);
+        System.out.println("code = " + code);
+        System.out.println("type = " + type);
     }
 
     public Member selectMemberById(String loginId) {
