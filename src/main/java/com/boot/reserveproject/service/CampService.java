@@ -50,4 +50,22 @@ public class CampService {
     public Camp selectOneById(Long id) {
         return campRepository.selectOneById(id);
     }
+
+//
+//    public List<String> findAllThema() {
+//        return campRepository.findAllThema();
+//    }
+//
+//    public Camp findByThema(String thema) {
+//        return campRepository.findByThema(thema);
+//    }
+//
+//    public List<Camp> findByLocation(String keyword) {
+//        return campRepository.findByLocation(keyword);
+//    }
+
+
+
+
+
 }
