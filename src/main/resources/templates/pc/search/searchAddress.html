@@ -11,26 +11,26 @@
 <div class="view">
   <h1>지역별검색</h1>
   <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
-  <form id="nsdiSearchForm" action="#" class="form_data" onsubmit="return false;search();">
-
-    <select id="sido_code">
-      <option>선택</option>
-    </select>
-    <select id="sigoon_code">
-      <option>선택</option>
-    </select>
-
-
-  </form>
+  <select id="sido_code">
+    <option>전체</option>
+  </select>
+  <select id="sigoon_code">
+    <option>전체</option>
+  </select>
+  <button class="btn btn-outline-success" type="button" id="search-icon" onclick="search()">검색</button>
   <script>
     const replaceList = [
+
       ["서울특별시", "서울시"],
       ["부산광역시", "부산시"],
       ["대구광역시", "대구시"],
       ["인천광역시", "인천시"],
       ["광주광역시", "광주시"],
       ["대전광역시", "대전시"],
-      []
+      ["울산광역시", "울산시"],
+      ["세종특별자치시", "세종시"],
+      ["제주특별자치도", "제주도"]
+
 
 
       // ... 추가 조건
@@ -45,12 +45,17 @@
         async: false,
         dataType: 'jsonp',
         success: function(data) {
-          let html = "<option>선택</option>";
+          let html = "<option>전체</option>";
 
           data.response.result.featureCollection.features.forEach(function(f){
             console.log(f.properties)
             let locationCd = f.properties.ctprvn_cd;
             let locationNm = f.properties.ctp_kor_nm;
+            for(let i=0;i<replaceList.length;i++){
+              if(locationNm==replaceList[i][0]){
+                locationNm=replaceList[i][1];
+              }
+            }
 
             html +=`<option value="${locationCd}">${locationNm}</option>`
 
@@ -73,17 +78,24 @@
           async: false,
           dataType: 'jsonp',
           success: function(data) {
-            let html = "<option>선택</option>";
+            let html = "<option>전체</option>";
+            let addedValues = {}; // 중복 검사를 위한 객체
 
             data.response.result.featureCollection.features.forEach(function(f){
               console.log(f.properties)
-              let 행정구역코드 = f.properties.sig_cd;
-              let 행정구역명 = f.properties.sig_kor_nm;
-              행정구역명 = 행정구역명.replace(/\s+.*/, '');
+              let locationCd = f.properties.sig_cd;
+              let locationNm = f.properties.sig_kor_nm;
+              locationNm = locationNm.replace(/\s+.*/, '');
+
+              // 중복 검사 수행
+              if (!addedValues[locationNm]) {
+                html +=`<option value="${locationCd}">${locationNm}</option>`
+                addedValues[locationNm] = true; // 중복 검사를 위한 객체에 값 추가
+              }
 
 
 
-              html +=`<option value="${행정구역코드}">${행정구역명}</option>`
+
 
             })
             $('#sigoon_code').html(html);
@@ -96,6 +108,27 @@
       });
 
     })
+    function search() {
+      let sido = $('#sido_code option:selected').text();
+      let sigoon = $('#sigoon_code option:selected').text();
+
+      $.ajax({
+
+        url: '/search/addressSearch',
+        type: 'GET',
+        data: {
+          sido: sido, sigoon: sigoon
+
+        },
+
+        success: function(result) {
+          alert(result);
+        },
+      });
+
+    }
+
+
   </script>
   <div th:replace="~{pc/fragments/footer :: footer}" />
 </div>

@@ -50,4 +50,8 @@ public class CampService {
     public Camp selectOneById(Long id) {
         return campRepository.selectOneById(id);
     }
+    public List<Camp> selectListByLocation(String sido,String sigoon){
+        List<Camp> campList = campRepository.selectListByLocation(sido,sigoon);
+        return campList;
+    }
 }

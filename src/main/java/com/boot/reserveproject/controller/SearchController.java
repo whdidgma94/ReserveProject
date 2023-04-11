@@ -4,6 +4,7 @@ import com.boot.reserveproject.domain.Camp;
 import com.boot.reserveproject.repository.CampRepository;
 import com.boot.reserveproject.service.CampService;
 import com.boot.reserveproject.service.MemberService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
@@ -12,10 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,8 +65,38 @@ public class SearchController {
     }
     @GetMapping("search/address")
     public String showAddressList(){
+
         return "pc/search/searchAddress";
     }
+//    @RequestMapping(value = "/search/addressSearch", method = RequestMethod.GET)
+//    @ResponseBody
+//    public String searchAddress(@RequestParam(value="sido") String sido, @RequestParam(value="sigoon") String sigoon) {
+//        System.out.println("sido:  "+sido);
+//        System.out.println("sigoon:   "+sigoon);
+//        String result = "abc";
+//        return result.toString();
+//    }
+@GetMapping("/search/addressSearch")
+public ResponseEntity<Object> showListByAddress(@RequestParam(value = "sido", required = false) String sido, @RequestParam(value="sigoon", required=false) String sigoon) {
+    if(sido.equals("전체")){
+        sido="";
+    }
+    if(sigoon.equals("전체")){
+        sigoon="";
+    }
+        System.out.println("sido: "+sido+" sigoon:  "+sigoon);
+    List<Camp> campList = searchByLocation(sido,sigoon);
+    System.out.println("지역검색 캠프리스트 길이: "+campList.size());
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+        String jsonString = mapper.writeValueAsString(campList);
+        return new ResponseEntity<>(jsonString, HttpStatus.OK);
+    } catch (JsonProcessingException e) {
+        e.printStackTrace();
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+}
+
 
 
 
@@ -89,5 +117,9 @@ public class SearchController {
 
         return campList;
 
+    }
+    public List<Camp> searchByLocation(String sido,String sigoon){
+        List<Camp>campList=campService.selectListByLocation(sido,sigoon);
+        return campList;
     }
 }

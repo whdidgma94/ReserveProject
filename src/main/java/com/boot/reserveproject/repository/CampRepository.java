@@ -33,5 +33,7 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
 
     @Query("select c from Camp c where c.themaEnvrnCl = :themaEnvrnCl")
     List<Camp> selectThemaEnvrnCl(@Param("themaEnvrnCl") String themaEnvrnCl);
+    @Query("select c from Camp c where c.doNm Like %:sido% AND c.sigunguNm Like %:sigoon%")
+    List<Camp> selectListByLocation(@Param("sido") String sido,@Param("sigoon") String sigoon);
 
 }
