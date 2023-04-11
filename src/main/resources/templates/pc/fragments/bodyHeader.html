@@ -5,6 +5,7 @@
     <div class="icon open-sidebar-btn" onclick="viewSideBar()"><i class="fa-solid fa-bars"></i></div>
 </div>
 <div class="side-bar" th:fragment="side-bar">
+    <div><img src="/img/어서와영side.png"></div>
     <ul>
         <li class="nav-item">
             <a class="nav-link" href="#">
@@ -44,7 +45,7 @@
         </li>
 
     </ul>
-    <div>캐릭터 자리</div>
+
     <div>
     <h3 th:if="${session.log != null}" th:text="${session.log}"></h3>
     </div>
