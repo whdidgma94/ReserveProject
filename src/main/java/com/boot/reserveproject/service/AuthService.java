@@ -65,9 +65,9 @@ public class AuthService {
 
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-            mimeMessageHelper.setTo(emailMessage.getTo()); // 메일 수신자
-            mimeMessageHelper.setSubject(emailMessage.getSubject()); // 메일 제목
-            mimeMessageHelper.setText(setContext(authNum, type), true); // 메일 본문 내용, HTML 여부
+            mimeMessageHelper.setTo(emailMessage.getTo());
+            mimeMessageHelper.setSubject(emailMessage.getSubject());
+            mimeMessageHelper.setText(setContext(authNum, type), true);
             javaMailSender.send(mimeMessage);
 
             log.info("Success");
@@ -79,8 +79,6 @@ public class AuthService {
             throw new RuntimeException(e);
         }
     }
-
-    // 인증번호 및 임시 비밀번호 생성 메서드
     public String createCode() {
         Random random = new Random();
         StringBuffer key = new StringBuffer();

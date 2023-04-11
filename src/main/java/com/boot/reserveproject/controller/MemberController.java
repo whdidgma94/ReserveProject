@@ -31,15 +31,15 @@ public class MemberController {
 
     @PostMapping("/member/new")
     public String joinMember(@Valid MemberForm form, BindingResult result) {
-        if(result.hasErrors()){
-            return "redirect:/member/new";
-        }
+//        if(result.hasErrors()){
+//            return "redirect:/member/new";
+//        }
 
         Member member = new Member();
         member.setName(form.getName());
         member.setLoginId(form.getLoginId());
         member.setPw(form.getPw());
-        System.out.println("123" + form.getEmailDomain());
+        System.out.println("domain = " + form.getEmailDomain());
         member.setEmail(form.getEmailId()+"@"+form.getEmailDomain());
         member.setPostcode(form.getPostcode());
         member.setRoadAddress(form.getRoadAddress());
@@ -100,18 +100,11 @@ public class MemberController {
         return "pc/member/memberMyPage";
     }
 
-    @GetMapping("/member/findId")
-    public String findIdForm(Model model) {
-        model.addAttribute("memberForm", new MemberForm());
-
-        return "pc/member/memberFindId";
+    @GetMapping("/member/find")
+    public String findId(@RequestParam("type") String type, Model model) {
+        model.addAttribute("type", type);
+        return "pc/member/memberFindAccount";
     }
 
-    @GetMapping("/member/findPw")
-    public String findPw(Model model) {
-        model.addAttribute("memberForm", new MemberForm());
-
-        return "pc/member/memberFindId";
-    }
 
 }
