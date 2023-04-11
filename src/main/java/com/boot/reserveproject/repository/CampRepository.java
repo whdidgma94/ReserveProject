@@ -26,6 +26,7 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
     @Query("select c from Camp c where c.id = :id")
     Camp selectOneById(@Param("id") Long id);
 
+
 //    List<Camp> findByfacltNmContaining(String keyword);
 //    List<Camp> findByMapXBetweenAndMapYBetweenAndFacltNmContaining(double southWestLat, double southWestLng, double northEastLat, double northEastLng, String keyword);
 //    List<Camp> findBythemaEnvrnClContaining(String keyword);
@@ -36,4 +37,12 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
     @Query("select c from Camp c where c.doNm Like %:sido% AND c.sigunguNm Like %:sigoon%")
     List<Camp> selectListByLocation(@Param("sido") String sido,@Param("sigoon") String sigoon);
 
+//    @Query("SELECT c.lctCl FROM Camp c")
+//    List<String> findAllThema();
+//
+//    @Query("SELECT c FROM Camp c WHERE c.lctCl = :thema")
+//    Camp findByThema(@Param("thema") String thema);
+//
+//    @Query("SELECT c FROM Camp c WHERE c.lctCl LIKE %:keyword%")
+//    List<Camp> findByLocation(@Param("keyword") String keyword);
 }

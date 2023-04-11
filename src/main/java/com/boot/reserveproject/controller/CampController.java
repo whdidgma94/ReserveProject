@@ -32,10 +32,24 @@ public class CampController {
         return "pc/camp/campList";
     }
 
+//    @GetMapping("/themaList")
+//    public List<String> getThemaList() {
+//        return campService.findAllThema();
+//    }
+//    @GetMapping("/camp/{thema}")
+//    public Camp getCampByThema(@PathVariable String thema) {
+//        return campService.findByThema(thema);
+//    }
+//    @GetMapping("/camp/search")
+//    public List<Camp> searchCampsByLocation(@RequestParam String keyword) {
+//        return campService.findByLocation(keyword);
+//    }
+
     private void campString(Model model) {
         List<Camp> campList = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
             Camp camp = campService.selectOneById((long) i);
+            System.out.println("i = " + i);
             if (camp != null) {
                 campList.add(camp);
             }
@@ -49,12 +63,14 @@ public class CampController {
             String[] sbrsCl = tempSbrsCl.split(",");
             sbrsClList.add(Arrays.asList(sbrsCl));
 
-            String[] thema = {"없음"};
+            String[] thema = {"즐거운캠핑"};
             if (!campList.get(i).getThemaEnvrnCl().equals("")) {
                 thema = campList.get(i).getThemaEnvrnCl().split(",");
             }
             themaList.add(Arrays.asList(thema));
+
             System.out.println(Arrays.toString(thema));
+            System.out.println(Arrays.toString(sbrsCl));
         }
         model.addAttribute("sbrsClList", sbrsClList);
         model.addAttribute("themaList", themaList);
@@ -70,5 +86,7 @@ public class CampController {
         model.addAttribute("campImageList", campImageList);
         return "pc/camp/campDetail";
     }
+
+
 
 }

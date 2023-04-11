@@ -4,9 +4,44 @@
 <script src=""></script>
 <head th:replace="~{pc/fragments/header :: header}"/>
 <style>
+    .ranViewBox {
+        height: 250px;
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        margin-right: 5px;
+    }
+    .ranViewTitleBox{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .ranViewImageBox {
+        height: 180px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .ranViewImage {
+        width: 20%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-clip-margin: content-box;
+        overflow: clip;
+
+        margin-right: 3px;
+    }
+
     .tempCampBox {
-        box-sizing: border-box;
-        border: 1px black solid;
         height: 300px;
         width: 100%;
 
@@ -15,31 +50,47 @@
         align-items: center;
 
         flex-direction: column;
+
+        cursor: pointer;
+
+        margin-bottom: 15px;
     }
+
     .campBoxTop {
         height: 250px;
         width: 100%;
 
         display: flex;
     }
-    .campBoxLeft{
+
+    .campBoxBottom {
+        height: 50px;
+        width: 100%;
+
+        display: flex;
+    }
+
+    .campBoxLeft {
         width: 40%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    .campBoxRight{
+
+    .campBoxRight {
         width: 60%;
         display: flex;
         flex-direction: column;
 
         margin-top: 20px;
     }
+
     .campText {
         width: 100%;
         height: 30px;
         text-align: center;
     }
+
     .campSbrsClBox {
         width: 100%;
         height: 150px;
@@ -49,7 +100,8 @@
         justify-content: center;
         align-items: center;
     }
-    .campSbrsClItem{
+
+    .campSbrsClItem {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -61,21 +113,40 @@
         border: 1px solid black;
         border-radius: 15px;
     }
-    .fa-solid{
+
+    .fa-solid {
         font-size: 20px;
+    }
+
+    hr {
+        height: 1px;
+        color: lightgray;
     }
 
 </style>
 <body>
 <div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
 <div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
-<div class="view">
-    <h1>시작</h1>
+<div class="view" style="margin-top: 50px">
+    <div class="ranViewBox">
+        <div class="ranViewTitleBox">
+            <button onclick="prevWord()">Previous</button>
+            <div id="ranThema"></div>
+            <button onclick="nextWord()">Next</button>
+        </div>
+        <div class="ranViewImageBox">
+            <div class="ranViewImage" th:each="camp : ${campList}" th:onclick="|details(${camp.contentId})|">
+                <img style="width: 200%" th:src="${camp.firstImageUrl}"/>
+            </div>
+
+        </div>
+    </div>
+    <hr>
     <div th:each="camp, idx : ${campList}">
         <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">
             <div class="campBoxTop">
                 <div class="campBoxLeft">
-                    <img style="width: 98%" th:src="${camp.firstImageUrl}"/>
+                    <img style="height: 98%" th:src="${camp.firstImageUrl}"/>
                 </div>
                 <div class="campBoxRight">
                     <div class="campText">
@@ -85,7 +156,7 @@
                     <div class="campText" th:text="${camp.facltNm}"></div>
                     <div class="campText" th:text="${camp.lineIntro}"></div>
                     <div class="campSbrsClBox">
-                        <div class="campSbrsCl" th:each="sbrsCl : ${sbrsClList[__${idx.index}__]}" >
+                        <div class="campSbrsCl" th:each="sbrsCl : ${sbrsClList[__${idx.index}__]}">
                             <div class="campSbrsClItem" th:each="C : ${sbrsCl}">
                                 <i th:if="${C == '전기'}" class="fa-solid fa-bolt"></i>
                                 <i th:if="${C == '무선인터넷'}" class="fa-solid fa-wifi"></i>
@@ -104,9 +175,14 @@
                 </div>
             </div>
             <div class="campBoxBottom">
-
+                <!--                <div class="campThema" th:each="thema : ${themaList[__${idx.index}__]}">-->
+                <!--                    <div class="campThemaList" th:each="T : ${thema}">-->
+                <!--                        <span th:text="${T}"></span>-->
+                <!--                    </div>-->
+                <!--                </div>-->
             </div>
         </div>
+        <hr>
     </div>
     <div th:replace="~{pc/fragments/footer :: footer}"/>
 </div>
@@ -115,5 +191,44 @@
     function details(contentId) {
         location.href = "detailCamp?contentId=" + contentId;
     }
+
+    var themaList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];
+    var index = 0;
+    var ranThemaBox = document.getElementById("ranThema");
+    function prevWord() {
+        if (index <= 0) {
+            index = themaList.length - 1;
+        } else {
+            index--;
+        }
+        ranThemaBox.innerHTML = themaList[index];
+    }
+    function nextWord() {
+        if (index >= themaList.length - 1) {
+            index = 0;
+        } else {
+            index++;
+        }
+        ranThemaBox.innerHTML = themaList[index];
+    }
+    ranThemaBox.innerHTML = themaList[index];
+
+    // function loadThemaList() {
+    //     $.ajax({
+    //         url: "/themaList",
+    //         type: "GET",
+    //         dataType: "json",
+    //         console.log("ajax들어왔다")
+    //         success: function(data) {
+    //             console.log("ajax들어왔다-성공적")
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.log("ajax들어왔다-실패적")
+    //             console.log(error);
+    //         }
+    //     });
+    // }
+    // loadThemaList();
+
 </script>
 </html>
