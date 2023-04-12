@@ -5,7 +5,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="/admin/js/member.js"></script>
+<script src="/admin/js/notice.js"></script>
 <body>
 <div th:replace="~{admin/fragments/bodyHeader :: bodyHeader}"/>
 <div class="container">
@@ -18,14 +18,18 @@
       <table class="table table-hover">
         <thead>
         <tr>
+          <td><a href="/admin/notice/new" class="btn btn-info" >공지사항 작성</a>
+          </td>
+        </tr>
+        <tr>
           <th scope="col">공지사항 번호</th>
           <th scope="col">제목</th>
           <th scope="col">작성일</th>
           <th scope="col" colspan="2">비고</th>
         </tr>
         </thead>
-        <tbody>
-        <tr th:each="notice : ${noticeList}" th:if="${noticeList != null}">
+        <tbody th:if="${noticeList != null}">
+        <tr th:each="notice : ${noticeList}" >
           <td th:text="${notice.id}"></td>
           <td th:text="${notice.subject}"></td>
           <td th:text="${notice.date}"></td>

@@ -26,8 +26,8 @@
                     <th scope="col" colspan="2">비고</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="member : ${memberList}" th:if="${member.loginId != 'admin'&&${memberList != null}}">
+                <tbody th:if="${memberList != null}">
+                <tr th:each="member : ${memberList}" th:if="${member.loginId != 'admin'}">
                     <td th:text="${member.id}" ></td>
                     <td th:text="${member.loginId}"></td>
                     <td th:text="${member.name}"></td>

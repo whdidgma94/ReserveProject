@@ -5,7 +5,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="/admin/js/member.js"></script>
 <body>
 <div th:replace="~{admin/fragments/bodyHeader :: bodyHeader}"/>
 <div class="container">
@@ -25,7 +24,11 @@
                         <td>내용</td>
                         <td><textarea id="context" th:field="*{context}"></textarea></td>
                     </tr>
-
+                    <tr>
+                        <td><input type = "submit" class="btn btn-info" value="등록"/></td>
+                        <td><input type="button" class="btn btn-info" value="취소" onclick="location.href='/noticeList?type=admin'"/>
+                        </td>
+                    </tr>
                 </form>
             </table>
         </div>
