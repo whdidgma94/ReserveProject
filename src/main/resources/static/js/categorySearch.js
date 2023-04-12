@@ -44,18 +44,14 @@ $(function () {
                     //     campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
                     //     campListBoxHtml += '<div className="campBoxTop"><div className="campBoxLeft">';
                     //     campListBoxHtml += '<img style="height: 98%" src="'+campList[i].firstImageUrl+'"/></div>';
-                    //     campListBoxHtml += ' <div className="campBoxRight"><div className="campText">[ <span>'+campList[i].doNm+'</span><span>'+campList[i].sigunguNm+'</span> ]</div>';
-                    //     campListBoxHtml += ;
-                    //     campListBoxHtml += ;
-                    //     campListBoxHtml += ;
-                    //     campListBoxHtml += ;
+                    //     campListBoxHtml += '<div className="campBoxRight"><div className="campText">[ <span>'+campList[i].doNm+'</span><span>'+campList[i].sigunguNm+'</span> ]</div>';
+                    //     campListBoxHtml += '<div className="campText">'+campList[i].facltNm+'</div>';
+                    //     campListBoxHtml += '<div className="campText">'+campList[i].lineIntro+'</div>';
+                    //     campListBoxHtml += '<div className="campSbrsClBox"><div className="campSbrsCl">';
+                    //     campListBoxHtml += '<div className="campSbrsClItem">'++'';
                     //     campListBoxHtml += ;
                     // }
-                    //                 <div className="campText">(주)디노담양힐링파크 지점</div>
-                    //                 <div className="campText">담양 힐링파크에서 일상 속 쌓인 스트레스를 풀어보자</div>
-                    //                 <div className="campSbrsClBox">
-                    //                     <div className="campSbrsCl">
-                    //                         <div className="campSbrsClItem">
+                    //
                     //                             <i className="fa-solid fa-bolt"></i>
                     //                         </div>
                     //                     </div>
