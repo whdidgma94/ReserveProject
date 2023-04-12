@@ -1,8 +1,8 @@
 #sidebar {
     width: 250px;
-    height: calc(100% - 60px); /* 헤더 높이 60px 고려 */
-    position: absolute;
-    top: 60px; /* 헤더 높이 60px 고려 */
+    height: calc(100% - 60px);
+    position: fixed;
+    top: 60px;
     left: -250px;
     background-color: #1c1c1c;
     color: #ffffff;
@@ -13,7 +13,7 @@
 }
 
 #sidebar.active {
-    left: 0; /* 사이드바가 보이도록 왼쪽으로 이동 */
+    left: 0;
 }
 li {
     list-style-type: none;
@@ -29,12 +29,6 @@ li {
 #sidebar ul li a:hover {
     background-color: #ffffff; /* 마우스 올리면 흰색 바탕 */
     color: #1c1c1c; /* 마우스 올리면 검정색 글씨 */
-}
-
-#sidebar .sidebar-header {
-    padding: 20px;
-    background-color: #1c1c1c; /* 검정색 바탕 */
-    color: #ffffff; /* 흰색 글씨 */
 }
 
 #header {
@@ -71,4 +65,77 @@ li {
     #sidebar.active {
         left: 0; /* 모바일에서는 버튼을 누르면 사이드바 보이도록 */
     }
+}
+.container{
+    width: 100%;
+    height: auto;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.row{
+    width: 80%;
+}
+.col-md-12{
+    width: 100%;
+}
+.table{
+    width: 100%;
+}
+.table td, .table th {
+    text-align: center;
+}
+
+.btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.btn-info {
+    color: #ffffff;
+    background-color: #1c1c1c;
+    border-color: #1c1c1c;
+}
+
+.btn-info:hover {
+    color: #1c1c1c;
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    color: #fff;
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.btn-danger:focus, .btn-danger.focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
+.btn-danger.disabled, .btn-danger:disabled {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:not(:disabled):not(.disabled):active, .btn-danger:not(:disabled):not(.disabled).active,
+.show > .btn-danger.dropdown-toggle {
+    color: #fff;
+    background-color: #bd2130;
+    border-color: #b21f2d;
+}
+
+.btn-danger:not(:disabled):not(.disabled):active:focus, .btn-danger:not(:disabled):not(.disabled).active:focus,
+.show > .btn-danger.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
 }
