@@ -11,8 +11,7 @@ $(function () {
             data: {categories: selectedCategories.join(",")},
             success: function (result) {
                 try {
-                    var response = $.parseJSON(result);
-                    var campList = response.campList;
+                    var campList = $.parseJSON(result);
                     if (campList == null || campList.length == 0) {
                         alert("검색결과가 존재하지 않습니다.");
                         return;
@@ -31,48 +30,62 @@ $(function () {
                             themaEnvrnCl: campList[i].themaEnvrnCl,
                         });
                     }
-                    const sbrsClList = sbrsCl.split(",");
-                    let themaList;
-                    if (themaEnvrnCl) {
-                        themaList = themaEnvrnCl.split(",");
-                    } else {
-                        themaList = ["즐거운캠핑"];
+                    let campListBoxHtml = "";
+                    for (let i = 0; i < 5; i++) {
+                        campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
+                        campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';
+                        campListBoxHtml += '<img style="height: 98%" src="' + campList[i].firstImageUrl + '"/></div>';
+                        campListBoxHtml += '<div class="campBoxRight"><div class="campText">[ <span>' + campList[i].doNm + '</span><span>' + campList[i].sigunguNm + '</span> ]</div>';
+                        campListBoxHtml += '<div class="campText">' + campList[i].facltNm + '</div>';
+                        campListBoxHtml += '<div class="campText">' + campList[i].lineIntro + '</div>';
+                        campListBoxHtml += '<div class="campSbrsClBox"><div class="campSbrsCl">';
+                        campListBoxHtml += '<div class="campSbrsClItem">';
+
+                        let sbrsClList = campList[i].sbrsCl.split(",");
+                        for (let j = 0; sbrsClList.length; j++) {
+                            if (sbrsClList[j] == "전기") {
+                                campListBoxHtml += '<i class="fa-solid fa-bolt"></i>'
+                            } else if (sbrsClList[j] == "무선인터넷") {
+                                campListBoxHtml += '<i class="fa-solid fa-wifi"></i>'
+                            } else if (sbrsClList[j] == "장작판매") {
+                                campListBoxHtml += '<i class="fa-sharp fa-solid fa-fire"></i>'
+                            } else if (sbrsClList[j] == "온수") {
+                                campListBoxHtml += '<i class="fa-solid fa-thermometer-full"></i>'
+                            } else if (sbrsClList[j] == "트렘폴린") {
+                                campListBoxHtml += '<i class="fa-solid fa-person-arrow-up-from-line"></i>'
+                            } else if (sbrsClList[j] == "물놀이장") {
+                                campListBoxHtml += '<i class="fa-solid fa-swimmer"></i>'
+                            } else if (sbrsClList[j] == "놀이터") {
+                                campListBoxHtml += '<i class="fa-solid fa-rocket"></i>'
+                            } else if (sbrsClList[j] == "산책로") {
+                                campListBoxHtml += '<i class="fa-solid fa-hiking"></i>'
+                            } else if (sbrsClList[j] == "운동시설") {
+                                campListBoxHtml += '<i class="fa-solid fa-dumbbell"></i>'
+                            } else if (sbrsClList[j] == "마트.편의점") {
+                                campListBoxHtml += '<i class="fa-solid fa-shopping-cart"></i>'
+                            } else if (sbrsClList[j] == "운동장") {
+                                campListBoxHtml += '<i class="fa-solid fa-baseball-ball"></i>'
+                            }
+                        }
+                        // let themaList;
+                        // if (themaEnvrnCl) {
+                        //     themaList = themaEnvrnCl[i].split(",");
+                        // } else {
+                        //     themaList = ["즐거운캠핑"];
+                        // }
+                        campListBoxHtml += '</div></div></div></div></div></div><hr></div>';
                     }
 
-                    // let campListBoxHtml = "";
-                    // for (let i = 0; i < 5; i++) {
-                    //     campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
-                    //     campListBoxHtml += '<div className="campBoxTop"><div className="campBoxLeft">';
-                    //     campListBoxHtml += '<img style="height: 98%" src="'+campList[i].firstImageUrl+'"/></div>';
-                    //     campListBoxHtml += '<div className="campBoxRight"><div className="campText">[ <span>'+campList[i].doNm+'</span><span>'+campList[i].sigunguNm+'</span> ]</div>';
-                    //     campListBoxHtml += '<div className="campText">'+campList[i].facltNm+'</div>';
-                    //     campListBoxHtml += '<div className="campText">'+campList[i].lineIntro+'</div>';
-                    //     campListBoxHtml += '<div className="campSbrsClBox"><div className="campSbrsCl">';
-                    //     campListBoxHtml += '<div className="campSbrsClItem">'++'';
-                    //     campListBoxHtml += ;
-                    // }
-                    //
-                    //                             <i className="fa-solid fa-bolt"></i>
-                    //                         </div>
-                    //                     </div>
-                    //                 </div>
-                    //             </div>
-                    //         </div>
-                    //     </div>
-                    //     <hr>
-                    // </div>
-
-
-                $('#campListBox').html(campListBoxHtml);
+                    $('#campListBox').html(campListBoxHtml);
                 } catch (e) {
                     console.log(e);
                     alert("오류가 발생했습니다.");
                 }
 
 
-                },
-                error: function (xhr, status, error) {
-                }
-                });
-                });
-                });
+            },
+            error: function (xhr, status, error) {
+            }
+        });
+    });
+});

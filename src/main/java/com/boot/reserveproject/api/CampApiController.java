@@ -207,17 +207,20 @@ public class CampApiController {
             }
             JSONObject obj = new JSONObject(sb.toString());
             JSONObject obj2 = obj.getJSONObject("response").getJSONObject("body");
-            JSONArray objArray = obj2.getJSONObject("items").getJSONArray("item");
-
-            imageList = new String[objArray.length()];
-            for (int i = 0; i < objArray.length(); i++) {
-                JSONObject jb = (JSONObject) objArray.get(i);
-                imageList[i] = jb.getString("imageUrl");
+            if (!obj2.getJSONObject("items").equals("")) {
+                JSONArray objArray = obj2.getJSONObject("items").getJSONArray("item");
+                imageList = new String[objArray.length()];
+                for (int i = 0; i < objArray.length(); i++) {
+                    JSONObject jb = (JSONObject) objArray.get(i);
+                    imageList[i] = jb.getString("imageUrl");
+                    conn.disconnect();
+                    return imageList;
+                }
             }
             conn.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return imageList;
+        return null;
     }
 }
