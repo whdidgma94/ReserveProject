@@ -14,97 +14,68 @@
 <div th:replace="mobile/fragments/bodyHeader :: bodyHeader"></div>
 <div th:replace="mobile/fragments/bodyHeader :: side-bar"></div>
 
-
-<!--    <div th:text="${camp.facltNm}"></div>-->
-<!--    <div th:text="${camp.lineIntro}"></div>-->
-<!--    <div th:text="${camp.intro}"></div>-->
-<!--    <div th:text="${camp.manageSttus}"></div>-->
-<!--    <div th:text="${camp.induty}"></div>-->
-<!--    <div th:text="${camp.lctCl}"></div>-->
-<!--    <div th:text="${camp.direction}"></div>-->
-<!--    <div th:text="${camp.siteCount}"></div>-->
-<!--    <div th:text="${camp.sitedStnc}"></div>-->
-<!--    <div th:text="${camp.site}"></div>-->
-<!--    <div th:text="${camp.siteBottom}"></div>-->
-<!--    <div th:text="${camp.tooltip}"></div>-->
-<!--    <div th:text="${camp.glampInnerFclty}"></div>-->
-<!--    <div th:text="${camp.caravInnerFclty}"></div>-->
-<!--    <div th:text="${camp.operPdCl}"></div>-->
-<!--    <div th:text="${camp.operDeCl}"></div>-->
-<!--    <div th:text="${camp.trlerAcmpnyAt}"></div>-->
-<!--    <div th:text="${camp.caravAcmpnyAt}"></div>-->
-<!--    <div th:text="${camp.sanitary}"></div>-->
-<!--    <div th:text="${camp.brazierCl}"></div>-->
-<!--    <div th:text="${camp.sbrsCl}"></div>-->
-<!--    <div th:text="${camp.sbrsEtc}"></div>-->
-<!--    <div th:text="${camp.fpSystem}"></div>-->
-<!--    <div th:text="${camp.posblFcltyCl}"></div>-->
-<!--    <div th:text="${camp.posblFcltyEtc}"></div>-->
-<!--    <div th:text="${camp.clturEventAt}"></div>-->
-<!--    <div th:text="${camp.clturEvent}"></div>-->
-<!--    <div th:text="${camp.exprnProgrmAt}"></div>-->
-<!--    <div th:text="${camp.exprnProgrm}"></div>-->
-<!--    <div th:text="${camp.themaEnvrnCl}"></div>-->
-<!--    <div th:text="${camp.animalCmgCl}"></div>-->
 <div class="container py-4">
     <div class="camp_detail view">
         <h1 th:text="${camp.facltNm}"></h1>
         <div class="row">
-            <div class="col-md-7 mb-4">
-                <div class="card">
-                    <img class="card-img-top" th:src="${camp.firstImageUrl}" alt="">
-                    <div class="card-body">
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <th scope="col">주소</th>
-                                <td th:text="${camp.addr1}"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">문의처</th>
-                                <td th:text="${camp.tel}"><i class="fas fa-phone-alt"></i></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">캠핑장 환경</th>
-                                <td>
-                                    <span th:text="${camp.facltDivNm}"></span>/
-                                    <span th:text="${camp.manageSttus}"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="col">캠핑장 유형</th>
-                                <td th:text="${camp.induty}"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">운영기간</th>
-                                <td th:text="${camp.operPdCl}"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">운영일</th>
-                                <td th:text="${camp.operDeCl}"></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">홈페이지</th>
-                                <td>
-                                    <a class="btn btn-link p-0" th:href="${camp.homepage}" target="_blank" title="새창열림">
-                                        <i class="fas fa-link"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="col">주변이용가능시설</th>
-                                <td th:text="${camp.posblFcltyCl}"><i class="far fa-check-circle"></i></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="card">
+                <img class="card-img-top" th:src="${camp.firstImageUrl}" alt="">
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th scope="col">주소</th>
+                            <td th:text="${camp.addr1}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">문의처</th>
+                            <td th:text="${camp.tel}"><i class="fas fa-phone-alt"></i></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">캠핑장 환경</th>
+                            <td>
+                                <span th:text="${camp.facltDivNm}"></span>/
+                                <span th:text="${camp.manageSttus}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col">캠핑장 유형</th>
+                            <td th:text="${camp.induty}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">운영기간</th>
+                            <td th:text="${camp.operPdCl}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">운영일</th>
+                            <td th:text="${camp.operDeCl}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">홈페이지</th>
+                            <td>
+                                <a class="btn btn-link p-0" th:href="${camp.homepage}" target="_blank" title="새창열림">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col">주변이용가능시설</th>
+                            <td th:text="${camp.posblFcltyCl}"><i class="far fa-check-circle"></i></td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="col-md-5 mb-4">
-                <div id="map" style="height: 300px;"></div>
-                <h3>부대시설</h3>
-                <div class="sbrsCl"></div>
+        </div>
+        <div class="row">
+            <h3>캠핑장 위치</h3>
+            <div class="col-md-12 mb-8">
+                <div id="map" style="height: 600px;"></div>
             </div>
+        </div>
+        <div class="row">
+            <h3>부대시설</h3>
+            <div class="sbrsCl"></div>
         </div>
         <div class="row">
             <h3>캠핑장 소개</h3>
@@ -188,6 +159,7 @@
 <script>
     let latitude =0;
     let longitude =0;
+
     let myKey='4cafcd3f6ac34355b1f99ce7d42f1068';
     function createMap(){
         navigator.geolocation.getCurrentPosition(function(pos) {
@@ -197,24 +169,23 @@
         });
     }
     function getMap() {
-        let myLocation=new naver.maps.LatLng(latitude,longitude),
-            map= new naver.maps.Map('map',{
+
+        let myLocation=new naver.maps.LatLng(latitude,longitude)
+        let map= new naver.maps.Map('map',{
                 center:myLocation.destinationPoint(latitude,longitude),
                 zoom:17
-            }),
-            marker = new naver.maps.Marker({
+            })
+        let marker = new naver.maps.Marker({
                 map:map,
                 position:myLocation
             })
     }
+
     window.onload = function(){
         createMap();
         let sbrsCl = `[[${camp.sbrsCl}]]`;
         const sbrsClDiv = document.querySelector(".sbrsCl");
         let clList = sbrsCl.split(",");
-        console.log(sbrsCl);
-        console.log(sbrsClDiv);
-        console.log(clList);
         for(let i = 0 ; i < clList.length ; i++){
             if(clList[i]==="전기"){
                 sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>전기</div><i class="fa-solid fa-bolt"></i></div>`;

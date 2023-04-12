@@ -76,28 +76,28 @@ public class SearchController {
 //        String result = "abc";
 //        return result.toString();
 //    }
-@GetMapping("/search/addressSearch")
-public ResponseEntity<Object> showListByAddress(@RequestParam(value = "sido", required = false) String sido, @RequestParam(value="sigoon", required=false) String sigoon) {
-    if(sido.equals("전체")){
-        sido="";
-    }
-    if(sigoon.equals("전체")){
-        sigoon="";
-    }
-        System.out.println("sido: "+sido+" sigoon:  "+sigoon);
-    List<Camp> campList = searchByLocation(sido,sigoon);
-    System.out.println("지역검색 캠프리스트 길이: "+campList.size());
-    ObjectMapper mapper = new ObjectMapper();
-    try {
-        String jsonString = mapper.writeValueAsString(campList);
-        return new ResponseEntity<>(jsonString, HttpStatus.OK);
-    } catch (JsonProcessingException e) {
-        e.printStackTrace();
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-}
+//@GetMapping("/search/addressSearch")
+//public ResponseEntity<Object> showListByAddress(@RequestParam(value = "sido", required = false) String sido, @RequestParam(value="sigoon", required=false) String sigoon) {
+//    if(sido.equals("전체")){
+//        sido="";
+//    }
+//    if(sigoon.equals("전체")){
+//        sigoon="";
+//    }
+//        System.out.println("sido: "+sido+" sigoon:  "+sigoon);
+//    List<Camp> campList = searchByLocation(sido,sigoon);
+//    System.out.println("지역검색 캠프리스트 길이: "+campList.size());
+//    ObjectMapper mapper = new ObjectMapper();
+//    try {
+//        String jsonString = mapper.writeValueAsString(campList);
+//        return new ResponseEntity<>(jsonString, HttpStatus.OK);
+//    } catch (JsonProcessingException e) {
+//        e.printStackTrace();
+//        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
+//}
     @GetMapping("search/addressSearchTest")
-    public ResponseEntity<Object> showListByAddressTest(Model model, @RequestParam(value="pageNum",required=false) int pageNum, @RequestParam(value = "sido", required = false) String sido, @RequestParam(value="sigoon", required=false) String sigoon) {
+    public ResponseEntity<Object> showListByAddressTest(Model model, @RequestParam(value="pageNum",required=false) int pageNum, @RequestParam(value = "sido", required = false) String sido, @RequestParam(value="sigoon", required=false) String sigoon, @RequestParam(value="pageRequest", required = false) int pageRequest) {
         if(sido.equals("전체")){
             sido="";
         }
@@ -106,7 +106,7 @@ public ResponseEntity<Object> showListByAddress(@RequestParam(value = "sido", re
         }
         System.out.println("sido: "+sido+" sigoon:  "+sigoon);
         Long length=countListByLocation(sido,sigoon);
-        List<Camp> campList = searchByLocationTest(model,sido,sigoon,pageNum);
+        List<Camp> campList = searchByLocationTest(model,sido,sigoon,pageNum,pageRequest);
         System.out.println("지역검색 캠프리스트 길이: "+campList.size());
         Map<String, Object> response = new HashMap<>();
         response.put("campList", campList);
@@ -122,7 +122,7 @@ public ResponseEntity<Object> showListByAddress(@RequestParam(value = "sido", re
 
     }
     @GetMapping("search/addressSearchTestTest")
-    public ResponseEntity<Object> showListByAddressTestTest(Model model, @RequestParam(value="pageNum",required=false) int pageNum, @RequestParam(value = "sido", required = false) String sido, @RequestParam(value="sigoon", required=false) String sigoon) {
+    public ResponseEntity<Object> showListByAddressTestTest(Model model, @RequestParam(value="pageNum",required=false) int pageNum, @RequestParam(value = "sido", required = false) String sido, @RequestParam(value="sigoon", required=false) String sigoon,@RequestParam(value="pageRequest", required = false) int pageRequest) {
         if(sido.equals("전체")){
             sido="";
         }
@@ -131,7 +131,7 @@ public ResponseEntity<Object> showListByAddress(@RequestParam(value = "sido", re
         }
         System.out.println("sido: "+sido+" sigoon:  "+sigoon);
 
-        List<Camp> campList = searchByLocationTest(model,sido,sigoon,pageNum);
+        List<Camp> campList = searchByLocationTest(model,sido,sigoon,pageNum,pageRequest);
         System.out.println("지역검색 캠프리스트 길이: "+campList.size());
         Map<String, Object> response = new HashMap<>();
         response.put("campList", campList);
@@ -177,8 +177,8 @@ public ResponseEntity<Object> showListByAddress(@RequestParam(value = "sido", re
         List<Camp> campList = campService.selectListByLocation(sido, sigoon);
         return campList;
     }
-    public List<Camp> searchByLocationTest(Model model,String sido,String sigoon,int pageNum){
-        Pageable pageable = PageRequest.of(pageNum - 1, 10); // 페이지 번호와 페이지 크기를 설정합니다.
+    public List<Camp> searchByLocationTest(Model model,String sido,String sigoon,int pageNum,int pageRequest){
+        Pageable pageable = PageRequest.of(pageNum - 1, pageRequest); // 페이지 번호와 페이지 크기를 설정합니다.
 
         List<Camp> campList = campService.findByDoNmContainingAndSigunguNmContainingOrderById(sido, sigoon, pageable);
 

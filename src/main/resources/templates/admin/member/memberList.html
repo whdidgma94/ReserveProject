@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/header :: header}"/>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/admin/js/member.js"></script>
+<body>
+<div th:replace="~{admin/fragments/bodyHeader :: bodyHeader}"/>
+<div class="container">
+    <div class="content-header">
+        <h3> 회원 관리 </h3>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">회원번호</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">이름</th>
+                    <th scope="col">이메일</th>
+                    <th scope="col">전화번호</th>
+                    <th scope="col" colspan="2">비고</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="member : ${memberList}" th:if="${member.loginId != 'admin'}">
+                    <td th:text="${member.id}" ></td>
+                    <td th:text="${member.loginId}"></td>
+                    <td th:text="${member.name}"></td>
+                    <td th:text="${member.email}"></td>
+                    <td th:text="${member.phone}"></td>
+                    <td><a href="#" class="btn btn-info" th:id="${member.id}">상세보기</a></td>
+                    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" th:id="${member.id}">삭제</button></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">회원 삭제</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>정말로 회원을 삭제하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                <button type="button" class="btn btn-danger" >삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">회원 상세 정보</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">회원번호</th>
+                        <td id="id"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">ID</th>
+                        <td id="loginId"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">이름</th>
+                        <td id="name"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">생년월일</th>
+                        <td id="birthday"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">성별</th>
+                        <td id="gender"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">이메일</th>
+                        <td id="email"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">전화번호</th>
+                        <td id="phone"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">주소</th>
+                        <td id="address"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
