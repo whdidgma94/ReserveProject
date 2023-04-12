@@ -90,7 +90,6 @@ public class CampController {
 
     public List<Camp> searchByLctCl(String lctCl){
         List<Camp>campList=campService.findBylctCl(lctCl);
-        System.out.println("3 campList: "+campList);
         return campList;
     }
     @GetMapping("/camp/ranView")

@@ -25,13 +25,8 @@
     let 한번에보여줄페이지단위=10;
     let 총페이지수;
     let 현재페이지인덱스;
-    let 마지막페이지인덱스;
-    if(총페이지수%10==0){
-      마지막페이지인덱스=총페이지수/10;
-    }
-    else{
-      마지막페이지인덱스=총페이지수/10+1;
-    }
+
+
     let sido;
     let sigoon;
     const replaceList = [
@@ -132,7 +127,7 @@
         url: '/search/addressSearchTest',
         type: 'GET',
         data: {
-          sido: sido, sigoon: sigoon, pageNum: 1
+          sido: sido, sigoon: sigoon, pageNum: 1,pageRequest: 한페이지에보여줄게시글수
 
         },
 
@@ -148,15 +143,25 @@
               총리스트의길이=0;
               return;
             }
+            let resultSize='<h1>총&nbsp;'+총리스트의길이+'&nbsp;개의 캠핑장이 검색되었습니다.</h1>';
+            $('#resultSize').html('');
+            $('#resultSize').html(resultSize);
+
+
+
             $('#sample').html('');
             현재페이지=1;
             현재페이지인덱스=1;
+            let goPage='<input id="inputPageNum" type="number" class="form-control me-2" style="max-width: 100px;">\n' +
+                    '    <button onclick="insertPageNum($(\'#inputPageNum\').val())" class="btn btn-primary">이동</button>';
+            $('#pagingInsert').html('');
+            $('#pagingInsert').html(goPage);
 
             if(총리스트의길이%10==0){
               총페이지수=총리스트의길이/한페이지에보여줄게시글수;
             }
             else{
-              총페이지수=총리스트의길이/한페이지에보여줄게시글수 + 1;
+              총페이지수=Math.ceil(총리스트의길이/한페이지에보여줄게시글수);
             }
             areaArr = new Array();
 
@@ -187,7 +192,7 @@
               campListHtml += '<p class="card-text">' + areaArr[i].sido+ '&nbsp;&nbsp;&nbsp;'+areaArr[i].sigoon+ '</p>';
               campListHtml += '<p class="card-text">' + areaArr[i].address + '</p>';
               campListHtml += '<p class="card-text">' + areaArr[i].lineInt+'</p>';
-              campListHtml += '<p class="card-text">' + areaArr[i].int+'</p>';
+              campListHtml += '<p class="card-text">' + (areaArr[i].int.length > 30 ? areaArr[i].int.slice(0, 30) + '..' : areaArr[i].int) + '</p>';
               campListHtml += '<p class="card-text">' + areaArr[i].phone+'</p>';
               campListHtml += '<p class="card-text">' + areaArr[i].facil+'</p>';
               campListHtml += '<p class="card-text">' + areaArr[i].theme + '</p>';
@@ -195,16 +200,7 @@
             }
             campListHtml += '</div>';
             $('#campList').html(campListHtml);
-            let pageBtn='';
-            for(let i=1;i<=한번에보여줄페이지단위;i++){
-              pageBtn +='<a href="#" onclick="paging('+(한번에보여줄페이지단위*(현재페이지인덱스-1)+i)+')">['+(한번에보여줄페이지단위*(현재페이지인덱스-1)+i)+']</a>'
-              if(i==한번에보여줄페이지단위&&(한번에보여줄페이지단위*(현재페이지인덱스-1)+i)<총페이지수){
-                pageBtn+='<button>다음</button>'
-              }
-
-
-            }
-            $('#paging').html(pageBtn);
+            makePageNum();
 
           } catch (e) {
             console.log(e);
@@ -221,7 +217,7 @@
         url: '/search/addressSearchTestTest',
         type: 'GET',
         data: {
-          sido: sido, sigoon: sigoon, pageNum: i
+          sido: sido, sigoon: sigoon, pageNum: i,pageRequest: 한페이지에보여줄게시글수
 
         },
 
@@ -270,7 +266,7 @@
               campListHtml += '<p class="card-text">' + areaArr[i].sido+ '&nbsp;&nbsp;&nbsp;'+areaArr[i].sigoon+ '</p>';
               campListHtml += '<p class="card-text">' + areaArr[i].address + '</p>';
               campListHtml += '<p class="card-text">' + areaArr[i].lineInt+'</p>';
-              campListHtml += '<p class="card-text">' + areaArr[i].int+'</p>';
+              campListHtml += '<p class="card-text">' + (areaArr[i].int.length > 30 ? areaArr[i].int.slice(0, 30) + '..' : areaArr[i].int) + '</p>';
               campListHtml += '<p class="card-text">' + areaArr[i].phone+'</p>';
               campListHtml += '<p class="card-text">' + areaArr[i].facil+'</p>';
               campListHtml += '<p class="card-text">' + areaArr[i].theme + '</p>';
@@ -289,6 +285,43 @@
         },
 
       });
+    }
+    function makePageNum(){
+      $('#paging').html('');
+
+      let pageBtn='';
+      for(let i=1;i<=한번에보여줄페이지단위;i++){
+
+        if(i==1&&현재페이지인덱스!=1){
+          pageBtn+='<button onclick="previousPageIndex()">이전</button>'
+        }
+        pageBtn +='<a href="#" onclick="paging('+(한번에보여줄페이지단위*(현재페이지인덱스-1)+i)+')">['+(한번에보여줄페이지단위*(현재페이지인덱스-1)+i)+']</a>'
+        if(i==한번에보여줄페이지단위&&(한번에보여줄페이지단위*(현재페이지인덱스-1)+i)<총페이지수){
+          pageBtn+='<button onclick="nextPageIndex()">다음</button>'
+        }
+        if((한번에보여줄페이지단위*(현재페이지인덱스-1)+i)==총페이지수){
+          break;
+        }
+
+
+      }
+      $('#paging').html(pageBtn);
+    }
+    function nextPageIndex(){
+      현재페이지인덱스++;
+
+      makePageNum();
+      paging((현재페이지인덱스-1)*한번에보여줄페이지단위+1);
+    }
+    function previousPageIndex(){
+      현재페이지인덱스--;
+      makePageNum();
+      paging((현재페이지인덱스-1)*한번에보여줄페이지단위+1);
+    }
+    function insertPageNum(i){
+      현재페이지인덱스=Math.ceil($('#inputPageNum').val()/10);
+      makePageNum();
+      paging(i);
     }
 
 
@@ -337,8 +370,12 @@
     </div>
     <hr>
   </div>
+  <div id="resultSize"></div>
   <div id="campList"></div>
   <div id="paging"></div>
+  <div id="pagingInsert" class="d-flex justify-content-center align-items-center mt-3">
+
+  </div>
   <div th:replace="~{pc/fragments/footer :: footer}" />
 </div>
 
