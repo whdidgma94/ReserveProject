@@ -147,29 +147,34 @@ public ResponseEntity<Object> showListByAddress(@RequestParam(value = "sido", re
 
     }
 
+    @GetMapping("/search/category")
+    public String showCategoryList() {
+
+        return "pc/search/searchCategory";
+    }
 
 
-
-    public List<Camp> searchByName(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword) {
-        List<Camp> campList= campService.getCampListByName(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+    public List<Camp> searchByName(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
+        List<Camp> campList = campService.getCampListByName(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
 
         return campList;
     }
 
-    public List<Camp> searchByTheme(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword) {
-        List<Camp> campList=campService.getCampListByTheme(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+    public List<Camp> searchByTheme(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
+        List<Camp> campList = campService.getCampListByTheme(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
 
         return campList;
     }
 
-    public List<Camp> searchByAddress(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword) {
-        List<Camp>campList=campService.getCampListByAddress(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+    public List<Camp> searchByAddress(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
+        List<Camp> campList = campService.getCampListByAddress(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
 
         return campList;
 
     }
-    public List<Camp> searchByLocation(String sido,String sigoon){
-        List<Camp>campList=campService.selectListByLocation(sido,sigoon);
+
+    public List<Camp> searchByLocation(String sido, String sigoon) {
+        List<Camp> campList = campService.selectListByLocation(sido, sigoon);
         return campList;
     }
     public List<Camp> searchByLocationTest(Model model,String sido,String sigoon,int pageNum){
