@@ -213,9 +213,9 @@ public class CampApiController {
                 for (int i = 0; i < objArray.length(); i++) {
                     JSONObject jb = (JSONObject) objArray.get(i);
                     imageList[i] = jb.getString("imageUrl");
-                    conn.disconnect();
-                    return imageList;
                 }
+                conn.disconnect();
+                return imageList;
             }
             conn.disconnect();
         } catch (Exception e) {
