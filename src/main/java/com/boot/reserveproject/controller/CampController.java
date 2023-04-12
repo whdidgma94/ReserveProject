@@ -24,7 +24,7 @@ public class CampController {
     @Autowired
     private CampApiController campApiController;
 
-    @GetMapping("/main")
+    @GetMapping("/pc/main")
     public String getCamp(Model model) {
         campString(model);
         return "pc/index";
@@ -67,8 +67,8 @@ public class CampController {
         model.addAttribute("themaList", themaList);
     }
 
-    @GetMapping("detailCamp")
-    public String getDetailsCamp(@RequestParam Long contentId, Model model) {
+    @GetMapping("/pc/detailCamp")
+    public String getDetailsCampPc(@RequestParam Long contentId, Model model) {
         Camp camp = campService.getCampById(contentId);
         model.addAttribute("camp", camp);
 
@@ -76,6 +76,16 @@ public class CampController {
         String[] campImageList = campApiController.getImageList(contentId);
         model.addAttribute("campImageList", campImageList);
         return "pc/camp/campDetail";
+    }
+    @GetMapping("/mobile/detailCamp")
+    public String getDetailsCampMobile(@RequestParam Long contentId, Model model) {
+        Camp camp = campService.getCampById(contentId);
+        model.addAttribute("camp", camp);
+
+        //campApiController에 있는 이미지 api
+        String[] campImageList = campApiController.getImageList(contentId);
+        model.addAttribute("campImageList", campImageList);
+        return "mobile/camp/campDetail";
     }
 
     public List<Camp> searchByLctCl(String lctCl){
@@ -86,9 +96,6 @@ public class CampController {
     @GetMapping("/camp/ranView")
     public ResponseEntity<Object> showListByLctCl(@RequestParam(value = "lctCl", required = false) String lctCl) {
         List<Camp> campList = searchByLctCl(lctCl);
-
-
-
         ObjectMapper mapper = new ObjectMapper();
         try {
             String jsonString = mapper.writeValueAsString(campList);

@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src=""></script>
 <head th:replace="~{pc/fragments/header :: header}"/>
 <style>
     .ranViewBox {
@@ -107,7 +106,6 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-
         width: 45px;
         height: 45px;
         margin: 0 1px 0 1px;
@@ -168,12 +166,12 @@
                     </div>
                 </div>
             </div>
-            <div class="campBoxBottom">
-                <!--                <div class="campThema" th:each="thema : ${themaList[__${idx.index}__]}">-->
-                <!--                    <div class="campThemaList" th:each="T : ${thema}">-->
-                <!--                        <span th:text="${T}"></span>-->
-                <!--                    </div>-->
-                <!--                </div>-->
+         <!--   <div class="campBoxBottom">
+                                <div class="campThema" th:each="thema : ${themaList}">
+                                    <div class="campThemaList" th:each="T : ${thema}">
+                                        <span th:text="${T}"></span>
+                                    </div>
+                                </div>-->
             </div>
         </div>
         <hr>
@@ -183,7 +181,7 @@
 </body>
 <script>
     function details(contentId) {
-        location.href = "detailCamp?contentId=" + contentId;
+        location.href = "/pc/detailCamp?contentId=" + contentId;
     }
 
     var cltList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];

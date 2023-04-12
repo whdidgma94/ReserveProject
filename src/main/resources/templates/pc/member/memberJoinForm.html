@@ -71,9 +71,9 @@
         </div>
         <div class="form-group">
             <label th:for="regNum">주민등록번호</label>
-            <input type="text" th:field="*{regNum1}" class="form-control">
+            <input type="text" th:field="*{regNum1}" class="form-control" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength='6'>
             <span class="input-group-text"><strong>-</strong></span>
-            <input type="password" th:field="*{regNum2}" class="form-control">
+            <input type="password" th:field="*{regNum2}" class="form-control" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength='7'>
         </div>
         <div class="form-group">
             <label th:for="postcode">우편번호</label>

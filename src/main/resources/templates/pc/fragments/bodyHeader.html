@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div class="header" th:fragment="bodyHeader">
-    <div class="logo" onclick="location.href='/main'"> <img src="/img/어서와영.png"></div>
+    <div class="logo" onclick="location.href='/pc/main'"> <img src="/img/어서와영.png"></div>
     <div class="icon open-sidebar-btn" onclick="viewSideBar()"><i class="fa-solid fa-bars"></i></div>
 </div>
 <div class="side-bar" th:fragment="side-bar">
@@ -11,6 +11,24 @@
         <li class="nav-item" th:if="${session.log != null}">
             <a class="nav-link" href="#">
                 <h4 th:text="${session.log} + '님, 환영합니다'" style="font-family: Arial; font-size: 20px; "></h4>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fa-solid fa-comments"></i>
+                게시판(미구현)
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fa-solid fa-bullhorn"></i>
+                공지사항(미구현)
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fa-solid fa-flag"></i>
+                고객센터(미구현)
             </a>
         </li>
         <li class="nav-item">
@@ -44,7 +62,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="${session.log == null} ? '/pc/member/login' : '/member/logout'">
+            <a class="nav-link" th:href="${session.log == null} ? '/pc/member/login' : '/pc/member/logout'">
                 <i class="fa-solid fa-right-to-bracket"></i>
                 <span th:text="${session.log == null} ? '로그인' : '로그아웃'"></span>
             </a>
