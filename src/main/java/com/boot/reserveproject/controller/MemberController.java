@@ -65,11 +65,13 @@ public class MemberController {
     @PostMapping("/member/login")
     private String loginMember(@Valid LoginForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
+
             return "redirect:/member/login";
         }
         if (memberService.checkLogin(form.getLoginId(), form.getPw())) {
             session.setAttribute("log", form.getLoginId());
-
+            System.out.println("form.getLoginId() = " + form.getLoginId());
+            System.out.println("form.getPw() = " + form.getPw());
         }
         return "redirect:/main";
     }
