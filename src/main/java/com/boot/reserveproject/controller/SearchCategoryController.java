@@ -5,11 +5,7 @@ import com.boot.reserveproject.service.CampService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -31,23 +29,30 @@ public class SearchCategoryController {
         return "pc/search/searchCategory";
     }
 
-    public List<Camp> searchByAnimal() {
-        List<Camp> campList = campService.findByAnimal();
+    public List<Camp> searchByAnimal(int page) {
+        int min = page * 10 - 10;
+        int max = page * 10 - 1;
+        List<Camp> searchAllList = campService.findByAnimal();
+        List<Camp> campList = new ArrayList<>();
+        for (int i = min; i <= max && i < searchAllList.size(); i++) {
+            campList.add(searchAllList.get(i));
+        }
         return campList;
     }
 
     @GetMapping("/search/categoryCheck")
     public ResponseEntity<Object> showListByLctCl(@RequestParam(value = "categories", required = false) String[] categories) {
-        List<Camp> campList = null;
+        List<Camp> campList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         for (int i = 0; i < categories.length; i++) {
             if (categories[i].equals("animalCmgCl")) {
-                campList = searchByAnimal();
+                campList = searchByAnimal(1);
                 for (int j = 0; j < 3; j++) {
                     System.out.println("campList = " + campList.get(j).getAnimalCmgCl());
                 }
             }
         }
+        System.out.println("campList = " + campList.size());
         try {
             String jsonString = mapper.writeValueAsString(campList);
             return new ResponseEntity<>(jsonString, HttpStatus.OK);

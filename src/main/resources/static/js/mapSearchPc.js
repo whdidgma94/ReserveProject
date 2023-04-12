@@ -11,12 +11,12 @@ let infoWindows;//정보창들이 속한 배열(검색시 생성);
 
 window.onload = function(){
 
-    //navigator.geolocation.getCurrentPosition(function(pos) {
-    //현재위치: 위도 경도 (살짝 오차 있음)
+    // navigator.geolocation.getCurrentPosition(function(pos) {
+    // //현재위치: 위도 경도 (살짝 오차 있음)
     // latitude = pos.coords.latitude;
     // longitude = pos.coords.longitude;
-
-    //});
+    //
+    // });
 
 //정확한 학원 위치
     latitude=37.499806;
@@ -71,8 +71,8 @@ $(document).ready(function() {
     $('#search-icon').click(function() {
 
         // 검색어와 검색 타입 가져오기
-        // var keyword = $('#search').val();
-        // var type = $('select[name="type"]').val();
+        var keyword = $('#search').val();
+        var type = $('select[name="type"]').val();
         var bounds = map.getBounds(),
             southWest = bounds.getSW(),
             northEast = bounds.getNE()
@@ -87,8 +87,8 @@ $(document).ready(function() {
             url: '/search/mapSearch',
             type: 'GET',
             data: {
-                // keyword: keyword,
-                // type: type,
+                keyword: keyword,
+                type: type,
                 boundsObj: JSON.stringify(boundsObj)
 
             },
@@ -175,10 +175,10 @@ function initMap(campList) {
 
         /* 정보창 */
         infoWindow = new naver.maps.InfoWindow({
-            content: '<div style="width:300px;text-align:center;padding:10px;"><a href="../pc/detailCamp?contentId=' + areaArr[i].id + '">'
+            content: '<div style="width:300px;text-align:center;padding:10px;"><a href="../detailCamp?contentId=' + areaArr[i].id + '">'
                 + areaArr[i].name + '</a><p>'+areaArr[i].address+'</p>' +
                 (areaArr[i].theme != null ? '<p>' + areaArr[i].theme + '</p>' : '') +
-                '<img style="width:200px;height:70px;" src="' + (areaArr[i].img || '../img/어서와영_사진없음.png') + '" alt="">' +
+                '<img style="width:200px;height:70px;" src="' + (areaArr[i].img || 'path/to/alternative/image') + '" alt="/img/어서와영_사진없음.png>' +
 
                 '</div>'
 

@@ -67,7 +67,7 @@ body{
 .side-bar img{
     margin-left:40px;
     margin-top:50px;
-    width:350px;
+    width: 200px;
 }
 .side-bar.active{
     opacity: 1;

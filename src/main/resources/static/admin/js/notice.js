@@ -7,11 +7,11 @@ $(document).ready(function () {
         modal.find('.modal-footer button.btn-danger').on('click', function () {
             var selectedId = localStorage.getItem('selectedId'); // 저장된 id 값을 가져옴
             $.ajax({
-                url: '/admin/deleteMember',
+                url: '/admin/deleteNotice',
                 type: 'POST',
                 data: {id: selectedId},
                 success: function (response) {
-                    swal('삭제 완료', '회원 정보를 삭제했습니다.', 'success');
+                    swal('삭제 완료', '공지를 삭제했습니다.', 'success');
                     history.go(0);
                 },
                 error: function (error) {
@@ -23,25 +23,19 @@ $(document).ready(function () {
     $('.btn-info').on('click', function () {
         var id = $(this).attr('id');
         $.ajax({
-            url: "/admin/memberInfo",
+            url: "/noticeInfo",
             type: "GET",
             data: {id: id},
             success: function (result) {
                 console.log(result);
                 $('#id').text(result.id);
-                $('#loginId').text(result.loginId);
-                $('#name').text(result.name);
-                $('#birthday').text(result.regNum1);
-                $('#gender').text(result.gender);
-                $('#email').text(result.email);
-                $('#phone').text(result.phone);
-                let address = result.roadAddress+ ", " + result.detailAddress;
-                $('#address').text(address);
-                // 모달 보이기
+                $('#subject').text(result.subject);
+                $('#date').text(result.date);
+                $('#context').text(result.context);
                 $('#detailModal').modal('show');
             },
             error: function (error) {
-                swal("에러", "회원 정보를 가져오는 중 에러가 발생하였습니다.", "error");
+                swal("에러", "공지를 가져오는 중 에러가 발생하였습니다.", "error");
             }
         });
     });
