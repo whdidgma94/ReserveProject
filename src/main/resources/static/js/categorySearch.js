@@ -1,3 +1,7 @@
+
+function details(contentId) {
+    location.href = "/pc/detailCamp?contentId=" + contentId;
+}
 $(function () {
     $('.categoryCheckBox input[type=checkbox]').click(function () {
         var selectedCategories = $('.categoryCheckBox input[type=checkbox]:checked')
@@ -14,10 +18,12 @@ $(function () {
                     var campList = $.parseJSON(result);
                     if (campList == null || campList.length == 0) {
                         alert("검색결과가 존재하지 않습니다.");
+                        location.reload();
                         return;
                     }
                     areaArr = new Array();
                     for (let i = 0; i < campList.length; i++) {
+                        console.log("ajax시작");
                         areaArr.push({
                             contentId: campList[i].contentId,
                             firstImageUrl: campList[i].firstImageUrl,
@@ -30,19 +36,20 @@ $(function () {
                             themaEnvrnCl: campList[i].themaEnvrnCl,
                         });
                     }
+                    console.log("ajax반복시작");
                     let campListBoxHtml = "";
-                    for (let i = 0; i < 5; i++) {
+                    for (let i = 0; i < campList.length; i++) {
+                        console.log("ajax반복중");
                         campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
                         campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';
-                        campListBoxHtml += '<img style="height: 98%" src="' + campList[i].firstImageUrl + '"/></div>';
+                        campListBoxHtml += '<img style="height: 98%" src="' + (campList[i].firstImageUrl || '../img/어서와영_사진없음.png') + '"/></div>';
                         campListBoxHtml += '<div class="campBoxRight"><div class="campText">[ <span>' + campList[i].doNm + '</span><span>' + campList[i].sigunguNm + '</span> ]</div>';
                         campListBoxHtml += '<div class="campText">' + campList[i].facltNm + '</div>';
                         campListBoxHtml += '<div class="campText">' + campList[i].lineIntro + '</div>';
-                        campListBoxHtml += '<div class="campSbrsClBox"><div class="campSbrsCl">';
-                        campListBoxHtml += '<div class="campSbrsClItem">';
-
+                        campListBoxHtml += '<div class="campSbrsClBox">';
                         let sbrsClList = campList[i].sbrsCl.split(",");
                         for (let j = 0; j<sbrsClList.length; j++) {
+                            campListBoxHtml += '<div class="campSbrsCl"><div class="campSbrsClItem">';
                             if (sbrsClList[j] == "전기") {
                                 campListBoxHtml += '<i class="fa-solid fa-bolt"></i>'
                             } else if (sbrsClList[j] == "무선인터넷") {
@@ -66,6 +73,7 @@ $(function () {
                             } else if (sbrsClList[j] == "운동장") {
                                 campListBoxHtml += '<i class="fa-solid fa-baseball-ball"></i>'
                             }
+                            campListBoxHtml += '</div></div>'
                         }
                         // let themaList;
                         // if (themaEnvrnCl) {
@@ -73,9 +81,8 @@ $(function () {
                         // } else {
                         //     themaList = ["즐거운캠핑"];
                         // }
-                        campListBoxHtml += '</div></div></div></div></div></div><hr></div>';
+                        campListBoxHtml += '</div></div></div></div></div><hr></div>';
                     }
-
                     $('#campListBox').html(campListBoxHtml);
                 } catch (e) {
                     console.log(e);

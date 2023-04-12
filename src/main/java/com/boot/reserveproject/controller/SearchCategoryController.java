@@ -33,6 +33,7 @@ public class SearchCategoryController {
         int min = page * 10 - 10;
         int max = page * 10 - 1;
         List<Camp> searchAllList = campService.findByAnimal();
+        int size = searchAllList.size();
         List<Camp> campList = new ArrayList<>();
         for (int i = min; i <= max && i < searchAllList.size(); i++) {
             campList.add(searchAllList.get(i));

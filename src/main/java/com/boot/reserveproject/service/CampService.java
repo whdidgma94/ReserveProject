@@ -78,4 +78,8 @@ public class CampService {
         List<Camp> campList = campRepository.selectListByAnimal("가능", "가능(소형견)");
         return campList;
     }
+    public List<Camp> findByclturEventAt(){
+        List<Camp> campList = campRepository.selectListByClturEventAt("Y");
+        return campList;
+    }
 }
