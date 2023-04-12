@@ -40,16 +40,16 @@
         font-weight: bold;
     }
 </style>
-<head th:replace="mobile/fragments/header :: header"/>
+<head th:replace="mobile/fragments/header :: header"></head>
 <body>
-<div th:replace="mobile/fragments/bodyHeader :: bodyHeader"/>
-<div th:replace="mobile/fragments/bodyHeader :: side-bar"/>
+<div th:replace="mobile/fragments/bodyHeader :: bodyHeader"></div>
+<div th:replace="mobile/fragments/bodyHeader :: side-bar"></div>
 <div class="view">
     <div class="contentName">
         <h1>회원가입</h1>
         <hr>
     </div>
-    <form role="form" id="joinForm" action="/member/new" th:object="${memberForm}" method="post">
+    <form role="form" id="joinForm" action="/mobile/member/new" th:object="${memberForm}" method="post">
         <div class="form-group">
             <label th:for="loginId">아이디</label>
             <input type="text" id="loginId" th:field="*{loginId}" class="form-control">
@@ -59,7 +59,7 @@
         <div class="form-group">
             <label th:for="pw">비밀번호</label>
             <input id="pwInput1" type="password" th:field="*{pw}" class="form-control">
-            <img width="60px" height="60px" onclick="toggleImage()" src="/img/보이기.png">
+            <img width="60px" height="60px" onclick="toggleImage()" src="/img/보이기.png" alt="">
         </div>
         <div class="form-group">
             <label th:for="pwConfirm">비밀번호 확인</label>
@@ -142,7 +142,7 @@
         <input id="phone2" type="hidden" th:field="*{phone}"/>
     </form>
 </div>
-<div th:replace="mobile/fragments/footer :: footer"/>
+<div th:replace="mobile/fragments/footer :: footer"></div>
 </body>
 <script>
     function join() {

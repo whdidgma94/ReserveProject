@@ -21,11 +21,14 @@ import java.util.*;
 @RequiredArgsConstructor
 public class SearchController {
     private final CampService campService;
-    @GetMapping("/search/map")
-    public String showMapIntro() {
+    @GetMapping("/pc/search/map")
+    public String showMapIntroPc() {
         return "pc/search/searchMap";
     }
-
+    @GetMapping("/mobile/search/map")
+    public String showMapIntroMobile() {
+        return "mobile/search/searchMap";
+    }
     @GetMapping("/search/mapSearch")
     public ResponseEntity<Object> showMap(@RequestParam(value = "boundsObj", required = false) String boundsObjStr, @RequestParam(value="keyword", required=false) String keyword, @RequestParam(value = "type", required = false) String type) {
         JSONObject boundsObjJson = new JSONObject(boundsObjStr);

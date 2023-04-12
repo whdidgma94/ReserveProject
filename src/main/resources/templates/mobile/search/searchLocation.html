@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{pc/fragments/header :: header}"/>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script th:src="@{/js/locationSearch.js}"></script>
+
+<body>
+<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
+<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
+
+<div class="view">
+  <h1>지역별검색</h1>
+  <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
+  <select id="sido_code">
+    <option>전체</option>
+  </select>
+  <select id="sigoon_code">
+    <option>전체</option>
+  </select>
+  <button class="btn btn-outline-success" type="button" id="search-icon" onclick="search()">검색</button>
+
+  <div id="sample">
+  <div  th:each="camp, idx : ${campList}">
+    <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">
+      <div class="campBoxTop">
+        <div class="campBoxLeft">
+          <img style="height: 98%" th:src="${camp.firstImageUrl}"/>
+        </div>
+        <div class="campBoxRight">
+          <div class="campText">
+            [ <span th:text="${camp.doNm}"></span>
+            <span th:text="${camp.sigunguNm}"></span> ]
+          </div>
+          <div class="campText" th:text="${camp.facltNm}"></div>
+          <div class="campText" th:text="${camp.lineIntro}"></div>
+          <div class="campSbrsClBox">
+            <div class="campSbrsCl" th:each="sbrsCl : ${sbrsClList[__${idx.index}__]}">
+              <div class="campSbrsClItem" th:each="C : ${sbrsCl}">
+                <i th:if="${C == '전기'}" class="fa-solid fa-bolt"></i>
+                <i th:if="${C == '무선인터넷'}" class="fa-solid fa-wifi"></i>
+                <i th:if="${C == '장작판매'}" class="fa-sharp fa-solid fa-fire"></i>
+                <i th:if="${C == '온수'}" class="fa-solid fa-thermometer-full"></i>
+                <i th:if="${C == '트렘폴린'}" class="fa-solid fa-person-arrow-up-from-line"></i>
+                <i th:if="${C == '물놀이장'}" class="fa-solid fa-swimmer"></i>
+                <i th:if="${C == '놀이터'}" class="fa-solid fa-rocket"></i>
+                <i th:if="${C == '산책로'}" class="fa-solid fa-hiking"></i>
+                <i th:if="${C == '운동시설'}" class="fa-solid fa-dumbbell"></i>
+                <i th:if="${C == '마트.편의점'}" class="fa-solid fa-shopping-cart"></i>
+                <i th:if="${C == '운동장'}" class="fa-solid fa-baseball-ball"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="campBoxBottom">
+        <!--                <div class="campThema" th:each="thema : ${themaList[__${idx.index}__]}">-->
+        <!--                    <div class="campThemaList" th:each="T : ${thema}">-->
+        <!--                        <span th:text="${T}"></span>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+      </div>
+    </div>
+    <hr>
+  </div>
+  <div id="resultSize"></div>
+  <div id="campList"></div>
+  <div id="paging"></div>
+  <div id="pagingInsert" class="d-flex justify-content-center align-items-center mt-3">
+
+  </div>
+  <div th:replace="~{pc/fragments/footer :: footer}" />
+</div>
+
+</body>
+</html>
