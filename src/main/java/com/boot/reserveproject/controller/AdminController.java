@@ -22,17 +22,16 @@ public class AdminController {
         return "/admin/member/memberList";
     }
 
-    @PostMapping("/admin/memberDelete")
-    public String memberDelete(@RequestParam("id") Long id) {
+    @PostMapping("/admin/deleteMember")
+    public String deleteMember(@RequestParam("id") Long id) {
 
         adminService.removeMember(id);
         return "/admin/member/memberList";
     }
 
     @GetMapping("/admin/memberInfo")
-    public ResponseEntity<Member> getMemberInfo(@RequestParam Long id) {
+    public ResponseEntity<Member> getMemberInfo(@RequestParam("id") Long id) {
         Member member = adminService.oneMember(id);
-        System.out.println("id = " + id);
         return ResponseEntity.ok(member);
     }
 

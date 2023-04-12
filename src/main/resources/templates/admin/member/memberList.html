@@ -26,7 +26,7 @@
                     <th scope="col" colspan="2">비고</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody th:if="${memberList != null}">
                 <tr th:each="member : ${memberList}" th:if="${member.loginId != 'admin'}">
                     <td th:text="${member.id}" ></td>
                     <td th:text="${member.loginId}"></td>
@@ -53,7 +53,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>정말로 회원을 삭제하시겠습니까?</p>
+                <p>정말로 삭제하시겠습니까?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
@@ -117,3 +117,5 @@
         </div>
     </div>
 </div>
+</body>
+</html>
