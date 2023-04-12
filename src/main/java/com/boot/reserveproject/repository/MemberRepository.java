@@ -2,6 +2,7 @@ package com.boot.reserveproject.repository;
 
 import com.boot.reserveproject.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -15,6 +16,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select m from Member m where m.phone = :phone")
     List<Member> selectPhoneNumber(@Param("phone") String phone);
+
     @Query("select m from Member m where m.email = :email")
     List<Member> selectEmail(@Param("email") String email);
 
@@ -23,10 +25,10 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select m from Member m where m.loginId = :loginId")
     Member selectMemberByLoginId(@Param("loginId") String loginId);
-
+    @Modifying
     @Query("update Member m set m.pw = :code where m.phone = :phone")
     void updateTempByPhone(@Param("code") String code, @Param("phone") String phone);
-
+    @Modifying
     @Query("update Member m set m.pw = :code where m.email = :email")
     void updateTempByEmail(@Param("code") String code, @Param("email") String email);
 }

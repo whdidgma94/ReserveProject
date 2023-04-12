@@ -6,6 +6,9 @@
 </div>
 <div class="side-bar" th:fragment="side-bar">
     <img src="/img/어서와영side.png">
+    <div>
+        <h3 th:if="${session.log != null}" th:text="${session.log}+'님, 환영합니다'"></h3>
+    </div>
     <ul>
         <li class="nav-item">
             <a class="nav-link" href="/search/address">
@@ -46,7 +49,5 @@
 
     </ul>
     
-    <div>
-    <h3 th:if="${session.log != null}" th:text="${session.log}"></h3>
-    </div>
+
 </div>

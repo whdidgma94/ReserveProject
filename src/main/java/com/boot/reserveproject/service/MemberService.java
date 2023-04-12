@@ -3,13 +3,13 @@ package com.boot.reserveproject.service;
 import com.boot.reserveproject.domain.Member;
 import com.boot.reserveproject.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -19,7 +19,6 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    @Transactional
     public Long join(Member member) {
         memberRepository.save(member);
         return member.getId();
@@ -47,7 +46,6 @@ public class MemberService {
         return list;
     }
 
-    @Transactional
     public void removeMember(Long id) {
         memberRepository.deleteById(id);
     }
@@ -73,15 +71,14 @@ public class MemberService {
         return true;
     }
 
+    @Modifying
+    @Transactional
     public void updateTemp(String type, String address, String code) {
         if (type.equals("phone")) {
             memberRepository.updateTempByPhone(code, address);
         } else {
             memberRepository.updateTempByEmail(code, address);
         }
-        System.out.println("address = " + address);
-        System.out.println("code = " + code);
-        System.out.println("type = " + type);
     }
 
     public Member selectMemberById(String loginId) {

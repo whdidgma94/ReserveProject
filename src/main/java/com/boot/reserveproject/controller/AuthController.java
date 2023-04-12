@@ -38,7 +38,6 @@ public class AuthController {
         }
         String code = authService.sendPhone(phone, "auth");
         session.setAttribute("authCode", code);
-        System.out.println("authCode = " + code);
         return "true";
     }
 
@@ -46,8 +45,6 @@ public class AuthController {
     @ResponseBody
     public String auth(@RequestParam("code") String code, HttpSession session) throws IOException {
         String authCode = (String) session.getAttribute("authCode");
-        System.out.println("2code = " + code);
-        System.out.println("2authCode = " + authCode);
         if (authCode.equals(code)) {
             session.removeAttribute("authCode");
             return "true";
