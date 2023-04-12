@@ -44,6 +44,20 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
     List<Camp> selectListByLocationTest(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("pageAble") Pageable pageAble);
     @Query("SELECT COUNT(c.id) FROM Camp c WHERE c.doNm LIKE %:sido% AND c.sigunguNm LIKE %:sigoon%")
     Long countListByLocation(@Param("sido") String sido, @Param("sigoon") String sigoon);
-    @Query("SELECT c FROM Camp c WHERE c.lctCl LIKE %:keyword%")
-    List<Camp> findBylctCl(@Param("keyword") String keyword);
+
+    @Query("SELECT c FROM Camp c WHERE c.induty LIKE %:keyword%")
+    List<Camp> selectListByInduty(@Param("keyword") String keyword);
+    @Query("SELECT c FROM Camp c WHERE c.animalCmgCl = :possible OR c.animalCmgCl = :possibleSmall")
+    List<Camp> selectListByAnimal(@Param("possible") String possible, @Param("possibleSmall") String possibleSmall);
+
+    @Query("SELECT c FROM Camp c WHERE c.caravAcmpnyAt = :Y")
+    List<Camp> selectListByCaravAcmpnyAt(@Param("Y") String Y);
+    @Query("SELECT c FROM Camp c WHERE c.trlerAcmpnyAt = :Y")
+    List<Camp> selectListByTrlerAcmpnyAt(@Param("Y") String Y);
+    @Query("SELECT c FROM Camp c WHERE c.exprnProgrmAt = :Y")
+    List<Camp> selectListByExprnProgrmAt(@Param("Y") String Y);
+    @Query("SELECT c FROM Camp c WHERE c.clturEventAt = :Y")
+    List<Camp> selectListByClturEventAt(@Param("Y") String Y);
+    @Query("SELECT c FROM Camp c WHERE c.themaEnvrnCl LIKE %:keyword%")
+    List<Camp> selectListByThemaEnvrnCl(@Param("keyword") String keyword);
 }

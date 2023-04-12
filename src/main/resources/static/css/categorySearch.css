@@ -1,7 +1,8 @@
-.mainBox{
-    margin-top: 70px;
+.mainBox {
+    margin-top: 120px
 }
-.categoryCheckBox{
+
+.categoryCheckBox {
     width: 100%;
     height: 300px;
 
@@ -11,32 +12,109 @@
     flex-direction: column;
 }
 
-.categoryCheck{
+.categoryCheck {
     border: 1px lightgray solid;
     box-sizing: border-box;
     border-radius: 15px;
+    margin-bottom: 10px;
 
     display: flex;
     align-items: center;
     flex-direction: row;
     width: 95%;
 }
-.title{
+
+.title {
     width: 100px;
     display: flex;
     justify-content: center;
 }
-.check{
+
+.check {
     width: calc(100% - 100px);
     display: flex;
     align-items: center;
     flex-wrap: wrap;
 }
-.item{
+
+.item {
     margin-right: 10px;
 }
-label{
+
+label {
     margin-top: 5px;
-    margin-left: 2px;
+    margin-left: 4px;
 }
 
+
+/* 리스트 start */
+.tempCampBox {
+    height: 300px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.campBoxTop {
+    height: 250px;
+    width: 100%;
+    display: flex;
+}
+
+.campBoxBottom {
+    height: 50px;
+    width: 100%;
+    display: flex;
+}
+
+.campBoxLeft {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.campBoxRight {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.campText {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+}
+
+.campSbrsClBox {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.campSbrsClItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 45px;
+    height: 45px;
+    margin: 0 1px 0 1px;
+    border: 1px solid black;
+    border-radius: 15px;
+    font-size: 20px;
+}
+
+hr {
+    height: 1px;
+    color: lightgray;
+}
+/* 리스트 end */

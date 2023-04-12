@@ -64,9 +64,12 @@ public class CampService {
         Long length= campRepository.countListByLocation(sido,sigoon);
         return length;
     }
-
     public List<Camp> findBylctCl(String lctCl){
         List<Camp> campList = campRepository.selectListBylctCl(lctCl);
+        return campList;
+    }
+    public List<Camp> findByAnimal(){
+        List<Camp> campList = campRepository.selectListByAnimal("가능", "가능(소형견)");
         return campList;
     }
 }

@@ -147,11 +147,11 @@ public ResponseEntity<Object> showListByAddress(@RequestParam(value = "sido", re
 
     }
 
-    @GetMapping("/search/category")
-    public String showCategoryList() {
-
-        return "pc/search/searchCategory";
-    }
+//    @GetMapping("/search/category")
+//    public String showCategoryList() {
+//
+//        return "pc/search/searchCategory";
+//    }
 
 
     public List<Camp> searchByName(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {

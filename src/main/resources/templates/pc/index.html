@@ -126,9 +126,9 @@
 <div class="view" style="margin-top: 50px">
     <div class="ranViewBox">
         <div class="ranViewTitleBox">
-            <button onclick="prevWord()"> ◀ </button>
+            <button onclick="prevWord()"> ◀</button>
             <div id="rancltCl"></div>
-            <button onclick="nextWord()"> ▶ </button>
+            <button onclick="nextWord()"> ▶</button>
         </div>
         <div class="ranViewImageBox" id="ranViewImageBox">
         </div>
@@ -166,17 +166,18 @@
                     </div>
                 </div>
             </div>
-         <!--   <div class="campBoxBottom">
-                                <div class="campThema" th:each="thema : ${themaList}">
-                                    <div class="campThemaList" th:each="T : ${thema}">
-                                        <span th:text="${T}"></span>
-                                    </div>
-                                </div>-->
-            </div>
+            <!--   <div class="campBoxBottom">
+                                   <div class="campThema" th:each="thema : ${themaList}">
+                                       <div class="campThemaList" th:each="T : ${thema}">
+                                           <span th:text="${T}"></span>
+                                       </div>
+                                   </div>-->
         </div>
         <hr>
     </div>
-    <div th:replace="~{pc/fragments/footer :: footer}"/>
+    <hr>
+</div>
+<div th:replace="~{pc/fragments/footer :: footer}"/>
 </div>
 </body>
 <script>
@@ -209,6 +210,7 @@
         changeView(cltList[index]);
         console.log(cltList[index])
     }
+
     ranCltBox.innerHTML = cltList[index];
     changeView(cltList[index]);
 
@@ -221,7 +223,7 @@
             data: {
                 lctCl: lct
             },
-            success: function(result) {
+            success: function (result) {
                 try {
                     var campList = $.parseJSON(result);
                     if (campList == null || campList.length == 0) {
@@ -249,7 +251,7 @@
                     alert("오류가 발생했습니다.");
                 }
             },
-            error: function() {
+            error: function () {
                 console.log("Error occurred during data fetching.");
                 alert("데이터를 불러오는 중 오류가 발생했습니다.");
             }
