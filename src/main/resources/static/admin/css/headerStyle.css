@@ -1,0 +1,74 @@
+#sidebar {
+    width: 250px;
+    height: calc(100% - 60px); /* 헤더 높이 60px 고려 */
+    position: absolute;
+    top: 60px; /* 헤더 높이 60px 고려 */
+    left: -250px;
+    background-color: #1c1c1c;
+    color: #ffffff;
+    z-index: 1;
+    overflow-x: hidden;
+    padding-top: 20px;
+    transition: left 0.3s ease-in-out;
+}
+
+#sidebar.active {
+    left: 0; /* 사이드바가 보이도록 왼쪽으로 이동 */
+}
+li {
+    list-style-type: none;
+}
+
+#sidebar ul li a {
+    padding: 10px 20px;
+    display: block;
+    text-decoration: none;
+    color: #ffffff; /* 흰색 글씨 */
+}
+
+#sidebar ul li a:hover {
+    background-color: #ffffff; /* 마우스 올리면 흰색 바탕 */
+    color: #1c1c1c; /* 마우스 올리면 검정색 글씨 */
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background-color: #1c1c1c; /* 검정색 바탕 */
+    color: #ffffff; /* 흰색 글씨 */
+}
+
+#header {
+    background-color: #1c1c1c;
+    color: #ffffff;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2; /* 사이드바보다 높은 우선순위를 가지도록 설정 */
+    display: flex;
+    align-items: center;
+}
+#menuBtn{
+    background-color: #1c1c1c;
+    color: #ffffff;
+    border: 1px solid white;
+    margin: 15px;
+    border-radius: 5px;
+}
+#header h3 {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+@media only screen and (max-width: 768px) {
+    #sidebar {
+        left: -250px; /* 모바일 화면에서는 사이드바 숨기기 */
+    }
+
+    #sidebar.active {
+        left: 0; /* 모바일에서는 버튼을 누르면 사이드바 보이도록 */
+    }
+}

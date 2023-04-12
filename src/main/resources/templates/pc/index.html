@@ -1,7 +1,6 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src=""></script>
 <head th:replace="~{pc/fragments/header :: header}"/>
 <style>
     .ranViewBox {
@@ -15,7 +14,8 @@
 
         margin-right: 5px;
     }
-    .ranViewTitleBox{
+
+    .ranViewTitleBox {
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -106,15 +106,11 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-
         width: 45px;
         height: 45px;
         margin: 0 1px 0 1px;
         border: 1px solid black;
         border-radius: 15px;
-    }
-
-    .fa-solid {
         font-size: 20px;
     }
 
@@ -134,7 +130,7 @@
             <div id="rancltCl"></div>
             <button onclick="nextWord()">Next</button>
         </div>
-        <div class="ranViewImageBox">
+        <div class="ranViewImageBox" id="ranViewImageBox">
             <div class="ranViewImage" th:each="camp : ${campList}" th:onclick="|details(${camp.contentId})|">
                 <img style="width: 200%" th:src="${camp.firstImageUrl}"/>
             </div>
@@ -173,12 +169,12 @@
                     </div>
                 </div>
             </div>
-            <div class="campBoxBottom">
-                <!--                <div class="campThema" th:each="thema : ${themaList[__${idx.index}__]}">-->
-                <!--                    <div class="campThemaList" th:each="T : ${thema}">-->
-                <!--                        <span th:text="${T}"></span>-->
-                <!--                    </div>-->
-                <!--                </div>-->
+         <!--   <div class="campBoxBottom">
+                                <div class="campThema" th:each="thema : ${themaList}">
+                                    <div class="campThemaList" th:each="T : ${thema}">
+                                        <span th:text="${T}"></span>
+                                    </div>
+                                </div>-->
             </div>
         </div>
         <hr>
@@ -188,12 +184,13 @@
 </body>
 <script>
     function details(contentId) {
-        location.href = "detailCamp?contentId=" + contentId;
+        location.href = "/pc/detailCamp?contentId=" + contentId;
     }
 
     var cltList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];
     var index = 0;
     var ranCltBox = document.getElementById("rancltCl");
+
     function prevWord() {
         if (index <= 0) {
             index = cltList.length - 1;
@@ -201,7 +198,10 @@
             index--;
         }
         ranCltBox.innerHTML = cltList[index];
+        changeView(cltList[index]);
+        console.log(cltList[index])
     }
+
     function nextWord() {
         if (index >= cltList.length - 1) {
             index = 0;
@@ -209,37 +209,55 @@
             index++;
         }
         ranCltBox.innerHTML = cltList[index];
+        changeView(cltList[index]);
+        console.log(cltList[index])
     }
     ranCltBox.innerHTML = cltList[index];
+    changeView(cltList[index]);
 
-    // function fetchData() {
-    //     var keyword = document.getElementById("rancltCl").innerHTML;
-    //
-    //     $.ajax({
-    //         type: "GET",
-    //         url: "/api/camps?keyword=" + keyword,
-    //         console.log("1")
-    //         success: function(data) {
-    //             var ranViewImageBox = document.querySelector(".ranViewImageBox");
-    //             ranViewImageBox.innerHTML = "";
-    //             console.log("2")
-    //             data.forEach(function(camp) {
-    //                 var ranViewImage = document.createElement("div");
-    //                 ranViewImage.classList.add("ranViewImage");
-    //
-    //                 var img = document.createElement("img");
-    //                 img.style.width = "200%";
-    //                 img.src = camp.firstImageUrl;
-    //
-    //                 ranViewImage.appendChild(img);
-    //                 ranViewImageBox.appendChild(ranViewImage);
-    //             });
-    //         },
-    //         error: function() {
-    //             console.log("Error occurred during data fetching.");
-    //         }
-    //     });
-    // }
+
+    function changeView(lct) {
+        console.log(lct)
+        $.ajax({
+            type: "GET",
+            url: "/camp/ranView",
+            data: {
+                lctCl: lct
+            },
+            success: function(result) {
+                try {
+                    var campList = $.parseJSON(result);
+                    if (campList == null || campList.length == 0) {
+                        alert("검색결과가 존재하지 않습니다.");
+                        return;
+                    }
+                    var areaArr = new Array(); // areaArr 변수 추가
+
+                    for (let i = 0; i < 5; i++) {
+                        areaArr.push({ // areaArr에 값을 push
+                            firstImageUrl: campList[i].firstImageUrl,
+                            contentId: campList[i].contentId,
+                        });
+                    }
+
+                    let ranViewImageBoxHtml = "";
+                    for (let i = 0; i < 5; i++) {
+                        ranViewImageBoxHtml += '<div class="ranViewImage" onClick="details(' + areaArr[i].contentId + ')">';
+                        ranViewImageBoxHtml += '<img style="width: 200%" src="' + areaArr[i].firstImageUrl + '"/></div>';
+                    }
+
+                    $('#ranViewImageBox').html(ranViewImageBoxHtml);
+                } catch (e) {
+                    console.log(e);
+                    alert("오류가 발생했습니다.");
+                }
+            },
+            error: function() {
+                console.log("Error occurred during data fetching.");
+                alert("데이터를 불러오는 중 오류가 발생했습니다.");
+            }
+        });
+    }
 
 </script>
 </html>

@@ -2,48 +2,49 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <div class="header" th:fragment="bodyHeader">
-    <div class="logo"><img src="/img/어서와양.png"></div>
+    <div class="logo" onclick="location.href='/mobile/index'"><img src="/img/어서와양.png"></div>
     <div class="icon open-sidebar-btn" onclick="mViewSideBar()"><i class="fa-solid fa-bars"></i></div>
 </div>
 <div class="side-bar" th:fragment="side-bar">
     <nav class="sidebar">
         <ul class="nav flex-column">
+            <li>
+                <img class="sideImg" src="/img/어서와양side.png" alt="">
+            </li>
             <li class="nav-item">
-                <a class="nav-link active" href="#">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    지역명 검색
+                <a class="nav-link" href="#">
+                    <i class="fa-solid fa-comments"></i>
+                    게시판(미구현)
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fa-solid fa-map-location"></i>
-                    지도로 검색
+                    <i class="fa-solid fa-bullhorn"></i>
+                    공지사항(미구현)
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fa-solid fa-list"></i>
-                    카테고리별 검색
+                    <i class="fa-solid fa-flag"></i>
+                    고객센터(미구현)
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa-solid fa-heart" style="color:red"></i>
-                    찜
+                <a class="nav-link" href="/mobile/member/new">
+                    <i class="fa-solid fa-user-plus"></i>
+                    회원가입
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa-solid fa-user"></i>
-                    마이페이지
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/member/new">
+                <a class="nav-link" th:href="${session.log == null} ? '/mobile/member/login' : '/mobile/member/logout'">
                     <i class="fa-solid fa-right-to-bracket"></i>
-                    로그인
+                    <th:block th:if="${session.log == null }" th:text="로그인"/>
+                    <th:block th:if="${session.log != null }" th:text="로그아웃"/>
                 </a>
             </li>
         </ul>
+        <div>
+            <h3 th:if="${session.log != null}" th:text="${session.log}+' 님 접속중'"></h3>
+        </div>
     </nav>
 </div>

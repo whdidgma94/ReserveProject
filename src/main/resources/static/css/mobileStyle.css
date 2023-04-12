@@ -2,19 +2,23 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-size:65px;
+    font-family: 'Dongle', sans-serif;
 }
 .header{
     position: fixed;
     width: 100%;
-    height:150px;
-    color:green;
-    background-color: lightgreen;
+    height:200px;
+    color:lightgray;
+    background-color: white;
     border-radius:0px 0px 10px 10px;
     display:flex;
     flex-direction:row;
     justify-content:space-between;
     align-items:center;
     z-index:2;
+    -webkit-box-shadow: 0px 2px 27px 2px rgba(0,0,0,0.32);
+    box-shadow: 0px 2px 27px 2px rgba(0,0,0,0.32);
 }
 .footer{
     width:100%;
@@ -23,8 +27,8 @@
     bottom: 0;
 }
 .view{
-    padding-top:150px;
-    margin-bottom: 200px;
+    padding-top:240px;
+    margin-bottom: 270px;
 }
 
 .nav-menu{
@@ -39,14 +43,17 @@ ul{
     list-style: none;
     background-color:white;
 }
-li{
+.footer li{
     border-radius:20px;
     display:flex;
-    background-color:lightgreen;
+    background-color:white;
     width:19%;
     height:100%;
     justify-content:center;
     align-items:center;
+    border:3px solid black;
+    -webkit-box-shadow: 0px 2px 27px 2px rgba(0,0,0,0.32);
+    box-shadow: 0px 2px 27px 2px rgba(0,0,0,0.32);
 }
 .side-bar ul li{
     height : 100px;
@@ -59,7 +66,7 @@ li{
     width:100%;
     flex-direction:row;
     justify-content:center;
-    background-color:wheat;
+    background-color:white;
 }
 .nav-item{
     display:flex;
@@ -72,7 +79,7 @@ li{
 .icon{
     display: flex;
     justify-content: center;
-    font-size: 60px;
+    font-size: 70px;
 }
 .footer-label{
     display: flex;
@@ -84,7 +91,7 @@ li{
     margin-left:40px;
 }
 .logo img{
-    width:40%;
+    width:55%;
 }
 .header .icon{
     margin-right:40px;
@@ -109,4 +116,79 @@ li{
 .blur{
     filter: blur(5px);
     -webkit-filter: blur(5px);
+}
+.sideImg{
+    position:absolute;
+    top:0%;
+}
+.view h1{
+    font-size:100px;
+    text-align:center;
+    font-weight:bold;
+    font-family: 'Dongle', sans-serif;
+    margin-bottom : 0;
+}
+.form-group label{
+    margin-bottom : 0;
+    width: 100%;
+}
+.view .form-group{
+    margin-bottom:0;
+    margin-left:50px;
+    display:flex;
+    flex-direction:column;
+}
+.side-bar a{
+    font-size : 60px;
+}
+.side-bar i{
+    font-size : 60px;
+}
+.contentName{
+    height : 100px;
+}
+.view .form-control{
+    width:90%;
+    height:150px;
+}
+.view .btn{
+    margin-top:40px;
+    width:30%;
+    text-align:center;
+    padding:0;
+}
+.swal-title{
+    font-size:100px;
+    font-family: 'Dongle', sans-serif;
+}
+.swal-text{
+    font-size:60px;
+    font-family: 'Dongle', sans-serif;
+}
+.swal-modal{
+    width:90%;
+    border-radius:30px;
+}
+.swal-footer{
+    display:flex;
+    justify-content:center;
+}
+.swal-button-container{
+    width:40%;
+}
+.swal-button{
+    border-radius:30px;
+    width:100%;
+    height:100%;
+    font-size:60px;
+    font-family: 'Dongle', sans-serif;
+}
+.view .btn-success{
+    width:100%;
+}
+.side-bar div h3{
+    position:absolute;
+    bottom:10%;
+    font-size:80px;
+    margin-left:50px;
 }

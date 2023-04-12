@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<head th:replace="mobile/fragments/header :: header"/>
+<body>
+<div th:replace="mobile/fragments/bodyHeader :: bodyHeader"/>
+<div th:replace="mobile/fragments/bodyHeader :: side-bar"/>
+<div class="view">
+    <div class="contentName">
+        <h3 th:text="${type == 'id'}? '아이디 찾기' : '비밀번호 찾기'"></h3>
+        <hr>
+        <span th:text="${type == 'id'}? '아이디를 찾을 방법을 선택하세요' : '비밀번호를 찾을 방법을 선택하세요'"></span>
+    </div>
+    <label for="findByPhone">
+        <input type="radio" id="findByPhone" name="authMethod">
+        회원 정보에 등록한 휴대전화로 인증
+    </label>
+    <div id="byPhone">
+        <label th:style="${type=='id'}? 'display:none'">이름</label>
+        <input type="text" id="name" class="form-control number-only" th:style="${type=='id'}? 'display:none'"/>
+        <label for="phone">전화번호</label>
+        <input type="number" id="phone" class="form-control number-only"
+               placeholder="-를 제외한 숫자만 입력하세요"/>
+        <input type="button" id="phoneBtn" class="btn btn-primary" onclick="sendPhone()" value="인증번호 받기"/>
+        <div class="timer"></div>
+        <label for="authNumber">인증번호</label>
+        <input type="number" id="authNumber" class="form-control number-only" disabled>
+        <input type="button" id="authBtn" class="btn btn-primary" onclick="AuthCode('#authNumber')" value="확인"
+               style="display: none;"/>
+    </div>
+</div>
+<hr>
+<label for="findByEmail">
+    <input type="radio" id="findByEmail" name="authMethod">
+    회원 정보에 등록한 이메일로 인증
+</label>
+<div id="byEmail">
+    <label th:style="${type=='id'}? 'display:none'">이름</label>
+    <input type="text" id="emailname" class="form-control number-only" th:style="${type=='id'}? 'display:none'"/>
+    <label th:for="emailId">Email</label>
+    <div class="input-group">
+        <input type="text" id="emailId" class="form-control">
+        <span class="input-group-text">@</span>
+        <input type="text" id="emailDomain" class="form-control">
+        <select class="select form-control" onchange="setEmailDomain(this.value);">
+            <option value="">직접입력</option>
+            <option value="naver.com">naver.com</option>
+            <option value="gmail.com">gmail.com</option>
+            <option value="hanmail.net">hanmail.net</option>
+            <option value="hotmail.com">hotmail.com</option>
+            <option value="korea.com">korea.com</option>
+            <option value="nate.com">nate.com</option>
+            <option value="yahoo.com">yahoo.com</option>
+        </select>
+    </div>
+    <input type="button" id="emailBtn" class="btn btn-primary" onclick="sendEmail()" value="인증번호 받기"/>
+    <div class="timer"></div>
+    <label for="authNumber">인증번호</label>
+    <input type="text" id="emailauthNumber" class="form-control number-only" disabled>
+    <input type="button" id="emailauthBtn" class="btn btn-primary"
+           onclick="AuthCode('#emailauthNumber')"
+           value="확인" style="display: none;"/>
+
+</div>
+</div>
+<div th:replace="mobile/fragments/footer :: footer"/>
+</body>
+<script th:inline="javascript">
+    let type = [[${type}]];
+
+    document.getElementById("findByPhone").checked = true;
+    document.getElementById("byPhone").style.display = "block";
+    document.getElementById("byEmail").style.display = "none";
+
+    document.querySelectorAll('input[name="authMethod"]').forEach(function (elem) {
+        elem.addEventListener("click", function () {
+            var selected = this.getAttribute("id");
+            if (selected === "findByPhone") {
+                document.getElementById("byPhone").style.display = "block";
+                document.getElementById("byEmail").style.display = "none";
+            } else {
+                document.getElementById("byPhone").style.display = "none";
+                document.getElementById("byEmail").style.display = "block";
+            }
+        });
+    });
+
+    let timer;
+
+    function setEmailDomain(domain) {
+        if (domain == "") {
+            $("#emailDomain").val("");
+            $("#emailDomain").prop('disabled', false);
+        } else {
+            $("#emailDomain").val(domain);
+            $("#emailDomain").prop('disabled', true);
+        }
+    }
+
+    function sendEmail() {
+        if ($("#emailId").val() && $("#emailDomain").val()) {
+            let query = {
+                email: $("#emailId").val() + "@" + $("#emailDomain").val()
+            };
+            $.ajax({
+                type: "post",
+                url: "/email",
+                data: query,
+                success: function (data) {
+                    if (data == "false") {
+                        swal('존재하지 않는 이메일', '가입된 이메일이 아닙니다', 'error');
+                        $("#emailId").val('');
+                        $("#emailDomain").val('');
+                        $("#emailId").focus();
+                    } else {
+                        swal("인증번호 발송 완료", "입력하신 이메일로 인증번호를 발송했습니다. \n인증번호를 입력해주세요.", "success");
+                        $("#emailId").prop('disabled', true);
+                        $("#emailBtn").prop('disabled', true);
+                        $("#emailauthNumber").prop('disabled', false);
+                        $("#emailauthBtn").show();
+                        $("#emailauthNumber").focus();
+                        $("#emailBtn").val("재전송");
+
+                        let count = 180; // 3분
+                        timer = setInterval(function () {
+                            count--;
+                            if (count <= 0) {
+                                clearInterval(timer);
+                                swal("인증 시간 초과", "시간이 초과되었습니다. 재전송해주세요.", "error");
+                                $("#email").prop('disabled', false);
+                                $("#emailBtn").val("인증번호 발송");
+                            } else {
+                                let minutes = Math.floor(count / 60);
+                                let seconds = count % 60;
+                                $(".timer").text(minutes + "분 " + seconds + "초");
+                            }
+                        }, 1000);
+                    }
+
+                },
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            })
+        }
+    }
+
+    function sendPhone() {
+        const phoneInput = document.getElementById('phone');
+        if (phoneInput) {
+            const phone = phoneInput.value;
+            const regex = /^010[0-9]{8}$/;
+            if (!phone || !regex.test(phone)) {
+                swal('입력 오류', '전화번호의 형식이 올바르지 않습니다.', 'error');
+                return;
+            }
+        }
+        if ($("#phone").val()) {
+            let query = {
+                phone: $("#phone").val().replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+                type: "findIdByPhone"
+            };
+            $.ajax({
+                type: "post",
+                url: "/sendMsg",
+                data: query,
+                success: function (data) {
+                    if (data == "false") {
+                        swal('존재하지 않는 전화번호', '가입된 전화번호가 아닙니다', 'error');
+                        $("#phone").val('');
+                        $("#phone").focus();
+                    } else {
+                        swal("인증번호 발송 완료", "입력하신 전화번호로 인증번호를 발송했습니다. \n인증번호를 입력해주세요.", "success");
+                        $("#phone").prop('disabled', true);
+                        $("#phoneBtn").prop('disabled', true);
+                        $("#authNumber").prop('disabled', false);
+                        $("#authBtn").show();
+                        $("#authNumber").focus();
+                        $("#phoneBtn").val("재전송");
+
+                        let count = 180; // 3분
+                        timer = setInterval(function () {
+                            count--;
+                            if (count <= 0) {
+                                clearInterval(timer);
+                                swal("인증 시간 초과", "시간이 초과되었습니다. 재전송해주세요.", "error");
+                                $("#phone").prop('disabled', false);
+                                $("#phoneBtn").val("인증번호 발송");
+                            } else {
+                                let minutes = Math.floor(count / 60);
+                                let seconds = count % 60;
+                                $(".timer").text(minutes + "분 " + seconds + "초");
+                            }
+                        }, 1000);
+                    }
+
+                },
+                error: function (request, status, error) {
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            })
+        }
+    }
+
+    function AuthCode(authNumber) {
+        if ($(authNumber).val()) {
+            let query = {
+                code: $(authNumber).val()
+            };
+
+            $.ajax({
+                type: "post",
+                url: "/Auth",
+                data: query,
+                success: function (data) {
+                    if (data == "false") {
+                        swal('입력 오류', '인증번호가 일치하지 않습니다.', 'error');
+                        $(authNumber).val('');
+                    } else {
+                        swal('인증 성공', '인증이 완료되었습니다.', 'success');
+                        clearInterval(timer);
+                        $(".timer").text("");
+                        let url = "";
+                        if (type === 'id') {
+                            url = "/id"
+                        } else {
+                            url = "/password"
+                        }
+                        if ($("#phone").val()) {
+                            query = {
+                                address: $("#phone").val().replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+                                type: "phone"
+                            };
+                        } else {
+                            query = {
+                                address: $("#emailId").val() + "@" + $("#emailDomain").val(),
+                                type: "email"
+                            };
+                        }
+
+                        $.ajax({
+                            type: "post",
+                            url: url,
+                            data: query,
+                            success: function (data) {
+                                swal('전송 완료', '임시 비밀번호가 전송되었습니다. 확인 후 로그인 해주세요.', 'success');
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+</html>

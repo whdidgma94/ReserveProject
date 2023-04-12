@@ -106,7 +106,6 @@ public class CampApiController {
                 }
                 basedMap.put("site", site.trim());
 
-                //바닥형태
                 String siteBottom = "";
                 String[] materials = {"", "잔디", "파쇄석", "데크", "자갈", "맨흙"};
                 for (int j = 1; j <= 5; j++) {
