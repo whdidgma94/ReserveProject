@@ -68,9 +68,10 @@ public class MemberController {
             return "redirect:/pc/member/login";
         }
         if (memberService.checkLogin(form.getLoginId(), form.getPw())) {
+            if(form.getLoginId().equals("admin")){
+                return "pc/admin/adminMain";
+            }
             session.setAttribute("log", form.getLoginId());
-            System.out.println("form.getLoginId() = " + form.getLoginId());
-            System.out.println("form.getPw() = " + form.getPw());
         }
         return "redirect:/main";
     }

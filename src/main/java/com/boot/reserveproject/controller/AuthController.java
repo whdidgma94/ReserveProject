@@ -59,7 +59,7 @@ public class AuthController {
         if (type.equals("email")) {
             EmailMessage emailMessage = EmailMessage.builder()
                     .to(address)
-                    .subject("[어서y] 임시 비밀번호 발급")
+                    .subject("[어서yng] 임시 비밀번호 발급")
                     .build();
             code = authService.sendMail(emailMessage, "password");
         } else if (type.equals("phone")) {
@@ -79,7 +79,7 @@ public class AuthController {
         }
         EmailMessage emailMessage = EmailMessage.builder()
                 .to(email)
-                .subject("[어서y] 이메일 인증 코드")
+                .subject("[어서yng] 이메일 인증 코드")
                 .build();
 
         String code = authService.sendMail(emailMessage, "email");
