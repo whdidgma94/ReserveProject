@@ -176,3 +176,11 @@ ul{
     object-fit: cover;
     width: 100%;
 }
+.view .mapSearchBox{
+    display:flex;
+    justify-content:center;
+    margin-bottom:20px;
+}
+.view .mapSearchBtn{
+    width:50%;
+}

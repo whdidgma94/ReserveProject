@@ -12,24 +12,9 @@
 
 <div class="view">
     <h1 id="result-size"></h1>
-
-    <form class="form-group my-2 my-lg-0" onsubmit="return false;">
-<!--        <div>-->
-<!--            <select name="type">-->
-<!--                <option value="name">이름</option>-->
-<!--                <option value="theme">테마</option>-->
-<!--                <option value="location">위치</option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <label for="search" class="sr-only">검색</label>-->
-        <div class="input-group">
-<!--            <input class="form-control" type="search" id="search" name="keyword" placeholder="검색할 단어를 입력하세요" aria-describedby="search-icon">-->
-            <div class="input-group-append">
-                <button class="btn btn-outline-success" type="button" id="search-icon">검색</button>
-            </div>
-        </div>
-    </form>
-
+    <div class="mapSearchBox">
+        <button class="btn btn-outline-success mapSearchBtn" type="button" id="search-icon">검색</button>
+    </div>
     <div id="map" style="width:100%;height:800px;"></div>
 
     <div th:replace="~{pc/fragments/footer :: footer}"></div>
