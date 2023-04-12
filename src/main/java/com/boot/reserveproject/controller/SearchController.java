@@ -21,11 +21,14 @@ import java.util.*;
 @RequiredArgsConstructor
 public class SearchController {
     private final CampService campService;
-    @GetMapping("/search/map")
-    public String showMapIntro() {
+    @GetMapping("/pc/search/map")
+    public String showMapIntroPc() {
         return "pc/search/searchMap";
     }
-
+    @GetMapping("/mobile/search/map")
+    public String showMapIntroMobile() {
+        return "mobile/search/searchMap";
+    }
     @GetMapping("/search/mapSearch")
     public ResponseEntity<Object> showMap(@RequestParam(value = "boundsObj", required = false) String boundsObjStr, @RequestParam(value="keyword", required=false) String keyword, @RequestParam(value = "type", required = false) String type) {
         JSONObject boundsObjJson = new JSONObject(boundsObjStr);
@@ -33,26 +36,28 @@ public class SearchController {
         double southWestLng = boundsObjJson.getJSONObject("southWest").getDouble("x");
         double northEastLat = boundsObjJson.getJSONObject("northEast").getDouble("y");
         double northEastLng = boundsObjJson.getJSONObject("northEast").getDouble("x");
-        double[]arr={southWestLat,southWestLng,northEastLng,northEastLat};
-
-        if (keyword == null|| type == null) {
-
-            return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/search/searchMap").build();
-        }
+//        double[]arr={southWestLat,southWestLng,northEastLng,northEastLat};
+//
+//        if (keyword == null|| type == null) {
+//
+//            return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/search/searchMap").build();
+//        }
 
         List<Camp> campList = new ArrayList<>();
         try {
-            if (type.equals("name")) {
-                campList = searchByName(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
-
-
-
-
-            } else if (type.equals("theme")) {
-                campList = searchByTheme(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
-            } else if (type.equals("location")) {
-                campList = searchByAddress(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
-            }
+            campList=searchWithBounds(southWestLat,southWestLng,northEastLat,northEastLng);
+//            campList=searchWithBounds(southWestLat,southWestLng,northEastLat,northEastLng);
+//            if (type.equals("name")) {
+//                campList = searchByName(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+//
+//
+//
+//
+//            } else if (type.equals("theme")) {
+//                campList = searchByTheme(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+//            } else if (type.equals("location")) {
+//                campList = searchByAddress(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+//            }
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(campList);
             return new ResponseEntity<>(jsonString, HttpStatus.OK);
@@ -150,31 +155,36 @@ public class SearchController {
 //
 //        return "pc/search/searchCategory";
 //    }
+public List<Camp> searchWithBounds(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng){
+    List<Camp> campList= campService.getCampListByBounds(southWestLat,southWestLng,northEastLat,northEastLng);
+
+    return campList;
+}
+
+//    public List<Camp> searchByName(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
+//        List<Camp> campList = campService.getCampListByName(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
+//
+//        return campList;
+//    }
 
 
-    public List<Camp> searchByName(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
-        List<Camp> campList = campService.getCampListByName(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
-
-        return campList;
-    }
-
-    public List<Camp> searchByTheme(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
-        List<Camp> campList = campService.getCampListByTheme(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
-
-        return campList;
-    }
-
-    public List<Camp> searchByAddress(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
-        List<Camp> campList = campService.getCampListByAddress(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
-
-        return campList;
-
-    }
-
-    public List<Camp> searchByLocation(String sido, String sigoon) {
-        List<Camp> campList = campService.selectListByLocation(sido, sigoon);
-        return campList;
-    }
+//    public List<Camp> searchByTheme(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
+//        List<Camp> campList = campService.getCampListByTheme(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
+//
+//        return campList;
+//    }
+//
+//    public List<Camp> searchByAddress(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
+//        List<Camp> campList = campService.getCampListByAddress(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
+//
+//        return campList;
+//
+//    }
+//
+//    public List<Camp> searchByLocation(String sido, String sigoon) {
+//        List<Camp> campList = campService.selectListByLocation(sido, sigoon);
+//        return campList;
+//    }
     public List<Camp> searchByLocationTest(Model model,String sido,String sigoon,int pageNum,int pageRequest){
         Pageable pageable = PageRequest.of(pageNum - 1, pageRequest); // 페이지 번호와 페이지 크기를 설정합니다.
 

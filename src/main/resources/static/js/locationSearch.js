@@ -166,7 +166,7 @@
     for(let i = 0; i < areaArr.length; i++) {
     campListHtml += '<div class="col-md-6 col-lg-4">';
     campListHtml += '<div class="card">';
-    campListHtml += '<img style="width:200px;height:70px;" src="' + (areaArr[i].img || '../img/어서와영_사진없음.png') + '" alt="">';
+    campListHtml += '<img style="width:300px;height:150px;" src="' + (areaArr[i].img || '../img/어서와영_사진없음.png') + '" alt="">';
     campListHtml += '<div class="card-body">';
     campListHtml += '<h5 class="card-title"><a href="../pc/detailCamp?contentId='+areaArr[i].id +'">'+areaArr[i].name + '</a> </h5>';
     campListHtml += '<p class="card-text">' + areaArr[i].sido+ '&nbsp;&nbsp;&nbsp;'+areaArr[i].sigoon+ '</p>';
@@ -240,7 +240,7 @@
     for(let i = 0; i < areaArr.length; i++) {
     campListHtml += '<div class="col-md-6 col-lg-4">';
     campListHtml += '<div class="card">';
-    campListHtml += '<img src="' + areaArr[i].img + '" class="card-img-top" alt="">';
+    campListHtml += '<img style="width:300px;height:150px;" src="' + (areaArr[i].img || '../img/어서와영_사진없음.png') + '" alt="">';
     campListHtml += '<div class="card-body">';
     campListHtml += '<h5 class="card-title"><a href="../detailCamp?contentId='+areaArr[i].id +'">'+areaArr[i].name + '</a> </h5>';
     campListHtml += '<p class="card-text">' + areaArr[i].sido+ '&nbsp;&nbsp;&nbsp;'+areaArr[i].sigoon+ '</p>';

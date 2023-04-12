@@ -55,7 +55,7 @@ public class MemberController {
             member.setGender("female");
         }
         memberService.join(member);
-        return "pc/index";
+        return "redirect:/pc/main";
     }
     @PostMapping("/mobile/member/new")
     public String joinMemberMobile(@Valid MemberForm form, BindingResult result) {
@@ -82,7 +82,7 @@ public class MemberController {
             member.setGender("female");
         }
         memberService.join(member);
-        return "mobile/index";
+        return "redirect:/mobile/main";
     }
     @GetMapping("/pc/member/login")
     public String loginFormPc(Model model) {
@@ -117,7 +117,7 @@ public class MemberController {
             System.out.println("form.getLoginId() = " + form.getLoginId());
             System.out.println("form.getPw() = " + form.getPw());
         }
-        return "redirect:/mobile/index";
+        return "redirect:/mobile/main";
     }
     @GetMapping("/pc/member/logout")
     private String logoutPc(HttpSession session){
@@ -127,7 +127,7 @@ public class MemberController {
     @GetMapping("/mobile/member/logout")
     private String logoutMobile(HttpSession session){
         session.removeAttribute("log");
-        return "redirect:/mobile/index";
+        return "redirect:/mobile/main";
     }
 
     @ResponseBody
