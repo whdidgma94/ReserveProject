@@ -32,7 +32,7 @@ public class AdminController {
     @GetMapping("/admin/memberInfo")
     public ResponseEntity<Member> getMemberInfo(@RequestParam Long id) {
         Member member = adminService.oneMember(id);
-
+        System.out.println("id = " + id);
         return ResponseEntity.ok(member);
     }
 
