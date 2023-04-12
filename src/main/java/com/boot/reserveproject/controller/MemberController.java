@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.List;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -24,7 +23,6 @@ public class MemberController {
     @GetMapping("/pc/member/new")
     public String joinFormPc(Model model) {
         model.addAttribute("memberForm", new MemberForm());
-        System.out.println();
         return "pc/member/memberJoinForm";
     }
     @GetMapping("/mobile/member/new")
@@ -43,14 +41,12 @@ public class MemberController {
         member.setName(form.getName());
         member.setLoginId(form.getLoginId());
         member.setPw(form.getPw());
-        System.out.println("domain = " + form.getEmailDomain());
         member.setEmail(form.getEmailId()+"@"+form.getEmailDomain());
         member.setPostcode(form.getPostcode());
         member.setRoadAddress(form.getRoadAddress());
         member.setJibunAddress(form.getJibunAddress());
         member.setDetailAddress(form.getDetailAddress());
         member.setPhone(form.getPhone());
-        System.out.println("form.getPhone() = " + form.getPhone());
         member.setRegNum1(form.getRegNum1());
         member.setRegNum2(form.getRegNum2());
         if(form.getRegNum2().substring(0,1).equals("1")||form.getRegNum2().substring(0,1).equals("3")){

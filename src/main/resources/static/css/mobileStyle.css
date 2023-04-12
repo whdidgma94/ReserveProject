@@ -25,6 +25,7 @@
     height:200px;
     position: fixed;
     bottom: 0;
+    z-index:2;
 }
 .view{
     padding-top:240px;
@@ -272,4 +273,14 @@ ul{
 }
 #map{
     z-index:1;
+}
+.tempCampBox{
+    border:2px solid black;
+    padding:10px;
+    margin:10px;
+    border-radius:20px;
+}
+.campBoxLeft{
+    display:flex;
+    justify-content:center;
 }

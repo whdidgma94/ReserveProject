@@ -25,11 +25,15 @@ public class CampController {
     private CampApiController campApiController;
 
     @GetMapping("/pc/main")
-    public String getCamp(Model model) {
+    public String getCampPc(Model model) {
         campString(model);
         return "pc/index";
     }
-
+    @GetMapping("/mobile/main")
+    public String getCampMobile(Model model) {
+        campString(model);
+        return "mobile/index";
+    }
     @GetMapping("/camp/campList")
     public String getCampList(Model model) {
         campString(model);

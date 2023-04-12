@@ -175,10 +175,10 @@ function initMap(campList) {
 
         /* 정보창 */
         infoWindow = new naver.maps.InfoWindow({
-            content: '<div style="width:300px;text-align:center;padding:10px;"><a href="../detailCamp?contentId=' + areaArr[i].id + '">'
+            content: '<div style="width:300px;text-align:center;padding:10px;"><a href="../pc/detailCamp?contentId=' + areaArr[i].id + '">'
                 + areaArr[i].name + '</a><p>'+areaArr[i].address+'</p>' +
                 (areaArr[i].theme != null ? '<p>' + areaArr[i].theme + '</p>' : '') +
-                '<img style="width:200px;height:70px;" src="' + areaArr[i].img + '"></img>' +
+                '<img style="width:200px;height:70px;" src="' + (areaArr[i].img || 'path/to/alternative/image') + '" alt="">' +
 
                 '</div>'
 
