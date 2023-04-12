@@ -5,74 +5,29 @@
 <div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"/>
 <div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"/>
 <div class="view">
-    <h1>시작</h1>
-    <a href="/mobile/detailCamp?contentId=4">테스트</a>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>모바일인덱스</h1>
-    <h1>끝</h1>
+    <div th:each="camp, idx : ${campList}">
+        <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">
+            <div class="campBoxTop">
+                <div class="campBoxLeft">
+                    <img th:src="${camp.firstImageUrl}"/>
+                </div>
+                <div class="campBoxRight">
+                    <div class="campText">
+                        [ <span th:text="${camp.doNm}"></span>
+                        <span th:text="${camp.sigunguNm}"></span> ]
+                    </div>
+                    <div class="campText" th:text="${camp.facltNm}"></div>
+                    <div class="campText" th:text="${camp.lineIntro}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
 <div th:replace="~{mobile/fragments/footer :: footer}" />
 </body>
+<script>
+    function details(contentId) {
+        location.href = "/mobile/detailCamp?contentId=" + contentId;
+    }
+</script>
 </html>
