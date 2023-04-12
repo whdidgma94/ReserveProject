@@ -206,25 +206,6 @@
                 map:map,
                 position:myLocation
             })
-        let contentString = [
-            '<div class="iw_inner">',
-            '<a href="#">[[${camp.facltNm}]]</a>',
-            '<p>[[${camp.lineIntro}]]</p>',
-            '<br />',
-            ,
-            '</div>'
-        ].join('');
-        let infowindow = new naver.maps.InfoWindow({
-            content: contentString
-        });
-        naver.maps.Event.addListener(marker, "click", function(e) {
-            if (infowindow.getMap()) {
-                infowindow.close();
-            } else {
-                infowindow.open(map, marker);
-            }
-        });
-        infowindow.open(map, marker);
     }
     window.onload = function(){
         createMap();
