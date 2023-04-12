@@ -34,7 +34,7 @@ public class NoticeController {
         noticeService.createNotice(notice);
         return "admin/notice/noticeList";
     }
-    
+
     @GetMapping("/noticeList")
     public String noticeList(Model model, @RequestParam("type") String type){
         List<Notice> list = noticeService.getAllNotice();
