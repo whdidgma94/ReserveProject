@@ -86,9 +86,6 @@ public class CampController {
     @GetMapping("/camp/ranView")
     public ResponseEntity<Object> showListByLctCl(@RequestParam(value = "lctCl", required = false) String lctCl) {
         List<Camp> campList = searchByLctCl(lctCl);
-
-
-
         ObjectMapper mapper = new ObjectMapper();
         try {
             String jsonString = mapper.writeValueAsString(campList);
