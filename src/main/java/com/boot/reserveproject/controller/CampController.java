@@ -24,7 +24,7 @@ public class CampController {
     @Autowired
     private CampApiController campApiController;
 
-    @GetMapping("/main")
+    @GetMapping("/pc/main")
     public String getCamp(Model model) {
         campString(model);
         return "pc/index";
@@ -67,7 +67,7 @@ public class CampController {
         model.addAttribute("themaList", themaList);
     }
 
-    @GetMapping("detailCamp")
+    @GetMapping("/pc/detailCamp")
     public String getDetailsCamp(@RequestParam Long contentId, Model model) {
         Camp camp = campService.getCampById(contentId);
         model.addAttribute("camp", camp);
