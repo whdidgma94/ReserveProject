@@ -16,7 +16,13 @@ public class Notice {
     @Column(name = "noticeNo")
     private Long id;
     private String subject;
+    @Column(length = 10000)
     private String context;
     private LocalDate date;
+
+    @PrePersist
+    public void setDate() {
+        this.date = LocalDate.now();
+    }
 
 }

@@ -3,11 +3,9 @@ package com.boot.reserveproject.service;
 import com.boot.reserveproject.domain.Member;
 import com.boot.reserveproject.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +23,6 @@ public class AdminService {
     }
 
     public Member oneMember(Long id) {
-
         return memberRepository.findById(id).get();
     }
 
