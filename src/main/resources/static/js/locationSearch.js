@@ -242,7 +242,7 @@
     campListHtml += '<div class="card">';
     campListHtml += '<img style="width:300px;height:150px;" src="' + (areaArr[i].img || '../img/어서와영_사진없음.png') + '" alt="">';
     campListHtml += '<div class="card-body">';
-    campListHtml += '<h5 class="card-title"><a href="../detailCamp?contentId='+areaArr[i].id +'">'+areaArr[i].name + '</a> </h5>';
+    campListHtml += '<h5 class="card-title"><a href="../pc/detailCamp?contentId='+areaArr[i].id +'">'+areaArr[i].name + '</a> </h5>';
     campListHtml += '<p class="card-text">' + areaArr[i].sido+ '&nbsp;&nbsp;&nbsp;'+areaArr[i].sigoon+ '</p>';
     campListHtml += '<p class="card-text">' + areaArr[i].address + '</p>';
     campListHtml += '<p class="card-text">' + areaArr[i].lineInt+'</p>';

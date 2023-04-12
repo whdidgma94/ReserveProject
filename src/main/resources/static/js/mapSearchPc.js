@@ -178,7 +178,7 @@ function initMap(campList) {
             content: '<div style="width:300px;text-align:center;padding:10px;"><a href="../detailCamp?contentId=' + areaArr[i].id + '">'
                 + areaArr[i].name + '</a><p>'+areaArr[i].address+'</p>' +
                 (areaArr[i].theme != null ? '<p>' + areaArr[i].theme + '</p>' : '') +
-                '<img style="width:200px;height:70px;" src="' + (areaArr[i].img || 'path/to/alternative/image') + '" alt="/img/어서와영_사진없음.png>' +
+                '<img style="width:200px;height:70px;" src="' + (areaArr[i].img || 'path/to/alternative/image') + '" alt="' +
 
                 '</div>'
 
