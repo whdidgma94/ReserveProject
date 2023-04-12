@@ -1,9 +1,7 @@
 package com.boot.reserveproject.controller;
 
 import com.boot.reserveproject.domain.Camp;
-import com.boot.reserveproject.repository.CampRepository;
 import com.boot.reserveproject.service.CampService;
-import com.boot.reserveproject.service.MemberService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -63,10 +61,10 @@ public class SearchController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("search/address")
+    @GetMapping("search/location")
     public String showAddressList(Model model){
         campString(model);
-        return "pc/search/searchAddress";
+        return "pc/search/searchLocation";
     }
 //    @RequestMapping(value = "/search/addressSearch", method = RequestMethod.GET)
 //    @ResponseBody
