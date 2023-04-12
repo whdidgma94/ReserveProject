@@ -17,12 +17,14 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
 
     @Query("select c from Camp c where c.contentId = :contentId")
     List<Camp> selectOne(@Param("contentId") Long contentId);
-    @Query("SELECT c FROM Camp c WHERE c.mapY BETWEEN :southWestLat AND :northEastLat AND c.mapX BETWEEN :southWestLng AND :northEastLng AND c.facltNm LIKE %:keyword%")
-    List<Camp> findCampWithinBoundsWithName(@Param("southWestLat") double southWestLat, @Param("southWestLng") double southWestLng, @Param("northEastLat") double northEastLat, @Param("northEastLng") double northEastLng, @Param("keyword") String keyword);
-    @Query("SELECT c FROM Camp c WHERE c.mapY BETWEEN :southWestLat AND :northEastLat AND c.mapX BETWEEN :southWestLng AND :northEastLng AND c.themaEnvrnCl LIKE %:keyword%")
-    List<Camp> findCampWithinBoundsWithTheme(@Param("southWestLat") double southWestLat, @Param("southWestLng") double southWestLng, @Param("northEastLat") double northEastLat, @Param("northEastLng") double northEastLng, @Param("keyword") String keyword);
-    @Query("SELECT c FROM Camp c WHERE c.mapY BETWEEN :southWestLat AND :northEastLat AND c.mapX BETWEEN :southWestLng AND :northEastLng AND c.addr1 LIKE %:keyword%")
-    List<Camp> findCampWithinBoundsWithAddress(@Param("southWestLat") double southWestLat, @Param("southWestLng") double southWestLng, @Param("northEastLat") double northEastLat, @Param("northEastLng") double northEastLng, @Param("keyword") String keyword);
+    @Query("SELECT c FROM Camp c WHERE c.mapY BETWEEN :southWestLat AND :northEastLat AND c.mapX BETWEEN :southWestLng AND :northEastLng ")
+    List<Camp> findCampWithinBounds(@Param("southWestLat") double southWestLat, @Param("southWestLng") double southWestLng, @Param("northEastLat") double northEastLat, @Param("northEastLng") double northEastLng);
+//    @Query("SELECT c FROM Camp c WHERE c.mapY BETWEEN :southWestLat AND :northEastLat AND c.mapX BETWEEN :southWestLng AND :northEastLng AND c.facltNm LIKE %:keyword%")
+//    List<Camp> findCampWithinBoundsWithName(@Param("southWestLat") double southWestLat, @Param("southWestLng") double southWestLng, @Param("northEastLat") double northEastLat, @Param("northEastLng") double northEastLng, @Param("keyword") String keyword);
+//    @Query("SELECT c FROM Camp c WHERE c.mapY BETWEEN :southWestLat AND :northEastLat AND c.mapX BETWEEN :southWestLng AND :northEastLng AND c.themaEnvrnCl LIKE %:keyword%")
+//    List<Camp> findCampWithinBoundsWithTheme(@Param("southWestLat") double southWestLat, @Param("southWestLng") double southWestLng, @Param("northEastLat") double northEastLat, @Param("northEastLng") double northEastLng, @Param("keyword") String keyword);
+//    @Query("SELECT c FROM Camp c WHERE c.mapY BETWEEN :southWestLat AND :northEastLat AND c.mapX BETWEEN :southWestLng AND :northEastLng AND c.addr1 LIKE %:keyword%")
+//    List<Camp> findCampWithinBoundsWithAddress(@Param("southWestLat") double southWestLat, @Param("southWestLng") double southWestLng, @Param("northEastLat") double northEastLat, @Param("northEastLng") double northEastLng, @Param("keyword") String keyword);
 
     @Query("select c from Camp c where c.id = :id")
     Camp selectOneById(@Param("id") Long id);
@@ -35,13 +37,15 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
 
     @Query("select c from Camp c where c.themaEnvrnCl = :themaEnvrnCl")
     List<Camp> selectThemaEnvrnCl(@Param("themaEnvrnCl") String themaEnvrnCl);
-    @Query("select c from Camp c where c.doNm Like %:sido% AND c.sigunguNm Like %:sigoon%")
-    List<Camp> selectListByLocation(@Param("sido") String sido,@Param("sigoon") String sigoon);
+//    @Query("select c from Camp c where c.doNm Like %:sido% AND c.sigunguNm Like %:sigoon%")
+//    List<Camp> selectListByLocation(@Param("sido") String sido,@Param("sigoon") String sigoon);
 
     @Query("SELECT c FROM Camp c WHERE c.lctCl LIKE %:lctCl%")
     List<Camp> selectListBylctCl(@Param("lctCl") String lctCl);
+    //시,도로 필터링해서 id순 정렬된 리스트
     @Query("SELECT c FROM Camp c WHERE c.doNm LIKE %:sido% AND c.sigunguNm LIKE %:sigoon% ORDER BY c.id")
     List<Camp> selectListByLocationTest(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("pageAble") Pageable pageAble);
+    //시,도로 필터링해서 id순 정렬된 리스트의 길이
     @Query("SELECT COUNT(c.id) FROM Camp c WHERE c.doNm LIKE %:sido% AND c.sigunguNm LIKE %:sigoon%")
     Long countListByLocation(@Param("sido") String sido, @Param("sigoon") String sigoon);
 
