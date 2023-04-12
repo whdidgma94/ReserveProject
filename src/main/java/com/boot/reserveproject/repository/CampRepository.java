@@ -1,11 +1,13 @@
 package com.boot.reserveproject.repository;
 
 import com.boot.reserveproject.domain.Camp;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+
 
 import java.util.List;
 
@@ -36,7 +38,10 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
     List<Camp> selectThemaEnvrnCl(@Param("themaEnvrnCl") String themaEnvrnCl);
     @Query("select c from Camp c where c.doNm Like %:sido% AND c.sigunguNm Like %:sigoon%")
     List<Camp> selectListByLocation(@Param("sido") String sido,@Param("sigoon") String sigoon);
-
+    @Query("SELECT c FROM Camp c WHERE c.doNm LIKE %:sido% AND c.sigunguNm LIKE %:sigoon% ORDER BY c.id")
+    List<Camp> selectListByLocationTest(@Param("sido") String sido,@Param("sigoon") String sigoon, @Param("pageAble") Pageable pageAble);
+    @Query("SELECT COUNT(c.id) FROM Camp c WHERE c.doNm LIKE %:sido% AND c.sigunguNm LIKE %:sigoon%")
+    Long countListByLocation(@Param("sido") String sido, @Param("sigoon") String sigoon);
     @Query("SELECT c FROM Camp c WHERE c.lctCl LIKE %:keyword%")
     List<Camp> findBylctCl(@Param("keyword") String keyword);
 }
