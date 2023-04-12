@@ -46,6 +46,9 @@ label {
     margin-left: 4px;
 }
 
+.campListBox{
+    margin-top: 10px;
+}
 
 /* 리스트 start */
 .tempCampBox {

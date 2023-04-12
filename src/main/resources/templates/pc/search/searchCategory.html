@@ -12,7 +12,7 @@
     <div class="categoryCheckBox">
         <div class="categoryCheck categoryCheck01">
             <div class="title">주요시설</div>
-            <div class="check"> <!--induty-->
+            <div class="check">
                 <span class="item"><input type="checkbox" id="carav"><label for="carav">카라반</label></span>
                 <span class="item"><input type="checkbox" id="glamp"><label for="glamp">글램핑</label></span>
                 <span class="item"><input type="checkbox" id="car"><label for="car">자동차야영</label></span>
@@ -48,11 +48,9 @@
                         for="clturEventAt">문화행사</label></span>
             </div>
         </div>
-        <div>
-            <button class="selectBtn" type="button" id="selectBtn" onclick="select()">선택확인</button>
-        </div>
     </div>
-    <div class="campListBox">
+    <hr>
+    <div class="campListBox" id="campListBox">
         <div th:each="camp, idx : ${campList} ">
             <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">
                 <div class="campBoxTop">

@@ -175,11 +175,10 @@ function initMap(campList) {
 
         /* 정보창 */
         infoWindow = new naver.maps.InfoWindow({
-            content: '<div style="width:300px;text-align:center;padding:10px;"><a href="../detailCamp?contentId=' + areaArr[i].id + '">'
+            content: '<div class="mapMarker"><a href="../detailCamp?contentId=' + areaArr[i].id + '">'
                 + areaArr[i].name + '</a><p>'+areaArr[i].address+'</p>' +
                 (areaArr[i].theme != null ? '<p>' + areaArr[i].theme + '</p>' : '') +
-                '<img style="width:200px;height:70px;" src="' + (areaArr[i].img || '../img/어서와영_사진없음.png') + '" alt="">' +
-
+                '<img class="mapImg" src="' + (areaArr[i].img || '../../img/어서와양_사진없음.png') + '" alt="">' +
                 '</div>'
 
         }); // 클릭했을 때 띄워줄 정보 HTML 작성
