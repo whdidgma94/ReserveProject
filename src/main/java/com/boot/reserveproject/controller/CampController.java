@@ -3,7 +3,11 @@ package com.boot.reserveproject.controller;
 import com.boot.reserveproject.api.CampApiController;
 import com.boot.reserveproject.domain.Camp;
 import com.boot.reserveproject.service.CampService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,4 +77,28 @@ public class CampController {
         model.addAttribute("campImageList", campImageList);
         return "pc/camp/campDetail";
     }
+
+    public List<Camp> searchByLctCl(String lctCl){
+        List<Camp>campList=campService.findBylctCl(lctCl);
+        System.out.println("3 campList: "+campList);
+        return campList;
+    }
+    @GetMapping("/camp/ranView")
+    public ResponseEntity<Object> showListByLctCl(@RequestParam(value = "lctCl", required = false) String lctCl) {
+        List<Camp> campList = searchByLctCl(lctCl);
+
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String jsonString = mapper.writeValueAsString(campList);
+            return new ResponseEntity<>(jsonString, HttpStatus.OK);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
 }

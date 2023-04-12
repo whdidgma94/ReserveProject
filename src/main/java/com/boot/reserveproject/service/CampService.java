@@ -55,8 +55,8 @@ public class CampService {
         return campList;
     }
 
-    public List<Camp> findBylctCl(String keyword){
-        List<Camp> campList = campRepository.findBylctCl(keyword);
+    public List<Camp> findBylctCl(String lctCl){
+        List<Camp> campList = campRepository.selectListBylctCl(lctCl);
         return campList;
     }
 }
