@@ -1,0 +1,11 @@
+<nav id="sidebar">
+  <th:block th:include="admin/sidebar-js"></th:block>
+  <div class="sidebar-header">
+    <h3><a th:href="@{/admin}">ADMIN</a></h3>
+  </div>
+
+  <ul class="list-unstyled components">
+    <li><a th:href="@{/admin/category}">카테고리</a></li>
+    <li><a th:href="@{/admin/users}">계정</a></li>
+  </ul>
+</nav>

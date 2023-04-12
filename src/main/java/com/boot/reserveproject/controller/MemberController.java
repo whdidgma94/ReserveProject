@@ -34,7 +34,6 @@ public class MemberController {
 //        if(result.hasErrors()){
 //            return "redirect:/member/new";
 //        }
-
         Member member = new Member();
         member.setName(form.getName());
         member.setLoginId(form.getLoginId());
@@ -69,7 +68,7 @@ public class MemberController {
         }
         if (memberService.checkLogin(form.getLoginId(), form.getPw())) {
             if(form.getLoginId().equals("admin")){
-                return "pc/admin/adminMain";
+                return "admin/index";
             }
             session.setAttribute("log", form.getLoginId());
         }
