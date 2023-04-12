@@ -42,7 +42,7 @@ $(function () {
                         campListBoxHtml += '<div class="campSbrsClItem">';
 
                         let sbrsClList = campList[i].sbrsCl.split(",");
-                        for (let j = 0; sbrsClList.length; j++) {
+                        for (let j = 0; j<sbrsClList.length; j++) {
                             if (sbrsClList[j] == "전기") {
                                 campListBoxHtml += '<i class="fa-solid fa-bolt"></i>'
                             } else if (sbrsClList[j] == "무선인터넷") {
