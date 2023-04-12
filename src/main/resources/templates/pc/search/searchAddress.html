@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{pc/fragments/header :: header}"/>
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous"></script>
 
 
 <body>
@@ -9,171 +10,148 @@
 <div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
 
 <div class="view">
-  <h1>지역별검색</h1>
-  <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
-  <select id="sido_code">
-    <option>전체</option>
-  </select>
-  <select id="sigoon_code">
-    <option>전체</option>
-  </select>
-  <button class="btn btn-outline-success" type="button" id="search-icon" onclick="search()">검색</button>
-  <script>
+    <h1>지역별검색</h1>
+    <!-- 브이월드 행정구역도를 이용한 셀렉트 박스 구현... 공간정보를 기반으로 하고 있어서 국가공간정보포털보다 느림 -->
+    <select id="sido_code">
+        <option>전체</option>
+    </select>
+    <select id="sigoon_code">
+        <option>전체</option>
+    </select>
+    <button class="btn btn-outline-success" type="button" id="search-icon" onclick="search()">검색</button>
+    <div id="campList"></div>
+
+
+    <div th:replace="~{pc/fragments/footer :: footer}"/>
+</div>
+</body>
+<script>
     const replaceList = [
-
-      ["서울특별시", "서울시"],
-      ["부산광역시", "부산시"],
-      ["대구광역시", "대구시"],
-      ["인천광역시", "인천시"],
-      ["광주광역시", "광주시"],
-      ["대전광역시", "대전시"],
-      ["울산광역시", "울산시"],
-      ["세종특별자치시", "세종시"],
-      ["제주특별자치도", "제주도"]
-
-
-
-      // ... 추가 조건
+        ["서울특별시", "서울시"],
+        ["부산광역시", "부산시"],
+        ["대구광역시", "대구시"],
+        ["인천광역시", "인천시"],
+        ["광주광역시", "광주시"],
+        ["대전광역시", "대전시"],
+        ["울산광역시", "울산시"],
+        ["세종특별자치시", "세종시"],
+        ["제주특별자치도", "제주도"]
+        // ... 추가 조건
     ];
-    let key='F3DA23BB-17C0-3F0B-87F2-FEC846489FDC';
+    let key = 'F3DA23BB-17C0-3F0B-87F2-FEC846489FDC';
     $.support.cors = true;
 
-    $(function(){
-      $.ajax({
-        type: "get",
-        url: "https://api.vworld.kr/req/data?key=F3DA23BB-17C0-3F0B-87F2-FEC846489FDC&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIDO_INFO",
-        async: false,
-        dataType: 'jsonp',
-        success: function(data) {
-          let html = "<option>전체</option>";
-
-          data.response.result.featureCollection.features.forEach(function(f){
-            console.log(f.properties)
-            let locationCd = f.properties.ctprvn_cd;
-            let locationNm = f.properties.ctp_kor_nm;
-            for(let i=0;i<replaceList.length;i++){
-              if(locationNm==replaceList[i][0]){
-                locationNm=replaceList[i][1];
-              }
-            }
-
-            html +=`<option value="${locationCd}">${locationNm}</option>`
-
-          })
-
-          $('#sido_code').html(html);
-
-        },
-        error: function(xhr, stat, err) {}
-      });
-
-
-      $(document).on("change","#sido_code",function(){
-        let thisVal = $(this).val();
-
+    $(function () {
         $.ajax({
-          type: "get",
-          url: "https://api.vworld.kr/req/data?key=F3DA23BB-17C0-3F0B-87F2-FEC846489FDC&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
-          data : {attrfilter : 'sig_cd:like:'+thisVal},
-          async: false,
-          dataType: 'jsonp',
-          success: function(data) {
-            let html = "<option>전체</option>";
-            let addedValues = {}; // 중복 검사를 위한 객체
+            type: "get",
+            url: "https://api.vworld.kr/req/data?key=F3DA23BB-17C0-3F0B-87F2-FEC846489FDC&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIDO_INFO",
+            async: false,
+            dataType: 'jsonp',
+            success: function (data) {
+                let html = "<option>전체</option>";
 
-            data.response.result.featureCollection.features.forEach(function(f){
-              console.log(f.properties)
-              let locationCd = f.properties.sig_cd;
-              let locationNm = f.properties.sig_kor_nm;
-              locationNm = locationNm.replace(/\s+.*/, '');
-
-              // 중복 검사 수행
-              if (!addedValues[locationNm]) {
-                html +=`<option value="${locationCd}">${locationNm}</option>`
-                addedValues[locationNm] = true; // 중복 검사를 위한 객체에 값 추가
-              }
-
-
-
-
-
-            })
-            $('#sigoon_code').html(html);
-            $('#dong_code').html(html);
-
-
-          },
-          error: function(xhr, stat, err) {}
+                data.response.result.featureCollection.features.forEach(function (f) {
+                    console.log(f.properties)
+                    let locationCd = f.properties.ctprvn_cd;
+                    let locationNm = f.properties.ctp_kor_nm;
+                    for (let i = 0; i < replaceList.length; i++) {
+                        if (locationNm == replaceList[i][0]) {
+                            locationNm = replaceList[i][1];
+                        }
+                    }
+                    html += `<option value="${locationCd}">${locationNm}</option>`
+                })
+                $('#sido_code').html(html);
+            },
+            error: function (xhr, stat, err) {
+            }
         });
-      });
+
+        $(document).on("change", "#sido_code", function () {
+            let thisVal = $(this).val();
+            $.ajax({
+                type: "get",
+                url: "https://api.vworld.kr/req/data?key=F3DA23BB-17C0-3F0B-87F2-FEC846489FDC&domain=http://localhost:8080&service=data&version=2.0&request=getfeature&format=json&size=1000&page=1&geometry=false&attribute=true&crs=EPSG:3857&geomfilter=BOX(13663271.680031825,3894007.9689600193,14817776.555251127,4688953.0631258525)&data=LT_C_ADSIGG_INFO",
+                data: {attrfilter: 'sig_cd:like:' + thisVal},
+                async: false,
+                dataType: 'jsonp',
+                success: function (data) {
+                    let html = "<option>전체</option>";
+                    let addedValues = {}; // 중복 검사를 위한 객체
+
+                    data.response.result.featureCollection.features.forEach(function (f) {
+                        console.log(f.properties)
+                        let locationCd = f.properties.sig_cd;
+                        let locationNm = f.properties.sig_kor_nm;
+                        locationNm = locationNm.replace(/\s+.*/, '');
+
+                        // 중복 검사 수행
+                        if (!addedValues[locationNm]) {
+                            html += `<option value="${locationCd}">${locationNm}</option>`
+                            addedValues[locationNm] = true; // 중복 검사를 위한 객체에 값 추가
+                        }
+                    })
+                    $('#sigoon_code').html(html);
+                    $('#dong_code').html(html);
+                },
+                error: function (xhr, stat, err) {
+                }
+            });
+        });
 
     })
+
     function search() {
-      let sido = $('#sido_code option:selected').text();
-      let sigoon = $('#sigoon_code option:selected').text();
+        let sido = $('#sido_code option:selected').text();
+        let sigoon = $('#sigoon_code option:selected').text();
+        $.ajax({
+            url: '/search/addressSearch',
+            type: 'GET',
+            data: {
+                sido: sido, sigoon: sigoon
+            },
+            success: function (result) {
+                try {
+                    var campList = $.parseJSON(result);
+                    if (campList == null || campList.length == 0) {
+                        alert("검색결과가 존재하지 않습니다.");
+                        return;
+                    }
+                    areaArr = new Array();
 
-      $.ajax({
+                    for (let i = 0; i < campList.length; i++) {
+                        areaArr.push({
+                            name: campList[i].facltNm,
+                            lat: campList[i].mapY,
+                            lng: campList[i].mapX,
+                            address: campList[i].addr1,
+                            img: campList[i].firstImageUrl,
+                            theme: campList[i].themaEnvrnCl,
+                            id: campList[i].contentId
+                        });
+                    }
 
-        url: '/search/addressSearch',
-        type: 'GET',
-        data: {
-          sido: sido, sigoon: sigoon
-
-        },
-
-        success: function(result) {
-
-          try {
-            var campList = $.parseJSON(result);
-            if(campList == null || campList.length == 0) {
-              alert("검색결과가 존재하지 않습니다.");
-              return;
-            }
-            areaArr = new Array();
-
-            for(let i = 0; i < campList.length; i++) {
-              areaArr.push({
-                name: campList[i].facltNm,
-                lat: campList[i].mapY,
-                lng: campList[i].mapX,
-                address: campList[i].addr1,
-                img: campList[i].firstImageUrl,
-                theme: campList[i].themaEnvrnCl,
-                id: campList[i].contentId
-              });
-            }
-
-            let campListHtml = '<div class="row">';
-            for(let i = 0; i < areaArr.length; i++) {
-              campListHtml += '<div class="col-md-6 col-lg-4">';
-              campListHtml += '<div class="card">';
-              campListHtml += '<img src="' + areaArr[i].img + '" class="card-img-top" alt="">';
-              campListHtml += '<div class="card-body">';
-              campListHtml += '<h5 class="card-title"><a href="../detailCamp?contentId='+areaArr[i].id +'">'+areaArr[i].name + '</a> </h5>';
-              campListHtml += '<p class="card-text"><strong>위도: </strong>' + areaArr[i].lat + '</p>';
-              campListHtml += '<p class="card-text"><strong>경도: </strong>' + areaArr[i].lng + '</p>';
-              campListHtml += '<p class="card-text"><strong>주소: </strong>' + areaArr[i].address + '</p>';
-              campListHtml += '<p class="card-text"><strong>테마: </strong>' + areaArr[i].theme + '</p>';
-              campListHtml += '<p class="card-text"><strong>ID: </strong>' + areaArr[i].id + '</p>';
-              campListHtml += '</div></div></div>';
-            }
-            campListHtml += '</div>';
-            $('#campList').html(campListHtml);
-
-          } catch (e) {
-            console.log(e);
-          }
-        },
-
-      });
-
+                    let campListHtml = '<div class="row">';
+                    for (let i = 0; i < areaArr.length; i++) {
+                        campListHtml += '<div class="col-md-6 col-lg-4">';
+                        campListHtml += '<div class="card">';
+                        campListHtml += '<img src="' + areaArr[i].img + '" class="card-img-top" alt="">';
+                        campListHtml += '<div class="card-body">';
+                        campListHtml += '<h5 class="card-title"><a href="../detailCamp?contentId=' + areaArr[i].id + '">' + areaArr[i].name + '</a> </h5>';
+                        campListHtml += '<p class="card-text"><strong>위도: </strong>' + areaArr[i].lat + '</p>';
+                        campListHtml += '<p class="card-text"><strong>경도: </strong>' + areaArr[i].lng + '</p>';
+                        campListHtml += '<p class="card-text"><strong>주소: </strong>' + areaArr[i].address + '</p>';
+                        campListHtml += '<p class="card-text"><strong>테마: </strong>' + areaArr[i].theme + '</p>';
+                        campListHtml += '<p class="card-text"><strong>ID: </strong>' + areaArr[i].id + '</p>';
+                        campListHtml += '</div></div></div>';
+                    }
+                    campListHtml += '</div>';
+                    $('#campList').html(campListHtml);
+                } catch (e) {
+                    console.log(e);
+                }
+            },
+        });
     }
-
-
-  </script>
-  <div id="campList"></div>
-  <div th:replace="~{pc/fragments/footer :: footer}" />
-</div>
-
-</body>
+</script>
 </html>

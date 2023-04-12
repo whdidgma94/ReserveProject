@@ -128,14 +128,11 @@
 <div class="view" style="margin-top: 50px">
     <div class="ranViewBox">
         <div class="ranViewTitleBox">
-            <button onclick="prevWord()">Previous</button>
+            <button onclick="prevWord()"> ◀ </button>
             <div id="rancltCl"></div>
-            <button onclick="nextWord()">Next</button>
+            <button onclick="nextWord()"> ▶ </button>
         </div>
         <div class="ranViewImageBox" id="ranViewImageBox">
-            <div class="ranViewImage" th:each="camp : ${campList}" th:onclick="|details(${camp.contentId})|">
-                <img style="width: 200%" th:src="${camp.firstImageUrl}"/>
-            </div>
         </div>
     </div>
     <hr>

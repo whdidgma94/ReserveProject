@@ -23,21 +23,22 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SearchController {
     private final CampService campService;
+
     @GetMapping("/search/map")
     public String showMapIntro() {
         return "pc/search/searchMap";
     }
 
     @GetMapping("/search/mapSearch")
-    public ResponseEntity<Object> showMap(@RequestParam(value = "boundsObj", required = false) String boundsObjStr, @RequestParam(value="keyword", required=false) String keyword, @RequestParam(value = "type", required = false) String type) {
+    public ResponseEntity<Object> showMap(@RequestParam(value = "boundsObj", required = false) String boundsObjStr, @RequestParam(value = "keyword", required = false) String keyword, @RequestParam(value = "type", required = false) String type) {
         JSONObject boundsObjJson = new JSONObject(boundsObjStr);
         double southWestLat = boundsObjJson.getJSONObject("southWest").getDouble("y");
         double southWestLng = boundsObjJson.getJSONObject("southWest").getDouble("x");
         double northEastLat = boundsObjJson.getJSONObject("northEast").getDouble("y");
         double northEastLng = boundsObjJson.getJSONObject("northEast").getDouble("x");
-        double[]arr={southWestLat,southWestLng,northEastLng,northEastLat};
+        double[] arr = {southWestLat, southWestLng, northEastLng, northEastLat};
 
-        if (keyword == null|| type == null) {
+        if (keyword == null || type == null) {
 
             return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/search/searchMap").build();
         }
@@ -45,15 +46,13 @@ public class SearchController {
         List<Camp> campList = new ArrayList<>();
         try {
             if (type.equals("name")) {
-                campList = searchByName(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
-
-
+                campList = searchByName(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
 
 
             } else if (type.equals("theme")) {
-                campList = searchByTheme(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+                campList = searchByTheme(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
             } else if (type.equals("location")) {
-                campList = searchByAddress(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+                campList = searchByAddress(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
             }
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(campList);
@@ -63,12 +62,14 @@ public class SearchController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping("search/address")
-    public String showAddressList(){
+    public String showAddressList() {
 
         return "pc/search/searchAddress";
     }
-//    @RequestMapping(value = "/search/addressSearch", method = RequestMethod.GET)
+
+    //    @RequestMapping(value = "/search/addressSearch", method = RequestMethod.GET)
 //    @ResponseBody
 //    public String searchAddress(@RequestParam(value="sido") String sido, @RequestParam(value="sigoon") String sigoon) {
 //        System.out.println("sido:  "+sido);
@@ -76,50 +77,55 @@ public class SearchController {
 //        String result = "abc";
 //        return result.toString();
 //    }
-@GetMapping("/search/addressSearch")
-public ResponseEntity<Object> showListByAddress(@RequestParam(value = "sido", required = false) String sido, @RequestParam(value="sigoon", required=false) String sigoon) {
-    if(sido.equals("전체")){
-        sido="";
+    @GetMapping("/search/addressSearch")
+    public ResponseEntity<Object> showListByAddress(@RequestParam(value = "sido", required = false) String sido, @RequestParam(value = "sigoon", required = false) String sigoon) {
+        if (sido.equals("전체")) {
+            sido = "";
+        }
+        if (sigoon.equals("전체")) {
+            sigoon = "";
+        }
+        System.out.println("sido: " + sido + " sigoon:  " + sigoon);
+        List<Camp> campList = searchByLocation(sido, sigoon);
+        System.out.println("지역검색 캠프리스트 길이: " + campList.size());
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String jsonString = mapper.writeValueAsString(campList);
+            return new ResponseEntity<>(jsonString, HttpStatus.OK);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    if(sigoon.equals("전체")){
-        sigoon="";
+
+    @GetMapping("/search/category")
+    public String showCategoryList() {
+
+        return "pc/search/searchCategory";
     }
-        System.out.println("sido: "+sido+" sigoon:  "+sigoon);
-    List<Camp> campList = searchByLocation(sido,sigoon);
-    System.out.println("지역검색 캠프리스트 길이: "+campList.size());
-    ObjectMapper mapper = new ObjectMapper();
-    try {
-        String jsonString = mapper.writeValueAsString(campList);
-        return new ResponseEntity<>(jsonString, HttpStatus.OK);
-    } catch (JsonProcessingException e) {
-        e.printStackTrace();
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-}
 
 
-
-
-    public List<Camp> searchByName(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword) {
-        List<Camp> campList= campService.getCampListByName(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+    public List<Camp> searchByName(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
+        List<Camp> campList = campService.getCampListByName(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
 
         return campList;
     }
 
-    public List<Camp> searchByTheme(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword) {
-        List<Camp> campList=campService.getCampListByTheme(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+    public List<Camp> searchByTheme(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
+        List<Camp> campList = campService.getCampListByTheme(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
 
         return campList;
     }
 
-    public List<Camp> searchByAddress(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword) {
-        List<Camp>campList=campService.getCampListByAddress(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+    public List<Camp> searchByAddress(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
+        List<Camp> campList = campService.getCampListByAddress(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
 
         return campList;
 
     }
-    public List<Camp> searchByLocation(String sido,String sigoon){
-        List<Camp>campList=campService.selectListByLocation(sido,sigoon);
+
+    public List<Camp> searchByLocation(String sido, String sigoon) {
+        List<Camp> campList = campService.selectListByLocation(sido, sigoon);
         return campList;
     }
 }
