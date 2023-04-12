@@ -26,27 +26,31 @@ public class NoticeController {
         model.addAttribute("noticeForm", new NoticeForm());
         return "admin/notice/addNotice";
     }
+
     @PostMapping("/admin/notice/new")
-    public String addNotice(@Valid NoticeForm form, BindingResult result){
+    public String addNotice(@Valid NoticeForm form, BindingResult result) {
         Notice notice = new Notice();
         notice.setSubject(form.getSubject());
-        notice.setContext(form.getSubject());
+        notice.setContext(form.getContext());
         noticeService.createNotice(notice);
-        return "admin/notice/noticeList";
+        return "admin/index";
     }
 
     @GetMapping("/noticeList")
-    public String noticeList(Model model, @RequestParam("type") String type){
+    public String noticeList(Model model, @RequestParam("type") String type) {
         List<Notice> list = noticeService.getAllNotice();
         model.addAttribute("noticeList", list);
-        if(type==null){
-            return null;
+        if (type.equals("pc")) {
+            return "pc/notice/noticeList";
+        } else if (type.equals("mobile")) {
+            return "mobile/notice/noticeList";
+        } else {
+            return "admin/notice/noticeList";
         }
-        return "admin/notice/noticeList";
     }
 
     @PostMapping("/admin/deleteNotice")
-    public String deleteNotice(@RequestParam("id") Long id){
+    public String deleteNotice(@RequestParam("id") Long id) {
         noticeService.deleteNotice(id);
         return "/admin/notice/noticeList";
     }
