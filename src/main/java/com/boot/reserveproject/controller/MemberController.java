@@ -21,7 +21,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/member/new")
+    @GetMapping("/pc/member/new")
     public String joinForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
 
@@ -29,7 +29,7 @@ public class MemberController {
     }
 
 
-    @PostMapping("/member/new")
+    @PostMapping("/pc/member/new")
     public String joinMember(@Valid MemberForm form, BindingResult result) {
 //        if(result.hasErrors()){
 //            return "redirect:/member/new";
@@ -57,16 +57,15 @@ public class MemberController {
         memberService.join(member);
         return "pc/index";
     }
-    @GetMapping("/member/login")
+    @GetMapping("/pc/member/login")
     public String loginForm(Model model) {
         model.addAttribute("loginForm", new LoginForm());
         return "pc/member/memberLoginForm";
     }
-    @PostMapping("/member/login")
+    @PostMapping("/pc/member/login")
     private String loginMember(@Valid LoginForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
-
-            return "redirect:/member/login";
+            return "redirect:/pc/member/login";
         }
         if (memberService.checkLogin(form.getLoginId(), form.getPw())) {
             session.setAttribute("log", form.getLoginId());
@@ -81,7 +80,7 @@ public class MemberController {
         return "redirect:/main";
     }
 
-    @GetMapping("/members")
+    @GetMapping("/pc/members")
     public String list(Model model) {
         List<Member> members = memberService.findAllMembers();
         model.addAttribute("members", members);
@@ -96,13 +95,13 @@ public class MemberController {
         }
         return "false";
     }
-    @GetMapping("/member/myPage")
+    @GetMapping("/pc/member/myPage")
     public String myPage(HttpSession session, Model model){
         model.addAttribute("member", memberService.selectMemberById((String) session.getAttribute("log")));
         return "pc/member/memberMyPage";
     }
 
-    @GetMapping("/member/find")
+    @GetMapping("/pc/member/find")
     public String findId(@RequestParam("type") String type, Model model) {
         model.addAttribute("type", type);
         return "pc/member/memberFindAccount";

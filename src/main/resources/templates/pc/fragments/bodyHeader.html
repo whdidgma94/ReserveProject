@@ -29,19 +29,19 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="${session.log != null} ? '/member/mine' : 'member/login'">
+            <a class="nav-link" th:href="${session.log != null} ? '/pc/member/mine' : '/pc/member/login'">
                 <i class="fa-solid fa-heart" style="color:red"></i>
                 찜
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="${session.log != null} ? '/member/myPage' : 'member/login'">
+            <a class="nav-link" th:href="${session.log != null} ? '/pc/member/myPage' : '/pc/member/login'">
                 <i class="fa-solid fa-user"></i>
                 마이페이지
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="${session.log == null} ? '/member/login' : '/member/logout'">
+            <a class="nav-link" th:href="${session.log == null} ? '/pc/member/login' : '/member/logout'">
                 <i class="fa-solid fa-right-to-bracket"></i>
                 <span th:text="${session.log == null} ? '로그인' : '로그아웃'"></span>
             </a>
