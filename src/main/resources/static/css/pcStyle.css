@@ -184,3 +184,15 @@ ul{
 .view .mapSearchBtn{
     width:50%;
 }
+.mapImg{
+    width:80%;
+}
+.mapMarker{
+    width:300px;
+    text-align:center;
+    padding:10px;
+    height:300px;
+}
+.mapMarker p{
+    margin:0;
+}
