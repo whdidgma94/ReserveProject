@@ -6,7 +6,13 @@
 </div>
 <div class="side-bar" th:fragment="side-bar">
     <img src="/img/어서와영side.png">
+
     <ul>
+        <li class="nav-item" th:if="${session.log != null}">
+            <a class="nav-link" href="#">
+                <h4 th:text="${session.log} + '님, 환영합니다'" style="font-family: Arial; font-size: 20px; "></h4>
+            </a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="/search/address">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -26,19 +32,19 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="${session.log != null} ? '/member/mine' : 'member/login'">
+            <a class="nav-link" th:href="${session.log != null} ? '/pc/member/mine' : '/pc/member/login'">
                 <i class="fa-solid fa-heart" style="color:red"></i>
                 찜
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="${session.log != null} ? '/member/myPage' : 'member/login'">
+            <a class="nav-link" th:href="${session.log != null} ? '/pc/member/myPage' : '/pc/member/login'">
                 <i class="fa-solid fa-user"></i>
                 마이페이지
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="${session.log == null} ? '/member/login' : '/member/logout'">
+            <a class="nav-link" th:href="${session.log == null} ? '/pc/member/login' : '/member/logout'">
                 <i class="fa-solid fa-right-to-bracket"></i>
                 <span th:text="${session.log == null} ? '로그인' : '로그아웃'"></span>
             </a>
@@ -46,7 +52,5 @@
 
     </ul>
     
-    <div>
-    <h3 th:if="${session.log != null}" th:text="${session.log}"></h3>
-    </div>
+
 </div>
