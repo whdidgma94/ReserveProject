@@ -40,12 +40,6 @@ public class MemberService {
         return false;
     }
 
-    public List<Member> findAllMembers() {
-        List<Member> list = memberRepository.findAll();
-        if (list.isEmpty()) throw new IllegalStateException("데이터가 존재하지않습니다");
-        return list;
-    }
-
     public void removeMember(Long id) {
         memberRepository.deleteById(id);
     }

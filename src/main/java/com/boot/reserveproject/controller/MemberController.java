@@ -80,13 +80,6 @@ public class MemberController {
         return "redirect:/main";
     }
 
-    @GetMapping("/pc/members")
-    public String list(Model model) {
-        List<Member> members = memberService.findAllMembers();
-        model.addAttribute("members", members);
-        return "pc/member/memberJoinForm";
-    }
-
     @ResponseBody
     @PostMapping("/validId")
     public String validId(@RequestParam("loginId") String loginId){
