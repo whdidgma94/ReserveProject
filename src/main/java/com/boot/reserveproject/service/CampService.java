@@ -3,6 +3,8 @@ package com.boot.reserveproject.service;
 import com.boot.reserveproject.domain.Camp;
 import com.boot.reserveproject.repository.CampRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,6 +55,14 @@ public class CampService {
     public List<Camp> selectListByLocation(String sido,String sigoon){
         List<Camp> campList = campRepository.selectListByLocation(sido,sigoon);
         return campList;
+    }
+    public List<Camp> findByDoNmContainingAndSigunguNmContainingOrderById(String sido, String sigoon, Pageable pageAble){
+        List<Camp> campList = campRepository.selectListByLocationTest(sido,sigoon,pageAble);
+        return campList;
+    }
+    public Long countListByLocation(String sido,String sigoon){
+        Long length= campRepository.countListByLocation(sido,sigoon);
+        return length;
     }
 
     public List<Camp> findBylctCl(String lctCl){

@@ -19,6 +19,21 @@
   </select>
   <button class="btn btn-outline-success" type="button" id="search-icon" onclick="search()">검색</button>
   <script>
+    let 현재페이지;
+    let 총리스트의길이;
+    let 한페이지에보여줄게시글수=10;
+    let 한번에보여줄페이지단위=10;
+    let 총페이지수;
+    let 현재페이지인덱스;
+    let 마지막페이지인덱스;
+    if(총페이지수%10==0){
+      마지막페이지인덱스=총페이지수/10;
+    }
+    else{
+      마지막페이지인덱스=총페이지수/10+1;
+    }
+    let sido;
+    let sigoon;
     const replaceList = [
 
       ["서울특별시", "서울시"],
@@ -109,37 +124,56 @@
 
     })
     function search() {
-      let sido = $('#sido_code option:selected').text();
-      let sigoon = $('#sigoon_code option:selected').text();
+       sido = $('#sido_code option:selected').text();
+       sigoon = $('#sigoon_code option:selected').text();
 
       $.ajax({
 
-        url: '/search/addressSearch',
+        url: '/search/addressSearchTest',
         type: 'GET',
         data: {
-          sido: sido, sigoon: sigoon
+          sido: sido, sigoon: sigoon, pageNum: 1
 
         },
 
         success: function(result) {
 
           try {
-            var campList = $.parseJSON(result);
+            var response = $.parseJSON(result);
+            var campList = response.campList;
+            총리스트의길이 = response.length;
+
             if(campList == null || campList.length == 0) {
               alert("검색결과가 존재하지 않습니다.");
+              총리스트의길이=0;
               return;
+            }
+            $('#sample').html('');
+            현재페이지=1;
+            현재페이지인덱스=1;
+
+            if(총리스트의길이%10==0){
+              총페이지수=총리스트의길이/한페이지에보여줄게시글수;
+            }
+            else{
+              총페이지수=총리스트의길이/한페이지에보여줄게시글수 + 1;
             }
             areaArr = new Array();
 
             for(let i = 0; i < campList.length; i++) {
               areaArr.push({
                 name: campList[i].facltNm,
-                lat: campList[i].mapY,
-                lng: campList[i].mapX,
+                sido: campList[i].doNm,
+                sigoon: campList[i].sigunguNm,
                 address: campList[i].addr1,
                 img: campList[i].firstImageUrl,
                 theme: campList[i].themaEnvrnCl,
+                lineInt: campList[i].lineIntro,
+                int: campList[i].intro,
+                phone: campList[i].tel,
+                facil: campList[i].sbrsCl,
                 id: campList[i].contentId
+
               });
             }
 
@@ -150,15 +184,27 @@
               campListHtml += '<img src="' + areaArr[i].img + '" class="card-img-top" alt="">';
               campListHtml += '<div class="card-body">';
               campListHtml += '<h5 class="card-title"><a href="../detailCamp?contentId='+areaArr[i].id +'">'+areaArr[i].name + '</a> </h5>';
-              campListHtml += '<p class="card-text"><strong>위도: </strong>' + areaArr[i].lat + '</p>';
-              campListHtml += '<p class="card-text"><strong>경도: </strong>' + areaArr[i].lng + '</p>';
-              campListHtml += '<p class="card-text"><strong>주소: </strong>' + areaArr[i].address + '</p>';
-              campListHtml += '<p class="card-text"><strong>테마: </strong>' + areaArr[i].theme + '</p>';
-              campListHtml += '<p class="card-text"><strong>ID: </strong>' + areaArr[i].id + '</p>';
+              campListHtml += '<p class="card-text">' + areaArr[i].sido+ '&nbsp;&nbsp;&nbsp;'+areaArr[i].sigoon+ '</p>';
+              campListHtml += '<p class="card-text">' + areaArr[i].address + '</p>';
+              campListHtml += '<p class="card-text">' + areaArr[i].lineInt+'</p>';
+              campListHtml += '<p class="card-text">' + areaArr[i].int+'</p>';
+              campListHtml += '<p class="card-text">' + areaArr[i].phone+'</p>';
+              campListHtml += '<p class="card-text">' + areaArr[i].facil+'</p>';
+              campListHtml += '<p class="card-text">' + areaArr[i].theme + '</p>';
               campListHtml += '</div></div></div>';
             }
             campListHtml += '</div>';
             $('#campList').html(campListHtml);
+            let pageBtn='';
+            for(let i=1;i<=한번에보여줄페이지단위;i++){
+              pageBtn +='<a href="#" onclick="paging('+(한번에보여줄페이지단위*(현재페이지인덱스-1)+i)+')">['+(한번에보여줄페이지단위*(현재페이지인덱스-1)+i)+']</a>'
+              if(i==한번에보여줄페이지단위&&(한번에보여줄페이지단위*(현재페이지인덱스-1)+i)<총페이지수){
+                pageBtn+='<button>다음</button>'
+              }
+
+
+            }
+            $('#paging').html(pageBtn);
 
           } catch (e) {
             console.log(e);
@@ -168,10 +214,131 @@
       });
 
     }
+    function paging(i){
+      현재페이지=i;
+      $.ajax({
+
+        url: '/search/addressSearchTestTest',
+        type: 'GET',
+        data: {
+          sido: sido, sigoon: sigoon, pageNum: i
+
+        },
+
+        success: function(result) {
+
+          try {
+            var response = $.parseJSON(result);
+            var campList = response.campList;
+
+
+            if(campList == null || campList.length == 0) {
+              alert("검색결과가 존재하지 않습니다.");
+              총리스트의길이=0;
+              return;
+            }
+
+
+
+
+            areaArr = new Array();
+
+            for(let i = 0; i < campList.length; i++) {
+              areaArr.push({
+                name: campList[i].facltNm,
+                sido: campList[i].doNm,
+                sigoon: campList[i].sigunguNm,
+                address: campList[i].addr1,
+                img: campList[i].firstImageUrl,
+                theme: campList[i].themaEnvrnCl,
+                lineInt: campList[i].lineIntro,
+                int: campList[i].intro,
+                phone: campList[i].tel,
+                facil: campList[i].sbrsCl,
+                id: campList[i].contentId
+
+              });
+            }
+
+            let campListHtml = '<div class="row">';
+            for(let i = 0; i < areaArr.length; i++) {
+              campListHtml += '<div class="col-md-6 col-lg-4">';
+              campListHtml += '<div class="card">';
+              campListHtml += '<img src="' + areaArr[i].img + '" class="card-img-top" alt="">';
+              campListHtml += '<div class="card-body">';
+              campListHtml += '<h5 class="card-title"><a href="../detailCamp?contentId='+areaArr[i].id +'">'+areaArr[i].name + '</a> </h5>';
+              campListHtml += '<p class="card-text">' + areaArr[i].sido+ '&nbsp;&nbsp;&nbsp;'+areaArr[i].sigoon+ '</p>';
+              campListHtml += '<p class="card-text">' + areaArr[i].address + '</p>';
+              campListHtml += '<p class="card-text">' + areaArr[i].lineInt+'</p>';
+              campListHtml += '<p class="card-text">' + areaArr[i].int+'</p>';
+              campListHtml += '<p class="card-text">' + areaArr[i].phone+'</p>';
+              campListHtml += '<p class="card-text">' + areaArr[i].facil+'</p>';
+              campListHtml += '<p class="card-text">' + areaArr[i].theme + '</p>';
+              campListHtml += '</div></div></div>';
+            }
+            campListHtml += '</div>';
+            $('#campList').html('');
+            $('#campList').html(campListHtml);
+
+
+
+
+          } catch (e) {
+            console.log(e);
+          }
+        },
+
+      });
+    }
 
 
   </script>
+  <div id="sample">
+  <div  th:each="camp, idx : ${campList}">
+    <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">
+      <div class="campBoxTop">
+        <div class="campBoxLeft">
+          <img style="height: 98%" th:src="${camp.firstImageUrl}"/>
+        </div>
+        <div class="campBoxRight">
+          <div class="campText">
+            [ <span th:text="${camp.doNm}"></span>
+            <span th:text="${camp.sigunguNm}"></span> ]
+          </div>
+          <div class="campText" th:text="${camp.facltNm}"></div>
+          <div class="campText" th:text="${camp.lineIntro}"></div>
+          <div class="campSbrsClBox">
+            <div class="campSbrsCl" th:each="sbrsCl : ${sbrsClList[__${idx.index}__]}">
+              <div class="campSbrsClItem" th:each="C : ${sbrsCl}">
+                <i th:if="${C == '전기'}" class="fa-solid fa-bolt"></i>
+                <i th:if="${C == '무선인터넷'}" class="fa-solid fa-wifi"></i>
+                <i th:if="${C == '장작판매'}" class="fa-sharp fa-solid fa-fire"></i>
+                <i th:if="${C == '온수'}" class="fa-solid fa-thermometer-full"></i>
+                <i th:if="${C == '트렘폴린'}" class="fa-solid fa-person-arrow-up-from-line"></i>
+                <i th:if="${C == '물놀이장'}" class="fa-solid fa-swimmer"></i>
+                <i th:if="${C == '놀이터'}" class="fa-solid fa-rocket"></i>
+                <i th:if="${C == '산책로'}" class="fa-solid fa-hiking"></i>
+                <i th:if="${C == '운동시설'}" class="fa-solid fa-dumbbell"></i>
+                <i th:if="${C == '마트.편의점'}" class="fa-solid fa-shopping-cart"></i>
+                <i th:if="${C == '운동장'}" class="fa-solid fa-baseball-ball"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="campBoxBottom">
+        <!--                <div class="campThema" th:each="thema : ${themaList[__${idx.index}__]}">-->
+        <!--                    <div class="campThemaList" th:each="T : ${thema}">-->
+        <!--                        <span th:text="${T}"></span>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+      </div>
+    </div>
+    <hr>
+  </div>
   <div id="campList"></div>
+  <div id="paging"></div>
   <div th:replace="~{pc/fragments/footer :: footer}" />
 </div>
 
