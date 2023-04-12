@@ -139,3 +139,13 @@ li {
 .show > .btn-danger.dropdown-toggle:focus {
     box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
 }
+
+.logout-link {
+    color: #fff;
+    text-decoration: none;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    padding: 6px 12px;
+    border-radius: 3px;
+    margin-left: auto;
+}

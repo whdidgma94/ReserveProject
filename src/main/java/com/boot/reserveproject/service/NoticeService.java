@@ -20,8 +20,6 @@ public class NoticeService {
 
     public List<Notice> getAllNotice(){
         List<Notice> list = noticeRepository.findAll();
-        if (list.isEmpty()) throw new IllegalStateException("데이터가 존재하지않습니다");
-        System.out.println("list = " + list.get(0));
         return list;
     }
 

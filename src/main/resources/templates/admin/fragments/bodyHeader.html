@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<div id="header" th:fragment="bodyHeader">
+<div id="header" th:fragment="bodyHeader" style="display: flex;">
     <button type="button" id="menuBtn" >
-      <i class="fa fa-bars"></i>
+        <i class="fa fa-bars"></i>
     </button>
     <h3><a>ADMIN</a></h3>
-</header>
+    <a href="/pc/member/logout" class="logout-link">logout</a>
+    </header>
+
   <nav id="sidebar">
     <ul>
       <li><a href="/noticeList?type=admin" id="notice">공지사항</a></li>
