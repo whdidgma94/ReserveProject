@@ -1,19 +1,18 @@
-<header id="header">
-  <button type="button" id="menuBtn">
-    <i class="fa fa-bars"></i>
-  </button>
-  <h3><a>ADMIN</a></h3>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div id="header" th:fragment="bodyHeader">
+    <button type="button" id="menuBtn" >
+      <i class="fa fa-bars"></i>
+    </button>
+    <h3><a>ADMIN</a></h3>
 </header>
-<div class="wrapper">
   <nav id="sidebar">
     <ul>
-      <li><a href="#">공지사항</a></li>
-      <li><a href="#">회원관리</a></li>
-      <li><a href="#">리뷰관리</a></li>
-      <li><a href="#">약관 및 제어</a></li>
+      <li><a href="#" id="notice">공지사항</a></li>
+      <li><a href="/admin/memberList" id="member">회원관리</a></li>
+      <li><a href="#" id="review">리뷰관리</a></li>
+      <li><a href="#" id="others">기타</a></li>
     </ul>
   </nav>
-    <nav class="navbar navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">AdminPage</a>
-    </nav>
 </div>

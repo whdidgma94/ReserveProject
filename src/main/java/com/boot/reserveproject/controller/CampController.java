@@ -68,7 +68,7 @@ public class CampController {
     }
 
     @GetMapping("/pc/detailCamp")
-    public String getDetailsCamp(@RequestParam Long contentId, Model model) {
+    public String getDetailsCampPc(@RequestParam Long contentId, Model model) {
         Camp camp = campService.getCampById(contentId);
         model.addAttribute("camp", camp);
 
@@ -76,6 +76,16 @@ public class CampController {
         String[] campImageList = campApiController.getImageList(contentId);
         model.addAttribute("campImageList", campImageList);
         return "pc/camp/campDetail";
+    }
+    @GetMapping("/mobile/detailCamp")
+    public String getDetailsCampMobile(@RequestParam Long contentId, Model model) {
+        Camp camp = campService.getCampById(contentId);
+        model.addAttribute("camp", camp);
+
+        //campApiController에 있는 이미지 api
+        String[] campImageList = campApiController.getImageList(contentId);
+        model.addAttribute("campImageList", campImageList);
+        return "mobile/camp/campDetail";
     }
 
     public List<Camp> searchByLctCl(String lctCl){

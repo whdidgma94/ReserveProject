@@ -41,7 +41,7 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
     @Query("SELECT c FROM Camp c WHERE c.lctCl LIKE %:lctCl%")
     List<Camp> selectListBylctCl(@Param("lctCl") String lctCl);
     @Query("SELECT c FROM Camp c WHERE c.doNm LIKE %:sido% AND c.sigunguNm LIKE %:sigoon% ORDER BY c.id")
-    List<Camp> selectListByLocationTest(@Param("sido") String sido,@Param("sigoon") String sigoon, @Param("pageAble") Pageable pageAble);
+    List<Camp> selectListByLocationTest(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("pageAble") Pageable pageAble);
     @Query("SELECT COUNT(c.id) FROM Camp c WHERE c.doNm LIKE %:sido% AND c.sigunguNm LIKE %:sigoon%")
     Long countListByLocation(@Param("sido") String sido, @Param("sigoon") String sigoon);
     @Query("SELECT c FROM Camp c WHERE c.lctCl LIKE %:keyword%")

@@ -1,10 +1,256 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8u9s7as9cy"></script>
+<head th:replace="mobile/fragments/header :: header"></head>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+<script src="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+<meta charset="UTF-8">
+
+
 <body>
 
+<div th:replace="mobile/fragments/bodyHeader :: bodyHeader"></div>
+<div th:replace="mobile/fragments/bodyHeader :: side-bar"></div>
+
+<div class="container py-4">
+    <div class="camp_detail view">
+        <h1 th:text="${camp.facltNm}"></h1>
+        <div class="row">
+            <div class="card">
+                <img class="card-img-top" th:src="${camp.firstImageUrl}" alt="">
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <th scope="col">주소</th>
+                            <td th:text="${camp.addr1}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">문의처</th>
+                            <td th:text="${camp.tel}"><i class="fas fa-phone-alt"></i></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">캠핑장 환경</th>
+                            <td>
+                                <span th:text="${camp.facltDivNm}"></span>/
+                                <span th:text="${camp.manageSttus}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col">캠핑장 유형</th>
+                            <td th:text="${camp.induty}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">운영기간</th>
+                            <td th:text="${camp.operPdCl}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">운영일</th>
+                            <td th:text="${camp.operDeCl}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">홈페이지</th>
+                            <td>
+                                <a class="btn btn-link p-0" th:href="${camp.homepage}" target="_blank" title="새창열림">
+                                    <i class="fas fa-link"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col">주변이용가능시설</th>
+                            <td th:text="${camp.posblFcltyCl}"><i class="far fa-check-circle"></i></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h3>캠핑장 위치</h3>
+            <div class="col-md-12 mb-8">
+                <div id="map" style="height: 600px;"></div>
+            </div>
+        </div>
+        <div class="row">
+            <h3>부대시설</h3>
+            <div class="sbrsCl"></div>
+        </div>
+        <div class="row">
+            <h3>캠핑장 소개</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <td th:text="${camp.intro}"></td>
+                </tr>
+                <tr th:if="${camp.tooltip}">
+                    <td th:text="${camp.tooltip}"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <img th:src="${camp.firstImageUrl}" class="campMainImg">
+        </div>
+        <div class="row">
+            <div class="slider">
+                <div th:each="campImg : ${campImageList}">
+                    <img th:src="${campImg}" class="campImg">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="table-responsive campInfoTable">
+                <h3>사이트 정보</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <td>사이트 개수</td>
+                        <td th:text="${camp.siteCount}"></td>
+                    </tr>
+                    <tr>
+                        <td>사이트 간격</td>
+                        <td th:text="${camp.sitedStnc}"></td>
+                    </tr>
+                    <tr>
+                        <td>사이트 별 크기</td>
+                        <td th:text="${camp.site}"></td>
+                    </tr>
+                    <tr>
+                        <td>사이트 종류</td>
+                        <td th:text="${camp.siteBottom}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="table-responsive campInfoTable">
+                <h3>기타 정보</h3>
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <td>애완동물 출입 여부</td>
+                        <td th:text="${camp.animalCmgCl}"></td>
+                    </tr>
+                    <tr>
+                        <td>자체 문화행사 여부</td>
+                        <td th:text="${camp.clturEventAt}"></td>
+                    </tr>
+                    <tr>
+                        <td>체험 프로그램 여부</td>
+                        <td th:text="${camp.exprnProgrmAt}"></td>
+                    </tr>
+                    <tr>
+                        <td>개인 트레일러 동반 여부</td>
+                        <td th:text="${camp.trlerAcmpnyAt}"></td>
+                    </tr>
+                    <tr>
+                        <td>개인 카라반 동반 여부</td>
+                        <td th:text="${camp.caravAcmpnyAt}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="mobile/fragments/footer :: footer"></div>
 </body>
+<script>
+    let latitude =0;
+    let longitude =0;
+
+    let myKey='4cafcd3f6ac34355b1f99ce7d42f1068';
+    function createMap(){
+        navigator.geolocation.getCurrentPosition(function(pos) {
+            latitude= [[${camp.mapY}]];
+            longitude= [[${camp.mapX}]];
+            getMap();
+        });
+    }
+    function getMap() {
+
+        let myLocation=new naver.maps.LatLng(latitude,longitude)
+        let map= new naver.maps.Map('map',{
+                center:myLocation.destinationPoint(latitude,longitude),
+                zoom:17
+            })
+        let marker = new naver.maps.Marker({
+                map:map,
+                position:myLocation
+            })
+    }
+
+    window.onload = function(){
+        createMap();
+        let sbrsCl = `[[${camp.sbrsCl}]]`;
+        const sbrsClDiv = document.querySelector(".sbrsCl");
+        let clList = sbrsCl.split(",");
+        for(let i = 0 ; i < clList.length ; i++){
+            if(clList[i]==="전기"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>전기</div><i class="fa-solid fa-bolt"></i></div>`;
+            }else if(clList[i]==="무선인터넷"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>와이파이</div><i class="fa-solid fa-wifi"></i></div>`;
+            }
+            else if(clList[i]==="장작판매"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>장작판매</div><i class="fa-sharp fa-solid fa-fire"></i></div>`;
+            }
+            else if(clList[i]==="온수"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>온수</div><i class="fa-solid fa-thermometer-full"></i></div>`;
+            }
+            else if(clList[i]==="트렘폴린"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>트렘폴린</div><i class="fa-solid fa-person-arrow-up-from-line"></i></div>`;
+            }
+            else if(clList[i]==="물놀이장"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>물놀이장</div><i class="fa-solid fa-swimmer"></i></div>`;
+            }
+            else if(clList[i]==="놀이터"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>놀이터</div><i class="fa-solid fa-rocket"></i></div>`;
+            }
+            else if(clList[i]==="산책로"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>산책로</div><i class="fa-solid fa-hiking"></i></div>`;
+            }
+            else if(clList[i]==="운동시설"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>운동시설</div><i class="fa-solid fa-dumbbell"></i></div>`;
+            }
+            else if(clList[i]==="마트.편의점"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>마트/편의점</div><i class="fa-solid fa-shopping-cart"></i></div>`;
+            }
+            else if(clList[i]==="운동장"){
+                sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>운동장</div><i class="fa-solid fa-baseball-ball"></i></div>`;
+            }
+        }
+
+    }
+    $(document).ready(function(){
+        $('.slider').slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+            nextArrow: '<button type="button" class="slick-next">Next</button>',
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 520,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                }
+            ]
+        });
+
+        $('.campImg').click(function(){
+            let src = $(this).attr('src');
+            $('.campMainImg').attr('src',src);
+        });
+
+    });
+</script>
 </html>
