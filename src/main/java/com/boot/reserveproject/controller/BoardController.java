@@ -3,22 +3,30 @@ package com.boot.reserveproject.controller;
 import com.boot.reserveproject.domain.Board;
 import com.boot.reserveproject.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.text.html.Option;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller@RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
 
+    private final Environment env;
     @GetMapping("/pc/board/boardList")
     private String showBoardList(Model model){
         List<Board>boardList=boardService.selectAllBoard();
@@ -106,5 +114,33 @@ public class BoardController {
         board=boardService.findOneBoardByNo(no);
         model.addAttribute("board",board);
         return "pc/board/showContent";
+    }
+    @PostMapping("pc/board/postImg")
+    @ResponseBody
+    public ResponseEntity<String> uploadImg(@RequestParam("file") MultipartFile file) {
+        // 파일 업로드 경로 설정
+        String projectDir = new File("").getAbsolutePath(); // 프로젝트 디렉토리 경로를 가져옴
+        String uploadDir = Paths.get(projectDir, "src", "main", "resources", "static", "img").toString(); // 업로드 경로를 설정함
+
+        System.out.println(uploadDir);
+        // 파일이름 중복 방지를 위한 유니크한 이름 생성
+        String filename = UUID.randomUUID().toString() + "." + file.getOriginalFilename().split("\\.")[1];
+
+        // 파일 저장
+        Path filePath = Paths.get(uploadDir, filename);
+        try {
+            Files.write(filePath, file.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Upload Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        // 업로드된 파일 이름 반환
+        return new ResponseEntity<>(filename, HttpStatus.OK);
+    }
+    public String getUploadDir() {
+        Path currentPath = Paths.get(System.getProperty("user.dir"));
+        Path uploadPath = currentPath.resolveSibling("src").resolve("main").resolve("resources").resolve("static").resolve("img");
+        return uploadPath.toString();
     }
 }
