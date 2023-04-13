@@ -78,8 +78,24 @@ public class CampService {
         List<Camp> campList = campRepository.selectListByAnimal("가능", "가능(소형견)");
         return campList;
     }
-    public List<Camp> findByclturEventAt(){
+    public List<Camp> findByClturEventAt(){
         List<Camp> campList = campRepository.selectListByClturEventAt("Y");
+        return campList;
+    }
+    public List<Camp> findByExprnProgrmAt(){
+        List<Camp> campList = campRepository.selectListByExprnProgrmAt("Y");
+        return campList;
+    }
+    public List<Camp> findByTrlerAcmpnyAt(){
+        List<Camp> campList = campRepository.selectListByTrlerAcmpnyAt("Y");
+        return campList;
+    }
+    public List<Camp> findByCaravAcmpnyAt(){
+        List<Camp> campList = campRepository.selectListByCaravAcmpnyAt("Y");
+        return campList;
+    }
+    public List<Camp> findByInduty(String keyword){
+        List<Camp> campList = campRepository.selectListByInduty(keyword);
         return campList;
     }
 }

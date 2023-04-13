@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 @Controller
@@ -28,34 +29,72 @@ public class SearchCategoryController {
         campString(model);
         return "pc/search/searchCategory";
     }
-
-    public List<Camp> searchByAnimal(int page) {
-        int min = page * 10 - 10;
-        int max = page * 10 - 1;
+    public List<Camp> searchByAnimal() {
         List<Camp> searchAllList = campService.findByAnimal();
-        int size = searchAllList.size();
-        List<Camp> campList = new ArrayList<>();
-        for (int i = min; i <= max && i < searchAllList.size(); i++) {
-            campList.add(searchAllList.get(i));
-        }
-        return campList;
+        return searchAllList;
+    }
+    public List<Camp> searchByClturEventAt() {
+        List<Camp> searchAllList = campService.findByClturEventAt();
+        return searchAllList;
+    }
+    public List<Camp> searchByExprnProgrmAt() {
+        List<Camp> searchAllList = campService.findByExprnProgrmAt();
+        return searchAllList;
+    }
+    public List<Camp> selectByTrlerAcmpnyAt() {
+        List<Camp> searchAllList = campService.findByTrlerAcmpnyAt();
+        return searchAllList;
+    }
+    public List<Camp> selectByCaravAcmpnyAt() {
+        List<Camp> searchAllList = campService.findByCaravAcmpnyAt();
+        return searchAllList;
+    }
+    public List<Camp> selectByInduty(String keyword) {
+        List<Camp> searchAllList = campService.findByInduty(keyword);
+        return searchAllList;
     }
 
     @GetMapping("/search/categoryCheck")
     public ResponseEntity<Object> showListByLctCl(@RequestParam(value = "categories", required = false) String[] categories) {
-        List<Camp> campList = new ArrayList<>();
+        List<Camp> mergedList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
-        for (int i = 0; i < categories.length; i++) {
-            if (categories[i].equals("animalCmgCl")) {
-                campList = searchByAnimal(1);
-                for (int j = 0; j < 3; j++) {
-                    System.out.println("campList = " + campList.get(j).getAnimalCmgCl());
-                }
+
+        for (String category : categories) {
+            switch(category) {
+                case "animalCmgCl":
+                    mergedList.addAll(searchByAnimal());
+                    continue;
+                case "clturEventAt":
+                    mergedList.addAll(searchByClturEventAt());
+                    continue;
+                case "exprnProgrmAt":
+                    mergedList.addAll(searchByExprnProgrmAt());
+                    continue;
+                case "trlerAcmpnyAt":
+                    mergedList.addAll(selectByTrlerAcmpnyAt());
+                    continue;
+                case "caravAcmpnyAt":
+                    mergedList.addAll(selectByCaravAcmpnyAt());
+                    continue;
+                case "carav":
+                    mergedList.addAll(selectByInduty("카라반"));
+                    continue;
+                case "glamp":
+                    mergedList.addAll(selectByInduty("글램핑"));
+                    continue;
+                case "car":
+                    mergedList.addAll(selectByInduty("자동차야영"));
+                    continue;
+                default:
             }
         }
-        System.out.println("campList = " + campList.size());
+
+
+        mergedList = new ArrayList<>(new LinkedHashSet<>(mergedList)); // 중복 제거
+        int count = mergedList.size();
+        System.out.println("listCount : "+count);
         try {
-            String jsonString = mapper.writeValueAsString(campList);
+            String jsonString = mapper.writeValueAsString(mergedList);
             return new ResponseEntity<>(jsonString, HttpStatus.OK);
         } catch (JsonProcessingException e) {
             e.printStackTrace();

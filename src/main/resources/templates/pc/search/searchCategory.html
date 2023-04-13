@@ -13,26 +13,26 @@
         <div class="categoryCheck categoryCheck01">
             <div class="title">주요시설</div>
             <div class="check">
-                <span class="item"><input type="checkbox" id="carav"><label for="carav">카라반</label></span>
-                <span class="item"><input type="checkbox" id="glamp"><label for="glamp">글램핑</label></span>
-                <span class="item"><input type="checkbox" id="car"><label for="car">자동차야영</label></span>
+                <span class="item"><input type="checkbox" id="carav" name="campingType"><label for="carav">카라반</label></span>
+                <span class="item"><input type="checkbox" id="glamp" name="campingType"><label for="glamp">글램핑</label></span>
+                <span class="item"><input type="checkbox" id="car" name="campingType"><label for="car">자동차야영</label></span>
             </div>
         </div>
         <div class="categoryCheck categoryCheck02">
             <div class="title">테마</div>
             <div class="check">
-                <span class="item"><input type="checkbox" id="thema01"><label for="thema01">일출명소</label></span>
-                <span class="item"><input type="checkbox" id="thema02"><label for="thema02">일몰명소</label></span>
-                <span class="item"><input type="checkbox" id="thema03"><label for="thema03">걷기길</label></span>
-                <span class="item"><input type="checkbox" id="thema04"><label for="thema04">봄꽃여행</label></span>
-                <span class="item"><input type="checkbox" id="thema05"><label for="thema05">여름물놀이</label></span>
-                <span class="item"><input type="checkbox" id="thema06"><label for="thema06">가을단풍명소</label></span>
-                <span class="item"><input type="checkbox" id="thema07"><label for="thema07">겨울눈꽃명소</label></span>
-                <span class="item"><input type="checkbox" id="thema08"><label for="thema08">수상레저</label></span>
-                <span class="item"><input type="checkbox" id="thema09"><label for="thema09">항공레저</label></span>
-                <span class="item"><input type="checkbox" id="thema10"><label for="thema10">스키</label></span>
-                <span class="item"><input type="checkbox" id="thema11"><label for="thema11">낚시</label></span>
-                <span class="item"><input type="checkbox" id="thema12"><label for="thema12">액티비티</label></span></div>
+                <span class="item"><input type="checkbox" id="thema01" name="themaType"><label for="thema01">일출명소</label></span>
+                <span class="item"><input type="checkbox" id="thema02" name="themaType"><label for="thema02">일몰명소</label></span>
+                <span class="item"><input type="checkbox" id="thema03" name="themaType"><label for="thema03">걷기길</label></span>
+                <span class="item"><input type="checkbox" id="thema04" name="themaType"><label for="thema04">봄꽃여행</label></span>
+                <span class="item"><input type="checkbox" id="thema05" name="themaType"><label for="thema05">여름물놀이</label></span>
+                <span class="item"><input type="checkbox" id="thema06" name="themaType"><label for="thema06">가을단풍명소</label></span>
+                <span class="item"><input type="checkbox" id="thema07" name="themaType"><label for="thema07">겨울눈꽃명소</label></span>
+                <span class="item"><input type="checkbox" id="thema08" name="themaType"><label for="thema08">수상레저</label></span>
+                <span class="item"><input type="checkbox" id="thema09" name="themaType"><label for="thema09">항공레저</label></span>
+                <span class="item"><input type="checkbox" id="thema10" name="themaType"><label for="thema10">스키</label></span>
+                <span class="item"><input type="checkbox" id="thema11" name="themaType"><label for="thema11">낚시</label></span>
+                <span class="item"><input type="checkbox" id="thema12" name="themaType"><label for="thema12">액티비티</label></span></div>
         </div>
         <div class="categoryCheck categoryCheck03">
             <div class="title">기타</div>
@@ -48,6 +48,7 @@
                         for="clturEventAt">문화행사</label></span>
             </div>
         </div>
+        <button class="searchBtn" type="button" id="search-icon">검색</button>
     </div>
     <hr>
     <div class="campListBox" id="campListBox">
@@ -92,13 +93,12 @@
             </div>
             <hr>
         </div>
-        <hr>
+    </div>
+    <div class="pageBox">
+        <div id="page">
+        </div>
     </div>
 </div>
-
-</div>
-
-
 <div th:replace="~{pc/fragments/footer :: footer}"/>
 </body>
 </html>
