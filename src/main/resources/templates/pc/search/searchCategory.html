@@ -13,16 +13,14 @@
         <div class="categoryCheck categoryCheck01">
             <div class="title">주요시설</div>
             <div class="check">
-                <span class="item"><input type="radio" id="nomal" name="campingType"><label
+                <span class="item"><input type="checkbox" id="nomal" name="campingType"><label
                         for="nomal">일반야영</label></span>
-                <span class="item"><input type="radio" id="carav" name="campingType"><label
+                <span class="item"><input type="checkbox" id="carav" name="campingType"><label
                         for="carav">카라반</label></span>
-                <span class="item"><input type="radio" id="glamp" name="campingType"><label
+                <span class="item"><input type="checkbox" id="glamp" name="campingType"><label
                         for="glamp">글램핑</label></span>
-                <span class="item"><input type="radio" id="car" name="campingType"><label
+                <span class="item"><input type="checkbox" id="car" name="campingType"><label
                         for="car">자동차야영</label></span>
-                <span class="item"><input type="radio" name="campingType"><label
-                >전체</label></span>
             </div>
         </div>
         <div class="categoryCheck categoryCheck02">
@@ -107,7 +105,7 @@
         <button class="searchBtn" type="button" id="search-icon">검색</button>
         <hr>
     </div>
-    <div class="camplistCount" id="camplistCount"
+    <div class="campListCount" id="campListCount"
         th:text="'총 ' + ${listCount} + ' 개의 캠핑장이 검색되었습니다.'"></div>
     <div class="campListBox" id="campListBox">
         <div th:each="camp, idx : ${campList} ">
