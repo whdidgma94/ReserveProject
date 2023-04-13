@@ -271,3 +271,30 @@ hr {
     height: 1px;
     color: lightgray;
 }
+#paging{
+    display:flex;
+    justify-content:center;
+}
+#paging a{
+    display:flex;
+    align-items:center;
+    margin:10px;
+    border:1px solid;
+    padding:10px;
+    height:30px;
+    border-radius:20px;
+    text-decoration:none;
+    color:black;
+}
+#paging a:hover{
+    color:white;
+    background-color:black;
+    transition: all 0.3s ease-in-out;
+}
+.curPageNum{
+    background-color:black;
+    color:white;
+}
+.curPageNum{
+    background-color:gray;
+}

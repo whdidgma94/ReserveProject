@@ -181,9 +181,6 @@
         let sbrsCl = `[[${camp.sbrsCl}]]`;
         const sbrsClDiv = document.querySelector(".sbrsCl");
         let clList = sbrsCl.split(",");
-        console.log(sbrsCl);
-        console.log(sbrsClDiv);
-        console.log(clList);
         for(let i = 0 ; i < clList.length ; i++){
             if(clList[i]==="전기"){
                 sbrsClDiv.innerHTML+=`<div class="sbrsContent"><div>전기</div><i class="fa-solid fa-bolt"></i></div>`;
