@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BoardService {
@@ -19,5 +20,14 @@ public class BoardService {
     public Long getBoardLength(){
         Long length=boardRepository.countBoards();
         return length;
+    }
+    public Optional<Board> getLastBoard(){
+        Optional<Board> board=boardRepository.findBoardByMaxNo();
+
+
+        return board;
+    }
+    public void insertBoard(String id, long no, String title, String content,String img ){
+        boardRepository.insertBoard(id,no,title,content,img);
     }
 }
