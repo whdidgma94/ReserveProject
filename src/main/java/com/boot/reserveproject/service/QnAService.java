@@ -18,7 +18,13 @@ public class QnAService {
         qnARepository.save(qna);
     }
 
-    public List<QnA> getMyQnA(String receiver){
+    public List<QnA> getReceiveQnA(String receiver){
         return qnARepository.getMyQnA(receiver);
+    }
+    public List<QnA> getSendQnA(String sender){
+        return qnARepository.getMyQnA(sender);
+    }
+    public QnA getOneQnA(Long id){
+        return qnARepository.findById(id).get();
     }
 }

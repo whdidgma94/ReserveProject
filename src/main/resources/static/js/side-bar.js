@@ -1,4 +1,5 @@
 let sideBarCheck = false;
+
 function handleGlobalClick(event) {
     const sideBar = document.querySelector('.side-bar');
     const header = document.querySelector('.header');
@@ -30,4 +31,14 @@ function viewSideBar() {
     setTimeout(() => {
         document.addEventListener('click', handleGlobalClick);
     }, 0);
+}
+
+
+function showSubMenu() {
+    var subMenu = document.getElementById("sub-menu");
+    if (subMenu.style.display === "block") {
+        subMenu.style.display = "none";
+    } else {
+        subMenu.style.display = "block";
+    }
 }

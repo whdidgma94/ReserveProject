@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface QnARepository extends JpaRepository<QnA, Long> {
-    @Query("select q from QnA q where q.receiver = :receiver")
-    List<QnA> getMyQnA(@Param("receiver")String receiver);
+    @Query("select q from QnA q where q.sender = :sender")
+    List<QnA> getMyQnA(@Param("sender")String sender);
 }
