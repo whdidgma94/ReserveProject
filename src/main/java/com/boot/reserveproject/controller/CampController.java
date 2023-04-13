@@ -41,6 +41,11 @@ public class CampController {
     }
 
     private void campString(Model model) {
+        String[] iconText = {"카라반","글램핑","오토캠핑","반려동물","숲","호수","일출","일몰"};
+        String[] iconTextId = {"carav","glamp","car","animalCmgCl","lct04","lct07","thema01","thema02"};
+        model.addAttribute("iconText", iconText);
+        model.addAttribute("iconTextId", iconTextId);
+
         List<Camp> campList = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
             Camp camp = campService.selectOneById((long) i);

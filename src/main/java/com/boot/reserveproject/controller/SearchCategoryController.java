@@ -29,6 +29,10 @@ public class SearchCategoryController {
         return "pc/search/searchCategory";
     }
 
+    public List<Camp> searchByAllList() {
+        List<Camp> searchAllList = campService.findAllList();
+        return searchAllList;
+    }
 
     public List<Camp> searchByAnimal() {
         List<Camp> searchAllList = campService.findByAnimal();
@@ -109,73 +113,76 @@ public class SearchCategoryController {
         List<Camp> mergedList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
 
-        List<String> themas = Arrays.stream(categories)
-                .filter(category -> category.contains("thema"))
-                .collect(Collectors.toList());
-        if (!themas.isEmpty()) {
-            mergedList.addAll(searchByInduty(themas));
-        }
+        if (categories.length == 0) {
+            mergedList = searchByAllList();
+        } else {
+            List<String> themas = Arrays.stream(categories)
+                    .filter(category -> category.contains("thema"))
+                    .collect(Collectors.toList());
+            if (!themas.isEmpty()) {
+                mergedList.addAll(searchByInduty(themas));
+            }
 
-        List<String> lctCls = Arrays.stream(categories)
-                .filter(category -> category.contains("lct"))
-                .collect(Collectors.toList());
-        if (!lctCls.isEmpty()) {
-            mergedList.addAll(searchByLctCls(lctCls));
-        }
+            List<String> lctCls = Arrays.stream(categories)
+                    .filter(category -> category.contains("lct"))
+                    .collect(Collectors.toList());
+            if (!lctCls.isEmpty()) {
+                mergedList.addAll(searchByLctCls(lctCls));
+            }
 
-        List<String> bottoms = Arrays.stream(categories)
-                .filter(category -> category.contains("bottom"))
-                .collect(Collectors.toList());
-        if (!bottoms.isEmpty()) {
-            mergedList.addAll(searchByBottoms(bottoms));
-        }
+            List<String> bottoms = Arrays.stream(categories)
+                    .filter(category -> category.contains("bottom"))
+                    .collect(Collectors.toList());
+            if (!bottoms.isEmpty()) {
+                mergedList.addAll(searchByBottoms(bottoms));
+            }
 
-        for (String category : categories) {
-            switch (category) {
-                case "animalCmgCl":
-                    mergedList.addAll(searchByAnimal());
-                    continue;
-                case "clturEventAt":
-                    mergedList.addAll(searchByClturEventAt());
-                    continue;
-                case "exprnProgrmAt":
-                    mergedList.addAll(searchByExprnProgrmAt());
-                    continue;
-                case "trlerAcmpnyAt":
-                    mergedList.addAll(searchByTrlerAcmpnyAt());
-                    continue;
-                case "caravAcmpnyAt":
-                    mergedList.addAll(searchByCaravAcmpnyAt());
-                    continue;
-                case "nomal":
-                    mergedList.addAll(searchByInduty("일반"));
-                    continue;
-                case "carav":
-                    mergedList.addAll(searchByInduty("카라반"));
-                    continue;
-                case "glamp":
-                    mergedList.addAll(searchByInduty("글램핑"));
-                    continue;
-                case "car":
-                    mergedList.addAll(searchByInduty("자동차"));
-                    continue;
-                default:
+            for (String category : categories) {
+                switch (category) {
+                    case "animalCmgCl":
+                        mergedList.addAll(searchByAnimal());
+                        continue;
+                    case "clturEventAt":
+                        mergedList.addAll(searchByClturEventAt());
+                        continue;
+                    case "exprnProgrmAt":
+                        mergedList.addAll(searchByExprnProgrmAt());
+                        continue;
+                    case "trlerAcmpnyAt":
+                        mergedList.addAll(searchByTrlerAcmpnyAt());
+                        continue;
+                    case "caravAcmpnyAt":
+                        mergedList.addAll(searchByCaravAcmpnyAt());
+                        continue;
+                    case "nomal":
+                        mergedList.addAll(searchByInduty("일반"));
+                        continue;
+                    case "carav":
+                        mergedList.addAll(searchByInduty("카라반"));
+                        continue;
+                    case "glamp":
+                        mergedList.addAll(searchByInduty("글램핑"));
+                        continue;
+                    case "car":
+                        mergedList.addAll(searchByInduty("자동차"));
+                        continue;
+                    default:
+                }
             }
         }
-
         Map<String, Object> resultMap = new LinkedHashMap<>();
         mergedList = new ArrayList<>(new LinkedHashSet<>(mergedList));
 
-        int min = pageNum*10-10;
-        int max = pageNum*10;
-        List<Camp> campList = campService.findAllList();
+        int min = pageNum * 10 - 10;
+        int max = pageNum * 10;
+        System.out.println("pageNum : " + pageNum + " / min : " + min + " / max : " + max);
+        List<Camp> campList = new ArrayList<>();
         for (int i = min; i < max && i < mergedList.size(); i++) {
             campList.add(mergedList.get(i));
+            System.out.println("i = " + i + " / mergedList.get(i) : " + mergedList.get(i).getContentId());
         }
-
-        int count = mergedList.size();
-        resultMap.put("count", count);
-        resultMap.put("list", mergedList);
+        resultMap.put("count", mergedList.size());
+        resultMap.put("list", campList);
 
         try {
             String jsonString = mapper.writeValueAsString(resultMap);
