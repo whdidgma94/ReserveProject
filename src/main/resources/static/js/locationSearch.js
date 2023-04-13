@@ -123,9 +123,7 @@
     총리스트의길이=0;
     return;
 }
-    let resultSize='<h1>총&nbsp;'+총리스트의길이+'&nbsp;개의 캠핑장이 검색되었습니다.</h1>';
-    $('#resultSize').html('');
-    $('#resultSize').html(resultSize);
+
 
 
 
@@ -143,6 +141,9 @@
     else{
     총페이지수=Math.ceil(총리스트의길이/한페이지에보여줄게시글수);
 }
+        let resultSize='<h1>총&nbsp;'+총리스트의길이+'&nbsp;개의 캠핑장이 검색되었습니다.<br> 현재페이지&nbsp;&nbsp;'+현재페이지+'&nbsp;/&nbsp;'+총페이지수+'</h1>';
+        $('#resultSize').html('');
+        $('#resultSize').html(resultSize);
     areaArr = new Array();
 
     for(let i = 0; i < campList.length; i++) {
@@ -191,6 +192,7 @@
 
 }
     function paging(i){
+
     현재페이지=i;
     $.ajax({
 
@@ -265,6 +267,9 @@
 },
 
 });
+        let resultSize='<h1>총&nbsp;'+총리스트의길이+'&nbsp;개의 캠핑장이 검색되었습니다.<br> 현재페이지&nbsp;&nbsp;'+현재페이지+'&nbsp;/&nbsp;'+총페이지수+'</h1>';
+        $('#resultSize').html('');
+        $('#resultSize').html(resultSize);
 }
     function makePageNum(){
     $('#paging').html('');
@@ -299,6 +304,7 @@
     paging((현재페이지인덱스-1)*한번에보여줄페이지단위+1);
 }
     function insertPageNum(i){
+        if(i<1){alert("1이상의 자연수만 입력 가능합니다");return;}
     현재페이지인덱스=Math.ceil($('#inputPageNum').val()/10);
     makePageNum();
     paging(i);

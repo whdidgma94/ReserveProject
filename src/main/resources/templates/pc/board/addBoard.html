@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{pc/fragments/header :: header}"/>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script th:src="@{/js/addBoard.js}"></script>
+
+<body>
+<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
+<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
+
+<div class="view">
+  <div th:text="${no} + '님, 환영합니다'"></div>
+  <div th:text="${no} + '님, 환영합니다'"></div>
+  <div th:text="${no} + '님, 환영합니다'"></div>
+
+  <table>
+    <tbody>
+    <tr>
+      <td>작성자</td>
+      <td><input type="text" name="writer" value="작성자 이름" readonly></td>
+    </tr>
+    <tr>
+      <td>게시글 번호</td>
+      <td><input type="text" name="boardNo" value="게시글 번호" readonly></td>
+    </tr>
+    <tr>
+      <td>제목</td>
+      <td><input type="text" name="title"></td>
+    </tr>
+    <tr>
+      <td>내용</td>
+      <td><textarea name="content"></textarea></td>
+    </tr>
+    </tbody>
+  </table>
+  <div th:replace="~{pc/fragments/footer :: footer}" />
+</div>
+
+</body>
+</html>
