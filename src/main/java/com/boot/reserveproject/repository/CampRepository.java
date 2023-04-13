@@ -40,15 +40,17 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
 //    @Query("select c from Camp c where c.doNm Like %:sido% AND c.sigunguNm Like %:sigoon%")
 //    List<Camp> selectListByLocation(@Param("sido") String sido,@Param("sigoon") String sigoon);
 
-    @Query("SELECT c FROM Camp c WHERE c.lctCl LIKE %:lctCl%")
-    List<Camp> selectListBylctCl(@Param("lctCl") String lctCl);
+
     //시,도로 필터링해서 id순 정렬된 리스트
     @Query("SELECT c FROM Camp c WHERE c.doNm LIKE %:sido% AND c.sigunguNm LIKE %:sigoon% ORDER BY c.id")
     List<Camp> selectListByLocationTest(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("pageAble") Pageable pageAble);
     //시,도로 필터링해서 id순 정렬된 리스트의 길이
     @Query("SELECT COUNT(c.id) FROM Camp c WHERE c.doNm LIKE %:sido% AND c.sigunguNm LIKE %:sigoon%")
     Long countListByLocation(@Param("sido") String sido, @Param("sigoon") String sigoon);
-
+    @Query("SELECT c FROM Camp c WHERE c.lctCl LIKE %:lctCl%")
+    List<Camp> selectListBylctCl(@Param("lctCl") String lctCl);
+    @Query("SELECT c FROM Camp c WHERE c.lctCl IN (:lctCls)")
+    List<Camp> selectListBylctCls(@Param("lctCls") List<String> lctCls);
     @Query("SELECT c FROM Camp c WHERE c.induty LIKE %:keyword%")
     List<Camp> selectListByInduty(@Param("keyword") String keyword);
     @Query("SELECT c FROM Camp c WHERE c.animalCmgCl = :possible OR c.animalCmgCl = :possibleSmall")
@@ -63,5 +65,9 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
     List<Camp> selectListByClturEventAt(@Param("Y") String Y);
     @Query("SELECT c FROM Camp c WHERE c.themaEnvrnCl LIKE %:keyword%")
     List<Camp> selectListByThemaEnvrnCl(@Param("keyword") String keyword);
+    @Query("SELECT c FROM Camp c WHERE c.themaEnvrnCl IN (:themas)")
+    List<Camp> selectListByThemas(@Param("themas") List<String> themas);
+    @Query("SELECT c FROM Camp c WHERE c.siteBottom IN (:bottoms)")
+    List<Camp> selectListByBottoms(@Param("bottoms") List<String> bottoms);
 
 }
