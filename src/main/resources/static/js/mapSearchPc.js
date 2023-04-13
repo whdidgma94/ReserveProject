@@ -11,23 +11,21 @@ let infoWindows;//정보창들이 속한 배열(검색시 생성);
 
 window.onload = function(){
 
-    // navigator.geolocation.getCurrentPosition(function(pos) {
+    navigator.geolocation.getCurrentPosition(function(pos) {
     // //현재위치: 위도 경도 (살짝 오차 있음)
-    // latitude = pos.coords.latitude;
-    // longitude = pos.coords.longitude;
-    //
-    // });
+    latitude = pos.coords.latitude;
+    longitude = pos.coords.longitude;
+    getMap(latitude,longitude);
+    });
 
 //정확한 학원 위치
-    latitude=37.499806;
-    longitude=127.028312;
-
-
-    getMap();
+//     latitude=37.499806;
+//     longitude=127.028312;
 }
 
 
-function getMap() {
+function getMap(latitude,longitude) {
+
     var myLocation=new naver.maps.LatLng(latitude,longitude)
         map= new naver.maps.Map('map',{
             center:myLocation.destinationPoint(latitude,longitude),
@@ -39,10 +37,7 @@ function getMap() {
         })
     var contentString = [
         '<div class="iw_inner">',
-        '<a href="#">그린아이티아카데미</a>',
-        '<p>그린아이티아카데미학원입니다.</p>',
-        '<br />',
-        ,
+        '<p>현재위치</p>',
         '</div>'
     ].join('');
         infoWindow = new naver.maps.InfoWindow({
