@@ -25,7 +25,7 @@ $(document).ready(function () {
                 $('#answerSender').text(result.sender);
                 $('#answerDate').text(result.date);
                 $('#answerContext').text(result.context);
-                $('#detailModal').modal('show');
+                $('#answerModal').modal('show');
             },
             error: function (error) {
             }

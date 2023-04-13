@@ -49,7 +49,7 @@ public class QnAController {
     }
 
     @GetMapping("/sendQnA")
-    public String qnAForm(Model model, @RequestParam("type") String type, @RequestParam("id") Long id) {
+    public String qnAForm(Model model, @RequestParam(value = "type") String type, @RequestParam(value = "id", required = false) Long id) {
         model.addAttribute("qnAForm", new QnAForm());
         if (type.equals("pc")) {
             return "pc/QnA/sendQnA";
@@ -67,17 +67,19 @@ public class QnAController {
     }
 
     @PostMapping("/sendQnA")
-    public String sendQnA(@Valid QnAForm form, BindingResult result, @RequestParam("type") String type, @RequestParam("id") Long id, HttpSession session) {
+    public String sendQnA(@Valid QnAForm form, BindingResult result, @RequestParam("type") String type, @RequestParam(value = "id", required = false) Long id, HttpSession session) {
         QnA qna = new QnA();
         if (type.equals("admin")) {
+            QnA question = qnAService.getOneQnA(id);
             qna.setConnectedId(id);
             qna.setSender("admin");
-            qna.setReceiver(qnAService.getSender(id));
+            qna.setReceiver(question.getSender());
             qnAService.updateStatusDone(id);
+            qna.setCategory(question.getCategory());
         } else {
             qna.setSender((String) session.getAttribute("log"));
             qna.setReceiver("admin");
-            qna.setStatus("NotRead");
+        qna.setStatus("NotRead");
         }
         qna.setCategory(form.getCategory());
         qna.setContext(form.getContext());
@@ -87,7 +89,7 @@ public class QnAController {
         } else if (type.equals("mobile")) {
             return "redirect:/mobile/index";
         } else {
-            return "redirect:/admin/index";
+            return "admin/index";
         }
     }
 
