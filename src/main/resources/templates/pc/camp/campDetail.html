@@ -33,10 +33,9 @@
                                 <td th:text="${camp.tel}"><i class="fas fa-phone-alt"></i></td>
                             </tr>
                             <tr>
-                                <th scope="col">캠핑장 환경</th>
+                                <th scope="col">운영주체</th>
                                 <td>
-                                    <span th:text="${camp.facltDivNm}"></span>/
-                                    <span th:text="${camp.manageSttus}"></span>
+                                    <span th:text="${camp.facltDivNm}"></span>
                                 </td>
                             </tr>
                             <tr>
@@ -52,6 +51,10 @@
                                 <td th:text="${camp.operDeCl}"></td>
                             </tr>
                             <tr>
+                                <th scope="col">운영상태</th>
+                                <td th:text="${camp.manageSttus}"></td>
+                            </tr>
+                            <tr th:unless="${camp.homepage == null || camp.homepage == ''}">
                                 <th scope="col">홈페이지</th>
                                 <td>
                                     <a class="btn btn-link p-0" th:href="${camp.homepage}" target="_blank" title="새창열림">

@@ -5,11 +5,11 @@ window.onload = function(){
 
     navigator.geolocation.getCurrentPosition(function(pos) {
         //현재위치: 위도 경도 (살짝 오차 있음)
-        // latitude = pos.coords.latitude;
-        // longitude = pos.coords.longitude;
+        latitude = pos.coords.latitude;
+        longitude = pos.coords.longitude;
         //정확한 학원 위치
-        latitude=37.499806;
-        longitude=127.028312;
+        // latitude=37.499806;
+        // longitude=127.028312;
 
 
         getMap();

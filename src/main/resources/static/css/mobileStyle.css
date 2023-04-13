@@ -28,8 +28,10 @@
     z-index:2;
 }
 .view{
+    position:relative;
     padding-top:240px;
     margin-bottom: 270px;
+    z-index:1;
 }
 
 .nav-menu{
@@ -279,6 +281,7 @@ ul{
     padding: 30px;
     margin: 40px;
     border-radius:20px;
+    width: 90%;
 }
 .campBoxLeft{
     display:flex;
@@ -300,4 +303,37 @@ ul{
 .mapMarker p,a{
     margin:0;
     font-size:45px;
+}
+.mapSearchBox{
+    justify-content:center;
+}
+#paging{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    z-index:2;
+}
+#paging a{
+    font-size:60px;
+    display:flex;
+    align-items:center;
+    margin:10px;
+    border:1px solid;
+    padding:20px;
+    height:60px;
+    border-radius:60px;
+    text-decoration:none;
+    color:black;
+}
+#paging a:hover{
+    color:white;
+    background-color:black;
+    transition: all 0.3s ease-in-out;
+}
+.curPageNum{
+    background-color:black;
+    color:white;
+}
+.curPageNum{
+    background-color:gray;
 }
