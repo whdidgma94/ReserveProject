@@ -9,24 +9,24 @@
 
     <ul>
         <li class="nav-item" th:if="${session.log != null}">
-            <a class="nav-link" href="#">
+            <a class="nav-link-custom" href="#">
                 <h4 th:text="${session.log} + '님, 환영합니다'" style="font-family: Arial; font-size: 20px; "></h4>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/pc/board/boardList" style="color:red;">
+            <a class="nav-link-custom" href="/pc/board/boardList" style="color:red;">
                 <i class="fa-solid fa-comments"></i>
                 게시판(미구현)
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/noticeList?type=pc">
+            <a class="nav-link-custom" href="/noticeList?type=pc">
                 <i class="fa-solid fa-bullhorn"></i>
                 공지사항
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="${session.log != null} ? '#' : '/pc/member/login'" onclick="showSubMenu()">
+            <a class="nav-link-custom" th:href="${session.log != null} ? '#' : '/pc/member/login'" onclick="showSubMenu()">
                 <i class="fa-solid fa-flag"></i>
                 고객센터
             </a>
@@ -37,37 +37,37 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="/pc/search/location">
+            <a class="nav-link-custom" href="/pc/search/location">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 지역명 검색
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/pc/search/map">
+            <a class="nav-link-custom" href="/pc/search/map">
                 <i class="fa-solid fa-map-location"></i>
                 지도로 검색
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/search/category">
+            <a class="nav-link-custom" href="/search/category">
                 <i class="fa-solid fa-list"></i>
                 카테고리 검색
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="${session.log != null} ? '/pc/member/mine' : '/pc/member/login'">
+            <a class="nav-link-custom" th:href="${session.log != null} ? '/pc/member/mine' : '/pc/member/login'">
                 <i class="fa-solid fa-heart" style="color:red"></i>
                 찜
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="${session.log != null} ? '/pc/member/myPage' : '/pc/member/login'">
+            <a class="nav-link-custom" th:href="${session.log != null} ? '/pc/member/myPage' : '/pc/member/login'">
                 <i class="fa-solid fa-user"></i>
                 마이페이지
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" th:href="${session.log == null} ? '/pc/member/login' : '/pc/member/logout'">
+            <a class="nav-link-custom" th:href="${session.log == null} ? '/pc/member/login' : '/pc/member/logout'">
                 <i class="fa-solid fa-right-to-bracket"></i>
                 <span th:text="${session.log == null} ? '로그인' : '로그아웃'"></span>
             </a>

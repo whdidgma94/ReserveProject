@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -23,13 +25,14 @@ public class Board {
     private Long readCnt;//조회수
     private String img;//등록이미지
     private LocalDate date;//등록날짜
-    private LocalDateTime time;//등록시간
+    private String time;//등록시간
 
     @PrePersist
     public void setPrePersist() {
-        System.out.println("여기 실행돼??");
         this.date = LocalDate.now();
-        this.time = LocalDateTime.now();
+        LocalTime time = LocalTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        this.time=time.format(formatter);
         this.readCnt=0L;
 
     }
