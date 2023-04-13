@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/header :: header}"/>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <body>
-
+<div th:replace="~{admin/fragments/bodyHeader :: bodyHeader}"/>
+<div class="container">
+    <div class="content-header">
+        <h3> 문의사항 답변 </h3>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form role="form" action="/sendQnA?type=admin" th:object="${qnAForm}" method="post">
+                <table class="table table-hover">
+                    <tr scope="row">
+                        <td>문의자</td>
+                        <td th:text="${question.sender}"></td>
+                    </tr>
+                    <tr scope="row">
+                        <td>문의 카테고리</td>
+                        <td th:text="${question.category}"></td>
+                    </tr>
+                    <tr scope="row">
+                        <td>답변</td>
+                        <td><textarea style="width:100%; height: 300px;" th:field="*{context}"></textarea></td>
+                    </tr>
+                    <tr align="center">
+                        <td colspan="2"><input type="submit" style="margin: 10px" class="btn btn-info" value="답변하기"/>
+                            <input type="button" style="margin: 10px" class="btn btn-info" value="취소" onclick="location.href='sendQnAList?type=admin'"/>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

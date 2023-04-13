@@ -21,6 +21,7 @@ public class QnA {
     private String context;
     private LocalDate date;
     private String status;
+    private Long connectedId;
     @PrePersist
     public void setDate() {
         this.date = LocalDate.now();
