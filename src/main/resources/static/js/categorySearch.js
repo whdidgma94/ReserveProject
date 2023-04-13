@@ -2,13 +2,22 @@
 function details(contentId) {
     location.href = "/pc/detailCamp?contentId=" + contentId;
 }
-$(function () {
-    $('.categoryCheckBox input[type=checkbox]').click(function () {
+
+let themaTypeCheckboxes = $('input[type="checkbox"][name="themaType"]');
+themaTypeCheckboxes.click(function() {
+    let checkedCount = themaTypeCheckboxes.filter(':checked').length;
+    if (checkedCount > 3) {
+        this.checked = false;
+    }
+});
+
+$(function() {
+    $('#search-icon').click(function() {
         var selectedCategories = $('.categoryCheckBox input[type=checkbox]:checked')
             .map(function () {
                 return $(this).attr('id');
             }).get();
-
+                console.log(selectedCategories)
         $.ajax({
             url: '/search/categoryCheck',
             method: 'GET',
@@ -22,7 +31,8 @@ $(function () {
                         return;
                     }
                     areaArr = new Array();
-                    for (let i = 0; i < campList.length; i++) {
+                    let max = 10;
+                    for (let i = 0; i < max; i++) {
                         console.log("ajax시작");
                         areaArr.push({
                             contentId: campList[i].contentId,
@@ -38,7 +48,7 @@ $(function () {
                     }
                     console.log("ajax반복시작");
                     let campListBoxHtml = "";
-                    for (let i = 0; i < campList.length; i++) {
+                    for (let i = 0; i < max; i++) {
                         console.log("ajax반복중");
                         campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
                         campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';
@@ -88,8 +98,6 @@ $(function () {
                     console.log(e);
                     alert("오류가 발생했습니다.");
                 }
-
-
             },
             error: function (xhr, status, error) {
             }

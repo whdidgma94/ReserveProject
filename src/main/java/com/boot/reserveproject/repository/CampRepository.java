@@ -53,7 +53,6 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
     List<Camp> selectListByInduty(@Param("keyword") String keyword);
     @Query("SELECT c FROM Camp c WHERE c.animalCmgCl = :possible OR c.animalCmgCl = :possibleSmall")
     List<Camp> selectListByAnimal(@Param("possible") String possible, @Param("possibleSmall") String possibleSmall);
-
     @Query("SELECT c FROM Camp c WHERE c.caravAcmpnyAt = :Y")
     List<Camp> selectListByCaravAcmpnyAt(@Param("Y") String Y);
     @Query("SELECT c FROM Camp c WHERE c.trlerAcmpnyAt = :Y")
@@ -64,4 +63,5 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
     List<Camp> selectListByClturEventAt(@Param("Y") String Y);
     @Query("SELECT c FROM Camp c WHERE c.themaEnvrnCl LIKE %:keyword%")
     List<Camp> selectListByThemaEnvrnCl(@Param("keyword") String keyword);
+
 }
