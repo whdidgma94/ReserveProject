@@ -29,20 +29,11 @@ function getMap(latitude,longitude) {
     var myLocation=new naver.maps.LatLng(latitude,longitude)
         map= new naver.maps.Map('map',{
             center:myLocation.destinationPoint(latitude,longitude),
-            zoom:17
+            zoom:13
         });
         marker = new naver.maps.Marker({
-            map:map,
-            position:myLocation
+
         })
-    var contentString = [
-        '<div class="iw_inner">',
-        '<p>현재위치</p>',
-        '</div>'
-    ].join('');
-        infoWindow = new naver.maps.InfoWindow({
-        content: contentString
-    });
     naver.maps.Event.addListener(marker, "click", function(e) {
         if (infoWindow.getMap()) {
             infoWindow.close();
@@ -50,10 +41,6 @@ function getMap(latitude,longitude) {
             infoWindow.open(map, marker);
         }
     });
-    infoWindow.open(map, marker);
-
-
-
 }
 
 
@@ -143,7 +130,6 @@ function initMap(campList) {
 
 
     marker.setMap(null);
-    infoWindow.close();
     markers = new Array(); // 마커 정보를 담는 배열
     infoWindows = new Array(); // 정보창을 담는 배열
 
@@ -183,19 +169,8 @@ function initMap(campList) {
     }
     // 이전에 생성된 지도 객체가 존재할 경우 지도 객체를 삭제합니다.
 
-
-
-
-
-
-
-
-
-
-
-
     for (var i=0, ii=markers.length; i<ii; i++) {
-        console.log(markers[i] , getClickHandler(i));
+
         naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i)); // 클릭한 마커 핸들러
     }
     function getClickHandler(seq) {
