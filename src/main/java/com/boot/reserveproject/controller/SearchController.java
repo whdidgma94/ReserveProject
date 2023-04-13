@@ -66,10 +66,15 @@ public class SearchController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @GetMapping("search/location")
-    public String showAddressList(Model model){
+    @GetMapping("/pc/search/location")
+    public String showAddressListPc(Model model){
         campString(model);
         return "pc/search/searchLocation";
+    }
+    @GetMapping("/mobile/search/location")
+    public String showAddressListMobile(Model model){
+        campString(model);
+        return "mobile/search/searchLocation";
     }
 //    @RequestMapping(value = "/search/addressSearch", method = RequestMethod.GET)
 //    @ResponseBody

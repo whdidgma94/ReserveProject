@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{pc/fragments/header :: header}"></head>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script th:src="@{/js/qna.js}"></script>
 <body>
+<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"></div>
+<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"></div>
+<style>
+    .details:hover {
+        cursor: pointer;
+    }
+</style>
+<div class="container view">
+    <div class="content-header">
+        <h3> 나의 문의 사항 </h3>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">카테고리</th>
+                    <th scope="col">작성일</th>
+                    <th scope="col">비고</th>
+                </tr>
+                </thead>
+                <tbody th:if="${qnAList != null}">
+                <tr th:if="${qnAList == null}"><td ><h3>문의하신 사항이 없습니다</h3></td></tr>
+                <tr th:each="qnA : ${qnAList}" >
+                    <td th:text="${qnA.category}" th:id="${qnA.id}" class="details"></td>
+                    <td th:text="${qnA.date}"></td>
+                    <td th:id="${qnA.status}">
+                        <span th:if="${qnA.status == 'NotRead'}">처리중...</span>
+                        <span th:if="${qnA.status == 'Read'}">처리 완료</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
 
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">상세 정보</h5>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td id="context"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="~{pc/fragments/footer :: footer}"/>
 </body>
 </html>

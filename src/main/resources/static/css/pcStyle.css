@@ -32,7 +32,9 @@ body{
     width:90%;
     padding-top: 100px;
     margin-left:5%;
-
+}
+.view h3{
+    text-align:center;
 }
 .icon{
     cursor:pointer;
@@ -58,7 +60,7 @@ body{
     width:50%;
     height:100vh;
     position:fixed;
-    right:-40%;
+    right:-50%;
     opacity: 0;
     transition: all 1s ease-in-out;
     box-shadow:0px 0px 50px 5px lightgray;
@@ -229,6 +231,11 @@ ul{
     align-items: center;
     margin-left:10px;
 }
+.campBoxLeft img{
+    display: block;
+    height: 90%;
+    object-fit:contain;
+}
 
 .campBoxRight {
     width: 60%;
@@ -270,4 +277,44 @@ ul{
 hr {
     height: 1px;
     color: lightgray;
+}
+#paging{
+    display:flex;
+    justify-content:center;
+}
+#paging a{
+    display:flex;
+    align-items:center;
+    margin:10px;
+    border:1px solid;
+    padding:10px;
+    height:30px;
+    border-radius:20px;
+    text-decoration:none;
+    color:black;
+}
+#paging a:hover{
+    color:white;
+    background-color:black;
+    transition: all 0.3s ease-in-out;
+}
+.curPageNum{
+    background-color:black;
+    color:white;
+}
+.curPageNum{
+    background-color:gray;
+}
+button.paging-btn {
+    background-color: #fff;
+    border: none;
+    color: #333;
+    padding: 5px 10px;
+    font-size: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button.paging-btn:hover {
+    background-color: #ddd;
 }

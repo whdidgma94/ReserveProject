@@ -14,7 +14,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" style="color:red;">
+            <a class="nav-link" href="/pc/board/boardList" style="color:red;">
                 <i class="fa-solid fa-comments"></i>
                 게시판(미구현)
             </a>
@@ -26,13 +26,18 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" style="color:red;">
+            <a class="nav-link" th:href="${session.log != null} ? '#' : '/pc/member/login'" onclick="showSubMenu()">
                 <i class="fa-solid fa-flag"></i>
-                고객센터(미구현)
+                고객센터
             </a>
+            <ul id="sub-menu" style="display: none;">
+                <li><a href="/sendQnA?type=pc">문의하기</a></li>
+                <li><a href="/sendQnAList?type=pc">나의 문의사항</a></li>
+            </ul>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link" href="/search/location">
+            <a class="nav-link" href="/pc/search/location">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 지역명 검색
             </a>

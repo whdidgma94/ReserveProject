@@ -30,7 +30,6 @@ $(function () {
             let html = "<option>전체</option>";
 
             data.response.result.featureCollection.features.forEach(function (f) {
-                console.log(f.properties)
                 let locationCd = f.properties.ctprvn_cd;
                 let locationNm = f.properties.ctp_kor_nm;
                 for (let i = 0; i < replaceList.length; i++) {
@@ -65,7 +64,7 @@ $(function () {
                 let addedValues = {}; // 중복 검사를 위한 객체
 
                 data.response.result.featureCollection.features.forEach(function (f) {
-                    console.log(f.properties)
+
                     let locationCd = f.properties.sig_cd;
                     let locationNm = f.properties.sig_kor_nm;
                     locationNm = locationNm.replace(/\s+.*/, '');
@@ -148,10 +147,10 @@ function search() {
 
                 let campListHtml = '<div class="row">';
                 for (let i = 0; i < areaArr.length; i++) {
-                    campListHtml += '<div class="tempCampBox" onclick="location.href=\'../pc/detailCamp?contentId= ' + areaArr[i].id + ' \'">';
+                    campListHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + areaArr[i].id + ' \'">';
                     campListHtml += '<div class="campBoxTop">';
                     campListHtml += '<div class="campBoxLeft">';
-                    campListHtml += '<img src="' + (areaArr[i].img || '../img/어서와영_사진없음.png') + '" alt="">';
+                    campListHtml += '<img src="' + (areaArr[i].img || '../../img/어서와영_사진없음.png') + '" alt="">';
                     campListHtml += '</div>';
                     campListHtml += '<div class="campBoxRight">';
                     campListHtml += '<div>';
@@ -239,10 +238,10 @@ function paging(i) {
 
                 let campListHtml = '<div class="row">';
                 for (let i = 0; i < areaArr.length; i++) {
-                    campListHtml += '<div class="tempCampBox" onclick="location.href=\'../pc/detailCamp?contentId= ' + areaArr[i].id + ' \'">';
+                    campListHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + areaArr[i].id + ' \'">';
                     campListHtml += '<div class="campBoxTop">';
                     campListHtml += '<div class="campBoxLeft">';
-                    campListHtml += '<img src="' + (areaArr[i].img || '../img/어서와영_사진없음.png') + '" alt="">';
+                    campListHtml += '<img src="' + (areaArr[i].img || '../../img/어서와영_사진없음.png') + '" alt="">';
                     campListHtml += '</div>';
                     campListHtml += '<div class="campBoxRight">';
                     campListHtml += '<div>';
@@ -273,7 +272,7 @@ function paging(i) {
 
                 $('#campList').html('');
                 $('#campList').html(campListHtml);
-
+                makePageNum();
 
             } catch (e) {
                 console.log(e);
@@ -285,22 +284,20 @@ function paging(i) {
 
 function makePageNum() {
     $('#paging').html('');
-
     let pageBtn = '';
     for (let i = 1; i <= 한번에보여줄페이지단위; i++) {
 
         if (i == 1 && 현재페이지인덱스 != 1) {
-            pageBtn += '<button onclick="previousPageIndex()">이전</button>'
+            pageBtn += '<button class="paging-btn" onclick="previousPageIndex()">이전</button>'
         }
-        pageBtn += '<a href="#" onclick="paging(' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + ')">[' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + ']</a>'
+        if(한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i == 현재페이지){pageBtn += '<a class="curPageNum" href="#" onclick="paging(' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + ')">' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + '</a>'}
+        else{pageBtn += '<a href="#" onclick="paging(' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + ')">' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + '</a>'}
         if (i == 한번에보여줄페이지단위 && (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) < 총페이지수) {
-            pageBtn += '<button onclick="nextPageIndex()">다음</button>'
+            pageBtn += '<button class="paging-btn" onclick="nextPageIndex()">다음</button>'
         }
         if ((한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) == 총페이지수) {
             break;
         }
-
-
     }
     $('#paging').html(pageBtn);
 }
