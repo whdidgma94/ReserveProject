@@ -1,10 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/header :: header}"/>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/admin/js/qna.js"></script>
+<style>
+    .details:hover {
+        cursor: pointer;
+    }
+</style>
 <body>
+<div th:replace="~{admin/fragments/bodyHeader :: bodyHeader}"/>
+<div class="container">
+    <div class="content-header">
+        <h3> 문의사항 목록 </h3>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">카테고리</th>
+                    <th scope="col">작성일</th>
+                    <th scope="col">비고</th>
+                </tr>
+                </thead>
+                <tbody th:if="${qnAList != null}">
+                <tr th:if="${qnAList == null}">
+                    <td><h3>문의 사항이 없습니다</h3></td>
+                </tr>
+                <tr th:each="qnA : ${qnAList}" th:if="${qnA.sender!='admin'}">
+                    <td th:text="${qnA.category}" th:id="${qnA.id}" class="details"></td>
+                    <td th:text="${qnA.date}"></td>
+                    <td th:id="${qnA.status}">
+                        <span th:if="${qnA.status != 'Done'}"><a th:href="@{/sendQnA(id=${qnA.id},type='admin')}"
+                                                                 class="btn btn-info">미처리</a></span>
+                        <span th:if="${qnA.status == 'Done'}"><a href="#" class="btn btn-info answer" th:id="${qnA.id}">처리 완료</a></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
 
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">상세 정보</h5>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td id="context"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="answerModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="answerModalLabel"></h5>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">카테고리</th>
+                        <td id="answerCategory"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">발신자</th>
+                        <td id="answerSender"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td id="answerDate">답변일</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">내용</th>
+                        <td id="answerContext"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

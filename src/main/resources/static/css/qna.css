@@ -1,0 +1,11 @@
+table th:first-child,
+table td:first-child {
+    width: 50%;
+}
+
+table th:nth-child(2),
+table td:nth-child(2),
+table th:nth-child(3),
+table td:nth-child(3) {
+    width: 25%;
+}

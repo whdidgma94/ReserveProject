@@ -100,10 +100,10 @@ public class MemberController {
             return "redirect:/pc/member/login";
         }
         if (memberService.checkLogin(form.getLoginId(), form.getPw())) {
+            session.setAttribute("log", form.getLoginId());
             if(form.getLoginId().equals("admin")){
                 return "admin/index";
             }
-            session.setAttribute("log", form.getLoginId());
         }
         return "redirect:/pc/main";
     }

@@ -12,7 +12,6 @@ $(document).ready(function () {
             error: function (error) {
             }
         });
-
     });
     $('.answer').on('click', function () {
         var id = $(this).attr('id');
@@ -33,16 +32,3 @@ $(document).ready(function () {
     });
 
 });
-
-var count = 0;
-
-setInterval(function() {
-    $('.dots').text('처리중');
-    for(var i = 0; i < count; i++) {
-        $('.dots').append('.');
-    }
-    count++;
-    if(count > 3) {
-        count = 0;
-    }
-}, 1000);

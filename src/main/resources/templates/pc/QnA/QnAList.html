@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{pc/fragments/header :: header}"></head>
+<link href="/css/qna.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script th:src="@{/js/qna.js}"></script>
-<body>
-<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"></div>
-<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"></div>
 <style>
     .details:hover {
         cursor: pointer;
     }
 </style>
+<body>
+<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"></div>
+<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"></div>
 <div class="container view">
     <div class="content-header">
         <h3> 나의 문의 사항 </h3>
@@ -35,8 +36,9 @@
                     <td th:text="${qnA.category}" th:id="${qnA.id}" class="details"></td>
                     <td th:text="${qnA.date}"></td>
                     <td th:id="${qnA.status}">
-                        <span th:if="${qnA.status == 'NotRead'}">처리중...</span>
-                        <span th:if="${qnA.status == 'Read'}">처리 완료</span>
+                        <span th:if="${qnA.status == 'NotRead'}" style="color: red">미확인</span>
+                        <span th:if="${qnA.status == 'Read'}" class="dots" style="color: orange">처리중</span>
+                        <span th:if="${qnA.status == 'Done'}"><a href="#" class="btn btn-info answer" th:id="${qnA.id}">답변 보기</a></span>
                     </td>
                 </tr>
                 </tbody>
@@ -57,6 +59,41 @@
                     <tbody>
                     <tr>
                         <td id="context"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="answerModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="answerModalLabel"></h5>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th scope="row">카테고리</th>
+                        <td id="answerCategory"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">발신자</th>
+                        <td id="answerSender"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row"></th>
+                        <td id="answerDate">답변일</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">내용</th>
+                        <td id="answerContext"></td>
                     </tr>
                     </tbody>
                 </table>
