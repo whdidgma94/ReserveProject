@@ -30,4 +30,15 @@ public class BoardService {
     public void insertBoard(String id, long no, String title, String content,String img ){
         boardRepository.insertBoard(id,no,title,content,img);
     }
+    public void createOrUpdateBoard(Board board){
+        boardRepository.save(board);
+    }
+    public Optional<Board> findOneBoardByNo(Long no){
+        Optional<Board> board=boardRepository.findOneBoardByNo(no);
+        return board;
+    }
+    public void deleteBoard(long no){
+        boardRepository.deleteById(no);
+    }
+
 }
