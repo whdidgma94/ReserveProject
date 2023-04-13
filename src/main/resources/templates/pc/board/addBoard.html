@@ -9,19 +9,19 @@
 <div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
 
 <div class="view">
-  <div th:text="${no} + '님, 환영합니다'"></div>
-  <div th:text="${no} + '님, 환영합니다'"></div>
-  <div th:text="${no} + '님, 환영합니다'"></div>
+  <input type="hidden" id="logValue" th:value="${session.log}" />
 
+  <form th:action="@{/pc/board/addBoardPro}" method="post" >
+    <input type="hidden" name="img" value=null>
   <table>
     <tbody>
     <tr>
       <td>작성자</td>
-      <td><input type="text" name="writer" value="작성자 이름" readonly></td>
+      <td><input type="text" name="id" th:value="${session.log}" readonly></td>
     </tr>
     <tr>
       <td>게시글 번호</td>
-      <td><input type="text" name="boardNo" value="게시글 번호" readonly></td>
+      <td><input type="text" name="no" th:value="${no}" readonly></td>
     </tr>
     <tr>
       <td>제목</td>
@@ -33,6 +33,8 @@
     </tr>
     </tbody>
   </table>
+  <input type="submit" value="작성하기">
+  </form>
   <div th:replace="~{pc/fragments/footer :: footer}" />
 </div>
 

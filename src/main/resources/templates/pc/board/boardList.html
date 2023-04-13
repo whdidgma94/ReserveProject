@@ -9,9 +9,9 @@
 <div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
 
 <div class="view">
-  <div th:text="${session.log} + '님, 환영합니다'"></div>
-  <div th:text="${session.log} + '님, 환영합니다'"></div>
-  <div th:text="${session.log} + '님, 환영합니다'"></div>
+
+
+  <input type="hidden" id="logValue" th:value="${session.log}" />
   <table th:border="3">
     <thead>
     <tr>
@@ -40,7 +40,7 @@
     </tbody>
 
   </table>
-  <button onclick="addBoard()">게시글작성</button>
+  <button onclick="checkLogin(document.getElementById('logValue').value)">게시글작성</button>
   <div th:replace="~{pc/fragments/footer :: footer}" />
 </div>
 
