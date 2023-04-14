@@ -40,6 +40,7 @@ setInterval(function() {
     $('.dots').text('처리중');
     for(var i = 0; i < count; i++) {
         $('.dots').append('.');
+
     }
     count++;
     if(count > 3) {

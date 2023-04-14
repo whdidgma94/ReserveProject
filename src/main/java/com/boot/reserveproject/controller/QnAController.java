@@ -61,11 +61,6 @@ public class QnAController {
         }
     }
 
-    @PostMapping("/read")
-    public void updateStatusRead(@RequestParam("id") Long id) {
-
-    }
-
     @PostMapping("/sendQnA")
     public String sendQnA(@Valid QnAForm form, BindingResult result, @RequestParam("type") String type, @RequestParam(value = "id", required = false) Long id, HttpSession session) {
         QnA qna = new QnA();
@@ -85,11 +80,11 @@ public class QnAController {
         qna.setContext(form.getContext());
         qnAService.createQnA(qna);
         if (type.equals("pc")) {
-            return "redirect:/pc/index";
+            return "redirect:/pc/main";
         } else if (type.equals("mobile")) {
             return "redirect:/mobile/index";
         } else {
-            return "redirect:/admin/index";
+            return "redirect:/sendQnAList?type=admin";
         }
     }
 

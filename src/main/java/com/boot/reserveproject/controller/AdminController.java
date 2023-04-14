@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AdminController {
 
     private final AdminService adminService;
-
     @GetMapping("/admin/memberList")
     public String getMembers(Model model) {
         model.addAttribute("memberList", adminService.allMembers());

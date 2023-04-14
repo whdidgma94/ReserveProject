@@ -30,7 +30,7 @@
                 </tr>
                 </thead>
                 <tbody th:if="${noticeList != null}">
-                <tr th:if="${noticeList == null}"><td ><h3>등록된 공지사항이 없습니다</h3></td></tr>
+                <tr th:if="${noticeList == null}"><td colspan="3"><h3>등록된 공지사항이 없습니다</h3></td></tr>
                 <tr th:each="notice : ${noticeList}" >
                     <td th:text="${notice.subject}" th:id="${notice.id}" class="details"></td>
                     <td th:text="${notice.date}"></td>

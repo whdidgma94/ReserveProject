@@ -31,7 +31,7 @@
                 </tr>
                 </thead>
                 <tbody th:if="${qnAList != null}">
-                <tr th:if="${qnAList == null}"><td ><h3>문의하신 사항이 없습니다</h3></td></tr>
+                <tr th:if="${qnAList.size() == 0}"><td colspan="3"><h3>문의하신 사항이 없습니다</h3></td></tr>
                 <tr th:each="qnA : ${qnAList}" >
                     <td th:text="${qnA.category}" th:id="${qnA.id}" class="details"></td>
                     <td th:text="${qnA.date}"></td>
