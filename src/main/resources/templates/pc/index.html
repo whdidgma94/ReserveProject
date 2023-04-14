@@ -7,21 +7,25 @@
 <body>
 <div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
 <div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
-<div class="view" style="margin-top: 50px">
-    <div class="categoryViewBox">
-        <div class="categoryView">
-            <div class="viewIcon">@_@</div>
-            <div class="viewText">카라반 글램핑 오토캠핑 반려동물 숲 호수 일출 일몰</div>
-        </div>
+<div class="view">
+    <div class="row mainPoster">
+        <img src="/img/어서와영.png">
     </div>
-    <div class="ranViewBox">
-        <div class="ranViewTitleBox">
-            <button onclick="prevWord()"> ◀</button>
-            <div id="rancltCl"></div>
-            <button onclick="nextWord()"> ▶</button>
-        </div>
-        <div class="ranViewImageBox" id="ranViewImageBox">
-        </div>
+    <div class="row">
+        <table class="table table-bordered mainCategory">
+            <tr>
+                <td><img src="/img/어서와영side.png"> 오토캠핑</td>
+                <td><img src="/img/어서와영side.png"> 카라반</td>
+                <td><img src="/img/어서와영side.png"> 글램핑</td>
+                <td><img src="/img/어서와영side.png"> 반려동물</td>
+            </tr>
+            <tr>
+                <td><img src="/img/어서와영side.png"> 호수</td>
+                <td><img src="/img/어서와영side.png"> 숲</td>
+                <td><img src="/img/어서와영side.png"> 일출</td>
+                <td><img src="/img/어서와영side.png"> 일몰</td>
+            </tr>
+        </table>
     </div>
 </div>
 <hr>
