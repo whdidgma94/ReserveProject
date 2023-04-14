@@ -3,7 +3,7 @@ function details(contentId) {
 }
 
 function categoryPage(iconTextId) {
-    location.href = "/pc/ ?category=" + iconTextId;
+    location.href = "/search/category?Id=" + iconTextId;
 }
 
 let cltList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];

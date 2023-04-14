@@ -195,12 +195,7 @@ public class SearchCategoryController {
 
     private void campString(Model model) {
         List<Camp> campList = new ArrayList<>();
-//        for (int i = 1; i <= 5; i++) {
-//            Camp camp = campService.selectOneById((long) i);
-//            if (camp != null) {
-//                campList.add(camp);
-//            }
-//        }
+
         int min = 0;
         int max = 10;
         List<Camp> campListAll = campService.findAllList();
