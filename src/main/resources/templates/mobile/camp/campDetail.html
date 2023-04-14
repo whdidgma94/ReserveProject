@@ -80,13 +80,13 @@
             <h3>부대시설</h3>
             <div class="sbrsCl"></div>
         </div>
-        <div class="row">
+        <div class="row" th:unless="${(camp.intro == null || camp.intro == '')&&(camp.tooltip == null || camp.tooltip == '')}">
             <h3>캠핑장 소개</h3>
             <table class="table table-bordered">
-                <tr>
+                <tr th:unless="${camp.intro == null || camp.intro== ''}">
                     <td th:text="${camp.intro}"></td>
                 </tr>
-                <tr th:if="${camp.tooltip}">
+                <tr th:unless="${camp.tooltip == null || camp.tooltip == ''}">
                     <td th:text="${camp.tooltip}"></td>
                 </tr>
             </table>

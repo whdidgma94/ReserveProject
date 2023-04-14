@@ -1,63 +1,118 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<head th:replace="~{pc/fragments/header :: header}"/>
-<script th:src="@{/js/categorySearch.js}"></script>
-<link href="/css/categorySearch.css" rel="stylesheet" type="text/css">
+<head th:replace="~{mobile/fragments/header :: header}"/>
+<script th:src="@{/js/categorySearchMobile.js}"></script>
 
 <body>
-<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
-<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
-<div class="mainBox">
+<div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"/>
+<div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"/>
+<div class="mainBox view">
+    <h1>카테고리 검색</h1>
     <div class="categoryCheckBox">
         <div class="categoryCheck categoryCheck01">
-            <div class="title">주요시설</div>
-            <div class="check"> <!--induty-->
-                <span class="item"><input type="checkbox" id="carav"><label for="carav">카라반</label></span>
-                <span class="item"><input type="checkbox" id="glamp"><label for="glamp">글램핑</label></span>
-                <span class="item"><input type="checkbox" id="car"><label for="car">자동차야영</label></span>
+            <div class="title01">캠핑유형</div>
+            <div class="check01">
+                <span class="item"><input type="checkbox" class="btn-check" id="nomal" name="campingType"><label
+                        for="nomal" class="btn btn-outline-primary">일반야영</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="carav" name="campingType"><label
+                        for="carav" class="btn btn-outline-primary">카라반</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="glamp" name="campingType"><label
+                        for="glamp" class="btn btn-outline-primary">글램핑</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="car" name="campingType"><label
+                        for="car" class="btn btn-outline-primary">자동차야영</label></span>
             </div>
         </div>
         <div class="categoryCheck categoryCheck02">
-            <div class="title">테마</div>
-            <div class="check">
-                <span class="item"><input type="checkbox" id="thema01"><label for="thema01">일출명소</label></span>
-                <span class="item"><input type="checkbox" id="thema02"><label for="thema02">일몰명소</label></span>
-                <span class="item"><input type="checkbox" id="thema03"><label for="thema03">걷기길</label></span>
-                <span class="item"><input type="checkbox" id="thema04"><label for="thema04">봄꽃여행</label></span>
-                <span class="item"><input type="checkbox" id="thema05"><label for="thema05">여름물놀이</label></span>
-                <span class="item"><input type="checkbox" id="thema06"><label for="thema06">가을단풍명소</label></span>
-                <span class="item"><input type="checkbox" id="thema07"><label for="thema07">겨울눈꽃명소</label></span>
-                <span class="item"><input type="checkbox" id="thema08"><label for="thema08">수상레저</label></span>
-                <span class="item"><input type="checkbox" id="thema09"><label for="thema09">항공레저</label></span>
-                <span class="item"><input type="checkbox" id="thema10"><label for="thema10">스키</label></span>
-                <span class="item"><input type="checkbox" id="thema11"><label for="thema11">낚시</label></span>
-                <span class="item"><input type="checkbox" id="thema12"><label for="thema12">액티비티</label></span></div>
+            <div class="title02">테마</div>
+            <div class="check02">
+                <span class="item"><input type="checkbox" class="btn-check" id="thema01" name="themaType"><label
+                        for="thema01" class="btn btn-outline-primary">일출명소</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="thema02" name="themaType"><label
+                        for="thema02" class="btn btn-outline-primary">일몰명소</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="thema03" name="themaType"><label
+                        for="thema03" class="btn btn-outline-primary">걷기길</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="thema04" name="themaType"><label
+                        for="thema04" class="btn btn-outline-primary">봄꽃여행</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="thema05" name="themaType"><label
+                        for="thema05" class="btn btn-outline-primary">여름물놀이</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="thema06" name="themaType"><label
+                        for="thema06" class="btn btn-outline-primary">가을단풍명소</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="thema07" name="themaType"><label
+                        for="thema07" class="btn btn-outline-primary">겨울눈꽃명소</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="thema08" name="themaType"><label
+                        for="thema08" class="btn btn-outline-primary">수상레저</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="thema09" name="themaType"><label
+                        for="thema09" class="btn btn-outline-primary">항공레저</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="thema10" name="themaType"><label
+                        for="thema10" class="btn btn-outline-primary">스키</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="thema11" name="themaType"><label
+                        for="thema11" class="btn btn-outline-primary">낚시</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="thema12" name="themaType"><label
+                        for="thema12" class="btn btn-outline-primary">액티비티</label></span></div>
         </div>
-        <div class="categoryCheck categoryCheck03">
-            <div class="title">기타</div>
-            <div class="check">
-                <span class="item"><input type="checkbox" id="animalCmgCl"><label for="animalCmgCl">반려동물</label></span>
-                <span class="item"><input type="checkbox" id="trlerAcmpnyAt"><label
-                        for="trlerAcmpnyAt">개인트레일러</label></span>
-                <span class="item"><input type="checkbox" id="caravAcmpnyAt"><label
-                        for="caravAcmpnyAt">개인카라반</label></span>
-                <span class="item"> <input type="checkbox" id="exprnProgrmAt"><label
-                        for="exprnProgrmAt">체험활동</label></span>
-                <span class="item"><input type="checkbox" id="clturEventAt"><label
-                        for="clturEventAt">문화행사</label></span>
+        <div class="categoryCheck categoryCheck04">
+            <div class="title03">주변환경</div>
+            <div class="check03">
+                <span class="item"><input type="checkbox" class="btn-check" id="lct01" name="lctType"><label
+                        for="lct01" class="btn btn-outline-primary">해변</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="lct02" name="lctType"><label
+                        for="lct02" class="btn btn-outline-primary">섬</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="lct03" name="lctType"><label
+                        for="lct03" class="btn btn-outline-primary">산</label></span>
+                <span class="item"> <input type="checkbox" class="btn-check" id="lct04" name="lctType"><label
+                        for="lct04" class="btn btn-outline-primary">숲</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="lct05" name="lctType"><label
+                        for="lct05" class="btn btn-outline-primary">계곡</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="lct06" name="lctType"><label
+                        for="lct06" class="btn btn-outline-primary">강</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="lct07" name="lctType"><label
+                        for="lct07" class="btn btn-outline-primary">호수</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="lct08" name="lctType"><label
+                        for="lct08" class="btn btn-outline-primary">도심</label></span>
             </div>
         </div>
-        <div>
-            <button class="selectBtn" type="button" id="selectBtn" onclick="select()">선택확인</button>
+        <div class="categoryCheck categoryCheck03">
+            <div class="title04">바닥형태</div>
+            <div class="check04">
+                <span class="item"><input type="checkbox" class="btn-check" id="bottom01"><label
+                        for="bottom01" class="btn btn-outline-primary">데크</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="bottom02"><label
+                        for="bottom02" class="btn btn-outline-primary">파쇄석</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="bottom03"><label
+                        for="bottom03" class="btn btn-outline-primary">잔디</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="bottom04"><label
+                        for="bottom04" class="btn btn-outline-primary">자갈</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="bottom05"><label
+                        for="bottom05" class="btn btn-outline-primary">맨흙</label></span>
+            </div>
         </div>
+        <div class="categoryCheck categoryCheck03">
+            <div class="title05">기타</div>
+            <div class="check05">
+                <span class="item"><input type="checkbox" class="btn-check" id="animalCmgCl"><label
+                        for="animalCmgCl" class="btn btn-outline-primary">반려동물</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="trlerAcmpnyAt"><label
+                        for="trlerAcmpnyAt" class="btn btn-outline-primary">개인트레일러</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="caravAcmpnyAt"><label
+                        for="caravAcmpnyAt" class="btn btn-outline-primary">개인카라반</label></span>
+                <span class="item"> <input type="checkbox" class="btn-check" id="exprnProgrmAt"><label
+                        for="exprnProgrmAt" class="btn btn-outline-primary">체험활동</label></span>
+                <span class="item"><input type="checkbox" class="btn-check" id="clturEventAt"><label
+                        for="clturEventAt" class="btn btn-outline-primary">문화행사</label></span>
+            </div>
+        </div>
+        <button class="searchBtn btn btn-success" type="button" id="search-icon">검색</button>
+        <hr>
     </div>
-    <div class="campListBox">
-        <div th:each="camp, idx : ${campList} ">
+    <div class="campListCount" id="campListCount"
+         th:text="'총 ' + ${listCount} + ' 개의 캠핑장이 검색되었습니다.'"></div>
+    <div class="campListBox" id="campListBox">
+        <div th:each="camp, idx : ${campList}">
             <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">
                 <div class="campBoxTop">
                     <div class="campBoxLeft">
-                        <img style="height: 98%" th:src="${camp.firstImageUrl}"/>
+                        <img th:src="${camp.firstImageUrl}"/>
                     </div>
                     <div class="campBoxRight">
                         <div class="campText">
@@ -66,41 +121,17 @@
                         </div>
                         <div class="campText" th:text="${camp.facltNm}"></div>
                         <div class="campText" th:text="${camp.lineIntro}"></div>
-                        <div class="campSbrsClBox">
-                            <div class="campSbrsCl" th:each="sbrsCl : ${sbrsClList[__${idx.index}__]}">
-                                <div class="campSbrsClItem" th:each="C : ${sbrsCl}">
-                                    <i th:if="${C == '전기'}" class="fa-solid fa-bolt"></i>
-                                    <i th:if="${C == '무선인터넷'}" class="fa-solid fa-wifi"></i>
-                                    <i th:if="${C == '장작판매'}" class="fa-sharp fa-solid fa-fire"></i>
-                                    <i th:if="${C == '온수'}" class="fa-solid fa-thermometer-full"></i>
-                                    <i th:if="${C == '트렘폴린'}" class="fa-solid fa-person-arrow-up-from-line"></i>
-                                    <i th:if="${C == '물놀이장'}" class="fa-solid fa-swimmer"></i>
-                                    <i th:if="${C == '놀이터'}" class="fa-solid fa-rocket"></i>
-                                    <i th:if="${C == '산책로'}" class="fa-solid fa-hiking"></i>
-                                    <i th:if="${C == '운동시설'}" class="fa-solid fa-dumbbell"></i>
-                                    <i th:if="${C == '마트.편의점'}" class="fa-solid fa-shopping-cart"></i>
-                                    <i th:if="${C == '운동장'}" class="fa-solid fa-baseball-ball"></i>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-                <!--   <div class="campBoxBottom">
-                                       <div class="campThema" th:each="thema : ${themaList}">
-                                           <div class="campThemaList" th:each="T : ${thema}">
-                                               <span th:text="${T}"></span>
-                                           </div>
-                                       </div>-->
             </div>
-            <hr>
         </div>
-        <hr>
     </div>
+    <div class="pageBox">
+        <div id="paging"></div>
+        <div id="pagingInsert" class="d-flex justify-content-center align-items-center mt-3">
+        </div>
+    </div>
+    <div th:replace="~{mobile/fragments/footer :: footer}"/>
 </div>
-
-</div>
-
-
-<div th:replace="~{pc/fragments/footer :: footer}"/>
 </body>
 </html>

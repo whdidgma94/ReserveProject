@@ -68,7 +68,7 @@ $(function () {
                         console.log("ajax반복중");
                         campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
                         campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';
-                        campListBoxHtml += '<img style="height: 98%" src="' + (campList[i].firstImageUrl || '../img/어서와영_사진없음.png') + '"/></div>';
+                        campListBoxHtml += '<img style="height: 98%" src="' + (campList[i].firstImageUrl || '../img/어서와양_사진없음.png') + '"/></div>';
                         campListBoxHtml += '<div class="campBoxRight"><div class="campText">[ <span>' + campList[i].doNm + '</span> <span>' + campList[i].sigunguNm + '</span> ]</div>';
                         campListBoxHtml += '<div class="campText">' + campList[i].facltNm + '</div>';
                         campListBoxHtml += '<div class="campText">' + campList[i].lineIntro + '</div>';
@@ -175,7 +175,7 @@ function paging(i) {
                     console.log("ajax반복중");
                     campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
                     campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';
-                    campListBoxHtml += '<img style="height: 98%" src="' + (campList[i].firstImageUrl || '../img/어서와영_사진없음.png') + '"/></div>';
+                    campListBoxHtml += '<img style="height: 98%" src="' + (campList[i].firstImageUrl || '../img/어서와양_사진없음.png') + '"/></div>';
                     campListBoxHtml += '<div class="campBoxRight"><div class="campText">[ <span>' + campList[i].doNm + '</span> <span>' + campList[i].sigunguNm + '</span> ]</div>';
                     campListBoxHtml += '<div class="campText">' + campList[i].facltNm + '</div>';
                     campListBoxHtml += '<div class="campText">' + campList[i].lineIntro + '</div>';
