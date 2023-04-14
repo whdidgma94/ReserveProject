@@ -2,17 +2,22 @@ let 현재페이지 = 1;
 let 총리스트의길이;
 let 한페이지에보여줄게시글수 = 10;
 let 한번에보여줄페이지단위 = 10;
-let 총페이지수 ;
+let 총페이지수;
 let 현재페이지인덱스 = 1;
+
+window.onload = function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('Id');
+    const checkbox = document.querySelector(`input[type=checkbox][id='${id}']`);
+    if (checkbox) {
+        checkbox.checked = true;
+        document.getElementById("search-icon").click();
+    }
+}
 
 function details(contentId) {
     location.href = "/pc/detailCamp?contentId=" + contentId;
 }
-
-window.onload = function() {
-    현재페이지 = 1;
-    makePageNum();
-};
 
 $(function () {
     $('#search-icon').click(function () {
@@ -101,13 +106,20 @@ $(function () {
                             }
                             campListBoxHtml += '</div></div>'
                         }
-                        // let themaList;
-                        // if (themaEnvrnCl) {
-                        //     themaList = themaEnvrnCl[i].split(",");
-                        // } else {
-                        //     themaList = ["즐거운캠핑"];
-                        // }
-                        campListBoxHtml += '</div></div></div></div></div><hr></div>';
+                        campListBoxHtml += '</div></div></div></div></div>'
+                        campListBoxHtml += '<div class="campBoxBottom"><div class="campThema">'
+
+                        campList[i].themaEnvrnCl = "즐거운캠핑," + campList[i].themaEnvrnCl;
+                        console.log(campList[i].themaEnvrnCl)
+                        let themaList = campList[i].themaEnvrnCl.split(",");
+                        console.log(themaList)
+                        for (let j = 0; j < themaList.length; j++) {
+                            campListBoxHtml += '#' + themaList[j] + ' '
+                            console.log(themaList[j])
+                        }
+
+
+                        campListBoxHtml += '</div></div><hr></div>';
                     }
                     $('#campListBox').html(campListBoxHtml);
                     console.log("ajax반복끝")
@@ -122,6 +134,7 @@ $(function () {
         });
     });
 });
+
 function paging(i) {
     현재페이지 = i;
     let selectedCategories = $('.categoryCheckBox input[type=checkbox]:checked')
@@ -228,6 +241,7 @@ function paging(i) {
         }
     });
 }
+
 function makePageNum() {
     $('#paging').html('');
     console.log("페이지만들기")
@@ -246,16 +260,19 @@ function makePageNum() {
     }
     $('#paging').html(pageBtn);
 }
+
 function nextPageIndex() {
     현재페이지인덱스++;
     makePageNum();
     paging((현재페이지인덱스 - 1) * 한번에보여줄페이지단위 + 1);
 }
+
 function previousPageIndex() {
     현재페이지인덱스--;
     makePageNum();
     paging((현재페이지인덱스 - 1) * 한번에보여줄페이지단위 + 1);
 }
+
 function insertPageNum(i) {
     현재페이지인덱스 = Math.ceil($('#inputPageNum').val() / 10);
     makePageNum();

@@ -24,8 +24,7 @@ public class SearchCategoryController {
     private CampService campService;
 
     @GetMapping("/search/category")
-    public String showCategoryList(Model model) {
-        campString(model);
+    public String showCategoryList(Model model, String id) {
         return "pc/search/searchCategory";
     }
 

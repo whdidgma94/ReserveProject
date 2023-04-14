@@ -2,15 +2,13 @@ function details(contentId) {
     location.href = "/pc/detailCamp?contentId=" + contentId;
 }
 
-function categoryPage(iconTextId) {
-    location.href = "/search/category?Id=" + iconTextId;
-}
+
 
 let cltList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];
 let index = 0;
 let ranCltBox = document.getElementById("rancltCl");
 
-window.onload = function() {
+window.onload = function () {
     ranCltBox = document.getElementById("rancltCl");
     if (ranCltBox !== null) {
         ranCltBox.innerHTML = cltList[index];
@@ -41,8 +39,9 @@ function nextWord() {
     }
     changeView(cltList[index]);
 }
-    ranCltBox.innerHTML = cltList[index];
-    changeView(cltList[index]);
+
+ranCltBox.innerHTML = cltList[index];
+changeView(cltList[index]);
 
 function changeView(lct) {
     $.ajax({

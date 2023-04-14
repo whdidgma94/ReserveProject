@@ -41,8 +41,8 @@ public class CampController {
     }
 
     private void campString(Model model) {
-        String[] iconText = {"카라반","글램핑","오토캠핑","반려동물","숲","호수","일출","일몰"};
-        String[] iconTextId = {"carav","glamp","car","animalCmgCl","lct04","lct07","thema01","thema02"};
+        String[] iconText = {"오토캠핑","카라반","글램핑","반려동물","호수","숲","일출","일몰"};
+        String[] iconTextId = {"car","carav","glamp","animalCmgCl","lct07","lct04","thema01","thema02"};
         model.addAttribute("iconText", iconText);
         model.addAttribute("iconTextId", iconTextId);
 
