@@ -148,7 +148,11 @@ public class MemberController {
         model.addAttribute("member", memberService.selectMemberById((String) session.getAttribute("log")));
         return "mobile/member/memberMyPage";
     }
-
+    @PostMapping("/member/delete")
+    public String deleteMember(@RequestParam("loginId") String loginId) {
+        memberService.removeMember(memberService.selectMemberById(loginId).getId());
+        return "/admin/member/memberList";
+    }
     @GetMapping("/pc/member/find")
     public String findId(@RequestParam("type") String type, Model model) {
         model.addAttribute("type", type);
