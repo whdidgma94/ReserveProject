@@ -37,7 +37,7 @@
                     <td th:text="${qnA.date}"></td>
                     <td th:id="${qnA.status}">
                         <span th:if="${qnA.status != 'Done'}"><a th:href="@{/sendQnA(id=${qnA.id},type='admin')}"
-                                                                 class="btn btn-info">미처리</a></span>
+                                                                 class="btn btn-info" style="background-color: red">미처리</a></span>
                         <span th:if="${qnA.status == 'Done'}"><a href="#" class="btn btn-info answer" th:id="${qnA.id}">처리 완료</a></span>
                     </td>
                 </tr>
@@ -59,6 +59,19 @@
                 <table class="table">
                     <tbody>
                     <tr>
+                        <th scope="row">카테고리</th>
+                        <td id="category"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">발신자</th>
+                        <td id="sender"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">문의일</th>
+                        <td id="date"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">내용</th>
                         <td id="context"></td>
                     </tr>
                     </tbody>

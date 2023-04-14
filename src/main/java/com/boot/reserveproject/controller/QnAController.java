@@ -89,7 +89,7 @@ public class QnAController {
         } else if (type.equals("mobile")) {
             return "redirect:/mobile/index";
         } else {
-            return "admin/index";
+            return "redirect:/admin/index";
         }
     }
 

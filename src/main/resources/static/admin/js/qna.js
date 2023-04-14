@@ -6,6 +6,9 @@ $(document).ready(function () {
             type: "GET",
             data: {id: id},
             success: function (result) {
+                $('#category').text(result.category);
+                $('#sender').text(result.sender);
+                $('#date').text(result.date);
                 $('#context').text(result.context);
                 $('#detailModal').modal('show');
             },
