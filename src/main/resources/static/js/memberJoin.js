@@ -31,7 +31,7 @@ function idCheck() {
             url: "/validId",
             data: query,
             success: function (data) {
-                if (data == "false") {
+                if (data === "false") {
                     swal('중복체크', '이미 존재하는 아이디 입니다', 'error');
                     $("#loginId").val('');
                 } else {
@@ -122,7 +122,7 @@ function sendPhone() {
             url: "/sendMsg",
             data: query,
             success: function (data) {
-                if (data == "false") {
+                if (data === "false") {
                     swal('중복된 전화번호', '이미 가입된 번호입니다.', 'error');
                     $("#phone").val('');
                     $("#phone").focus();
@@ -173,7 +173,7 @@ function AuthCode() {
             url: "/Auth",
             data: query,
             success: function (data) {
-                if (data == "false") {
+                if (data === "false") {
                     swal('입력 오류', '인증번호가 일치하지 않습니다.', 'error');
                     $("#authNumber").val('');
                 } else {
