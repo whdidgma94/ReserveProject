@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <head th:replace="~{pc/fragments/header :: header}"/>
-<script th:src="@{/js/categorySearch.js}"></script>
+<script th:src="@{/js/categorySearchPc.js}"></script>
 <link href="/css/categorySearch.css" rel="stylesheet" type="text/css">
 
 <body>
@@ -12,7 +12,7 @@
     <h1>카테고리 검색</h1>
     <div class="categoryCheckBox">
         <div class="categoryCheck categoryCheck01">
-            <div class="title">주요시설</div>
+            <div class="title">캠핑유형</div>
             <div class="check">
                 <span class="item"><input type="checkbox" class="btn-check" id="nomal" name="campingType"><label
                         for="nomal" class="btn btn-outline-primary">일반야영</label></span>

@@ -23,10 +23,15 @@ public class SearchCategoryController {
     @Autowired
     private CampService campService;
 
-    @GetMapping("/search/category")
-    public String showCategoryList(Model model) {
+    @GetMapping("/pc/search/category")
+    public String showCategoryListPc(Model model) {
         campString(model);
         return "pc/search/searchCategory";
+    }
+    @GetMapping("/mobile/search/category")
+    public String showCategoryListMobile(Model model) {
+        campString(model);
+        return "mobile/search/searchCategory";
     }
 
     public List<Camp> searchByAllList() {
