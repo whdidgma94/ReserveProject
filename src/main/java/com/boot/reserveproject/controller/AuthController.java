@@ -48,7 +48,7 @@ public class AuthController {
 
     @PostMapping("/Auth")
     @ResponseBody
-    public String auth(@RequestParam("code") String code, HttpSession session) throws IOException {
+    public String auth(@RequestParam("code") String code, HttpSession session)  {
         String authCode = (String) session.getAttribute("authCode");
         if (authCode.equals(code)) {
             session.removeAttribute("authCode");
