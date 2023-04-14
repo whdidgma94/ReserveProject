@@ -20,6 +20,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m from Member m where m.email = :email")
     List<Member> selectEmail(@Param("email") String email);
 
+    @Query("select m from Member m where m.email = :email and m.loginId = :loginId")
+    List<Member> selectEmailAndLoginId(@Param("email") String email, @Param("loginId") String loginId);
+
     @Query("select m from Member m where m.loginId = :loginId and m.pw = :pw")
     Member checkLogin(@Param("loginId") String loginId, @Param("pw") String pw);
 

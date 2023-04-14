@@ -1,0 +1,9 @@
+.number-only::-webkit-outer-spin-button,
+.number-only::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.number-only[type=number] {
+    -moz-appearance: textfield;
+}
