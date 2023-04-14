@@ -230,6 +230,7 @@ function paging(i) {
 }
 function makePageNum() {
     $('#paging').html('');
+    console.log("페이지만들기")
     let pageBtn = '';
     for (let i = 1; i <= 한번에보여줄페이지단위; i++) {
         if (i == 1 && 현재페이지인덱스 != 1) {
