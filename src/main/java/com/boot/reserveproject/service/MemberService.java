@@ -64,7 +64,22 @@ public class MemberService {
         }
         return true;
     }
-
+    public boolean validEmailAndloginId(String email, String loginId) {
+        List<Member> members = memberRepository.selectEmailAndLoginId(email, loginId);
+        if (!members.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+    public String loginId(String type, String address){
+        String loginId = null;
+        if(type.equals("email")){
+            loginId = memberRepository.selectEmail(address).get(0).getLoginId();
+        }else{
+            loginId = memberRepository.selectPhoneNumber(address).get(0).getLoginId();
+        }
+        return loginId;
+    }
     @Modifying
     @Transactional
     public void updateTemp(String type, String address, String code) {

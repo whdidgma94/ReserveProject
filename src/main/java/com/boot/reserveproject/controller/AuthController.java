@@ -1,10 +1,13 @@
 package com.boot.reserveproject.controller;
 
 import com.boot.reserveproject.domain.EmailMessage;
+import com.boot.reserveproject.domain.Member;
 import com.boot.reserveproject.service.AuthService;
 import com.boot.reserveproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,14 +57,19 @@ public class AuthController {
             return "false";
         }
     }
-
+    @PostMapping("/loginId")
+    @ResponseBody
+    public String sendLoginId(@RequestParam("type") String type, @RequestParam("address") String address){
+        return memberService.loginId(type, address);
+    }
     @PostMapping("/password")
+    @ResponseBody
     public String sendPassword(@RequestParam("type") String type, @RequestParam("address") String address) {
         String code = null;
         if (type.equals("email")) {
             EmailMessage emailMessage = EmailMessage.builder()
                     .to(address)
-                    .subject("[어서yng] 임시 비밀번호 발급")
+                    .subject("[어서와yng] 임시 비밀번호 발급")
                     .build();
             code = authService.sendMail(emailMessage, "password");
         } else if (type.equals("phone")) {
@@ -70,18 +78,24 @@ public class AuthController {
         System.out.println("type = "+type);
         memberService.updateTemp(type,address,code);
 
-        return "pc/index";
+        return "true";
     }
 
     @ResponseBody
     @PostMapping("/email")
-    public String sendAuthMail(@RequestParam("email") String email, HttpSession session) {
-        if (memberService.validEmail(email)) {
-            return "false";
+    public String sendAuthMail(@RequestParam("email") String email, HttpSession session, @RequestParam(name = "loginId", required = false) String loginId) {
+        if(loginId==null) {
+            if (memberService.validEmail(email)) {
+                return "false";
+            }
+        }else{
+            if(memberService.validEmailAndloginId(email, loginId)){
+                return "false";
+            }
         }
         EmailMessage emailMessage = EmailMessage.builder()
                 .to(email)
-                .subject("[어서yng] 이메일 인증 코드")
+                .subject("[어서와yng] 이메일 인증 코드")
                 .build();
 
         String code = authService.sendMail(emailMessage, "email");

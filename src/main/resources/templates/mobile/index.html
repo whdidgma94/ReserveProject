@@ -5,22 +5,24 @@
 <div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"/>
 <div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"/>
 <div class="view">
-    <div th:each="camp, idx : ${campList}">
-        <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">
-            <div class="campBoxTop">
-                <div class="campBoxLeft">
-                    <img th:src="${camp.firstImageUrl}"/>
-                </div>
-                <div class="campBoxRight">
-                    <div class="campText">
-                        [ <span th:text="${camp.doNm}"></span>
-                        <span th:text="${camp.sigunguNm}"></span> ]
-                    </div>
-                    <div class="campText" th:text="${camp.facltNm}"></div>
-                    <div class="campText" th:text="${camp.lineIntro}"></div>
-                </div>
-            </div>
-        </div>
+    <div class="row mainPoster">
+        <img src="/img/어서와양.png">
+    </div>
+    <div class="row">
+        <table class="table table-bordered mainCategory">
+            <tr>
+                <td><img src="/img/어서와양_오토캠핑.png">오토캠핑</td>
+                <td><img src="/img/어서와양_카라반.png">카라반</td>
+                <td><img src="/img/어서와양_글램핑.png">글램핑</td>
+                <td><img src="/img/어서와양_반려동물.png">반려동물</td>
+            </tr>
+            <tr>
+                <td><img src="/img/어서와양_호수.png">호수</td>
+                <td><img src="/img/어서와양_숲.png">숲</td>
+                <td><img src="/img/어서와양_일출.png">일출</td>
+                <td><img src="/img/어서와양_일몰.png">일몰</td>
+            </tr>
+        </table>
     </div>
 </div>
 <div th:replace="~{mobile/fragments/footer :: footer}" />

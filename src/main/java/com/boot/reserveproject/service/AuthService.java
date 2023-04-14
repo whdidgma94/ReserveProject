@@ -31,9 +31,9 @@ public class AuthService {
         String code = createCode();
         String msg = "";
         if (type.equals("password")) {
-            msg = "[어서yng]임시 비밀번호는 [" + code + "] 입니다";
+            msg = "[어서와yng]임시 비밀번호는 [" + code + "] 입니다";
         } else {
-            msg = "[어서yng]인증번호는 [" + code + "] 입니다";
+            msg = "[어서와yng]인증번호는 [" + code + "] 입니다";
 
         }
         HashMap<String, String> params = new HashMap<>();

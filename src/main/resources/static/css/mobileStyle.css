@@ -27,6 +27,9 @@
     bottom: 0;
     z-index:2;
 }
+.footer ul{
+    padding:0;
+}
 .view{
     position:relative;
     padding-top:240px;
@@ -261,27 +264,27 @@ ul{
     background-color: rgba(0, 0, 0, 0.8);
 }
 .view .table td,th{
-    border:2px solid black;
     font-size:50px;
 }
 .view .table,.table-responsive{
-    border:4px solid black;
     margin-top:40px;
     margin-bottom:0;
 }
 .view .row{
     margin-top:20px;
     margin-bottom:20px;
+    display:flex;
+    justify-content:center;
 }
 #map{
     z-index:1;
 }
-.tempCampBox{
+.view .tempCampBox{
     border:2px solid black;
     padding: 30px;
     margin: 40px;
     border-radius:20px;
-    width: 90%;
+    width: 80%;
 }
 .campBoxLeft{
     display:flex;
@@ -336,4 +339,56 @@ ul{
 }
 .curPageNum{
     background-color:gray;
+}
+.view .mainCategory{
+    display:flex;
+    width:100%;
+    border:none;
+}
+
+.mainCategory img{
+    width:100%;
+}
+.view .mainCategory td{
+    text-align:center;
+    cursor:pointer;
+    border:none;
+}
+.mainCategory tr{
+    display:flex;
+    gap:20px;
+    margin-bottom:20px;
+    border:none;
+}
+.item .btn{
+    --bs-btn-color: #e49f43;
+    --bs-btn-bg: #fff;
+    --bs-btn-border-color: #e49f43;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #e49f43;
+    --bs-btn-hover-border-color: #e49f43;
+    --bs-btn-focus-shadow-rgb: 60, 153, 110;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #e49f43;
+    --bs-btn-active-border-color: #e49f43;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #e49f43;
+    --bs-btn-disabled-border-color: #e49f43;
+}
+button.paging-btn {
+    background-color: #fff;
+    border: none;
+    color: #333;
+    padding: 5px 10px;
+    font-size: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button.paging-btn:hover {
+    background-color: #ddd;
+}
+.check01,.check02,.check03,.check04,.check05{
+    display:none;
 }

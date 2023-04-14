@@ -1,14 +1,12 @@
-const pw = document.getElementById('pw');
-const pwChk = document.getElementById('pwChk');
-const pwCheckMsg = document.getElementById('pwCheckMsg');
-
-pwChk.addEventListener('input', () => {
-    if (pw.value === pwChk.value) {
-        pwCheckMsg.textContent = '';  // 일치하는 경우 메시지를 지움
+function checkPassword() {
+    if ($("#pw").val() === $("#pwChk").val()) {
+        $("#pwCheckMsg").text('');
     } else {
-        pwCheckMsg.textContent = '비밀번호가 일치하지 않습니다.';  // 일치하지 않는 경우 메시지를 표시
+        $("#pwCheckMsg").text('비밀번호가 일치하지 않습니다.');
+        $("#pwChk").val('');
+        $("#pwChk").focus();
     }
-});
+}
 function join() {
     swal('환영합니다', '가입이 완료되었습니다', 'success');
     $("#joinForm").submit();
@@ -17,12 +15,12 @@ function join() {
 
 function idCheck() {
     if (/[^a-zA-Z0-9]/.test($("#loginId").val())) {
-        document.getElementById("idCheckMsg").innerHTML = "아이디는 영문과 숫자로만 가능합니다.";
+        $("#idCheckMsg").text("아이디는 영문과 숫자로만 가능합니다.");
         $("#loginId").val('');
         $("#loginId").focus();
         return;
     } else {
-        document.getElementById("idCheckMsg").innerHTML = "";
+        $("#idCheckMsg").text("");
     }
     if ($("#loginId").val()) {
         let query = {
@@ -33,7 +31,7 @@ function idCheck() {
             url: "/validId",
             data: query,
             success: function (data) {
-                if (data == "false") {
+                if (data === "false") {
                     swal('중복체크', '이미 존재하는 아이디 입니다', 'error');
                     $("#loginId").val('');
                 } else {
@@ -87,19 +85,16 @@ function execDaumPostcode() {
 }
 
 function toggleImage() {
-    let img = document.getElementById('show');
-    let pwInput1 = document.getElementById('pwInput1');
-    let pwInput2 = document.getElementById('pwInput2');
-    if (pwInput1.type === 'password') {
-        pwInput1.type = 'text';
-        pwInput2.type = 'text';
-        img.setAttribute('src', '/img/안보이기.png');
-        img.setAttribute('alt', '안보이기');
+    if ($("#pw").prop('type') === 'password') {
+        $("#pw").prop('type', 'text');
+        $("#pwChk").prop('type', 'text');
+        $("#showPw").attr('src', '/img/안보이기.png');
+        $("#showPw").attr('alt', '안보이기');
     } else {
-        pwInput1.type = 'password';
-        pwInput2.type = 'password';
-        img.setAttribute('src', '/img/보이기.png');
-        img.setAttribute('alt', '보이기');
+        $("#pw").prop('type', 'password');
+        $("#pwChk").prop('type', 'password');
+        $("#showPw").attr('src', '/img/보이기.png');
+        $("#showPw").attr('alt', '보이기');
     }
 }
 
@@ -127,7 +122,7 @@ function sendPhone() {
             url: "/sendMsg",
             data: query,
             success: function (data) {
-                if (data == "false") {
+                if (data === "false") {
                     swal('중복된 전화번호', '이미 가입된 번호입니다.', 'error');
                     $("#phone").val('');
                     $("#phone").focus();
@@ -178,7 +173,7 @@ function AuthCode() {
             url: "/Auth",
             data: query,
             success: function (data) {
-                if (data == "false") {
+                if (data === "false") {
                     swal('입력 오류', '인증번호가 일치하지 않습니다.', 'error');
                     $("#authNumber").val('');
                 } else {
