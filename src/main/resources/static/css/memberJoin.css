@@ -19,6 +19,8 @@ form {
 .form-group {
     width: 100%;
     display: flex;
+    margin: 10px;
+    align-items: center;
 }
 
 input[type="text"],
@@ -27,9 +29,32 @@ input[type="email"],
 input[type="tel"],
 input[type="password"] {
     width: 200px;
+    margin: 10px;
+}
+#roadAddress, #jibunAddress, #detailAddress{
+    width: 400px;
 }
 
 label {
     width: 20%;
     font-weight: bold;
+}
+.btn-box{
+    width: 100%;
+    display: flex;
+    margin: 15px;
+    align-items: center;
+    justify-content: center;
+}
+.btn-box>input[type=button]{
+    margin: 20px;
+    width: 100px;
+}
+.input-group{
+    align-items: center;
+    justify-content: center;
+}
+.select {
+    width: 100px;
+    height: 60px;
 }

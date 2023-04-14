@@ -1,7 +1,19 @@
+const pw = document.getElementById('pw');
+const pwChk = document.getElementById('pwChk');
+const pwCheckMsg = document.getElementById('pwCheckMsg');
+
+pwChk.addEventListener('input', () => {
+    if (pw.value === pwChk.value) {
+        pwCheckMsg.textContent = '';  // 일치하는 경우 메시지를 지움
+    } else {
+        pwCheckMsg.textContent = '비밀번호가 일치하지 않습니다.';  // 일치하지 않는 경우 메시지를 표시
+    }
+});
 function join() {
-    swal('환영합니다','가입이 완료되었습니다', 'success');
+    swal('환영합니다', '가입이 완료되었습니다', 'success');
     $("#joinForm").submit();
 }
+
 
 function idCheck() {
     if (/[^a-zA-Z0-9]/.test($("#loginId").val())) {
