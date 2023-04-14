@@ -230,14 +230,15 @@ function paging(i) {
 }
 function makePageNum() {
     $('#paging').html('');
+    console.log("페이지만들기")
     let pageBtn = '';
     for (let i = 1; i <= 한번에보여줄페이지단위; i++) {
         if (i == 1 && 현재페이지인덱스 != 1) {
-            pageBtn += '<button onclick="previousPageIndex()">이전</button>'
+            pageBtn += '<button class="paging-btn" onclick="previousPageIndex()">이전</button>'
         }
-        pageBtn += '<a href="#" onclick="paging(' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + ')">[' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + ']</a>'
+        pageBtn += '<a href="#" onclick="paging(' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + ')">' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + '</a>'
         if (i == 한번에보여줄페이지단위 && (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) < 총페이지수) {
-            pageBtn += '<button onclick="nextPageIndex()">다음</button>'
+            pageBtn += '<button class="paging-btn" onclick="nextPageIndex()">다음</button>'
         }
         if ((한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) == 총페이지수) {
             break;

@@ -2,6 +2,10 @@ function details(contentId) {
     location.href = "/pc/detailCamp?contentId=" + contentId;
 }
 
+function categoryPage(iconTextId) {
+    location.href = "/search/category?Id=" + iconTextId;
+}
+
 let cltList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];
 let index = 0;
 let ranCltBox = document.getElementById("rancltCl");
@@ -78,3 +82,5 @@ function changeView(lct) {
         }
     });
 }
+
+
