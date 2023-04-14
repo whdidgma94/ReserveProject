@@ -46,34 +46,34 @@ public class CampController {
         model.addAttribute("iconText", iconText);
         model.addAttribute("iconTextId", iconTextId);
 
-        List<Camp> campList = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
-            Camp camp = campService.selectOneById((long) i);
-            System.out.println("i = " + i);
-            if (camp != null) {
-                campList.add(camp);
-            }
-        }
-        model.addAttribute("campList", campList);
-
-        List<List<String>> sbrsClList = new ArrayList<>();
-        List<List<String>> themaList = new ArrayList<>();
-        for (int i = 0; i < campList.size(); i++) {
-            String tempSbrsCl = campList.get(i).getSbrsCl();
-            String[] sbrsCl = tempSbrsCl.split(",");
-            sbrsClList.add(Arrays.asList(sbrsCl));
-
-            String[] thema = {"즐거운캠핑"};
-            if (!campList.get(i).getThemaEnvrnCl().equals("")) {
-                thema = campList.get(i).getThemaEnvrnCl().split(",");
-            }
-            themaList.add(Arrays.asList(thema));
-
-            System.out.println(Arrays.toString(thema));
-            System.out.println(Arrays.toString(sbrsCl));
-        }
-        model.addAttribute("sbrsClList", sbrsClList);
-        model.addAttribute("themaList", themaList);
+//        List<Camp> campList = new ArrayList<>();
+//        for (int i = 1; i <= 5; i++) {
+//            Camp camp = campService.selectOneById((long) i);
+//            System.out.println("i = " + i);
+//            if (camp != null) {
+//                campList.add(camp);
+//            }
+//        }
+//        model.addAttribute("campList", campList);
+//
+//        List<List<String>> sbrsClList = new ArrayList<>();
+//        List<List<String>> themaList = new ArrayList<>();
+//        for (int i = 0; i < campList.size(); i++) {
+//            String tempSbrsCl = campList.get(i).getSbrsCl();
+//            String[] sbrsCl = tempSbrsCl.split(",");
+//            sbrsClList.add(Arrays.asList(sbrsCl));
+//
+//            String[] thema = {"즐거운캠핑"};
+//            if (!campList.get(i).getThemaEnvrnCl().equals("")) {
+//                thema = campList.get(i).getThemaEnvrnCl().split(",");
+//            }
+//            themaList.add(Arrays.asList(thema));
+//
+//            System.out.println(Arrays.toString(thema));
+//            System.out.println(Arrays.toString(sbrsCl));
+//        }
+//        model.addAttribute("sbrsClList", sbrsClList);
+//        model.addAttribute("themaList", themaList);
     }
 
     @GetMapping("/pc/detailCamp")

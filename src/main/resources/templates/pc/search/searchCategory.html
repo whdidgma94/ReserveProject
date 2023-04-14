@@ -107,7 +107,7 @@
         <hr>
     </div>
     <div class="campListCount" id="campListCount"
-        th:text="'총 ' + ${listCount} + ' 개의 캠핑장이 검색되었습니다.'"></div>
+         th:text="'총 ' + ${listCount} + ' 개의 캠핑장이 검색되었습니다.'"></div>
     <div class="campListBox" id="campListBox">
         <div th:each="camp, idx : ${campList} ">
             <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">
@@ -139,24 +139,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="campBoxBottom">
+                            <div class="campThema">
+                                <div class="campThemaList">
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!--   <div class="campBoxBottom">
-                                       <div class="campThema" th:each="thema : ${themaList}">
-                                           <div class="campThemaList" th:each="T : ${thema}">
-                                               <span th:text="${T}"></span>
-                                           </div>
-                                       </div>-->
+                <hr>
             </div>
-            <hr>
+        </div>
+        <div class="pageBox">
+            <div id="paging"></div>
+            <div id="pagingInsert" class="d-flex justify-content-center align-items-center mt-3">
+            </div>
         </div>
     </div>
-    <div class="pageBox">
-        <div id="paging"></div>
-        <div id="pagingInsert" class="d-flex justify-content-center align-items-center mt-3">
-        </div>
-    </div>
-</div>
-<div th:replace="~{pc/fragments/footer :: footer}"/>
+    <div th:replace="~{pc/fragments/footer :: footer}"/>
 </body>
 </html>
