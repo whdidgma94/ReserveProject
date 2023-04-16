@@ -1,7 +1,11 @@
 package com.boot.reserveproject.controller;
 
 import com.boot.reserveproject.domain.Board;
+import com.boot.reserveproject.domain.Comments;
+import com.boot.reserveproject.domain.Member;
 import com.boot.reserveproject.service.BoardService;
+import com.boot.reserveproject.service.CommentsService;
+import com.boot.reserveproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -12,21 +16,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.text.html.Option;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.*;
 
 @Controller@RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+    private final MemberService memberService;
+    private final CommentsService commentsService;
 
-    private final Environment env;
+
+
     @GetMapping("/pc/board/boardList")
     private String showBoardList(Model model){
         List<Board>boardList=boardService.selectAllBoard();
@@ -52,14 +58,18 @@ public class BoardController {
     @PostMapping("/pc/board/addBoardPro")
 
     private String addBoardPro(@RequestParam("id") String id,
-                               @RequestParam("no") long no,
+
 
                                @RequestParam("title") String title,
                                @RequestParam("content") String content,
                                @RequestParam("img") String img,
                                Model model){
         Board board=new Board();
-        board.setNo(no);
+        Member member= new Member();
+
+        member=memberService.selectMemberById(id);
+        board.setMember(member);
+
         board.setId(id);
         board.setTitle(title);
         board.setContent(content);
@@ -74,14 +84,16 @@ public class BoardController {
     }
     @GetMapping("/pc/board/showContent")
     private String showContent(Model model,@RequestParam("no") long no){
-        System.out.println("들어는 오나  "+no);
+
         Optional<Board> board =boardService.findOneBoardByNo(no);
         model.addAttribute("board",board);
+        List<Comments> newComments=commentsService.getCommentsByBoardNo(no);
+        model.addAttribute("comments",newComments);
         return "pc/board/showContent";
     }
     @GetMapping("/pc/board/deleteBoard")
     private String deleteBoard(Model model,@RequestParam("no") long no){
-        System.out.println("여기들어와와오아?");
+
         boardService.deleteBoard(no);
         List<Board>boardList=boardService.selectAllBoard();
         model.addAttribute("boardList",boardList);

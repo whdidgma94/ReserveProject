@@ -38,13 +38,20 @@
   <div id="commentList">
 
   </div>
-  <div th:if="${session.log != null}">
-    <form action="#" method="post">
-      <label for="comment">댓글 달기</label>
-      <input type="text" id="comment" name="comment" placeholder="댓글을 입력하세요">
-      <button type="submit">작성하기</button>
-    </form>
-  </div>
+
+
+
+  <h5 >댓글(<span th:text="${#lists.size(comments)}"></span>)</h5>
+
+
+  <table class="table">
+    <tr th:each="comments, iterStat : ${comments}" style="border-bottom: 1px solid black;">
+      <td th:text="${comments.id}" class="border-top"></td>
+      <td th:text="${comments.content}" class="border-top"></td>
+      <td th:text="${comments.date}" class="border-top"></td>
+      <td th:text="${comments.time}" class="border-top"></td>
+    </tr>
+  </table>
 
   <!-- 로그인하지 않은 경우 -->
   <div th:if="${session.log == null}">

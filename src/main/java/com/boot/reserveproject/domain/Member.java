@@ -35,6 +35,12 @@ public class Member {
     private List<Review> reviews = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member" )
     private List<Reservation> reservations = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
+    private List<Board> boards = new ArrayList<>();
+
+
 }

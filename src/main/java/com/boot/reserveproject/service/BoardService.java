@@ -1,6 +1,7 @@
 package com.boot.reserveproject.service;
 
 import com.boot.reserveproject.domain.Board;
+import com.boot.reserveproject.domain.Member;
 import com.boot.reserveproject.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,5 +41,8 @@ public class BoardService {
     public void deleteBoard(long no){
         boardRepository.deleteById(no);
     }
-
+    public Board getOneBoard(Long id) {
+        return boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다"));
+    }
 }
