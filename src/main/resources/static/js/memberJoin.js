@@ -8,10 +8,11 @@ function checkPassword() {
     }
 }
 function join() {
+    const joinBtn = document.querySelector("#joinBtn");
+    joinBtn.disabled = true;
     swal('환영합니다', '가입이 완료되었습니다', 'success');
     $("#joinForm").submit();
 }
-
 
 function idCheck() {
     if (/[^a-zA-Z0-9]/.test($("#loginId").val())) {

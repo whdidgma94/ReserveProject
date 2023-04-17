@@ -29,7 +29,6 @@ public class SearchCategoryController {
     }
     @GetMapping("/mobile/search/category")
     public String showCategoryListMobile(Model model) {
-        campString(model);
         return "mobile/search/searchCategory";
     }
 
