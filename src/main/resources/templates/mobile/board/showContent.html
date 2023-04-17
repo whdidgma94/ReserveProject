@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{mobile/fragments/header :: header}"/>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script th:src="@{/js/showContent.js}"></script>
+
+<body>
+<div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"/>
+<div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"/>
+
+<div class="view">
+  <input type="hidden" id="boardNo" th:value="${board.get().no}" />
+<!--  <input type="hidden" id="writerValue" th:value="${board.get().id}" />-->
+  <table>
+    <tbody>
+    <tr>
+      <td>작성자</td>
+      <td><input type="text" name="id" th:value="${board.get().id}" readonly></td>
+    </tr>
+    <tr>
+      <td>게시글 번호</td>
+      <td><input type="text" name="no" th:value="${board.get().no}" readonly></td>
+    </tr>
+    <tr>
+      <td>제목</td>
+      <td><input type="text" name="title" th:value="${board.get().title}" readonly></td>
+    </tr>
+    <tr>
+      <td>내용</td>
+      <td><textarea name="content" readonly th:text="${board.get().content}"> </textarea></td>
+    </tr>
+    </tbody>
+  </table>
+  <div th:if="${session.log == board.get().id}">
+    <button onclick="deleteBoard(document.getElementById('boardNo').value)">삭제</button>
+    <button onclick="updateBoard(document.getElementById('boardNo').value)">수정</button>
+  </div>
+  <div id="commentList">
+
+  </div>
+
+
+
+  <h5 >댓글(<span th:text="${#lists.size(comments)}"></span>)</h5>
+
+
+  <table class="table">
+    <tr th:each="comments, iterStat : ${comments}" style="border-bottom: 1px solid black;">
+      <td th:text="${comments.id}" class="border-top"></td>
+      <td th:text="${comments.content}" class="border-top"></td>
+      <td th:text="${comments.date}" class="border-top"></td>
+      <td th:text="${comments.time}" class="border-top"></td>
+    </tr>
+  </table>
+
+  <!-- 로그인하지 않은 경우 -->
+  <div th:if="${session.log == null}">
+    <p>댓글을 작성하려면 로그인이 필요합니다.</p>
+    <a href="/mobile/member/login">로그인</a>
+  </div>
+
+</div>
+
+</body>
+</html>

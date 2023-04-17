@@ -7,39 +7,40 @@ import com.boot.reserveproject.service.BoardService;
 import com.boot.reserveproject.service.CommentsService;
 import com.boot.reserveproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Controller@RequiredArgsConstructor
-public class BoardController {
+public class BoardControllerMobile {
     private final BoardService boardService;
     private final MemberService memberService;
     private final CommentsService commentsService;
 
 
 
-    @GetMapping("/pc/board/boardList")
+    @GetMapping("/mobile/board/boardList")
     private String showBoardList(Model model){
         List<Board>boardList=boardService.selectAllBoard();
         model.addAttribute("boardList",boardList);
-        return"pc/board/boardList";
+        return"mobile/board/boardList";
     }
-    @GetMapping("/pc/board/addBoard")
+    @GetMapping("/mobile/board/addBoard")
     private String addBoard(Model model){
     Long length= boardService.getBoardLength();
         System.out.println("length:"+length);
@@ -52,10 +53,10 @@ public class BoardController {
         no++;
         model.addAttribute("no",no);
     }
-        return"pc/board/addBoard";
+        return"mobile/board/addBoard";
     }
 
-    @PostMapping("/pc/board/addBoardPro")
+    @PostMapping("/mobile/board/addBoardPro")
 
     private String addBoardPro(@RequestParam("id") String id,
 
@@ -80,32 +81,32 @@ public class BoardController {
 
         List<Board>boardList=boardService.selectAllBoard();
         model.addAttribute("boardList",boardList);
-        return"pc/board/boardList";
+        return"mobile/board/boardList";
     }
-    @GetMapping("/pc/board/showContent")
+    @GetMapping("/mobile/board/showContent")
     private String showContent(Model model,@RequestParam("no") long no){
 
         Optional<Board> board =boardService.findOneBoardByNo(no);
         model.addAttribute("board",board);
         List<Comments> newComments=commentsService.getCommentsByBoardNo(no);
         model.addAttribute("comments",newComments);
-        return "pc/board/showContent";
+        return "mobile/board/showContent";
     }
-    @GetMapping("/pc/board/deleteBoard")
+    @GetMapping("/mobile/board/deleteBoard")
     private String deleteBoard(Model model,@RequestParam("no") long no){
 
         boardService.deleteBoard(no);
         List<Board>boardList=boardService.selectAllBoard();
         model.addAttribute("boardList",boardList);
-        return"pc/board/boardList";
+        return"mobile/board/boardList";
     }
-    @GetMapping("/pc/board/updateBoard")
+    @GetMapping("/mobile/board/updateBoard")
     private String updateBoard(Model model,@RequestParam("no") long no){
         Optional<Board> board=boardService.findOneBoardByNo(no);
         model.addAttribute("board",board);
-        return"pc/board/updateBoard";
+        return"mobile/board/updateBoard";
     }
-    @PostMapping("/pc/board/updateBoardPro")
+    @PostMapping("/mobile/board/updateBoardPro")
     private String updateBoardPro(Model model,@RequestParam("id") String id,
                                   @RequestParam("no") long no,
 
@@ -125,9 +126,9 @@ public class BoardController {
         boardService.createOrUpdateBoard(newBoard);
         board=boardService.findOneBoardByNo(no);
         model.addAttribute("board",board);
-        return "pc/board/showContent";
+        return "mobile/board/showContent";
     }
-    @PostMapping("pc/board/postImg")
+    @PostMapping("mobile/board/postImg")
     @ResponseBody
     public ResponseEntity<String> uploadImg(@RequestParam("file") MultipartFile file) {
         // 파일 업로드 경로 설정
