@@ -62,7 +62,7 @@ function paging(i) {
                 for (let i = 0; i < campList.length; i++) {
                     console.log("ajax반복중");
                     campListBoxHtml += '<div class="campLikeBox"><div> 추천수 : ' + campList[i].member + '</div>'
-                    campListBoxHtml += '<div><label for="memberLike" id="'+campList[i].contentId+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold">♡</label></div></div>'
+                    campListBoxHtml += '<div><label for="memberLike" id="'+campList[i].contentId+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>'
                     campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
                     campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';
                     campListBoxHtml += '<img style="height: 98%" src="' + campList[i].firstImageUrl + '" onerror="this.src=\'../../img/어서와양_사진없음.png\'"/></div>';
@@ -169,4 +169,13 @@ function insertPageNum(i) {
     paging(i);
 }
 
+function addLike(element){
+    if(element.innerHTML === '♡'){
+        element.innerHTML = '♥';
+        swal(element.id,"목록에 추가되었습니다","success");
+    } else {
+        element.innerHTML = '♡';
+        swal(element.id,"목록에서 제외되었습니다","success");
+    }
+}
 
