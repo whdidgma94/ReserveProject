@@ -118,7 +118,6 @@ $(function () {
                             console.log(themaList[j])
                         }
 
-
                         campListBoxHtml += '</div></div><hr></div>';
                     }
                     $('#campListBox').html(campListBoxHtml);
