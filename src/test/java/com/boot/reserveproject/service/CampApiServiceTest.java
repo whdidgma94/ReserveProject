@@ -14,16 +14,16 @@ class CampApiServiceTest {
     @Autowired
     private CampApiService service;
 
-    // camp API DB에 넣을때 사용했음
-//    @Test
-//    public void addData() {
-//        int minPageNum = (3176);
-//        int maxPageNum = (3436);
-//        for (int i = minPageNum; i <= maxPageNum; i++) {
-//            service.saveCamps(api.getBasedList(String.valueOf(i)));
-//            System.out.println("진행페이지 = " + i + "/" +maxPageNum);
-//        }
-//    }
+//     camp API DB에 넣을때 사용했음
+    @Test
+    public void addData() {
+        int minPageNum = (3176);
+        int maxPageNum = (3436);
+        for (int i = minPageNum; i <= maxPageNum; i++) {
+            service.saveCamps(api.getBasedList(String.valueOf(i)));
+            System.out.println("진행페이지 = " + i + "/" +maxPageNum);
+        }
+    }
 
     //테마종류 확인
 

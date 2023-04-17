@@ -16,9 +16,9 @@ public class Camp {
     @Id
     @Column(name = "contentId")
     private Long contentId; // 콘텐츠 id ( 이미지검색 api에 필요, 중복x )
-    private Long id;
     private String facltNm; // 숙소 이름
     private String lineIntro; // 숙소 부제
+    @Column(length = 5000)
     private String intro; // 숙소 소개
 
     private String facltDivNm; // 사업 주체 ( 민간, 위탁 )   //
@@ -34,8 +34,8 @@ public class Camp {
     private String addr1; //  주소 ( 주소 )
     private String addr2; //  상세주소 ( 주소 )
 
-    private Double mapX; //  경도 : X
-    private Double mapY; //  위도 : Y
+    private double mapX; //  경도 : X
+    private double mapY; //  위도 : Y
 
     private String direction; //  오시는길
     private String tel; //  전화번호
