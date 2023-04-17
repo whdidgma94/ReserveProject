@@ -1,8 +1,10 @@
 package com.boot.reserveproject.controller;
 
+import com.boot.reserveproject.domain.Camp;
 import com.boot.reserveproject.domain.Member;
 import com.boot.reserveproject.form.LoginForm;
 import com.boot.reserveproject.form.MemberForm;
+import com.boot.reserveproject.service.CampService;
 import com.boot.reserveproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,18 +15,23 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
+    private final CampService campService;
 
     @GetMapping("/pc/member/new")
     public String joinFormPc(Model model) {
         model.addAttribute("memberForm", new MemberForm());
         return "pc/member/memberJoinForm";
     }
+
     @GetMapping("/mobile/member/new")
     public String joinFormMobile(Model model) {
         model.addAttribute("memberForm", new MemberForm());
@@ -41,7 +48,7 @@ public class MemberController {
         member.setName(form.getName());
         member.setLoginId(form.getLoginId());
         member.setPw(form.getPw());
-        member.setEmail(form.getEmailId()+"@"+form.getEmailDomain());
+        member.setEmail(form.getEmailId() + "@" + form.getEmailDomain());
         member.setPostcode(form.getPostcode());
         member.setRoadAddress(form.getRoadAddress());
         member.setJibunAddress(form.getJibunAddress());
@@ -49,14 +56,15 @@ public class MemberController {
         member.setPhone(form.getPhone());
         member.setRegNum1(form.getRegNum1());
         member.setRegNum2(form.getRegNum2());
-        if(form.getRegNum2().substring(0,1).equals("1")||form.getRegNum2().substring(0,1).equals("3")){
+        if (form.getRegNum2().substring(0, 1).equals("1") || form.getRegNum2().substring(0, 1).equals("3")) {
             member.setGender("male");
-        }else{
+        } else {
             member.setGender("female");
         }
         memberService.join(member);
         return "redirect:/pc/main";
     }
+
     @PostMapping("/mobile/member/new")
     public String joinMemberMobile(@Valid MemberForm form, BindingResult result) {
 //        if(result.hasErrors()){
@@ -67,7 +75,7 @@ public class MemberController {
         member.setLoginId(form.getLoginId());
         member.setPw(form.getPw());
         System.out.println("domain = " + form.getEmailDomain());
-        member.setEmail(form.getEmailId()+"@"+form.getEmailDomain());
+        member.setEmail(form.getEmailId() + "@" + form.getEmailDomain());
         member.setPostcode(form.getPostcode());
         member.setRoadAddress(form.getRoadAddress());
         member.setJibunAddress(form.getJibunAddress());
@@ -76,24 +84,27 @@ public class MemberController {
         System.out.println("form.getPhone() = " + form.getPhone());
         member.setRegNum1(form.getRegNum1());
         member.setRegNum2(form.getRegNum2());
-        if(form.getRegNum2().substring(0,1).equals("1")||form.getRegNum2().substring(0,1).equals("3")){
+        if (form.getRegNum2().substring(0, 1).equals("1") || form.getRegNum2().substring(0, 1).equals("3")) {
             member.setGender("male");
-        }else{
+        } else {
             member.setGender("female");
         }
         memberService.join(member);
         return "redirect:/mobile/main";
     }
+
     @GetMapping("/pc/member/login")
     public String loginFormPc(Model model) {
         model.addAttribute("loginForm", new LoginForm());
         return "pc/member/memberLoginForm";
     }
+
     @GetMapping("/mobile/member/login")
     public String loginFormMobile(Model model) {
         model.addAttribute("loginForm", new LoginForm());
         return "mobile/member/memberLoginForm";
     }
+
     @PostMapping("/pc/member/login")
     private String loginMemberPc(@Valid LoginForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
@@ -101,12 +112,13 @@ public class MemberController {
         }
         if (memberService.checkLogin(form.getLoginId(), form.getPw())) {
             session.setAttribute("log", form.getLoginId());
-            if(form.getLoginId().equals("admin")){
+            if (form.getLoginId().equals("admin")) {
                 return "admin/index";
             }
         }
         return "redirect:/pc/main";
     }
+
     @PostMapping("/mobile/member/login")
     private String loginMemberMobile(@Valid LoginForm form, BindingResult result, HttpSession session) {
         if (result.hasErrors()) {
@@ -119,57 +131,90 @@ public class MemberController {
         }
         return "redirect:/mobile/main";
     }
+
     @GetMapping("/pc/member/logout")
-    private String logoutPc(HttpSession session){
+    private String logoutPc(HttpSession session) {
         session.removeAttribute("log");
         return "redirect:/pc/main";
     }
+
     @GetMapping("/mobile/member/logout")
-    private String logoutMobile(HttpSession session){
+    private String logoutMobile(HttpSession session) {
         session.removeAttribute("log");
         return "redirect:/mobile/main";
     }
 
     @ResponseBody
     @PostMapping("/validId")
-    public String validId(@RequestParam("loginId") String loginId){
-        if(memberService.validId(loginId)){
+    public String validId(@RequestParam("loginId") String loginId) {
+        if (memberService.validId(loginId)) {
             return "true";
         }
         return "false";
     }
+
     @GetMapping("/pc/member/myPage")
-    public String myPagePc(HttpSession session, Model model){
+    public String myPagePc(HttpSession session, Model model) {
         model.addAttribute("member", memberService.selectMemberById((String) session.getAttribute("log")));
         return "pc/member/memberMyPage";
     }
+
     @GetMapping("/mobile/member/myPage")
-    public String myPageMobile(HttpSession session, Model model){
+    public String myPageMobile(HttpSession session, Model model) {
         model.addAttribute("member", memberService.selectMemberById((String) session.getAttribute("log")));
         return "mobile/member/memberMyPage";
     }
+
     @PostMapping("/member/delete")
     public String deleteMember(@RequestParam("loginId") String loginId, HttpSession session, @RequestParam("type") String type) {
         memberService.removeMember(memberService.selectMemberById(loginId).getId());
-        if(session.getAttribute("log").equals(loginId)){
+        if (session.getAttribute("log").equals(loginId)) {
             session.removeAttribute("log");
         }
-        if(type.equals("pc")){
+        if (type.equals("pc")) {
             return "redirect:/pc/main";
-        }else{
+        } else {
             return "redirect:/mobile/main";
         }
     }
+
     @GetMapping("/pc/member/find")
     public String findIdPc(@RequestParam("type") String type, Model model) {
         model.addAttribute("type", type);
         return "pc/member/memberFindAccount";
     }
+
     @GetMapping("/mobile/member/find")
     public String findIdMobile(@RequestParam("type") String type, Model model) {
         model.addAttribute("type", type);
         return "mobile/member/memberFindAccount";
     }
 
+    @PostMapping("/addLikes")
+    @ResponseBody
+    public String addLikes(@RequestParam("contentId") Long contentId, HttpSession session) {
+        Camp camp = campService.getCampById(contentId);
+        Member member = memberService.selectMemberById((String) session.getAttribute("log"));
+        List<Camp> campLikes;
+        if (member.getCampLikes() == null) {
+            campLikes = new ArrayList<>();
+        } else {
+            campLikes = member.getCampLikes();
+        }
 
+        campLikes.add(camp);
+        memberService.updateMemberLikes(campLikes, member.getId());
+        return "true";
+    }
+
+    @PostMapping("/deleteLikes")
+    @ResponseBody
+    public String deleteLikes(@RequestParam("contentId") Long contentId, HttpSession session) {
+        Camp camp = campService.getCampById(contentId);
+        Member member = memberService.selectMemberById((String) session.getAttribute("log"));
+        List<Camp> campLikes = member.getCampLikes();
+        campLikes.remove(camp);
+        memberService.updateMemberLikes(campLikes, member.getId());
+        return "true";
+    }
 }

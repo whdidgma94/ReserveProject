@@ -1,5 +1,6 @@
 package com.boot.reserveproject.service;
 
+import com.boot.reserveproject.domain.Camp;
 import com.boot.reserveproject.domain.Member;
 import com.boot.reserveproject.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,11 @@ public class MemberService {
         } else {
             memberRepository.updateTempByEmail(code, address);
         }
+    }
+    @Modifying
+    @Transactional
+    public void updateMemberLikes(List<Camp> campLikes, Long id){
+        memberRepository.updateMemberLikes(campLikes, id);
     }
 
     public Member selectMemberById(String loginId) {

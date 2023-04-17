@@ -32,6 +32,4 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
             "GROUP BY b.no")
     List<BoardWithCommentsCount> findBoardWithCommentsCountByNo();
 
-
-
 }

@@ -171,11 +171,28 @@ function insertPageNum(i) {
 
 function addLike(element){
     if(element.innerHTML === '♡'){
-        element.innerHTML = '♥';
-        swal(element.id,"목록에 추가되었습니다","success");
+        $.ajax({
+            url: "/addLikes",
+            type:"post",
+            data:{contentId : element.id},
+            success:function (result){
+                swal(element.id,"목록에 추가되었습니다","success");
+                element.innerHTML = '♥';
+            }
+        })
+
+
     } else {
-        element.innerHTML = '♡';
-        swal(element.id,"목록에서 제외되었습니다","success");
+        $.ajax({
+            url: "/deleteLikes",
+            type:"post",
+            data:{contentId : element.id},
+            success:function (result){
+                element.innerHTML = '♡';
+                swal(element.id,"목록에서 제외되었습니다","success");
+            }
+        })
+
     }
 }
 
