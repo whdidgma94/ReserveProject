@@ -106,7 +106,7 @@ $(function () {
                             }
                             campListBoxHtml += '</div></div>'
                         }
-                        campListBoxHtml += '</div></div></div>'
+                        campListBoxHtml += '</div></div></div></div></div>'
                         campListBoxHtml += '<div class="campBoxBottom"><div class="campThema">'
 
                         if (campList[i].themaEnvrnCl === "") {
@@ -122,7 +122,7 @@ $(function () {
                             console.log(themaList[j])
                         }
 
-                        campListBoxHtml += '</div></div></div></div><hr></div>';
+                        campListBoxHtml += '</div></div><hr></div>';
                     }
                     $('#campListBox').html(campListBoxHtml);
                     console.log("ajax반복끝")
@@ -224,7 +224,7 @@ function paging(i) {
                         }
                         campListBoxHtml += '</div></div>'
                     }
-                    campListBoxHtml += '</div></div></div>'
+                    campListBoxHtml += '</div></div></div></div></div>'
                     campListBoxHtml += '<div class="campBoxBottom"><div class="campThema">'
 
                     if (campList[i].themaEnvrnCl === "") {
@@ -240,8 +240,7 @@ function paging(i) {
                         console.log(themaList[j])
                     }
 
-
-                    campListBoxHtml += '</div></div></div></div><hr></div>';
+                    campListBoxHtml += '</div></div><hr></div>';
                 }
                 $('#campListBox').html(campListBoxHtml);
                 console.log("ajax반복끝")
