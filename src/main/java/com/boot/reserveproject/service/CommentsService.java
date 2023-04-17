@@ -23,4 +23,13 @@ public class CommentsService {
     public List<Comments> getCommentsByBoardNo(Long no){
         return commentsRepository.findCommentsByBoardNo(no);
     }
+    public Long countAllComments(){
+        return commentsRepository.countAllComments();
+    }
+    public Long findMaxRef(){
+        return commentsRepository.findMaxRef();
+    }
+    public Comments findOneCommentByBoardNo(Long no){
+        return commentsRepository.findOneCommentByBoardNo(no);
+    }
 }

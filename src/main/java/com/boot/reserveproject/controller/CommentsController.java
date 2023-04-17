@@ -25,10 +25,21 @@ public class CommentsController {
         Comments comments = new Comments();
         Board board= boardService.getOneBoard(no);
         comments.setBoard(board);
+        Long size= commentsService.countAllComments();
+        if(size==0){
+            System.out.println("댓글테이블길이:"+size);
+            comments.setRef(1L);
+        }
+        else{
 
+            Long newSize= commentsService.findMaxRef();
+            newSize++;
+            System.out.println("댓글그룹:"+newSize);
+            comments.setRef(newSize);
+        }
         comments.setId(id);
         comments.setContent(comment);
-        comments.setRef(1L);
+
         comments.setLevel(1L);
         commentsService.createOrUpdateComments(comments);
         Optional<Board> newBoard =boardService.findOneBoardByNo(no);
@@ -37,4 +48,13 @@ public class CommentsController {
         model.addAttribute("comments",newComments);
         return"pc/board/showContent";
     }
+    @PostMapping("/pc/comments/addSecondComment")
+    private String addSecondComment(Model model,@RequestParam("id") String id,@RequestParam("no") Long no){
+    Comments comment= commentsService.findOneCommentByBoardNo(no);
+    model.addAttribute("comment",comment);
+        return"pc/board/addSecondComment";
+    }
+    @PostMapping("/pc/comments/addSeconeCommentPro")
+    private String addSecondCommentPro(Model model,@RequestParam("id")String id,@RequestParam("content") String content,
+                                       @RequestParam("ref") long ref, @RequestParam("level"))
 }
