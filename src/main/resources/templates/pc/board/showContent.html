@@ -38,14 +38,12 @@
     </tbody>
   </table>
   <div th:if="${session.log == board.get().id}">
-    <button onclick="deleteBoard(document.getElementById('boardNo').value)">삭제</button>
-    <button onclick="updateBoard(document.getElementById('boardNo').value)">수정</button>
+    <button onclick="deleteBoardPc(document.getElementById('boardNo').value)">삭제</button>
+    <button onclick="updateBoardPc(document.getElementById('boardNo').value)">수정</button>
   </div>
   <div id="commentList">
 
   </div>
-
-
 
   <h5 >댓글(<span th:text="${#lists.size(comments)}"></span>)</h5>
 
