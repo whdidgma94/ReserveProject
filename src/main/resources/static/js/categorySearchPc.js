@@ -49,21 +49,21 @@ $(function () {
                     } else {
                         총페이지수 = Math.ceil(총리스트의길이 / 한페이지에보여줄게시글수);
                     }
-                    let areaArr = new Array();
-                    for (let i = 0; i < campList.length; i++) {
-                        console.log("ajax시작");
-                        areaArr.push({
-                            contentId: campList[i].contentId,
-                            firstImageUrl: campList[i].firstImageUrl,
-                            doNm: campList[i].doNm,
-                            sigunguNm: campList[i].sigunguNm,
-                            facltNm: campList[i].facltNm,
-                            lineIntro: campList[i].lineIntro,
-
-                            sbrsCl: campList[i].sbrsCl,
-                            themaEnvrnCl: campList[i].themaEnvrnCl,
-                        });
-                    }
+                    // let areaArr = new Array();
+                    // for (let i = 0; i < campList.length; i++) {
+                    //     console.log("ajax시작");
+                    //     areaArr.push({
+                    //         contentId: campList[i].contentId,
+                    //         firstImageUrl: campList[i].firstImageUrl,
+                    //         doNm: campList[i].doNm,
+                    //         sigunguNm: campList[i].sigunguNm,
+                    //         facltNm: campList[i].facltNm,
+                    //         lineIntro: campList[i].lineIntro,
+                    //
+                    //         sbrsCl: campList[i].sbrsCl,
+                    //         themaEnvrnCl: campList[i].themaEnvrnCl,
+                    //     });
+                    // }
                     console.log("ajax반복시작");
                     let campCountHTML = "총 " + 총리스트의길이 + " 개의 캠핑장이 검색되었습니다."
                     $('#campListCount').html(campCountHTML);
@@ -71,6 +71,8 @@ $(function () {
                     let campListBoxHtml = "";
                     for (let i = 0; i < campList.length; i++) {
                         console.log("ajax반복중");
+                        campListBoxHtml += '<div class="campLikeBox"><div> 추천수 : ' + campList[i].member + '</div>'
+                        campListBoxHtml += '<div>  <<<   여기 넣으면시면 되지않을까요 ?   >>></div></div>'
                         campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
                         campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';
                         campListBoxHtml += '<img style="height: 98%" src="' + campList[i].firstImageUrl + '" onerror="this.src=\'../../img/어서와양_사진없음.png\'"/></div>';
@@ -121,7 +123,6 @@ $(function () {
                             campListBoxHtml += '#' + themaList[j] + ' '
                             console.log(themaList[j])
                         }
-
                         campListBoxHtml += '</div></div><hr></div>';
                     }
                     $('#campListBox').html(campListBoxHtml);
@@ -167,21 +168,6 @@ function paging(i) {
                 } else {
                     총페이지수 = Math.ceil(총리스트의길이 / 한페이지에보여줄게시글수);
                 }
-                let areaArr = new Array();
-                for (let i = 0; i < campList.length; i++) {
-                    console.log("ajax시작");
-                    areaArr.push({
-                        contentId: campList[i].contentId,
-                        firstImageUrl: campList[i].firstImageUrl,
-                        doNm: campList[i].doNm,
-                        sigunguNm: campList[i].sigunguNm,
-                        facltNm: campList[i].facltNm,
-                        lineIntro: campList[i].lineIntro,
-
-                        sbrsCl: campList[i].sbrsCl,
-                        themaEnvrnCl: campList[i].themaEnvrnCl,
-                    });
-                }
                 console.log("ajax반복시작");
                 let campCountHTML = "총 " + 총리스트의길이 + " 개의 캠핑장이 검색되었습니다."
                 $('#campListCount').html(campCountHTML);
@@ -189,9 +175,11 @@ function paging(i) {
                 let campListBoxHtml = "";
                 for (let i = 0; i < campList.length; i++) {
                     console.log("ajax반복중");
+                    campListBoxHtml += '<div class="campLikeBox"><div> 추천수 : ' + campList[i].member + '</div>'
+                    campListBoxHtml += '<div>  <<<   여기 넣으면시면 되지않을까요 ?   >>></div></div>'
                     campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
                     campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';
-                  campListBoxHtml += '<img style="height: 98%" src="' + campList[i].firstImageUrl + '" onerror="this.src=\'../../img/어서와양_사진없음.png\'"/></div>';
+                    campListBoxHtml += '<img style="height: 98%" src="' + campList[i].firstImageUrl + '" onerror="this.src=\'../../img/어서와양_사진없음.png\'"/></div>';
                     campListBoxHtml += '<div class="campBoxRight"><div class="campText">[ <span>' + campList[i].doNm + '</span> <span>' + campList[i].sigunguNm + '</span> ]</div>';
                     campListBoxHtml += '<div class="campText">' + campList[i].facltNm + '</div>';
                     campListBoxHtml += '<div class="campText">' + campList[i].lineIntro + '</div>';
@@ -224,7 +212,7 @@ function paging(i) {
                         }
                         campListBoxHtml += '</div></div>'
                     }
-                    campListBoxHtml += '</div></div></div></div></div>'
+                    campListBoxHtml += '</div></div></div>'
                     campListBoxHtml += '<div class="campBoxBottom"><div class="campThema">'
 
                     if (campList[i].themaEnvrnCl === "") {
@@ -239,8 +227,7 @@ function paging(i) {
                         campListBoxHtml += '#' + themaList[j] + ' '
                         console.log(themaList[j])
                     }
-
-                    campListBoxHtml += '</div></div><hr></div>';
+                    campListBoxHtml += '</div></div></div></div><hr></div>';
                 }
                 $('#campListBox').html(campListBoxHtml);
                 console.log("ajax반복끝")
@@ -263,8 +250,11 @@ function makePageNum() {
         if (i == 1 && 현재페이지인덱스 != 1) {
             pageBtn += '<button class="paging-btn" onclick="previousPageIndex()">이전</button>'
         }
-        if(한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i == 현재페이지){pageBtn += '<a class="curPageNum" href="#" onclick="paging(' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + ')">' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + '</a>'}
-        else{pageBtn += '<a href="#" onclick="paging(' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + ')">' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + '</a>'}
+        if (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i == 현재페이지) {
+            pageBtn += '<a class="curPageNum" href="#" onclick="paging(' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + ')">' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + '</a>'
+        } else {
+            pageBtn += '<a href="#" onclick="paging(' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + ')">' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + '</a>'
+        }
         if (i == 한번에보여줄페이지단위 && (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) < 총페이지수) {
             pageBtn += '<button class="paging-btn" onclick="nextPageIndex()">다음</button>'
         }
