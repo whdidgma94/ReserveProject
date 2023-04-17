@@ -50,6 +50,7 @@
 
   <table class="table">
     <th:block th:each="comments, iterStat : ${comments}">
+      <input type="hidden" id="commentNo" th:value="${comments.no}">
       <form th:action="@{/pc/comments/addSecondComment}" method="post" >
       <tr style="border-bottom: 1px solid black;">
         <div th:if="${comments.depth!=1}">
@@ -58,7 +59,7 @@
           </svg></td>
         </div>
         </td>
-        <input type="hidden" id="commentNo" th:value="${comments.no}">
+
         <td th:text="${comments.id}" class="border-top"></td>
         <td th:text="${comments.content}" class="border-top"></td>
         <td th:text="${comments.date}" class="border-top"></td>
@@ -69,14 +70,15 @@
         <div th:if="${session.log!=null && comments.depth==1}">
           <td><input type="submit" value="현재댓글에 대댓글작성하기"></td>
         </div>
+      </form>
         <div th:if="${session.log==comments.id}">
 
-          <td><button onclick="deleteComment(document.getElementById('commentNo').value)">삭제하기</button></td>
-          <td><button onclick="updateComment(document.getElementById('commentNo').value)">수정하기</button></td>
+          <td><button onclick="deleteComment(document.getElementById('commentNo').value,document.getElementById('boardNo').value)">삭제하기</button></td>
+          <td><button onclick="updateComment(document.getElementById('commentNo').value,document.getElementById('boardNo').value)">수정하기</button></td>
         </div>
 
       </tr>
-      </form>
+
 
     </th:block>
   </table>

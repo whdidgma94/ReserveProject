@@ -35,11 +35,14 @@ public class CommentsService {
     public Long findMaxLevelByRef(Long no){
         return commentsRepository.findMaxLevelByRef(no);
     }
-    public void deleteComment(Long no){
-        commentsRepository.deleteComment(no);
-        return;
+    public void deleteComment(long no){
+        commentsRepository.deleteById(no);
     }
-//    public Long countCommentsByBoardNo(){
-//        return commentsRepository.countCommentsByBoardNo();
-//    }
+    public Comments getOneCommentByCommentNo(long no){
+        return commentsRepository.getOneCommentByCommentNo(no);
+    }
+    public void deleteCommentsBySameRef(long ref){
+        commentsRepository.deleteCommentsBySameRef(ref);
+    }
+
 }
