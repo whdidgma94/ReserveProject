@@ -1,6 +1,7 @@
 package com.boot.reserveproject.service;
 
 import com.boot.reserveproject.domain.Board;
+import com.boot.reserveproject.domain.BoardWithCommentsCount;
 import com.boot.reserveproject.domain.Member;
 import com.boot.reserveproject.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,8 @@ public class BoardService {
     public void createOrUpdateBoard(Board board){
         boardRepository.save(board);
     }
-    public Optional<Board> findOneBoardByNo(Long no){
-        Optional<Board> board=boardRepository.findOneBoardByNo(no);
+    public Board findOneBoardByNo(Long no){
+        Board board=boardRepository.findOneBoardByNo(no);
         return board;
     }
     public void deleteBoard(long no){
@@ -44,5 +45,11 @@ public class BoardService {
     public Board getOneBoard(Long id) {
         return boardRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 존재하지 않습니다"));
+    }
+    public Board getOneBoardByNo(Long no){
+        return boardRepository.getOneBoardByNo(no);
+    }
+    public List<BoardWithCommentsCount> findBoardWithCommentsCountByNo(){
+        return boardRepository.findBoardWithCommentsCountByNo();
     }
 }

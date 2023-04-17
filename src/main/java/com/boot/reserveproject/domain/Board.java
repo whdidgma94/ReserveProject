@@ -26,6 +26,7 @@ public class Board {
     private String title;//게시글제목
     @Column(length = 10000)
     private String content;//게시글내용
+    @Column(name = "readCnt", columnDefinition = "bigint default 0")
     private Long readCnt;//조회수
     private String img;//등록이미지
     private LocalDate date;//등록날짜
@@ -42,7 +43,9 @@ public class Board {
         LocalTime time = LocalTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         this.time=time.format(formatter);
-        this.readCnt=0L;
+        if (this.readCnt == null) {
+            this.readCnt = 0L;
+        }
 
     }
 

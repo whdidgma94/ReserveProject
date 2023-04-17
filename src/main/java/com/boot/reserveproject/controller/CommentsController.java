@@ -42,7 +42,7 @@ public class CommentsController {
 
         comments.setLevel(1L);
         commentsService.createOrUpdateComments(comments);
-        Optional<Board> newBoard =boardService.findOneBoardByNo(no);
+        Board newBoard =boardService.findOneBoardByNo(no);
         model.addAttribute("board",newBoard);
         List<Comments> newComments=commentsService.getCommentsByBoardNo(no);
         model.addAttribute("comments",newComments);
@@ -54,7 +54,35 @@ public class CommentsController {
     model.addAttribute("comment",comment);
         return"pc/board/addSecondComment";
     }
-//    @PostMapping("/pc/comments/addSeconeCommentPro")
-//    private String addSecondCommentPro(Model model,@RequestParam("id")String id,@RequestParam("content") String content,
-//                                       @RequestParam("ref") long ref, @RequestParam("level"))
+    @PostMapping("/pc/comments/addSecondCommentPro")
+    private String addSecondCommentPro(Model model,@RequestParam("id")String id,@RequestParam("content") String content,
+                                       @RequestParam("ref") long ref, @RequestParam("level") long level, @RequestParam("boardNo") long boardNo){
+        Comments comment =new Comments();
+        comment.setId(id);
+        comment.setContent(content);
+        comment.setDepth(2L);
+        comment.setRef(ref);
+        Long maxLevel=commentsService.findMaxLevelByRef(ref);
+        maxLevel++;
+        comment.setLevel(maxLevel);
+        Board board= boardService.getOneBoardByNo(boardNo);
+        comment.setBoard(board);
+        commentsService.createOrUpdateComments(comment);
+        List<Comments> newComments=commentsService.getCommentsByBoardNo(boardNo);
+        model.addAttribute("comments",newComments);
+        Board newBoard =boardService.findOneBoardByNo(boardNo);
+        model.addAttribute("board",newBoard);
+        return "pc/board/showContent";
+    }
+    @PostMapping("/pc/comments/deleteComment")
+    private void deleteComment(Model model,@RequestParam("no") long no){
+        System.out.println("deleteComment");
+        commentsService.deleteComment(no);
+        Board board =boardService.findOneBoardByNo(no);
+        model.addAttribute("board",board);
+        List<Comments> newComments=commentsService.getCommentsByBoardNo(no);
+        model.addAttribute("comments",newComments);
+
+    }
+
 }

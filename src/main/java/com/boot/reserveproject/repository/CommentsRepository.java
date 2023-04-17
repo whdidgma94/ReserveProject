@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CommentsRepository extends JpaRepository<Comments, Long> {
-    @Query("select c from Comments c where c.board.no= :no")
+    @Query("select c from Comments c where c.board.no = :no order by c.ref asc, c.depth asc, c.level asc")
     List<Comments> findCommentsByBoardNo(@Param("no") long no);
     @Query("select count(*) from Comments")
     Long countAllComments();
@@ -17,5 +17,11 @@ public interface CommentsRepository extends JpaRepository<Comments, Long> {
     Long findMaxRef();
     @Query("select c from Comments c where c.no= :no")
     Comments findOneCommentByBoardNo(@Param("no") long no);
+    @Query(value="select MAX(c.level) from Comments c where c.ref= :ref")
+    Long findMaxLevelByRef(@Param("ref") long ref);
+    @Query("select count(*) from Comments c where c.board.no = :no")
+    Long countCommentsByBoardNo(@Param("no") long no);
+    @Query("delete from Comments c where c.no = :no")
+    void deleteComment(@Param("no") long no);
 
 }

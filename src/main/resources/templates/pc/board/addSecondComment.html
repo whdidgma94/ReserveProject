@@ -24,7 +24,7 @@
 
         </tr>
 
-          <td><h3 th:text="${session.log}"></h3></td>
+
 
         <tr>
           <form th:action="@{/pc/comments/addSecondCommentPro}" method="post" >
@@ -36,6 +36,7 @@
             <input type="hidden" name="id" th:value="${session.log}">
             <input type="hidden" name="ref" th:value="${comment.ref}">
             <input type="hidden" name="level" th:value="${comment.level}">
+            <input type="hidden" name="boardNo" th:value="${comment.getBoard().no}">
             <td><h5 th:text="${session.log}"></h5></td>
           </form>
 
