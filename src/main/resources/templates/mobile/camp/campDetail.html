@@ -83,7 +83,7 @@
             <h3>캠핑장 소개</h3>
             <table class="table table-bordered">
                 <tr th:unless="${camp.intro == null || camp.intro== ''}">
-                    <td th:text="${camp.intro}"></td>
+                    <td th:text="${camp.intro}" style="padding: 10px 60px;"></td>
                 </tr>
                 <tr th:unless="${camp.tooltip == null || camp.tooltip == ''}">
                     <td th:text="${camp.tooltip}"></td>
