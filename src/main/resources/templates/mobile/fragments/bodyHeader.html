@@ -18,16 +18,20 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" style="color:red;">
+                <a class="nav-link" href="/noticeList?type=mobile">
                     <i class="fa-solid fa-bullhorn"></i>
-                    공지사항(미구현)
+                    공지사항
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" style="color:red;">
+                <a class="nav-link" th:href="${session.log != null} ? '#' : '/mobile/member/login'" onclick="showSubMenu()">
                     <i class="fa-solid fa-flag"></i>
-                    고객센터(미구현)
+                    고객센터
                 </a>
+            </li>
+            <li class="nav-item" id="sub-menu" style="display: none;">
+                <a class="nav-link" href="/sendQnA?type=mobile">문의하기</a>
+                <a class="nav-link" href="/sendQnAList?type=mobile">나의 문의사항</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/mobile/member/new">

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link href="/css/memberFindAccount.css" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <head th:replace="mobile/fragments/header :: header"/>
@@ -7,17 +8,21 @@
 <div th:replace="mobile/fragments/bodyHeader :: bodyHeader"/>
 <div th:replace="mobile/fragments/bodyHeader :: side-bar"/>
 <div class="view">
-    <div class="contentName">
+    <div>
         <h3 th:text="${type == 'id'}? '아이디 찾기' : '비밀번호 찾기'"></h3>
-        <hr>
         <span th:text="${type == 'id'}? '아이디를 찾을 방법을 선택하세요' : '비밀번호를 찾을 방법을 선택하세요'"></span>
     </div>
     <label for="findByPhone">
         <input type="radio" id="findByPhone" name="authMethod">
         회원 정보에 등록한 휴대전화로 인증
     </label>
+    <label for="findByEmail">
+        <input type="radio" id="findByEmail" name="authMethod">
+        회원 정보에 등록한 이메일로 인증
+    </label>
+        <hr>
     <div id="byPhone">
-        <label th:style="${type=='id'}? 'display:none'">이름</label>
+        <label th:style="${type=='id'}? 'display:none'">ID</label>
         <input type="text" id="name" class="form-control number-only" th:style="${type=='id'}? 'display:none'"/>
         <label for="phone">전화번호</label>
         <input type="number" id="phone" class="form-control number-only"
@@ -29,42 +34,37 @@
         <input type="button" id="authBtn" class="btn btn-primary" onclick="AuthCode('#authNumber')" value="확인"
                style="display: none;"/>
     </div>
-</div>
-<hr>
-<label for="findByEmail">
-    <input type="radio" id="findByEmail" name="authMethod">
-    회원 정보에 등록한 이메일로 인증
-</label>
-<div id="byEmail">
-    <label th:style="${type=='id'}? 'display:none'">이름</label>
-    <input type="text" id="emailname" class="form-control number-only" th:style="${type=='id'}? 'display:none'"/>
-    <label th:for="emailId">Email</label>
-    <div class="input-group">
-        <input type="text" id="emailId" class="form-control">
-        <span class="input-group-text">@</span>
-        <input type="text" id="emailDomain" class="form-control">
-        <select class="select form-control" onchange="setEmailDomain(this.value);">
-            <option value="">직접입력</option>
-            <option value="naver.com">naver.com</option>
-            <option value="gmail.com">gmail.com</option>
-            <option value="hanmail.net">hanmail.net</option>
-            <option value="hotmail.com">hotmail.com</option>
-            <option value="korea.com">korea.com</option>
-            <option value="nate.com">nate.com</option>
-            <option value="yahoo.com">yahoo.com</option>
-        </select>
-    </div>
-    <input type="button" id="emailBtn" class="btn btn-primary" onclick="sendEmail()" value="인증번호 받기"/>
-    <div class="timer"></div>
-    <label for="authNumber">인증번호</label>
-    <input type="text" id="emailauthNumber" class="form-control number-only" disabled>
-    <input type="button" id="emailauthBtn" class="btn btn-primary"
-           onclick="AuthCode('#emailauthNumber')"
-           value="확인" style="display: none;"/>
 
+    <div id="byEmail">
+        <label th:style="${type=='id'}? 'display:none'">ID</label>
+        <input type="text" id="emailname" class="form-control number-only" th:style="${type=='id'}? 'display:none'"/>
+        <label th:for="emailId">Email</label>
+        <div class="input-group">
+            <input type="text" id="emailId" class="form-control">
+            <span class="input-group-text">@</span>
+            <input type="text" id="emailDomain" class="form-control">
+            <select class="select form-control" onchange="setEmailDomain(this.value);">
+                <option value="">직접입력</option>
+                <option value="naver.com">naver.com</option>
+                <option value="gmail.com">gmail.com</option>
+                <option value="hanmail.net">hanmail.net</option>
+                <option value="hotmail.com">hotmail.com</option>
+                <option value="korea.com">korea.com</option>
+                <option value="nate.com">nate.com</option>
+                <option value="yahoo.com">yahoo.com</option>
+            </select>
+        </div>
+        <input type="button" id="emailBtn" class="btn btn-primary" onclick="sendEmail()" value="인증번호 받기"/>
+        <div class="timer"></div>
+        <label for="authNumber">인증번호</label>
+        <input type="text" id="emailauthNumber" class="form-control number-only" disabled>
+        <input type="button" id="emailauthBtn" class="btn btn-primary"
+               onclick="AuthCode('#emailauthNumber')"
+               value="확인" style="display: none;"/>
+
+    </div>
 </div>
-</div>
-<div th:replace="mobile/fragments/footer :: footer"/>
+<div th:replace="mobile/fragments/footer :: footer"></div>
 </body>
 <script th:inline="javascript">
     let type = [[${type}]];
@@ -100,16 +100,22 @@
 
     function sendEmail() {
         if ($("#emailId").val() && $("#emailDomain").val()) {
-            let query = {
-                email: $("#emailId").val() + "@" + $("#emailDomain").val()
-            };
+            let query = null;
+            if (type === 'id') {
+                query = {email: $("#emailId").val() + "@" + $("#emailDomain").val()};
+            } else {
+                query = {
+                    email: $("#emailId").val() + "@" + $("#emailDomain").val(),
+                    loginId: $("#emailname").val()
+                };
+            }
             $.ajax({
                 type: "post",
                 url: "/email",
                 data: query,
                 success: function (data) {
                     if (data == "false") {
-                        swal('존재하지 않는 이메일', '가입된 이메일이 아닙니다', 'error');
+                        swal('정보 불일치', '이름과 이메일 정보가 일치하지 않습니다.', 'error');
                         $("#emailId").val('');
                         $("#emailDomain").val('');
                         $("#emailId").focus();
@@ -204,8 +210,9 @@
     }
 
     function AuthCode(authNumber) {
+        let query = null;
         if ($(authNumber).val()) {
-            let query = {
+            query = {
                 code: $(authNumber).val()
             };
 
@@ -218,15 +225,9 @@
                         swal('입력 오류', '인증번호가 일치하지 않습니다.', 'error');
                         $(authNumber).val('');
                     } else {
-                        swal('인증 성공', '인증이 완료되었습니다.', 'success');
                         clearInterval(timer);
                         $(".timer").text("");
                         let url = "";
-                        if (type === 'id') {
-                            url = "/id"
-                        } else {
-                            url = "/password"
-                        }
                         if ($("#phone").val()) {
                             query = {
                                 address: $("#phone").val().replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
@@ -238,15 +239,34 @@
                                 type: "email"
                             };
                         }
+                        if (type === 'id') {
+                            url = "/loginId";
+                            $.ajax({
+                                type: "post",
+                                url: url,
+                                data: query,
+                                success: function (data) {
+                                    swal('인증 성공', '회원님의 아이디는 [' + data + '] 입니다.', 'success').then(function () {
+                                        location.href = 'login';
+                                    });
+                                }
+                            });
 
-                        $.ajax({
-                            type: "post",
-                            url: url,
-                            data: query,
-                            success: function (data) {
-                                swal('전송 완료', '임시 비밀번호가 전송되었습니다. 확인 후 로그인 해주세요.', 'success');
-                            }
-                        });
+                        } else {
+                            url = "/password";
+                            $.ajax({
+                                type: "post",
+                                url: url,
+                                data: query,
+                                success: function (data) {
+                                    swal('전송 완료', '임시 비밀번호가 전송되었습니다. 확인 후 로그인 해주세요.', 'success').then(function () {
+                                        location.href = 'login';
+                                    });
+                                }
+                            });
+                        }
+
+
                     }
                 }
             });

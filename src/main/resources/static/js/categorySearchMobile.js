@@ -5,13 +5,18 @@ let 한번에보여줄페이지단위 = 10;
 let 총페이지수 ;
 let 현재페이지인덱스 = 1;
 
-
-
 function details(contentId) {
     location.href = "/mobile/detailCamp?contentId=" + contentId;
 }
 
 window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('Id');
+    const checkbox = document.querySelector(`input[type=checkbox][id='${id}']`);
+    if (checkbox) {
+        checkbox.checked = true;
+        document.getElementById("search-icon").click();
+    }
     현재페이지 = 1;
     makePageNum();
     const title01 = document.querySelector(".title01");

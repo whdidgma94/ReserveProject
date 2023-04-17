@@ -154,9 +154,14 @@ public class MemberController {
         return "/admin/member/memberList";
     }
     @GetMapping("/pc/member/find")
-    public String findId(@RequestParam("type") String type, Model model) {
+    public String findIdPc(@RequestParam("type") String type, Model model) {
         model.addAttribute("type", type);
         return "pc/member/memberFindAccount";
+    }
+    @GetMapping("/mobile/member/find")
+    public String findIdMobile(@RequestParam("type") String type, Model model) {
+        model.addAttribute("type", type);
+        return "mobile/member/memberFindAccount";
     }
 
 

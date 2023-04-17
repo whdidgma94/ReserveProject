@@ -2,25 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{mobile/fragments/header :: header}" />
 <body>
+<script>
+    function categoryPage(id) {
+        console.log(id)
+        location.href = "/mobile/search/category?Id=" + id;
+    }
+</script>
 <div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"/>
 <div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"/>
 <div class="view">
     <div class="row mainPoster">
-        <img src="/img/어서와양.png">
+        <img src="/img/어서와영.png">
     </div>
     <div class="row">
         <table class="table table-bordered mainCategory">
             <tr>
-                <td><img src="/img/어서와양_오토캠핑.png">오토캠핑</td>
-                <td><img src="/img/어서와양_카라반.png">카라반</td>
-                <td><img src="/img/어서와양_글램핑.png">글램핑</td>
-                <td><img src="/img/어서와양_반려동물.png">반려동물</td>
+                <td th:onclick="categoryPage(this.id)"
+                    th:id="${iconTextId[0]}"><img src="/img/어서와영_오토캠핑.png">오토캠핑
+                </td>
+                <td th:onclick="categoryPage(this.id)"
+                    th:id="${iconTextId[1]}"><img src="/img/어서와영_카라반.png">카라반
+                </td>
+                <td th:onclick="categoryPage(this.id)"
+                    th:id="${iconTextId[2]}"><img src="/img/어서와영_글램핑.png">글램핑
+                </td>
+                <td th:onclick="categoryPage(this.id)"
+                    th:id="${iconTextId[3]}"><img src="/img/어서와영_반려동물.png">반려동물
+                </td>
             </tr>
             <tr>
-                <td><img src="/img/어서와양_호수.png">호수</td>
-                <td><img src="/img/어서와양_숲.png">숲</td>
-                <td><img src="/img/어서와양_일출.png">일출</td>
-                <td><img src="/img/어서와양_일몰.png">일몰</td>
+                <td th:onclick="categoryPage(this.id)"
+                    th:id="${iconTextId[4]}"><img src="/img/어서와영_호수.png">호수
+                </td>
+                <td th:onclick="categoryPage(this.id)"
+                    th:id="${iconTextId[5]}"><img src="/img/어서와영_숲.png">숲
+                </td>
+                <td th:onclick="categoryPage(this.id)"
+                    th:id="${iconTextId[6]}"><img src="/img/어서와영_일출.png">일출
+                </td>
+                <td th:onclick="categoryPage(this.id)"
+                    th:id="${iconTextId[7]}"><img src="/img/어서와영_일몰.png">일몰
+                </td>
             </tr>
         </table>
     </div>

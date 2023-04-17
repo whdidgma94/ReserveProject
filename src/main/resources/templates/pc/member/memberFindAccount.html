@@ -17,6 +17,10 @@
         <input type="radio" id="findByPhone" name="authMethod">
         회원 정보에 등록한 휴대전화로 인증
     </label>
+    <label for="findByEmail">
+        <input type="radio" id="findByEmail" name="authMethod">
+        회원 정보에 등록한 이메일로 인증
+    </label>
     <div id="byPhone">
         <label th:style="${type=='id'}? 'display:none'">ID</label>
         <input type="text" id="name" class="form-control number-only" th:style="${type=='id'}? 'display:none'"/>
@@ -30,12 +34,7 @@
         <input type="button" id="authBtn" class="btn btn-primary" onclick="AuthCode('#authNumber')" value="확인"
                style="display: none;"/>
     </div>
-</div>
-<hr>
-<label for="findByEmail">
-    <input type="radio" id="findByEmail" name="authMethod">
-    회원 정보에 등록한 이메일로 인증
-</label>
+
 <div id="byEmail">
     <label th:style="${type=='id'}? 'display:none'">ID</label>
     <input type="text" id="emailname" class="form-control number-only" th:style="${type=='id'}? 'display:none'"/>
@@ -65,7 +64,7 @@
 
 </div>
 </div>
-<div th:replace="pc/fragments/footer :: footer"/>
+<div th:replace="pc/fragments/footer :: footer"></div>
 </body>
 <script th:inline="javascript">
     let type = [[${type}]];
