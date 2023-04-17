@@ -22,6 +22,12 @@
       <td><input type="text" name="no" th:value="${board.get().no}" readonly></td>
     </tr>
     <tr>
+      <td>작성 시간</td>
+      <td><input type="text" name="date" th:value="${board.get().date+board.get().time}" readonly>&nbsp;&nbsp;
+
+      </td>
+    </tr>
+    <tr>
       <td>제목</td>
       <td><input type="text" name="title" th:value="${board.get().title}" readonly></td>
     </tr>
@@ -57,6 +63,14 @@
   <div th:if="${session.log == null}">
     <p>댓글을 작성하려면 로그인이 필요합니다.</p>
     <a href="/pc/member/login">로그인</a>
+  </div>
+  <div th:if="${session.log !=null}">
+  <form action="/pc/comments/addComment" method="post">
+    <input type="text" name="comment">
+    <input type="hidden" name="no" th:value="${board.get().no}">
+    <input type="hidden" name="loginId" th:value="${session.log}">
+    <input type="submit" value="댓글 달기">
+  </form>
   </div>
 
 </div>

@@ -11,11 +11,8 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (data) {
-                 name=String(data);
+                name=String(data);
                 alert(data);
-
-
-
                 $('input[name=img]').val(data);
                 setTimeout(function() {
                     $('#image-preview').html('<img src="../../img/'+name+'">');
