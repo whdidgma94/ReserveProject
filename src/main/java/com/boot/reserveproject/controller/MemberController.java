@@ -149,8 +149,11 @@ public class MemberController {
         return "mobile/member/memberMyPage";
     }
     @PostMapping("/member/delete")
-    public String deleteMember(@RequestParam("loginId") String loginId) {
+    public String deleteMember(@RequestParam("loginId") String loginId, HttpSession session) {
         memberService.removeMember(memberService.selectMemberById(loginId).getId());
+        if(session.getAttribute("log").equals(loginId)){
+            session.removeAttribute("log");
+        }
         return "/admin/member/memberList";
     }
     @GetMapping("/pc/member/find")

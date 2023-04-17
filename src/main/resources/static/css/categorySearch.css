@@ -81,6 +81,12 @@ label {
     flex-direction: column;
     margin-top: 20px;
 }
+.campLikeBox{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
 
 .campText {
     width: 100%;
