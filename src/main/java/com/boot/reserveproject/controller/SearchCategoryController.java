@@ -75,15 +75,17 @@ public class SearchCategoryController {
 
     public List<Camp> searchByInduty(List<String> themas) {
         String[] themeNames = {"일출명소", "일몰명소", "걷기길", "봄꽃여행", "여름물놀이", "가을단풍명소", "겨울눈꽃명소", "수상레저", "항공레저", "스키", "낚시", "액티비티"};
+        Set<Camp> searchAllSet = new LinkedHashSet<>();
         for (int i = 0; i < themas.size(); i++) {
             for (int j = 0; j < themeNames.length; j++) {
                 if (themas.get(i).equals("thema" + String.format("%02d", j + 1))) {
                     themas.set(i, themeNames[j]);
+                    searchAllSet.addAll(campService.findByThema(themas.get(i)));
                     break;
                 }
             }
         }
-        List<Camp> searchAllList = campService.findByThemas(themas);
+        List<Camp> searchAllList = new ArrayList<>(searchAllSet);
         return searchAllList;
     }
 
@@ -101,19 +103,19 @@ public class SearchCategoryController {
         return searchAllList;
     }
 
-    public List<Camp> searchByBottoms(List<String> bottoms) {
-        String[] bottomNames = {"데크:", "파쇄석:", "잔디:", "자갈:", "맨흙:"};
-        for (int i = 0; i < bottoms.size(); i++) {
-            for (int j = 0; j < bottomNames.length; j++) {
-                if (bottoms.get(i).equals("bottom" + String.format("%02d", j + 1))) {
-                    bottoms.set(i, bottomNames[j]);
-                    break;
-                }
-            }
-        }
-        List<Camp> searchAllList = campService.findByBottoms(bottoms);
-        return searchAllList;
-    }
+//    public List<Camp> searchByBottoms(List<String> bottoms) {
+//        String[] bottomNames = {"데크:", "파쇄석:", "잔디:", "자갈:", "맨흙:"};
+//        for (int i = 0; i < bottoms.size(); i++) {
+//            for (int j = 0; j < bottomNames.length; j++) {
+//                if (bottoms.get(i).equals("bottom" + String.format("%02d", j + 1))) {
+//                    bottoms.set(i, bottomNames[j]);
+//                    break;
+//                }
+//            }
+//        }
+//        List<Camp> searchAllList = campService.findByBottoms(bottoms);
+//        return searchAllList;
+//    }
 
     @GetMapping("/search/categoryCheck")
     public ResponseEntity<Object> showListByLctCl(

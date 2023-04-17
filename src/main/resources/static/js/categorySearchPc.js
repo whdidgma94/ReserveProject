@@ -65,13 +65,15 @@ $(function () {
                     //     });
                     // }
                     console.log("ajax반복시작");
+
                     let campCountHTML = "총 " + 총리스트의길이 + " 개의 캠핑장이 검색되었습니다."
                     $('#campListCount').html(campCountHTML);
 
                     let campListBoxHtml = "";
+                    console.log(campList[1]);
                     for (let i = 0; i < campList.length; i++) {
                         console.log("ajax반복중");
-                        campListBoxHtml += '<div class="campLikeBox"><div> 추천수 : ' + campList[i].member + '</div>'
+                        campListBoxHtml += '<div class="campLikeBox"><div> 추천수 : ' + campList[i].recommendCnt + '</div>'
                         campListBoxHtml += '<div>  <<<   여기 넣으면시면 되지않을까요 ?   >>></div></div>'
                         campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
                         campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';
@@ -175,7 +177,7 @@ function paging(i) {
                 let campListBoxHtml = "";
                 for (let i = 0; i < campList.length; i++) {
                     console.log("ajax반복중");
-                    campListBoxHtml += '<div class="campLikeBox"><div> 추천수 : ' + campList[i].member + '</div>'
+                    campListBoxHtml += '<div class="campLikeBox"><div> 추천수 : ' + campList[i].recommendCnt + '</div>'
                     campListBoxHtml += '<div>  <<<   여기 넣으면시면 되지않을까요 ?   >>></div></div>'
                     campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
                     campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';
