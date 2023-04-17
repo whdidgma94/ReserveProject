@@ -17,7 +17,7 @@ class CampApiServiceTest {
 //     camp API DB에 넣을때 사용했음
     @Test
     public void addData() {
-        int minPageNum = (3176);
+        int minPageNum = (1090); // 1089
         int maxPageNum = (3436);
         for (int i = minPageNum; i <= maxPageNum; i++) {
             service.saveCamps(api.getBasedList(String.valueOf(i)));

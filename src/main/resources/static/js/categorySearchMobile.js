@@ -18,7 +18,7 @@ window.onload = function() {
         document.getElementById("search-icon").click();
     }
     현재페이지 = 1;
-    makePageNum();
+    // makePageNum();
     const title01 = document.querySelector(".title01");
     const check01 = document.querySelector(".check01");
     const title02 = document.querySelector(".title02");

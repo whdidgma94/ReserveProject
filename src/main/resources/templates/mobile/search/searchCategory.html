@@ -105,26 +105,26 @@
         <button class="searchBtn btn btn-success" type="button" id="search-icon">검색</button>
         <hr>
     </div>
-    <div class="campListCount" id="campListCount"
-         th:text="'총 ' + ${listCount} + ' 개의 캠핑장이 검색되었습니다.'"></div>
+    <div class="campListCount" id="campListCount"></div>
+<!--         th:text="'총 ' + ${listCount} + ' 개의 캠핑장이 검색되었습니다.'"></div>-->
     <div class="campListBox" id="campListBox">
-        <div th:each="camp, idx : ${campList}">
-            <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">
-                <div class="campBoxTop">
-                    <div class="campBoxLeft">
-                        <img th:src="${camp.firstImageUrl}"/>
-                    </div>
-                    <div class="campBoxRight">
-                        <div class="campText">
-                            [ <span th:text="${camp.doNm}"></span>
-                            <span th:text="${camp.sigunguNm}"></span> ]
-                        </div>
-                        <div class="campText" th:text="${camp.facltNm}"></div>
-                        <div class="campText" th:text="${camp.lineIntro}"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        <div th:each="camp, idx : ${campList}">-->
+<!--            <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">-->
+<!--                <div class="campBoxTop">-->
+<!--                    <div class="campBoxLeft">-->
+<!--                        <img th:src="${camp.firstImageUrl}"/>-->
+<!--                    </div>-->
+<!--                    <div class="campBoxRight">-->
+<!--                        <div class="campText">-->
+<!--                            [ <span th:text="${camp.doNm}"></span>-->
+<!--                            <span th:text="${camp.sigunguNm}"></span> ]-->
+<!--                        </div>-->
+<!--                        <div class="campText" th:text="${camp.facltNm}"></div>-->
+<!--                        <div class="campText" th:text="${camp.lineIntro}"></div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
     <div class="pageBox">
         <div id="paging"></div>

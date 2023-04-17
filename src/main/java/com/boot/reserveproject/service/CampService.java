@@ -110,6 +110,10 @@ public class CampService {
         List<Camp> campList = campRepository.selectListByBottoms(bottoms);
         return campList;
     }
+    public List<Camp> findByBottom(String keyword){
+        List<Camp> campList = campRepository.selectListByBottom(keyword);
+        return campList;
+    }
     public List<Camp> findAllList(){
         List<Camp> campList = campRepository.findAll();
         return campList;

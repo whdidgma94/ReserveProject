@@ -73,7 +73,7 @@ $(function () {
                         console.log("ajax반복중");
                         campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
                         campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';
-                        campListBoxHtml += '<img style="height: 98%" src="' + (campList[i].firstImageUrl || '../img/어서와양_사진없음.png') + '"/></div>';
+                        campListBoxHtml += '<img style="height: 98%" src="' + campList[i].firstImageUrl + '" onerror="this.src=\'../../img/어서와양_사진없음.png\'"/></div>';
                         campListBoxHtml += '<div class="campBoxRight"><div class="campText">[ <span>' + campList[i].doNm + '</span> <span>' + campList[i].sigunguNm + '</span> ]</div>';
                         campListBoxHtml += '<div class="campText">' + campList[i].facltNm + '</div>';
                         campListBoxHtml += '<div class="campText">' + campList[i].lineIntro + '</div>';
@@ -106,10 +106,14 @@ $(function () {
                             }
                             campListBoxHtml += '</div></div>'
                         }
-                        campListBoxHtml += '</div></div></div></div></div>'
+                        campListBoxHtml += '</div></div></div>'
                         campListBoxHtml += '<div class="campBoxBottom"><div class="campThema">'
 
-                        campList[i].themaEnvrnCl = "즐거운캠핑," + campList[i].themaEnvrnCl;
+                        if (campList[i].themaEnvrnCl === "") {
+                            campList[i].themaEnvrnCl = "즐거운캠핑";
+                        } else {
+                            campList[i].themaEnvrnCl += ",즐거운캠핑";
+                        }
                         console.log(campList[i].themaEnvrnCl)
                         let themaList = campList[i].themaEnvrnCl.split(",");
                         console.log(themaList)
@@ -118,8 +122,7 @@ $(function () {
                             console.log(themaList[j])
                         }
 
-
-                        campListBoxHtml += '</div></div><hr></div>';
+                        campListBoxHtml += '</div></div></div></div><hr></div>';
                     }
                     $('#campListBox').html(campListBoxHtml);
                     console.log("ajax반복끝")
@@ -188,7 +191,7 @@ function paging(i) {
                     console.log("ajax반복중");
                     campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
                     campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';
-                    campListBoxHtml += '<img style="height: 98%" src="' + (campList[i].firstImageUrl || '../img/어서와양_사진없음.png') + '"/></div>';
+                  campListBoxHtml += '<img style="height: 98%" src="' + campList[i].firstImageUrl + '" onerror="this.src=\'../../img/어서와양_사진없음.png\'"/></div>';
                     campListBoxHtml += '<div class="campBoxRight"><div class="campText">[ <span>' + campList[i].doNm + '</span> <span>' + campList[i].sigunguNm + '</span> ]</div>';
                     campListBoxHtml += '<div class="campText">' + campList[i].facltNm + '</div>';
                     campListBoxHtml += '<div class="campText">' + campList[i].lineIntro + '</div>';
@@ -221,13 +224,24 @@ function paging(i) {
                         }
                         campListBoxHtml += '</div></div>'
                     }
-                    // let themaList;
-                    // if (themaEnvrnCl) {
-                    //     themaList = themaEnvrnCl[i].split(",");
-                    // } else {
-                    //     themaList = ["즐거운캠핑"];
-                    // }
-                    campListBoxHtml += '</div></div></div></div></div><hr></div>';
+                    campListBoxHtml += '</div></div></div>'
+                    campListBoxHtml += '<div class="campBoxBottom"><div class="campThema">'
+
+                    if (campList[i].themaEnvrnCl === "") {
+                        campList[i].themaEnvrnCl = "즐거운캠핑";
+                    } else {
+                        campList[i].themaEnvrnCl += ",즐거운캠핑";
+                    }
+                    console.log(campList[i].themaEnvrnCl)
+                    let themaList = campList[i].themaEnvrnCl.split(",");
+                    console.log(themaList)
+                    for (let j = 0; j < themaList.length; j++) {
+                        campListBoxHtml += '#' + themaList[j] + ' '
+                        console.log(themaList[j])
+                    }
+
+
+                    campListBoxHtml += '</div></div></div></div><hr></div>';
                 }
                 $('#campListBox').html(campListBoxHtml);
                 console.log("ajax반복끝")

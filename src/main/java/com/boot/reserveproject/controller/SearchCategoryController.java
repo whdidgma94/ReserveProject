@@ -27,6 +27,7 @@ public class SearchCategoryController {
     public String showCategoryList(Model model, String id) {
         return "pc/search/searchCategory";
     }
+
     @GetMapping("/mobile/search/category")
     public String showCategoryListMobile(Model model) {
         return "mobile/search/searchCategory";
@@ -64,6 +65,11 @@ public class SearchCategoryController {
 
     public List<Camp> searchByInduty(String keyword) {
         List<Camp> searchAllList = campService.findByInduty(keyword);
+        return searchAllList;
+    }
+
+    public List<Camp> searchByBottom(String keyword) {
+        List<Camp> searchAllList = campService.findByBottom(keyword);
         return searchAllList;
     }
 
@@ -133,12 +139,12 @@ public class SearchCategoryController {
                 mergedList.addAll(searchByLctCls(lctCls));
             }
 
-            List<String> bottoms = Arrays.stream(categories)
-                    .filter(category -> category.contains("bottom"))
-                    .collect(Collectors.toList());
-            if (!bottoms.isEmpty()) {
-                mergedList.addAll(searchByBottoms(bottoms));
-            }
+//            List<String> bottoms = Arrays.stream(categories)
+//                    .filter(category -> category.contains("bottom"))
+//                    .collect(Collectors.toList());
+//            if (!bottoms.isEmpty()) {
+//                mergedList.addAll(searchByBottoms(bottoms));
+//            }
 
             for (String category : categories) {
                 switch (category) {
@@ -168,6 +174,21 @@ public class SearchCategoryController {
                         continue;
                     case "car":
                         mergedList.addAll(searchByInduty("자동차"));
+                        continue;
+                    case "bottom01":
+                        mergedList.addAll(searchByBottom("데크"));
+                        continue;
+                    case "bottom02":
+                        mergedList.addAll(searchByBottom("파쇄석"));
+                        continue;
+                    case "bottom03":
+                        mergedList.addAll(searchByBottom("잔디"));
+                        continue;
+                    case "bottom04":
+                        mergedList.addAll(searchByBottom("자갈"));
+                        continue;
+                    case "bottom05":
+                        mergedList.addAll(searchByBottom("맨흙"));
                         continue;
                     default:
                 }
