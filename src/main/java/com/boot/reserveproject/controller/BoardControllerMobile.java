@@ -109,7 +109,6 @@ public class BoardControllerMobile {
     @PostMapping("/mobile/board/updateBoardPro")
     private String updateBoardPro(Model model,@RequestParam("id") String id,
                                   @RequestParam("no") long no,
-
                                   @RequestParam("title") String title,
                                   @RequestParam("content") String content,
                                   @RequestParam("img") String img){
@@ -126,6 +125,8 @@ public class BoardControllerMobile {
         boardService.createOrUpdateBoard(newBoard);
         board=boardService.findOneBoardByNo(no);
         model.addAttribute("board",board);
+        List<Comments> newComments=commentsService.getCommentsByBoardNo(no);
+        model.addAttribute("comments",newComments);
         return "mobile/board/showContent";
     }
     @PostMapping("mobile/board/postImg")

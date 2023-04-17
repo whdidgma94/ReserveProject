@@ -14,7 +14,6 @@
 <div th:replace="mobile/fragments/bodyHeader :: bodyHeader"></div>
 <div th:replace="mobile/fragments/bodyHeader :: side-bar"></div>
 
-<div class="container py-4">
     <div class="camp_detail view">
         <h1 th:text="${camp.facltNm}"></h1>
         <div class="row">
@@ -84,7 +83,7 @@
             <h3>캠핑장 소개</h3>
             <table class="table table-bordered">
                 <tr th:unless="${camp.intro == null || camp.intro== ''}">
-                    <td th:text="${camp.intro}"></td>
+                    <td th:text="${camp.intro}" style="padding: 10px 60px;"></td>
                 </tr>
                 <tr th:unless="${camp.tooltip == null || camp.tooltip == ''}">
                     <td th:text="${camp.tooltip}"></td>
@@ -156,7 +155,6 @@
             </div>
         </div>
     </div>
-</div>
 <div th:replace="mobile/fragments/footer :: footer"></div>
 </body>
 <script>
@@ -227,7 +225,7 @@
     }
     $(document).ready(function(){
         $('.slider').slick({
-            slidesToShow: 4,
+            slidesToShow: 3,
             slidesToScroll: 1,
             autoplay: true,
             autoplaySpeed: 2000,

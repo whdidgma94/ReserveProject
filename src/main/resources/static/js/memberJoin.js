@@ -1,3 +1,6 @@
+let chkId = false;
+let chkAuth = false;
+
 function checkPassword() {
     if ($("#pw").val() === $("#pwChk").val()) {
         $("#pwCheckMsg").text('');
@@ -8,10 +11,26 @@ function checkPassword() {
     }
 }
 function join() {
+    if (chkId == false) {
+        swal('아이디 중복 확인', '아이디 중복 확인 후 가입할 수 있습니다.', 'error');
+        return;
+    }
+    if (chkAuth == false) {
+        swal('인증 번호 확인', '인증 번호 확인을 진행해주세요.', 'error');
+        return;
+    }
+    let emailDomain = $("#emailDomain").val().trim();
+    let emailRegex = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(emailDomain)) {
+        swal('이메일 형식 확인', '올바른 이메일 형식이 아닙니다.', 'success');
+        $("#emailDomain").focus();
+        return;
+    }
     const joinBtn = document.querySelector("#joinBtn");
     joinBtn.disabled = true;
-    swal('환영합니다', '가입이 완료되었습니다', 'success');
-    $("#joinForm").submit();
+    swal('환영합니다', '가입이 완료되었습니다', 'success').then(function () {
+        $("#joinForm").submit();
+    });
 }
 
 function idCheck() {
@@ -37,6 +56,7 @@ function idCheck() {
                     $("#loginId").val('');
                 } else {
                     swal('중복체크', '사용 가능한 아이디 입니다', 'success');
+                    chkId = true;
                     $("#pwInput1").focus();
                 }
             }
@@ -59,6 +79,7 @@ function setEmailDomain(domain) {
         $("#emailDomain").val(domain);
         $("#emailDomain").prop('disabled', true);
     }
+
     $("#email1").val($("#emailDomain").val());
 }
 
@@ -179,6 +200,7 @@ function AuthCode() {
                     $("#authNumber").val('');
                 } else {
                     swal('인증 성공', '인증이 완료되었습니다.', 'success');
+                    chkAuth = true;
                     clearInterval(timer);
                     $("#timer").text("");
                     $("#authNumber").prop('disabled', true);
@@ -190,3 +212,4 @@ function AuthCode() {
         });
     }
 }
+

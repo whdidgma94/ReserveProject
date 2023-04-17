@@ -8,49 +8,56 @@
 <body>
 <div th:replace="mobile/fragments/bodyHeader :: bodyHeader"/>
 <div class="view">
-    <div class="contentName">
-        <h1>마이 페이지</h1>
+    <div class="container my-5">
+        <h1 class="text-center">마이 페이지</h1>
         <hr>
-    </div>
-    <div class="form-group">
-        <label for="loginId">아이디</label>
-        <label id="loginId" th:text="${member.loginId}"></label>
-    </div>
-    <div class="form-group">
-        <label for="name">이름</label>
-        <label id="name" th:text="${member.name}"></label>
-    </div>
-    <div class="form-group">
-        <label for="regNum">주민등록번호</label>
-        <label id="regNum" th:text="${member.regNum1 + '-' + member.regNum2}"></label>
-    </div>
-    <div class="form-group">
-        <label for="postcode">우편번호</label>
-        <label id="postcode" th:text="${member.postcode}"></label>
-    </div>
-    <div class="form-group">
-        <label for="roadAddress">도로명주소</label>
-        <label id="roadAddress" th:text="${member.roadAddress}"></label>
-    </div>
-    <div class="form-group">
-        <label for="jibunAddress">지번주소</label>
-        <label id="jibunAddress" th:text="${member.jibunAddress}"></label>
-    </div>
-    <div class="form-group">
-        <label for="detailAddress">상세주소</label>
-        <label id="detailAddress" th:text="${member.detailAddress}"></label>
-    </div>
-    <div class="form-group">
-        <label for="phone">전화번호</label>
-        <label id="phone" th:text="${member.phone}"></label>
-    </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <label id="email" th:text="${member.email}"></label>
-    </div>
-    <div class="form-group">
-        <input type="button" id="updateBtn" class="btn btn-primary" value="수정" onclick="location.href='/'"/>
-        <input type="button" id="deleteBtn" class="btn btn-primary" value="탈퇴" />
+
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>아이디</th>
+                <td th:text="${member.loginId}"></td>
+            </tr>
+            <tr>
+                <th>이름</th>
+                <td th:text="${member.name}"></td>
+            </tr>
+            <tr>
+                <th>주민등록번호</th>
+                <td th:text="${member.regNum1 + '-' + member.regNum2}"></td>
+            </tr>
+            <tr>
+                <th>우편번호</th>
+                <td th:text="${member.postcode}"></td>
+            </tr>
+            <tr>
+                <th>도로명주소</th>
+                <td th:text="${member.roadAddress}"></td>
+            </tr>
+            <tr>
+                <th>지번주소</th>
+                <td th:text="${member.jibunAddress}"></td>
+            </tr>
+            <tr>
+                <th>상세주소</th>
+                <td th:text="${member.detailAddress}"></td>
+            </tr>
+            <tr>
+                <th>전화번호</th>
+                <td th:text="${member.phone}"></td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td th:text="${member.email}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="form-group d-flex justify-content-between">
+            <input type="button" id="updateBtn" class="btn btn-primary" value="수정" onclick="location.href='/'"/>
+            <input type="button" id="deleteBtn" class="btn btn-danger" value="탈퇴" />
+        </div>
+
     </div>
 
 </div>

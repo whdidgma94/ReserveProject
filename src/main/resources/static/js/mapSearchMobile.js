@@ -11,43 +11,29 @@ let infoWindows;//정보창들이 속한 배열(검색시 생성);
 
 window.onload = function(){
 
-    // navigator.geolocation.getCurrentPosition(function(pos) {
-    // //현재위치: 위도 경도 (살짝 오차 있음)
-    // latitude = pos.coords.latitude;
-    // longitude = pos.coords.longitude;
-    //
-    // });
+    navigator.geolocation.getCurrentPosition(function(pos) {
+        // //현재위치: 위도 경도 (살짝 오차 있음)
+        latitude = pos.coords.latitude;
+        longitude = pos.coords.longitude;
+        getMap(latitude,longitude);
+    });
 
 //정확한 학원 위치
-    latitude=37.499806;
-    longitude=127.028312;
-
-
-    getMap();
+//     latitude=37.499806;
+//     longitude=127.028312;
 }
 
 
-function getMap() {
+function getMap(latitude,longitude) {
+
     var myLocation=new naver.maps.LatLng(latitude,longitude)
-        map= new naver.maps.Map('map',{
-            center:myLocation.destinationPoint(latitude,longitude),
-            zoom:17
-        });
-        marker = new naver.maps.Marker({
-            map:map,
-            position:myLocation
-        })
-    var contentString = [
-        '<div class="iw_inner">',
-        '<a href="#">그린아이티아카데미</a>',
-        '<p>그린아이티아카데미학원입니다.</p>',
-        '<br />',
-        ,
-        '</div>'
-    ].join('');
-        infoWindow = new naver.maps.InfoWindow({
-        content: contentString
+    map= new naver.maps.Map('map',{
+        center:myLocation.destinationPoint(latitude,longitude),
+        zoom:13
     });
+    marker = new naver.maps.Marker({
+
+    })
     naver.maps.Event.addListener(marker, "click", function(e) {
         if (infoWindow.getMap()) {
             infoWindow.close();
@@ -55,10 +41,6 @@ function getMap() {
             infoWindow.open(map, marker);
         }
     });
-    infoWindow.open(map, marker);
-
-
-
 }
 
 
@@ -71,8 +53,8 @@ $(document).ready(function() {
     $('#search-icon').click(function() {
 
         // 검색어와 검색 타입 가져오기
-        // var keyword = $('#search').val();
-        // var type = $('select[name="type"]').val();
+        var keyword = $('#search').val();
+        var type = $('select[name="type"]').val();
         var bounds = map.getBounds(),
             southWest = bounds.getSW(),
             northEast = bounds.getNE()
@@ -87,8 +69,8 @@ $(document).ready(function() {
             url: '/search/mapSearch',
             type: 'GET',
             data: {
-                // keyword: keyword,
-                // type: type,
+                keyword: keyword,
+                type: type,
                 boundsObj: JSON.stringify(boundsObj)
 
             },
@@ -148,7 +130,6 @@ function initMap(campList) {
 
 
     marker.setMap(null);
-    infoWindow.close();
     markers = new Array(); // 마커 정보를 담는 배열
     infoWindows = new Array(); // 정보창을 담는 배열
 
@@ -178,7 +159,7 @@ function initMap(campList) {
             content: '<div class="mapMarker"><a href="../detailCamp?contentId=' + areaArr[i].id + '">'
                 + areaArr[i].name + '</a><p>'+areaArr[i].address+'</p>' +
                 (areaArr[i].theme != null ? '<p>' + areaArr[i].theme + '</p>' : '') +
-                '<img class="mapImg" src="' + (areaArr[i].img || '../../img/어서와양_사진없음.png') + '" alt="">' +
+                '<img class="mapImg" src="' + (areaArr[i].img || '../../img/어서와영_사진없음.png') + '" alt="">' +
                 '</div>'
 
         }); // 클릭했을 때 띄워줄 정보 HTML 작성
@@ -188,19 +169,8 @@ function initMap(campList) {
     }
     // 이전에 생성된 지도 객체가 존재할 경우 지도 객체를 삭제합니다.
 
-
-
-
-
-
-
-
-
-
-
-
     for (var i=0, ii=markers.length; i<ii; i++) {
-        console.log(markers[i] , getClickHandler(i));
+
         naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i)); // 클릭한 마커 핸들러
     }
     function getClickHandler(seq) {
