@@ -1,3 +1,8 @@
+<style>
+img{
+            width:50%;
+}     
+</style>
 <h1>어서와Yng</h1>
 ▪ 주제 : 전국 캠핑장 검색 / 정보제공 사이트
 ▪ 사용 프로그램 : IntelliJ , MySQL , SpringBoot
