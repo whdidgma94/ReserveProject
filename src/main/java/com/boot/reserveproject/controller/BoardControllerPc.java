@@ -85,7 +85,7 @@ public class BoardControllerPc {
     }
     @GetMapping("/pc/board/showContent")
     private String showContent(Model model,@RequestParam("no") long no){
-
+        System.out.println("no:"+no);
         Board board =boardService.findOneBoardByNo(no);
         Long readCnt=board.getReadCnt();
         readCnt++;

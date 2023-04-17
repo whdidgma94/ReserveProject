@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{pc/fragments/header :: header}"/>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script th:src="@{/js/showContent.js}"></script>
+
+<body>
+<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
+<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
+
+<div class="view">
+    <form th:action="@{/pc/comments/updateCommentPro}" method="post">
+        <input type="text" name="content" th:value="${comment.content}">
+
+        <input type="hidden" name="commentNo" th:value="${comment.no}">
+        <input type="submit" value="수정하기">
+    </form>
+
+
+
+
+</div>
+
+</body>
+</html>
