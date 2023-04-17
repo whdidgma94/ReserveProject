@@ -54,7 +54,7 @@ public class CommentsController {
     model.addAttribute("comment",comment);
         return"pc/board/addSecondComment";
     }
-    @PostMapping("/pc/comments/addSeconeCommentPro")
-    private String addSecondCommentPro(Model model,@RequestParam("id")String id,@RequestParam("content") String content,
-                                       @RequestParam("ref") long ref, @RequestParam("level"))
+//    @PostMapping("/pc/comments/addSeconeCommentPro")
+//    private String addSecondCommentPro(Model model,@RequestParam("id")String id,@RequestParam("content") String content,
+//                                       @RequestParam("ref") long ref, @RequestParam("level"))
 }

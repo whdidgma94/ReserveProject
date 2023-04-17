@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{pc/fragments/header :: header}"/>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script th:src="@{/js/addBoard.js}"></script>
+
+<body>
+<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
+<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
+
+<div class="view">
+  <table class="table">
+
+
+        <tr style="border-bottom: 1px solid black;">
+          <input type="hidden" id="commentNo" th:value="${comment.no}">
+          <td th:text="${comment.id}" class="border-top"></td>
+          <td th:text="${comment.content}" class="border-top"></td>
+          <td th:text="${comment.date}" class="border-top"></td>
+          <td th:text="${comment.time}" class="border-top"></td>
+          <input type="hidden" name="no" th:value="${comment.no}">
+          <input type="hidden" name="id" th:value="${session.log}">
+
+
+        </tr>
+
+          <td><h3 th:text="${session.log}"></h3></td>
+
+        <tr>
+          <form th:action="@{/pc/comments/addSecondCommentPro}" method="post" >
+            <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
+            </svg></td>
+            <td><input type="text" name="content"></td>&nbsp;&nbsp;
+            <td><input type="submit" value="작성하기"></td>&nbsp;&nbsp;
+            <input type="hidden" name="id" th:value="${session.log}">
+            <input type="hidden" name="ref" th:value="${comment.ref}">
+            <input type="hidden" name="level" th:value="${comment.level}">
+            <td><h5 th:text="${session.log}"></h5></td>
+          </form>
+
+        </tr>
+
+
+
+  </table>
+</div>
+
+
+
+</body>
+</html>
