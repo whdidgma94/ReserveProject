@@ -23,8 +23,8 @@
     </tr>
     <tr>
       <td>작성 시간</td>
-      <td><input type="text" name="date" th:value="${board.get().date+board.get().time}" readonly>&nbsp;&nbsp;
-
+      <td>
+        <input type="text" name="date" th:value="${board.get().date} + ${board.get().time}" readonly>
       </td>
     </tr>
     <tr>
@@ -38,26 +38,39 @@
     </tbody>
   </table>
   <div th:if="${session.log == board.get().id}">
-    <button onclick="deleteBoard(document.getElementById('boardNo').value)">삭제</button>
-    <button onclick="updateBoard(document.getElementById('boardNo').value)">수정</button>
+    <button onclick="deleteBoardPc(document.getElementById('boardNo').value)">삭제</button>
+    <button onclick="updateBoardPc(document.getElementById('boardNo').value)">수정</button>
   </div>
   <div id="commentList">
 
   </div>
 
-
-
   <h5 >댓글(<span th:text="${#lists.size(comments)}"></span>)</h5>
 
 
   <table class="table">
-    <tr th:each="comments, iterStat : ${comments}" style="border-bottom: 1px solid black;">
-      <td th:text="${comments.id}" class="border-top"></td>
-      <td th:text="${comments.content}" class="border-top"></td>
-      <td th:text="${comments.date}" class="border-top"></td>
-      <td th:text="${comments.time}" class="border-top"></td>
-    </tr>
+    <th:block th:each="comments, iterStat : ${comments}">
+      <form th:action="@{/pc/comments/addSecondComment}" method="post" >
+      <tr style="border-bottom: 1px solid black;">
+        <input type="hidden" id="commentNo" th:value="${comments.no}">
+        <td th:text="${comments.id}" class="border-top"></td>
+        <td th:text="${comments.content}" class="border-top"></td>
+        <td th:text="${comments.date}" class="border-top"></td>
+        <td th:text="${comments.time}" class="border-top"></td>
+        <input type="hidden" name="no" th:value="${comments.no}">
+        <input type="hidden" name="id" th:value="${session.log}">
+
+        <div th:if="${session.log!=null}">
+          <td><input type="submit" value="현재댓글에 대댓글작성하기"></td>
+        </div>
+
+      </tr>
+      </form>
+
+    </th:block>
   </table>
+
+
 
   <!-- 로그인하지 않은 경우 -->
   <div th:if="${session.log == null}">

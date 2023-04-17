@@ -22,9 +22,9 @@ public class Comments {
     private String id;
     @Column(length = 10000)
     private String content;
-    private Long ref;
+    private Long ref;//댓글그룹
     @Column(name = "depth", columnDefinition = "bigint default 1")
-    private Long depth;
+    private Long depth;//댓글 깊이 디폴트1 대댓글은 2
     private Long level;
     private LocalDate date;//등록날짜
     private String time;//등록시간

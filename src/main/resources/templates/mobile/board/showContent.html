@@ -32,18 +32,12 @@
     </tbody>
   </table>
   <div th:if="${session.log == board.get().id}">
-    <button onclick="deleteBoard(document.getElementById('boardNo').value)">삭제</button>
-    <button onclick="updateBoard(document.getElementById('boardNo').value)">수정</button>
+    <button onclick="deleteBoardMobile(document.getElementById('boardNo').value)">삭제</button>
+    <button onclick="updateBoardMobile(document.getElementById('boardNo').value)">수정</button>
   </div>
   <div id="commentList">
-
   </div>
-
-
-
   <h5 >댓글(<span th:text="${#lists.size(comments)}"></span>)</h5>
-
-
   <table class="table">
     <tr th:each="comments, iterStat : ${comments}" style="border-bottom: 1px solid black;">
       <td th:text="${comments.id}" class="border-top"></td>
