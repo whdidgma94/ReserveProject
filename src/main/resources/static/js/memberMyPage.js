@@ -2,7 +2,7 @@ function deleteMemberPc(){
     let loginId = $("#loginId").text();
     console.log(loginId)
     $.ajax({
-        url: '/member/delete',
+        url: '/member/delete?type=pc',
         type: 'POST',
         data: {loginId: loginId},
         success: function (response) {
@@ -20,7 +20,7 @@ function deleteMemberMobile(){
     let loginId = $("#loginId").text();
     console.log(loginId)
     $.ajax({
-        url: '/member/delete',
+        url: '/member/delete?type=mobile',
         type: 'POST',
         data: {loginId: loginId},
         success: function (response) {

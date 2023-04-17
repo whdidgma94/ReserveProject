@@ -149,12 +149,16 @@ public class MemberController {
         return "mobile/member/memberMyPage";
     }
     @PostMapping("/member/delete")
-    public String deleteMember(@RequestParam("loginId") String loginId, HttpSession session) {
+    public String deleteMember(@RequestParam("loginId") String loginId, HttpSession session, @RequestParam("type") String type) {
         memberService.removeMember(memberService.selectMemberById(loginId).getId());
         if(session.getAttribute("log").equals(loginId)){
             session.removeAttribute("log");
         }
-        return "/admin/member/memberList";
+        if(type.equals("pc")){
+            return "redirect:/pc/main";
+        }else{
+            return "redirect:/mobile/main";
+        }
     }
     @GetMapping("/pc/member/find")
     public String findIdPc(@RequestParam("type") String type, Model model) {
