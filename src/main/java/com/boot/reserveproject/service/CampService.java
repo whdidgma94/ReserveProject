@@ -102,6 +102,10 @@ public class CampService {
         List<Camp> campList = campRepository.selectListByThemas(themas);
         return campList;
     }
+    public List<Camp> findByThema(String keyword){
+        List<Camp> campList = campRepository.selectListByThemaEnvrnCl(keyword);
+        return campList;
+    }
     public List<Camp> findByLctCls(List<String> lctCls){
         List<Camp> campList = campRepository.selectListBylctCls(lctCls);
         return campList;

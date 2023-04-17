@@ -1,45 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{pc/fragments/header :: header}"/>
+<head th:replace="~{pc/fragments/header :: header}"></head>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script th:src="@{/js/showContent.js}"></script>
 
 <body>
-<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
-<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
+<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"></div>
+<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"></div>
 
 <div class="view">
   <input type="hidden" id="boardNo" th:value="${board.get().no}" />
 <!--  <input type="hidden" id="writerValue" th:value="${board.get().id}" />-->
-  <table>
+  <table class="table table-bordered">
     <tbody>
     <tr>
+      <td>제목</td>
+      <td colspan="3"><div name="title" th:text="${board.get().title}"/></td>
+    </tr>
+    <tr>
       <td>작성자</td>
-      <td><input type="text" name="id" th:value="${board.get().id}" readonly></td>
-    </tr>
-    <tr>
-      <td>게시글 번호</td>
-      <td><input type="text" name="no" th:value="${board.get().no}" readonly></td>
-    </tr>
-    <tr>
+      <td><div name="id" th:text="${board.get().id}"/></td>
       <td>작성 시간</td>
       <td>
-        <input type="text" name="date" th:value="${board.get().date} + ${board.get().time}" readonly>
+        <div name="date" th:text="${board.get().date} +' '+ ${board.get().time}"/>
       </td>
     </tr>
+
     <tr>
-      <td>제목</td>
-      <td><input type="text" name="title" th:value="${board.get().title}" readonly></td>
-    </tr>
-    <tr>
-      <td>내용</td>
-      <td><textarea name="content" readonly th:text="${board.get().content}"> </textarea></td>
+      <td colspan="4" class="boardContent"><div name="content" th:text="${board.get().content}"></div></td>
     </tr>
     </tbody>
   </table>
   <div th:if="${session.log == board.get().id}">
-    <button onclick="deleteBoardPc(document.getElementById('boardNo').value)">삭제</button>
-    <button onclick="updateBoardPc(document.getElementById('boardNo').value)">수정</button>
+    <button onclick="deleteBoardPc(document.getElementById('boardNo').value)" class="btn btn-danger">삭제</button>
+    <button onclick="updateBoardPc(document.getElementById('boardNo').value)" class="btn btn-primary">수정</button>
   </div>
   <div id="commentList">
 
@@ -59,11 +53,9 @@
         <td th:text="${comments.time}" class="border-top"></td>
         <input type="hidden" name="no" th:value="${comments.no}">
         <input type="hidden" name="id" th:value="${session.log}">
-
         <div th:if="${session.log!=null}">
-          <td><input type="submit" value="현재댓글에 대댓글작성하기"></td>
+          <td><input type="submit" value="현재댓글에 대댓글작성하기" class="btn btn-secondary"></td>
         </div>
-
       </tr>
       </form>
 
@@ -87,6 +79,6 @@
   </div>
 
 </div>
-
+<div th:replace="~{pc/fragments/footer :: footer}"/>
 </body>
 </html>

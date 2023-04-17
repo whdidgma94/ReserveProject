@@ -14,27 +14,21 @@
 
   <form th:action="@{/pc/board/addBoardPro}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="img" value=null>
-    <table>
+    <table class="table table-bordered">
       <tbody>
-      <tr>
-        <td>작성자</td>
-        <td><input type="text" name="id" th:value="${session.log}" readonly></td>
-      </tr>
-      <tr>
-        <td>게시글 번호</td>
-        <td><input type="text" name="no" th:value="${no}" readonly></td>
-      </tr>
       <tr>
         <td>제목</td>
         <td><input type="text" name="title"></td>
       </tr>
       <tr>
         <td>내용</td>
-        <td><textarea name="content"></textarea></td>
+        <td><textarea name="content" style="resize: none; width: 100%; min-height: 400px;"></textarea></td>
       </tr>
       </tbody>
     </table>
-    <input type="submit" value="작성하기">
+    <input type="submit" value="작성하기" class="btn btn-primary">
+    <input type="hidden" name="id" th:value="${session.log}" >
+    <input type="hidden" name="no" th:value="${no}">
   </form>
   <form id="upload-form" enctype="multipart/form-data">
     <input type="file" id="file-input" name="file">

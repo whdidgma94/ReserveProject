@@ -1,8 +1,8 @@
-function deleteBoard(boardNo){
+function deleteBoardPc(boardNo){
     var no=boardNo;
 location.href="/../pc/board/deleteBoard?no="+no;
 }
-function updateBoard(boardNo){
+function updateBoardPc(boardNo){
     var no=boardNo;
     location.href="/../pc/board/updateBoard?no="+no;
 }

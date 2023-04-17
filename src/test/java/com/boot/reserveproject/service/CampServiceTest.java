@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,4 +40,16 @@ class CampServiceTest {
         }
         System.out.println(Arrays.toString(result));
     }
+
+    @Test
+    public void likeTest() {
+        List<String> testest = new ArrayList<>();
+        testest.add("낚시");
+        List<Camp> t = service.findByThemas(testest);
+        for (int i = 0; i < t.size(); i++){
+            Random rd = new Random();
+            t.get(i).setRecommendCnt(rd.nextInt(10)+1);
+        }
+    }
+
 }

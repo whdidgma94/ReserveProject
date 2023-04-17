@@ -358,3 +358,11 @@ button.paging-btn:hover {
 .footer {
     margin-top:30px;
 }
+.mainPoster{
+    border:4px solid #e49f43;
+    border-radius: 20px;
+    padding:10px;
+}
+.boardContent div{
+    min-height:500px;
+}
