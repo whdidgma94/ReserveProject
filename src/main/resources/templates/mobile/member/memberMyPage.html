@@ -3,7 +3,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
+<script src="/js/memberMyPage.js"></script>
 <head th:replace="mobile/fragments/header :: header"/>
 <body>
 <div th:replace="mobile/fragments/bodyHeader :: bodyHeader"/>
@@ -55,7 +55,7 @@
 
         <div class="form-group d-flex justify-content-between">
             <input type="button" id="updateBtn" class="btn btn-primary" value="수정" onclick="location.href='/'"/>
-            <input type="button" id="deleteBtn" class="btn btn-danger" value="탈퇴" />
+            <input type="button" id="deleteBtn" class="btn btn-danger" value="탈퇴" onclick="deleteMemberMobile()"/>
         </div>
 
     </div>

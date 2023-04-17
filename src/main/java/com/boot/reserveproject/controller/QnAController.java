@@ -82,7 +82,7 @@ public class QnAController {
         if (type.equals("pc")) {
             return "redirect:/pc/main";
         } else if (type.equals("mobile")) {
-            return "redirect:/mobile/index";
+            return "redirect:/mobile/main";
         } else {
             return "redirect:/sendQnAList?type=admin";
         }

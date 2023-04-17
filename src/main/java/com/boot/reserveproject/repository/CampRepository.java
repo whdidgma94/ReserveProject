@@ -53,6 +53,8 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
     List<Camp> selectListBylctCls(@Param("lctCls") List<String> lctCls);
     @Query("SELECT c FROM Camp c WHERE c.induty LIKE %:keyword%")
     List<Camp> selectListByInduty(@Param("keyword") String keyword);
+    @Query("SELECT c FROM Camp c WHERE c.siteBottom LIKE %:keyword%")
+    List<Camp> selectListByBottom(@Param("keyword") String keyword);
     @Query("SELECT c FROM Camp c WHERE c.animalCmgCl = :possible OR c.animalCmgCl = :possibleSmall")
     List<Camp> selectListByAnimal(@Param("possible") String possible, @Param("possibleSmall") String possibleSmall);
     @Query("SELECT c FROM Camp c WHERE c.caravAcmpnyAt = :Y")

@@ -102,12 +102,20 @@ public class CampService {
         List<Camp> campList = campRepository.selectListByThemas(themas);
         return campList;
     }
+    public List<Camp> findByThema(String keyword){
+        List<Camp> campList = campRepository.selectListByThemaEnvrnCl(keyword);
+        return campList;
+    }
     public List<Camp> findByLctCls(List<String> lctCls){
         List<Camp> campList = campRepository.selectListBylctCls(lctCls);
         return campList;
     }
     public List<Camp> findByBottoms(List<String> bottoms){
         List<Camp> campList = campRepository.selectListByBottoms(bottoms);
+        return campList;
+    }
+    public List<Camp> findByBottom(String keyword){
+        List<Camp> campList = campRepository.selectListByBottom(keyword);
         return campList;
     }
     public List<Camp> findAllList(){
