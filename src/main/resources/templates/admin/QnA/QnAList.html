@@ -24,7 +24,8 @@
                 <thead>
                 <tr>
                     <th scope="col">카테고리</th>
-                    <th scope="col">작성일</th>
+                    <th scope="col">문의일</th>
+                    <th scope="col">문의자</th>
                     <th scope="col">비고</th>
                 </tr>
                 </thead>
@@ -35,6 +36,7 @@
                 <tr th:each="qnA : ${qnAList}" th:if="${qnA.sender!='admin'}">
                     <td th:text="${qnA.category}" th:id="${qnA.id}" class="details"></td>
                     <td th:text="${qnA.date}"></td>
+                    <td th:text="${qnA.sender}"></td>
                     <td th:id="${qnA.status}">
                         <span th:if="${qnA.status != 'Done'}"><a th:href="@{/sendQnA(id=${qnA.id},type='admin')}"
                                                                  class="btn btn-info" style="background-color: red">미처리</a></span>

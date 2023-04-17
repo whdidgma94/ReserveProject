@@ -81,7 +81,7 @@ public class Camp {
     private Reservation reservation;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "camp")
-    private List<Review> reviews;
+    @ManyToOne
+    private Member member;
 
 }

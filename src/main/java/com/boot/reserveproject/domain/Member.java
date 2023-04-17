@@ -31,12 +31,8 @@ public class Member {
     private String gender;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "member")
-    private List<Review> reviews = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "member" )
-    private List<Reservation> reservations = new ArrayList<>();
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Camp> campLikes = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)

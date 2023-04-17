@@ -37,8 +37,8 @@ public class CampApiController {
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
-            JSONObject obj = new JSONObject(sb.toString());
             System.out.println(sb.toString());
+            JSONObject obj = new JSONObject(sb.toString());
             JSONObject obj2 = obj.getJSONObject("response").getJSONObject("body");
             JSONArray objArray = obj2.getJSONObject("items").getJSONArray("item");
 

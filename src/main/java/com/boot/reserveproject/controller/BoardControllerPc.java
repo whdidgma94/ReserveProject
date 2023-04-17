@@ -123,6 +123,8 @@ public class BoardControllerPc {
         boardService.createOrUpdateBoard(newBoard);
         board=boardService.findOneBoardByNo(no);
         model.addAttribute("board",board);
+        List<Comments> newComments=commentsService.getCommentsByBoardNo(no);
+        model.addAttribute("comments",newComments);
         return "pc/board/showContent";
     }
     @PostMapping("pc/board/postImg")
