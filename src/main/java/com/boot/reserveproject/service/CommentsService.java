@@ -32,4 +32,14 @@ public class CommentsService {
     public Comments findOneCommentByBoardNo(Long no){
         return commentsRepository.findOneCommentByBoardNo(no);
     }
+    public Long findMaxLevelByRef(Long no){
+        return commentsRepository.findMaxLevelByRef(no);
+    }
+    public void deleteComment(Long no){
+        commentsRepository.deleteComment(no);
+        return;
+    }
+//    public Long countCommentsByBoardNo(){
+//        return commentsRepository.countCommentsByBoardNo();
+//    }
 }

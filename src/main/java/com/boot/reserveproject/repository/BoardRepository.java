@@ -1,6 +1,7 @@
 package com.boot.reserveproject.repository;
 
 import com.boot.reserveproject.domain.Board;
+import com.boot.reserveproject.domain.BoardWithCommentsCount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,6 +24,14 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query(value = "INSERT INTO board (id, no, title, content, img) VALUES (:id, :no, :title, :content, :img)", nativeQuery = true)
     void insertBoard(@Param("id") String id, @Param("no") long no, @Param("title") String title, @Param("content") String content, @Param("img") String img);
     @Query("SELECT b FROM Board b WHERE b.no = :no")
-    Optional<Board> findOneBoardByNo(@Param("no") long no);
+    Board  findOneBoardByNo(@Param("no") long no);
+    @Query("select b from Board b where b.no=:no")
+    Board getOneBoardByNo(@Param("no") long no);
+    @Query("SELECT new com.boot.reserveproject.domain.BoardWithCommentsCount(b.no, b.id, b.title, b.content, b.readCnt, b.img, b.date, b.time, COUNT(c)) " +
+            "FROM Board b LEFT JOIN b.comments c ON b.no = c.board.no " +
+            "GROUP BY b.no")
+    List<BoardWithCommentsCount> findBoardWithCommentsCountByNo();
+
+
 
 }

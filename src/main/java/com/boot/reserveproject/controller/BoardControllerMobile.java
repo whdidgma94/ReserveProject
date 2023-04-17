@@ -1,6 +1,7 @@
 package com.boot.reserveproject.controller;
 
 import com.boot.reserveproject.domain.Board;
+import com.boot.reserveproject.domain.BoardWithCommentsCount;
 import com.boot.reserveproject.domain.Comments;
 import com.boot.reserveproject.domain.Member;
 import com.boot.reserveproject.service.BoardService;
@@ -36,7 +37,7 @@ public class BoardControllerMobile {
 
     @GetMapping("/mobile/board/boardList")
     private String showBoardList(Model model){
-        List<Board>boardList=boardService.selectAllBoard();
+        List<BoardWithCommentsCount>boardList=boardService.findBoardWithCommentsCountByNo();
         model.addAttribute("boardList",boardList);
         return"mobile/board/boardList";
     }
@@ -79,14 +80,19 @@ public class BoardControllerMobile {
 
         boardService.createOrUpdateBoard(board);
 
-        List<Board>boardList=boardService.selectAllBoard();
+        List<BoardWithCommentsCount>boardList=boardService.findBoardWithCommentsCountByNo();
         model.addAttribute("boardList",boardList);
         return"mobile/board/boardList";
     }
     @GetMapping("/mobile/board/showContent")
     private String showContent(Model model,@RequestParam("no") long no){
 
-        Optional<Board> board =boardService.findOneBoardByNo(no);
+        Board board =boardService.findOneBoardByNo(no);
+        Long readCnt=board.getReadCnt();
+        readCnt++;
+        System.out.println("조회수:"+readCnt);
+        board.setReadCnt(readCnt);
+        boardService.createOrUpdateBoard(board);
         model.addAttribute("board",board);
         List<Comments> newComments=commentsService.getCommentsByBoardNo(no);
         model.addAttribute("comments",newComments);
@@ -96,13 +102,13 @@ public class BoardControllerMobile {
     private String deleteBoard(Model model,@RequestParam("no") long no){
 
         boardService.deleteBoard(no);
-        List<Board>boardList=boardService.selectAllBoard();
+        List<BoardWithCommentsCount>boardList=boardService.findBoardWithCommentsCountByNo();
         model.addAttribute("boardList",boardList);
         return"mobile/board/boardList";
     }
     @GetMapping("/mobile/board/updateBoard")
     private String updateBoard(Model model,@RequestParam("no") long no){
-        Optional<Board> board=boardService.findOneBoardByNo(no);
+        Board board=boardService.findOneBoardByNo(no);
         model.addAttribute("board",board);
         return"mobile/board/updateBoard";
     }
@@ -112,16 +118,16 @@ public class BoardControllerMobile {
                                   @RequestParam("title") String title,
                                   @RequestParam("content") String content,
                                   @RequestParam("img") String img){
-        Optional<Board> board=boardService.findOneBoardByNo(no);
+        Board board=boardService.findOneBoardByNo(no);
         Board newBoard=new Board();
-        newBoard.setNo(board.get().getNo());
-        newBoard.setId(board.get().getId());
+        newBoard.setNo(board.getNo());
+        newBoard.setId(board.getId());
         newBoard.setTitle(title);
         newBoard.setContent(content);
-        newBoard.setReadCnt(board.get().getReadCnt());
+        newBoard.setReadCnt(board.getReadCnt());
         newBoard.setImg(img);
-        newBoard.setDate(board.get().getDate());
-        newBoard.setTime(board.get().getTime());
+        newBoard.setDate(board.getDate());
+        newBoard.setTime(board.getTime());
         boardService.createOrUpdateBoard(newBoard);
         board=boardService.findOneBoardByNo(no);
         model.addAttribute("board",board);

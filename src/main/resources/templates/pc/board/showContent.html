@@ -9,35 +9,35 @@
 <div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
 
 <div class="view">
-  <input type="hidden" id="boardNo" th:value="${board.get().no}" />
+  <input type="hidden" id="boardNo" th:value="${board.no}" />
 <!--  <input type="hidden" id="writerValue" th:value="${board.get().id}" />-->
   <table>
     <tbody>
     <tr>
       <td>작성자</td>
-      <td><input type="text" name="id" th:value="${board.get().id}" readonly></td>
+      <td><input type="text" name="id" th:value="${board.id}" readonly></td>
     </tr>
     <tr>
       <td>게시글 번호</td>
-      <td><input type="text" name="no" th:value="${board.get().no}" readonly></td>
+      <td><input type="text" name="no" th:value="${board.no}" readonly></td>
     </tr>
     <tr>
       <td>작성 시간</td>
       <td>
-        <input type="text" name="date" th:value="${board.get().date} + ${board.get().time}" readonly>
+        <input type="text" name="date" th:value="${board.date} + ${board.time}" readonly>
       </td>
     </tr>
     <tr>
       <td>제목</td>
-      <td><input type="text" name="title" th:value="${board.get().title}" readonly></td>
+      <td><input type="text" name="title" th:value="${board.title}" readonly></td>
     </tr>
     <tr>
       <td>내용</td>
-      <td><textarea name="content" readonly th:text="${board.get().content}"> </textarea></td>
+      <td><textarea name="content" readonly th:text="${board.content}"> </textarea></td>
     </tr>
     </tbody>
   </table>
-  <div th:if="${session.log == board.get().id}">
+  <div th:if="${session.log == board.id}">
     <button onclick="deleteBoardPc(document.getElementById('boardNo').value)">삭제</button>
     <button onclick="updateBoardPc(document.getElementById('boardNo').value)">수정</button>
   </div>
@@ -52,6 +52,12 @@
     <th:block th:each="comments, iterStat : ${comments}">
       <form th:action="@{/pc/comments/addSecondComment}" method="post" >
       <tr style="border-bottom: 1px solid black;">
+        <div th:if="${comments.depth!=1}">
+          <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
+          </svg></td>
+        </div>
+        </td>
         <input type="hidden" id="commentNo" th:value="${comments.no}">
         <td th:text="${comments.id}" class="border-top"></td>
         <td th:text="${comments.content}" class="border-top"></td>
@@ -60,8 +66,13 @@
         <input type="hidden" name="no" th:value="${comments.no}">
         <input type="hidden" name="id" th:value="${session.log}">
 
-        <div th:if="${session.log!=null}">
+        <div th:if="${session.log!=null && comments.depth==1}">
           <td><input type="submit" value="현재댓글에 대댓글작성하기"></td>
+        </div>
+        <div th:if="${session.log==comments.id}">
+
+          <td><button onclick="deleteComment(document.getElementById('commentNo').value)">삭제하기</button></td>
+          <td><button onclick="updateComment(document.getElementById('commentNo').value)">수정하기</button></td>
         </div>
 
       </tr>
@@ -80,7 +91,7 @@
   <div th:if="${session.log !=null}">
   <form action="/pc/comments/addComment" method="post">
     <input type="text" name="comment">
-    <input type="hidden" name="no" th:value="${board.get().no}">
+    <input type="hidden" name="no" th:value="${board.no}">
     <input type="hidden" name="loginId" th:value="${session.log}">
     <input type="submit" value="댓글 달기">
   </form>
