@@ -33,12 +33,14 @@
                 <a class="nav-link" href="/sendQnA?type=mobile">문의하기</a>
                 <a class="nav-link" href="/sendQnAList?type=mobile">나의 문의사항</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/mobile/member/new">
-                    <i class="fa-solid fa-user-plus"></i>
-                    회원가입
-                </a>
-            </li>
+            <th:block th:if="${session.log == null }">
+                <li class="nav-item">
+                    <a class="nav-link" href="/mobile/member/new">
+                        <i class="fa-solid fa-user-plus"></i>
+                        회원가입
+                    </a>
+                </li>
+            </th:block>
             <li class="nav-item">
                 <a class="nav-link" th:href="${session.log == null} ? '/mobile/member/login' : '/mobile/member/logout'">
                     <i class="fa-solid fa-right-to-bracket"></i>

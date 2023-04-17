@@ -396,3 +396,9 @@ button.paging-btn:hover {
 .categoryCheck{
     text-align: center;
 }
+#sub-menu .nav-link{
+    padding: 0 0 0 20%;
+}
+#sub-menu{
+    height:auto;
+}
