@@ -11,10 +11,7 @@ import javax.persistence.*;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -85,27 +82,37 @@ public class CommentsController {
 
 
     @PostMapping("/pc/comments/deleteComment")
-    @ResponseBody
-    private void deleteComment(@RequestParam("no") long no){
+
+    private String deleteComment(Model model,@RequestParam("no") long no){
         Comments comment=commentsService.getOneCommentByCommentNo(no);
+        System.out.println("댓글번호:"+no);
 
 
         System.out.println("깊이:  "+comment.getDepth());
-        if(comment.getDepth()==1L){
-            System.out.println("깊이 1");
+        Long num = no;
+
+        if(comment.getDepth()==1){
             long ref=comment.getRef();
+
             commentsService.deleteCommentsBySameRef(ref);
+
         }
         else{
-            System.out.println("깊이 2");
+
+
             commentsService.deleteComment(no);
         }
+        long boardNo=comment.getBoard().getNo();
+        Board board=boardService.getOneBoardByNo(boardNo);
+        model.addAttribute("board",board);
+        List<Comments> newComments=commentsService.getCommentsByBoardNo(boardNo);
+        model.addAttribute("comments",newComments);
 
 
 
-
+        return "pc/board/showContent";
     }
-    @GetMapping("/pc/comments/updateComment")
+    @PostMapping("/pc/comments/updateComment")
 
 
     private String updateComment(Model model,@RequestParam("no") long no){

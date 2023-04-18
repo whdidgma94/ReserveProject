@@ -31,8 +31,9 @@ public class Member {
     private String gender;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Camp> campLikes;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MemberLikes> memberLikes = new ArrayList<>();
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
