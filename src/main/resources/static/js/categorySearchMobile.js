@@ -78,8 +78,14 @@ window.onload = function() {
 
 $(function () {
     $('#search-icon').click(function () {
-        현재페이지 = 1;
-        let selectedCategories = $('.categoryCheckBox input[type=checkbox]:checked')
+        paging(1);
+    });
+});
+
+
+function paging(i) {
+    현재페이지 = i;
+    let selectedCategories = $('.categoryCheckBox input[type=checkbox]:checked')
             .map(function () {
                 return $(this).attr('id');
             }).get();
@@ -106,35 +112,25 @@ $(function () {
                     } else {
                         총페이지수 = Math.ceil(총리스트의길이 / 한페이지에보여줄게시글수);
                     }
-                    let areaArr = new Array();
-                    for (let i = 0; i < campList.length; i++) {
-                        console.log("ajax시작");
-                        areaArr.push({
-                            contentId: campList[i].contentId,
-                            firstImageUrl: campList[i].firstImageUrl,
-                            doNm: campList[i].doNm,
-                            sigunguNm: campList[i].sigunguNm,
-                            facltNm: campList[i].facltNm,
-                            lineIntro: campList[i].lineIntro,
-                        });
-                    }
-                    console.log("ajax반복시작");
+                  console.log("ajax반복시작");
                     let campCountHTML = "총 " + 총리스트의길이 + " 개의 캠핑장이 검색되었습니다."
                     $('#campListCount').html(campCountHTML);
 
                     let campListBoxHtml = '<div class="row">';
-                    for (let i = 0; i < areaArr.length; i++) {
-                        campListBoxHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + areaArr[i].contentId + ' \'">';
+                    for (let i = 0; i < campList.length; i++) {
+                        campListBoxHtml += '<div class="campLikeBox"><div> 추천수 : ' + campList[i].recommendCnt + '</div>'
+                        campListBoxHtml += '<div class="btn memberLikeBtn" for="memberLike" id="'+campList[i].contentId+' onclick="addLike(this)">♡</div></div>'
+                        campListBoxHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + campList[i].contentId + ' \'">';
                         campListBoxHtml += '<div class="campBoxTop">';
                         campListBoxHtml += '<div class="campBoxLeft">';
-                        campListBoxHtml += '<img src="' + (areaArr[i].firstImageUrl || '../../img/어서와양_사진없음.png') + '" alt="">';
+                        campListBoxHtml += '<img src="' + campList[i].firstImageUrl + '" onerror="this.src=\'../../img/어서와양_사진없음.png\'"/>';
                         campListBoxHtml += '</div>';
                         campListBoxHtml += '<div class="campBoxRight">';
                         campListBoxHtml += '<div>';
-                        campListBoxHtml += '<h4 class="campText">' + areaArr[i].facltNm + '</h4>';
-                        campListBoxHtml += '<div class="campText">[ ' + areaArr[i].doNm + ' ' + areaArr[i].sigunguNm + ' ]</div>';
+                        campListBoxHtml += '<h4 class="campText">' + campList[i].facltNm + '</h4>';
+                        campListBoxHtml += '<div class="campText">[ ' + campList[i].doNm + ' ' + campList[i].sigunguNm + ' ]</div>';
                         campListBoxHtml += '</div>';
-                        campListBoxHtml += '<div class="campText">' + areaArr[i].lineIntro + '</div>';
+                        campListBoxHtml += '<div class="campText">' + campList[i].lineIntro + '</div>';
                         campListBoxHtml += '</div></div></div>';
                     }
                     $('#campListBox').html(campListBoxHtml);
@@ -148,80 +144,8 @@ $(function () {
             error: function (xhr, status, error) {
             }
         });
-    });
-});
-function paging(i) {
-    현재페이지 = i;
-    let selectedCategories = $('.categoryCheckBox input[type=checkbox]:checked')
-        .map(function () {
-            return $(this).attr('id');
-        }).get();
-    console.log(selectedCategories)
-    $.ajax({
-        url: '/search/categoryCheck',
-        method: 'GET',
-        data: {
-            categories: selectedCategories.join(","),
-            pageNum: 현재페이지
-        },
-        success: function (result) {
-            try {
-                let data = JSON.parse(result)
-                총리스트의길이 = data.count;
-                let campList = data.list;
-                if (campList == null || campList.length == 0) {
-                    alert("검색결과가 존재하지 않습니다.");
-                    location.reload();
-                    return;
-                }
-                if (총리스트의길이 % 10 === 0) {
-                    총페이지수 = 총리스트의길이 / 한페이지에보여줄게시글수;
-                } else {
-                    총페이지수 = Math.ceil(총리스트의길이 / 한페이지에보여줄게시글수);
-                }
-                let areaArr = new Array();
-                for (let i = 0; i < campList.length; i++) {
-                    console.log("ajax시작");
-                    areaArr.push({
-                        contentId: campList[i].contentId,
-                        firstImageUrl: campList[i].firstImageUrl,
-                        doNm: campList[i].doNm,
-                        sigunguNm: campList[i].sigunguNm,
-                        facltNm: campList[i].facltNm,
-                        lineIntro: campList[i].lineIntro,
-                    });
-                }
-                console.log("ajax반복시작");
-                let campCountHTML = "총 " + 총리스트의길이 + " 개의 캠핑장이 검색되었습니다."
-                $('#campListCount').html(campCountHTML);
+    };
 
-                let campListBoxHtml = '<div class="row">';
-                for (let i = 0; i < areaArr.length; i++) {
-                    campListBoxHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + areaArr[i].contentId + ' \'">';
-                    campListBoxHtml += '<div class="campBoxTop">';
-                    campListBoxHtml += '<div class="campBoxLeft">';
-                    campListBoxHtml += '<img src="' + (areaArr[i].firstImageUrl || '../../img/어서와양_사진없음.png') + '" alt="">';
-                    campListBoxHtml += '</div>';
-                    campListBoxHtml += '<div class="campBoxRight">';
-                    campListBoxHtml += '<div>';
-                    campListBoxHtml += '<h4 class="campText">' + areaArr[i].facltNm + '</h4>';
-                    campListBoxHtml += '<div class="campText">[ ' + areaArr[i].doNm + ' ' + areaArr[i].sigunguNm + ' ]</div>';
-                    campListBoxHtml += '</div>';
-                    campListBoxHtml += '<div class="campText">' + areaArr[i].lineIntro + '</div>';
-                    campListBoxHtml += '</div></div></div>';
-                }
-                $('#campListBox').html(campListBoxHtml);
-                console.log("ajax반복끝")
-                makePageNum();
-            } catch (e) {
-                console.log(e);
-                alert("오류가 발생했습니다.");
-            }
-        },
-        error: function (xhr, status, error) {
-        }
-    });
-}
 function makePageNum() {
     $('#paging').html('');
     let pageBtn = '';
@@ -250,9 +174,32 @@ function previousPageIndex() {
     makePageNum();
     paging((현재페이지인덱스 - 1) * 한번에보여줄페이지단위 + 1);
 }
-function insertPageNum(i) {
-    현재페이지인덱스 = Math.ceil($('#inputPageNum').val() / 10);
-    makePageNum();
-    paging(i);
+
+function addLike(element){
+    if(element.innerHTML === '♡'){
+        $.ajax({
+            url: "/addLikes",
+            type:"post",
+            data:{contentId : element.id},
+            success:function (result){
+                swal(element.id,"목록에 추가되었습니다","success");
+                element.innerHTML = '♥';
+            }
+        })
+
+
+    } else {
+        $.ajax({
+            url: "/deleteLikes",
+            type:"post",
+            data:{contentId : element.id},
+            success:function (result){
+                element.innerHTML = '♡';
+                swal(element.id,"목록에서 제외되었습니다","success");
+            }
+        })
+
+    }
 }
+
 

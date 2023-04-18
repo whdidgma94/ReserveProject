@@ -51,9 +51,47 @@
         </table>
     </div>
 </div>
-<img src="https://gocamping.or.kr/upload/camp/17/thumb/thumb_720_24022VmFPmMGmFCKEl55nP58.jpg" onerror="this.onerror=null; this.src='/img/어서와영_사진없음.png';">
+<div class="row">
+    <div class="slider">
+        <div th:each="campImg : ${lctCls}">
+            <img th:src="${lctCls.fir}" class="campImg">
+        </div>
+    </div>
+</div>
+<!--<img src="https://gocamping.or.kr/upload/camp/17/thumb/thumb_720_24022VmFPmMGmFCKEl55nP58.jpg" onerror="this.onerror=null; this.src='/img/어서와영_사진없음.png';">-->
 <hr>
 <div th:replace="~{pc/fragments/footer :: footer}"/>
 </body>
+<script>
+    $(document).ready(function(){
+        $('.slider').slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+            nextArrow: '<button type="button" class="slick-next">Next</button>',
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 3
+                    }
+                },
+                {
+                    breakpoint: 520,
+                    settings: {
+                        slidesToShow: 2
+                    }
+                }
+            ]
+        });
 
+        $('.campImg').click(function(){
+            let src = $(this).attr('src');
+            $('.campMainImg').attr('src',src);
+        });
+
+    });
+</script>
 </html>

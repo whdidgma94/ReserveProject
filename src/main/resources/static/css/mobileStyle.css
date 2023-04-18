@@ -159,10 +159,9 @@ ul{
     height:150px;
 }
 .view .btn{
-    margin-top:40px;
-    width:30%;
-    text-align:center;
-    padding:0;
+    margin-top: 40px;
+    text-align: center;
+    padding: 0;
 }
 .swal-title{
     font-size:100px;
@@ -283,7 +282,7 @@ ul{
 .view .tempCampBox{
     border:2px solid black;
     padding: 30px;
-    margin: 40px;
+    margin: 0 40px 40px 40px;
     border-radius:20px;
     width: 80%;
 }

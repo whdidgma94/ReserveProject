@@ -29,51 +29,34 @@ public class CampController {
         campString(model);
         return "pc/index";
     }
+
     @GetMapping("/mobile/main")
     public String getCampMobile(Model model) {
         campString(model);
         return "mobile/index";
     }
+
     @GetMapping("/camp/campList")
     public String getCampList(Model model) {
         campString(model);
         return "pc/camp/campList";
     }
 
+    public List<Camp> searchByLctCls(String lctCl) {
+        List<Camp> temp = campService.findBylctCl(lctCl);
+        List<Camp> searchAllList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            searchAllList.add(i, temp.get(i));
+        }
+        return searchAllList;
+    }
+
     private void campString(Model model) {
-        String[] iconText = {"오토캠핑","카라반","글램핑","반려동물","호수","숲","일출","일몰"};
-        String[] iconTextId = {"car","carav","glamp","animalCmgCl","lct07","lct04","thema01","thema02"};
+        String[] iconText = {"오토캠핑", "카라반", "글램핑", "반려동물", "호수", "숲", "일출", "일몰"};
+        String[] iconTextId = {"car", "carav", "glamp", "animalCmgCl", "lct07", "lct04", "thema01", "thema02"};
         model.addAttribute("iconText", iconText);
         model.addAttribute("iconTextId", iconTextId);
-
-//        List<Camp> campList = new ArrayList<>();
-//        for (int i = 1; i <= 5; i++) {
-//            Camp camp = campService.selectOneById((long) i);
-//            System.out.println("i = " + i);
-//            if (camp != null) {
-//                campList.add(camp);
-//            }
-//        }
-//        model.addAttribute("campList", campList);
-//
-//        List<List<String>> sbrsClList = new ArrayList<>();
-//        List<List<String>> themaList = new ArrayList<>();
-//        for (int i = 0; i < campList.size(); i++) {
-//            String tempSbrsCl = campList.get(i).getSbrsCl();
-//            String[] sbrsCl = tempSbrsCl.split(",");
-//            sbrsClList.add(Arrays.asList(sbrsCl));
-//
-//            String[] thema = {"즐거운캠핑"};
-//            if (!campList.get(i).getThemaEnvrnCl().equals("")) {
-//                thema = campList.get(i).getThemaEnvrnCl().split(",");
-//            }
-//            themaList.add(Arrays.asList(thema));
-//
-//            System.out.println(Arrays.toString(thema));
-//            System.out.println(Arrays.toString(sbrsCl));
-//        }
-//        model.addAttribute("sbrsClList", sbrsClList);
-//        model.addAttribute("themaList", themaList);
+        model.addAttribute("lctCls", searchByLctCls("호수"));
     }
 
     @GetMapping("/pc/detailCamp")
@@ -86,6 +69,7 @@ public class CampController {
         model.addAttribute("campImageList", campImageList);
         return "pc/camp/campDetail";
     }
+
     @GetMapping("/mobile/detailCamp")
     public String getDetailsCampMobile(@RequestParam Long contentId, Model model) {
         Camp camp = campService.getCampById(contentId);
@@ -97,10 +81,11 @@ public class CampController {
         return "mobile/camp/campDetail";
     }
 
-    public List<Camp> searchByLctCl(String lctCl){
-        List<Camp>campList=campService.findBylctCl(lctCl);
+    public List<Camp> searchByLctCl(String lctCl) {
+        List<Camp> campList = campService.findBylctCl(lctCl);
         return campList;
     }
+
     @GetMapping("/camp/ranView")
     public ResponseEntity<Object> showListByLctCl(@RequestParam(value = "lctCl", required = false) String lctCl) {
         List<Camp> campList = searchByLctCl(lctCl);
@@ -113,7 +98,6 @@ public class CampController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
 
 }

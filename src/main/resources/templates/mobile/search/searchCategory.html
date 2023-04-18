@@ -3,7 +3,28 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <head th:replace="~{mobile/fragments/header :: header}"/>
 <script th:src="@{/js/categorySearchMobile.js}"></script>
-
+<style>
+    .campListCount{
+        text-align: center;
+    }
+    .campLikeBox{
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        align-items: end;
+        justify-content: space-between;
+        width: 88%;
+        height: 130px;
+    }
+    .memberLikeBtn{
+        height: 105px;
+        width: 10%;
+        border: red 0px solid;
+        color: red;
+        font-size: 80px;
+        font-weight: bold;
+    }
+</style>
 <body>
 <div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"/>
 <div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"/>
@@ -106,25 +127,7 @@
         <hr>
     </div>
     <div class="campListCount" id="campListCount"></div>
-<!--         th:text="'총 ' + ${listCount} + ' 개의 캠핑장이 검색되었습니다.'"></div>-->
     <div class="campListBox" id="campListBox">
-<!--        <div th:each="camp, idx : ${campList}">-->
-<!--            <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">-->
-<!--                <div class="campBoxTop">-->
-<!--                    <div class="campBoxLeft">-->
-<!--                        <img th:src="${camp.firstImageUrl}"/>-->
-<!--                    </div>-->
-<!--                    <div class="campBoxRight">-->
-<!--                        <div class="campText">-->
-<!--                            [ <span th:text="${camp.doNm}"></span>-->
-<!--                            <span th:text="${camp.sigunguNm}"></span> ]-->
-<!--                        </div>-->
-<!--                        <div class="campText" th:text="${camp.facltNm}"></div>-->
-<!--                        <div class="campText" th:text="${camp.lineIntro}"></div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
     <div class="pageBox">
         <div id="paging"></div>

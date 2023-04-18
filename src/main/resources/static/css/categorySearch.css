@@ -86,6 +86,11 @@ label {
     justify-content: space-between;
     width: 100%;
     align-items: center;
+    height: 40px;
+}
+.memberLikeBtn{
+    padding: 0px;
+    margin-right: 20px;
 }
 
 .campText {
