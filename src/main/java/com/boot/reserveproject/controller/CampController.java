@@ -45,7 +45,16 @@ public class CampController {
     public List<Camp> searchByLctCls(String lctCl) {
         List<Camp> temp = campService.findBylctCl(lctCl);
         List<Camp> searchAllList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 18 && i < temp.size(); i++) {
+            searchAllList.add(i, temp.get(i));
+        }
+        return searchAllList;
+    }
+
+    public List<Camp> searchByThema(String thema) {
+        List<Camp> temp = campService.findByThema(thema);
+        List<Camp> searchAllList = new ArrayList<>();
+        for (int i = 0; i < 18 && i < temp.size(); i++) {
             searchAllList.add(i, temp.get(i));
         }
         return searchAllList;
@@ -56,7 +65,9 @@ public class CampController {
         String[] iconTextId = {"car", "carav", "glamp", "animalCmgCl", "lct07", "lct04", "thema01", "thema02"};
         model.addAttribute("iconText", iconText);
         model.addAttribute("iconTextId", iconTextId);
-        model.addAttribute("lctCls", searchByLctCls("호수"));
+        model.addAttribute("lctCls", searchByLctCls("해변"));
+        model.addAttribute("themas", searchByThema("낚시"));
+
     }
 
     @GetMapping("/pc/detailCamp")
@@ -86,9 +97,22 @@ public class CampController {
         return campList;
     }
 
-    @GetMapping("/camp/ranView")
+    @GetMapping("/camp/cltList")
     public ResponseEntity<Object> showListByLctCl(@RequestParam(value = "lctCl", required = false) String lctCl) {
-        List<Camp> campList = searchByLctCl(lctCl);
+        List<Camp> campList = searchByLctCls(lctCl);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String jsonString = mapper.writeValueAsString(campList);
+            return new ResponseEntity<>(jsonString, HttpStatus.OK);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/camp/themaList")
+    public ResponseEntity<Object> showListByThema(@RequestParam(value = "thema", required = false) String thema) {
+        List<Camp> campList = searchByThema(thema);
         ObjectMapper mapper = new ObjectMapper();
         try {
             String jsonString = mapper.writeValueAsString(campList);

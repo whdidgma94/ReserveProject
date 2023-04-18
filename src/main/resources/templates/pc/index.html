@@ -6,10 +6,45 @@
     <link href="/css/pcIndexStyle.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<style>
+    .RanView{
+        background-color: #f2cfa0;
+        border-radius: 20px;
+        height: 250px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        --bs-gutter-x: 1rem;
+    }
+    .EanViewTitle{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .imgSlide:hover {
+        border: 4px solid #e49f41;
+        cursor: pointer;
+    }
+    .ranBtn{
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center ;
+        padding-top: 5px;
+    }
+
+</style>
 <script>
     function categoryPage(id) {
         console.log(id)
         location.href = "/pc/search/category?Id=" + id;
+    }
+    function details(contentId) {
+        location.href = "/pc/detailCamp?contentId=" + contentId;
     }
 </script>
 <div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
@@ -51,47 +86,196 @@
         </table>
     </div>
 </div>
-<div class="row">
-    <div class="slider">
-        <div th:each="campImg : ${lctCls}">
-            <img th:src="${lctCls.fir}" class="campImg">
+<div class="row RanView">
+    <div class="EanViewTitle">
+        <button id="lctClLeftBtn" class="ranBtn">◀</button>
+        <div style="height: 30px;">
+            <span id="lctClName">해변</span>
+        </div>
+        <button id="lctClRightBtn" class="ranBtn">▶</button>
+    </div>
+    <div class="slider" style="height: 200px; display: flex; align-items: center; justify-content: center">
+        <div style="width: 10%; text-align: center">아름다운<br>환경을<br>골라보세요</div>
+        <div class="slides" style="width: 90%; display: flex; align-items: center; justify-content: center"
+             th:each="campImg, campIdx : ${lctCls}" th:if="${campIdx.index % 3 == 0}">
+            <div class="slide-group" style="display: flex; align-items: center; justify-content: center">
+                <div style="width: 30%; height: 140px; margin-right: 10px"
+                     th:onclick="|details(${campImg.contentId})|">
+                    <img class="imgSlide"
+                         style="width: 100%; height: 100%"
+                         th:src="${campImg.firstImageUrl}" onerror="this.src='../../img/어서와양_사진없음.png'"/>
+                    <div th:text="${campImg.facltNm}"
+                         style="width: 100%; font-size: 1rem; text-align: center"></div>
+                </div>
+                <div style="width: 30%; height: 140px; margin-right: 10px"
+                     th:onclick="|details(${campImg.contentId})|">
+                    <img class="imgSlide"
+                         style="width: 100%; height: 100%"
+                         th:if="${campIdx.index + 1 < lctCls.size()}"
+                         th:src="${lctCls[campIdx.index + 1].firstImageUrl}" onerror="this.src='../../img/어서와양_사진없음.png'"/>
+                    <div th:text="${lctCls[campIdx.index + 1].facltNm}"
+                         style="width: 100%; font-size: 1rem; text-align: center"></div>
+                </div>
+                <div style="width: 30%; height: 140px; margin-right: 10px;"
+                     th:onclick="|details(${campImg.contentId})|">
+                    <img class="imgSlide"
+                         style="width: 100%; height: 100%"
+                         th:if="${campIdx.index + 2 < lctCls.size()}"
+                         th:src="${lctCls[campIdx.index + 2].firstImageUrl}" onerror="this.src='../../img/어서와양_사진없음.png'"/>
+                    <div th:text="${lctCls[campIdx.index + 2].facltNm}"
+                         style="width: 100%; font-size: 1rem; text-align: center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row RanView">
+    <div class="EanViewTitle">
+        <button id="themaLeftBtn" class="ranBtn">◀</button>
+        <div style="height: 30px;">
+            <span id="themaName">낚시</span>
+        </div>
+        <button id="themaRightBtn" class="ranBtn">▶</button>
+    </div>
+    <div class="slider" style="height: 200px; display: flex; align-items: center; justify-content: center">
+        <div style="width: 10%; text-align: center">즐거운<br>테마별<br>여행지</div>
+        <div class="slides2" style="width: 90%; display: flex; align-items: center; justify-content: center"
+             th:each="campImg, campIdx : ${themas}" th:if="${campIdx.index % 3 == 0}">
+            <div class="slide-group" style="display: flex; align-items: center; justify-content: center">
+                <div style="width: 30%; height: 140px; margin-right: 10px"
+                     th:onclick="|details(${campImg.contentId})|">
+                    <img class="imgSlide"
+                         style="width: 100%; height: 100%"
+                         th:src="${campImg.firstImageUrl}" onerror="this.src='../../img/어서와양_사진없음.png'"/>
+                    <div th:text="${campImg.facltNm}"
+                         style="width: 100%; font-size: 1rem; text-align: center"></div>
+                </div>
+                <div style="width: 30%; height: 140px; margin-right: 10px"
+                     th:onclick="|details(${campImg.contentId})|">
+                    <img class="imgSlide"
+                         style="width: 100%; height: 100%"
+                         th:if="${campIdx.index + 1 < lctCls.size()}"
+                         th:src="${themas[campIdx.index + 1].firstImageUrl}" onerror="this.src='../../img/어서와양_사진없음.png'"/>
+                    <div th:text="${themas[campIdx.index + 1].facltNm}"
+                         style="width: 100%; font-size: 1rem; text-align: center"></div>
+                </div>
+                <div style="width: 30%; height: 140px; margin-right: 10px;"
+                     th:onclick="|details(${campImg.contentId})|">
+                    <img class="imgSlide"
+                         style="width: 100%; height: 100%"
+                         th:if="${campIdx.index + 2 < lctCls.size()}"
+                         th:src="${themas[campIdx.index + 2].firstImageUrl}" onerror="this.src='../../img/어서와양_사진없음.png'"/>
+                    <div th:text="${themas[campIdx.index + 2].facltNm}"
+                         style="width: 100%; font-size: 1rem; text-align: center"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 <!--<img src="https://gocamping.or.kr/upload/camp/17/thumb/thumb_720_24022VmFPmMGmFCKEl55nP58.jpg" onerror="this.onerror=null; this.src='/img/어서와영_사진없음.png';">-->
 <hr>
 <div th:replace="~{pc/fragments/footer :: footer}"/>
-</body>
+
 <script>
-    $(document).ready(function(){
-        $('.slider').slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 2000,
-            prevArrow: '<button type="button" class="slick-prev">Previous</button>',
-            nextArrow: '<button type="button" class="slick-next">Next</button>',
-            responsive: [
-                {
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 3
-                    }
-                },
-                {
-                    breakpoint: 520,
-                    settings: {
-                        slidesToShow: 2
-                    }
-                }
-            ]
-        });
-
-        $('.campImg').click(function(){
-            let src = $(this).attr('src');
-            $('.campMainImg').attr('src',src);
-        });
-
+    let lctClList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];
+    let themaList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];
+    let index = 0;
+    document.querySelector("#lctClLeftBtn").addEventListener("click", () => {
+        handleButtonClick(-1);
     });
+    document.querySelector("#lctClRightBtn").addEventListener("click", () => {
+        handleButtonClick(1);
+    });
+    function handleButtonClick(n) {
+        showSlides2((index += n));
+    }
+    function showSlides2() {
+        if (index < 0) {
+            index = lctClList.length - 1;
+        } else if (index >= lctClList.length) {
+            index = 0;
+        }
+        document.querySelector("#lctClName").innerHTML = lctClList[index];
+        // changeView(cltList[index]);
+    }
+
+    function changeView(lct) {
+        $.ajax({
+            type: "GET",
+            url: "/camp/cltList",
+            data: {
+                lctCl: lct
+            },
+            success: function (result) {
+                try {
+                    let campList = $.parseJSON(result);
+                    if (campList == null || campList.length == 0) {
+                        alert("검색결과가 존재하지 않습니다.");
+                        return;
+                    }
+                    let LctClHtml = "";
+
+                        LctClHtml += '<div></div>'
+                    $('#slider').html(LctClHtml);
+                } catch (e) {
+                    console.log(e);
+                    alert("오류가 발생했습니다.");
+                }
+            },
+            error: function () {
+                console.log("Error occurred during data fetching.");
+                alert("데이터를 불러오는 중 오류가 발생했습니다.");
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*자동 뷰 부분   아 모르겟다 내일의 내가 알아서 하겠지~*/
+    let slideIndex = 0;
+    showSlides();
+    function showSlides() {
+        let i;
+        const slides = document.getElementsByClassName("slides");
+        const slides2 = document.getElementsByClassName("slides2");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+            slides2[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+        slides[slideIndex - 1].style.display = "block";
+        slides2[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 2500);
+    }
+    function plusSlides(n) {
+        showSlides((slideIndex += n));
+    }
+    document.querySelector(".prev").addEventListener("click", () => {
+        plusSlides(-1);
+    });
+    document.querySelector(".next").addEventListener("click", () => {
+        plusSlides(1);
+    });
+
+
 </script>
+</body>
 </html>

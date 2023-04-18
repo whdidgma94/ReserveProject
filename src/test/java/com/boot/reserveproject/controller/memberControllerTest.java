@@ -8,10 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class memberControllerTest {
     MemberService memberService;
-    @Test
-    void 테스트(){
-        Member m = memberService.selectMemberById("123124");
-        System.out.println( m.getCampLikes().getClass());
 
-    }
+
 }
