@@ -95,14 +95,17 @@ public class MemberController {
     @PostMapping("/pc/member/update")
     public String updateMemberPc(@Valid MemberUpdateForm form, HttpSession session, BindingResult result) {
         String loginId = (String) session.getAttribute("log");
+        System.out.println("loginId = " + loginId);
         Member member = memberService.selectMemberById(loginId);
         member.setPw(form.getPw());
+        System.out.println("pw = " + form.getPw());
         member.setEmail(form.getEmailId() + "@" + form.getEmailDomain());
         member.setPostcode(form.getPostcode());
         member.setRoadAddress(form.getRoadAddress());
         member.setJibunAddress(form.getJibunAddress());
         member.setDetailAddress(form.getDetailAddress());
         member.setPhone(form.getPhone());
+        System.out.println("phone = " + form.getPhone());
         memberService.updateMember(member);
         return "redirect:/pc/main";
     }

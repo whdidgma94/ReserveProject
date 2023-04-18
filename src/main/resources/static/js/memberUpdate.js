@@ -1,16 +1,13 @@
 let chkAuth = true;
-const phoneInput = document.getElementById("phone");
-document.addEventListener("DOMContentLoaded", function() {
-    const inputs = document.querySelectorAll("input:not(#pwChk)");
-
-    inputs.forEach((input) => {
-        input.setAttribute("th:field", "*{input.id}");
+document.addEventListener("DOMContentLoaded", function () {
+    $("#phoneBtn").prop('disabled', true);
+    const phoneInput = document.getElementById("phone");
+    phoneInput.addEventListener('input', () => {
+        $("#phoneBtn").prop('disabled', false);
+        chkAuth = false;
     });
 });
 
-phoneInput.addEventListener("input", () => {
-    chkAuth = false;
-});
 function checkPassword() {
     if ($("#pw").val() === $("#pwChk").val()) {
         $("#pwCheckMsg").text('');
@@ -22,7 +19,6 @@ function checkPassword() {
 }
 
 function update() {
-
     if (chkAuth === false) {
         swal('인증 번호 확인', '인증 번호 확인을 진행해주세요.', 'error');
         return;
@@ -35,6 +31,14 @@ function update() {
         return;
     }
     const updateBtn = document.querySelector("#updateBtn");
+    $("#pw1").val($("#pw").val());
+    $("#postcode1").val($("#postcode").val());
+    $("#jibunAddress1").val($("#jibunAddress").val());
+    $("#roadAddress1").val($("#roadAddress").val());
+    $("#detailAddress1").val($("#detailAddress").val());
+    $("#emailId1").val($("#emailId").val());
+    $("#emailDomain1").val($("#emailDomain").val());
+    $("#phone1").val($("#phone").val().replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
     updateBtn.disabled = true;
     swal('회원정보 수정이 완료되었습니다', '', 'success').then(function () {
         $("#updateForm").submit();
@@ -144,7 +148,6 @@ function sendPhone() {
                 }
 
 
-                $("#phone2").val($("#phone").val().replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
             },
             error: function (request, status, error) {
                 console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
