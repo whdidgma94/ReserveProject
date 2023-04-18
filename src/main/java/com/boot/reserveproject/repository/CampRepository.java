@@ -3,6 +3,7 @@ package com.boot.reserveproject.repository;
 import com.boot.reserveproject.domain.Camp;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
@@ -72,4 +73,7 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
     @Query("SELECT c FROM Camp c WHERE c.siteBottom IN (:bottoms)")
     List<Camp> selectListByBottoms(@Param("bottoms") List<String> bottoms);
 
+    @Modifying
+    @Query("update Camp c set c.recommendCnt = :recommendCnt where c.contentId = :contentId")
+    void updateRecommendCnt(@Param("recommendCnt") int recommendCnt, @Param("contentId") Long contentId);
 }

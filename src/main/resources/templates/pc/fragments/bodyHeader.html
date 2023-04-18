@@ -65,6 +65,10 @@
                 <i class="fa-solid fa-user"></i>
                 마이페이지
             </a>
+            <ul class="sub-menu" style="display: none;">
+                <li><a href="/pc/member/myPage">내 정보</a></li>
+                <li><a href="#">찜 목록</a></li>
+            </ul>
         </li>
         <li class="nav-item">
             <a class="nav-link-custom" th:href="${session.log == null} ? '/pc/member/login' : '/pc/member/logout'">
