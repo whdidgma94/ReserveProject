@@ -194,16 +194,9 @@ public class MemberController {
     @ResponseBody
     public String addLikes(@RequestParam("contentId") Long contentId, HttpSession session) {
         Camp camp = campService.getCampById(contentId);
-        Member member = memberService.selectMemberById((String) session.getAttribute("log"));
-        List<Camp> campLikes;
-        if (member.getCampLikes() == null) {
-            campLikes = new ArrayList<>();
-        } else {
-            campLikes = member.getCampLikes();
-        }
-
-        campLikes.add(camp);
-        memberService.updateMemberLikes(campLikes, member.getId());
+        String loginId = (String) session.getAttribute("log");
+        Member member = memberService.selectMemberById(loginId);
+        memberService.addMemberLikes(camp, member);
         return "true";
     }
 
@@ -211,10 +204,9 @@ public class MemberController {
     @ResponseBody
     public String deleteLikes(@RequestParam("contentId") Long contentId, HttpSession session) {
         Camp camp = campService.getCampById(contentId);
-        Member member = memberService.selectMemberById((String) session.getAttribute("log"));
-        List<Camp> campLikes = member.getCampLikes();
-        campLikes.remove(camp);
-        memberService.updateMemberLikes(campLikes, member.getId());
+        String loginId = (String) session.getAttribute("log");
+        Member member = memberService.selectMemberById(loginId);
+        memberService.deleteMemberLikes(camp, member);
         return "true";
     }
 }

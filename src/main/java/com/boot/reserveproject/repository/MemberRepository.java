@@ -2,6 +2,7 @@ package com.boot.reserveproject.repository;
 
 import com.boot.reserveproject.domain.Camp;
 import com.boot.reserveproject.domain.Member;
+import com.boot.reserveproject.domain.MemberLikes;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -38,7 +39,4 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("update Member m set m.pw = :code where m.email = :email")
     void updateTempByEmail(@Param("code") String code, @Param("email") String email);
 
-    @Modifying
-    @Query("update Member m set m.campLikes = :campLikes where m.id=:id")
-    void updateMemberLikes(@Param("campLikes") List<Camp> campLikes, @Param("id") Long id);
 }
