@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +29,16 @@ public class CampService {
         List<Camp> campList = campRepository.findCampWithinBounds(southWestLat,southWestLng,northEastLat,northEastLng);
         return campList;
 
+    }
+@Transactional
+    public void updateRecommendCnt(Camp camp, String type){
+        int cnt = camp.getRecommendCnt();
+        if(type.equals("like")){
+            cnt++;
+        }else if(type.equals("delete")){
+            cnt--;
+        }
+        campRepository.updateRecommendCnt(cnt, camp.getContentId());
     }
 
 //    public List<Camp> getCampListByName(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword){

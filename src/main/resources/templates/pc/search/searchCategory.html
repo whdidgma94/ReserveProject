@@ -117,4 +117,7 @@
     <div th:replace="~{pc/fragments/footer :: footer}"/>
 </div>
 </body>
+<script th:inline="javascript">
+    let log = [[${session.log}]];
+</script>
 </html>
