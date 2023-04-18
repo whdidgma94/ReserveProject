@@ -18,8 +18,10 @@ function updateBoardMobile(boardNo){
     var no=boardNo;
     location.href="/../mobile/board/updateBoard?no="+no;
 }
-function deleteComment(commentNo,boardNo){
-    var no = commentNo;
+function deleteComment(){
+
+
+    alert(no);
     $.ajax({
         url: '/pc/comments/deleteComment',
         type: 'POST',
