@@ -33,6 +33,11 @@ public class AdminController {
     private final QnAService qnAService;
     private final MemberService memberService;
     private final CampService campService;
+
+    @GetMapping("/admin/main")
+    public String adminPage(Model model) {
+        return "admin/index";
+    }
     @GetMapping("/admin/memberList")
     public String getMembers(Model model) {
         model.addAttribute("memberList", adminService.allMembers());
