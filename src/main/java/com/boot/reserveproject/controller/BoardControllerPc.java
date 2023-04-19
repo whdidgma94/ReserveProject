@@ -42,17 +42,17 @@ public class BoardControllerPc {
     }
     @GetMapping("/pc/board/addBoard")
     private String addBoard(Model model){
-    Long length= boardService.getBoardLength();
+        Long length= boardService.getBoardLength();
         System.out.println("length:"+length);
-    if(length==0){
-        model.addAttribute("no",1);
-    }
-    else{
-        Optional<Board> board= boardService.getLastBoard();
-        Long no=board.get().getNo();
-        no++;
-        model.addAttribute("no",no);
-    }
+        if(length==0){
+            model.addAttribute("no",1);
+        }
+        else{
+            Optional<Board> board= boardService.getLastBoard();
+            Long no=board.get().getNo();
+            no++;
+            model.addAttribute("no",no);
+        }
         return"pc/board/addBoard";
     }
 
@@ -65,6 +65,7 @@ public class BoardControllerPc {
                                @RequestParam("content") String content,
                                @RequestParam("img") String img,
                                Model model){
+
         Board board=new Board();
         Member member= new Member();
 
@@ -161,9 +162,11 @@ public class BoardControllerPc {
         // 업로드된 파일 이름 반환
         return new ResponseEntity<>(filename, HttpStatus.OK);
     }
-    public String getUploadDir() {
-        Path currentPath = Paths.get(System.getProperty("user.dir"));
-        Path uploadPath = currentPath.resolveSibling("src").resolve("main").resolve("resources").resolve("static").resolve("img");
-        return uploadPath.toString();
-    }
+
+//    public String getUploadDir() {
+//        Path currentPath = Paths.get(System.getProperty("user.dir"));
+//        Path uploadPath = currentPath.resolveSibling("src").resolve("main").resolve("resources").resolve("static").resolve("img");
+//        return uploadPath.toString();
+//    }
+
 }

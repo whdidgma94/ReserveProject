@@ -24,3 +24,12 @@ $(document).ready(function () {
         });
     });
 });
+
+function validateFormBoard() {
+    var title = document.forms[0]["title"].value;
+    var content = document.forms[0]["content"].value;
+    if (title == "" || content == "") {
+        alert("제목과 내용은 필수 입력사항입니다.");
+        return false;
+    }
+}

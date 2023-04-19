@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{pc/fragments/header :: header}"/>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-<script th:src="@{/js/showContent.js}"></script>
+
+<script th:src="@{/js/checkBoard.js}"></script>
 
 <body>
 <div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
@@ -10,28 +11,28 @@
 
 <div class="view">
 
-  <input type="hidden" id="boardNo" th:value="${board.get().no}" />
-  <form th:action="@{/pc/board/updateBoardPro}" method="post" >
+  <input type="hidden" id="boardNo" th:value="${board.no}" />
+  <form th:action="@{/pc/board/updateBoardPro}" method="post" onsubmit="return validateFormBoard()">
     <input type="hidden" name="img" value=null>
   <table class="table table-bordered">
     <tbody>
     <tr>
       <td>제목</td>
       <td><label>
-        <input type="text" name="title" th:value="${board.get().title}" >
+        <input type="text" name="title" id="title" th:value="${board.title}" >
       </label></td>
     </tr>
     <tr>
       <td>내용</td>
       <td>
-        <textarea name="content"  th:text="${board.get().content}" style="resize: none; width: 100%; min-height: 400px;"></textarea>
+        <textarea name="content"  id="content" th:text="${board.content}" style="resize: none; width: 100%; min-height: 400px;"></textarea>
       </td>
     </tr>
     </tbody>
   </table>
     <input type="submit" value="수정하기">
-      <input type="hidden" name="id" th:value="${board.get().id}">
-      <input type="hidden" name="no" th:value="${board.get().no}">
+      <input type="hidden" name="id" th:value="${board.id}">
+      <input type="hidden" name="no" th:value="${board.no}">
   </form>
 
 
