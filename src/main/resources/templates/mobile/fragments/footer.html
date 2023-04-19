@@ -22,7 +22,12 @@
                 </div>
             </li>
             <li>
-                <div onclick="location.href='#'">
+
+                <div th:if="${session.log != null}" onclick="location.href='/memberLikesList?type=mobile'">
+                    <div class="icon"><i class="fa-solid fa-heart" style="color:red"></i></div>
+                    <div class="footer-label">찜</div>
+                </div>
+                <div th:if="${session.log == null}" onclick="location.href='/mobile/member/login'">
                     <div class="icon"><i class="fa-solid fa-heart" style="color:red"></i></div>
                     <div class="footer-label">찜</div>
                 </div>
