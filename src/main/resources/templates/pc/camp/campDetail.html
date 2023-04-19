@@ -162,11 +162,9 @@
     let longitude =0;
     let myKey='4cafcd3f6ac34355b1f99ce7d42f1068';
     function createMap(){
-        navigator.geolocation.getCurrentPosition(function(pos) {
-            latitude= [[${camp.mapY}]];
-            longitude= [[${camp.mapX}]];
-            getMap();
-        });
+        latitude= [[${camp.mapY}]];
+        longitude= [[${camp.mapX}]];
+        getMap();
     }
     function getMap() {
         let myLocation=new naver.maps.LatLng(latitude,longitude),
