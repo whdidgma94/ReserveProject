@@ -360,8 +360,13 @@ function previousPageIndex() {
 }
 
 function insertPageNum(i) {
+    if(i<1){
+        alert("1이상만 입력가능");return;
+    }
     현재페이지인덱스 = Math.ceil($('#inputPageNum').val() / 10);
-    makePageNum();
+    if(i<총리스트의길이/한페이지에보여줄게시글수) {
+        makePageNum();
+    }
     paging(i);
 }
 
