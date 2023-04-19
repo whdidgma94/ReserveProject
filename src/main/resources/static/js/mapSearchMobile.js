@@ -10,17 +10,9 @@ let infoWindows;//정보창들이 속한 배열(검색시 생성);
 
 
 window.onload = function(){
-
-    navigator.geolocation.getCurrentPosition(function(pos) {
-        // //현재위치: 위도 경도 (살짝 오차 있음)
-        latitude = pos.coords.latitude;
-        longitude = pos.coords.longitude;
-        getMap(latitude,longitude);
-    });
-
-//정확한 학원 위치
-//     latitude=37.499806;
-//     longitude=127.028312;
+    latitude = 37.499806;
+    longitude = 127.028312;
+    getMap(latitude,longitude);
 }
 
 
@@ -97,13 +89,7 @@ $(document).ready(function() {
     });
 });
 
-
-
-
-
 function initMap(campList) {
-
-
 
     areaArr = new Array();  // 지역을 담는 배열 ( 지역명/위도경도 )
     for (let i = 0; i < campList.length; i++) {
@@ -148,11 +134,6 @@ function initMap(campList) {
                 anchor: new naver.maps.Point(25, 26)
             }
         });
-        // marker = new naver.maps.Marker({
-        //     map: map,
-        //     title: areaArr[i].name, // 지역구 이름
-        //     position: new naver.maps.LatLng(areaArr[i].lat , areaArr[i].lng) // 지역구의 위도 경도 넣기
-        // });
 
         /* 정보창 */
         infoWindow = new naver.maps.InfoWindow({
@@ -186,7 +167,6 @@ function initMap(campList) {
             }
         }
     }
-
 
 }
 
