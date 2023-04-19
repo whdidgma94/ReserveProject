@@ -145,11 +145,10 @@ function search() {
                         like:likeList[i]
                     });
                 }
-
                 let campListHtml = '<div class="row">';
                 for (let i = 0; i < areaArr.length; i++) {
                     campListHtml += '<div class="campLikeBox"><div></div>'
-                    if(areaArr.like ==="true"){
+                    if(areaArr[i].like ==="true"){
                     campListHtml += '<div><label for="memberLike" id="'+areaArr[i].id+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♥</label></div></div>'
                     }else{
                     campListHtml += '<div><label for="memberLike" id="'+areaArr[i].id+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>'
@@ -263,7 +262,7 @@ function paging(i) {
                 let campListHtml = '<div class="row">';
                 for (let i = 0; i < areaArr.length; i++) {
                     campListHtml += '<div class="campLikeBox"><div></div>'
-                    if(areaArr.like==="true"){
+                    if(areaArr[i].like==="true"){
                         campListHtml += '<div><label for="memberLike" id="'+areaArr[i].id+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♥</label></div></div>'
                     }else{
                         campListHtml += '<div><label for="memberLike" id="'+areaArr[i].id+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>'
