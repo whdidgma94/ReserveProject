@@ -16,7 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .passwordEncoder(new BCryptPasswordEncoder())
                 .withUser("admin")
-                .password(new BCryptPasswordEncoder().encode("admin123"))
+                .password(new BCryptPasswordEncoder().encode("yyyy302gh"))
                 .roles("ADMIN");
     }
 
@@ -29,7 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .and()
-                .logout().permitAll();
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/pc/main").invalidateHttpSession(true);
     }
+
+
 
 }

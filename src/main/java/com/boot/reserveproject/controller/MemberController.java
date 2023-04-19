@@ -17,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.*;
@@ -198,10 +200,13 @@ public class MemberController {
     }
 
     @GetMapping("/pc/member/logout")
-    private String logoutPc(HttpSession session) {
+    public String logout(HttpServletRequest request, HttpSession session) throws ServletException {
         session.removeAttribute("log");
+        request.logout();
+
         return "redirect:/pc/main";
     }
+
 
     @GetMapping("/mobile/member/logout")
     private String logoutMobile(HttpSession session) {
