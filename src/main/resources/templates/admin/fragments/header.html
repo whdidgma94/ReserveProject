@@ -12,3 +12,13 @@
   <script src="/admin/js/sidebar.js"></script>
   <title>AdminPage</title>
 </head>
+<script th:inline="javascript">
+  let log = "${session.log}";
+  $(document).ready(function() {
+    console.log(log);
+    console.log("123");
+    if(log !== 'admin'){
+      location.href='/pc/main'
+    }
+  });
+</script>
