@@ -139,34 +139,6 @@ public class BoardControllerPc {
         return "pc/board/showContent";
     }
 
-    @PostMapping("pc/board/postImg")
-    @ResponseBody
-    public ResponseEntity<String> uploadImg(@RequestParam("file") MultipartFile file) {
-        // 파일 업로드 경로 설정
-        String projectDir = new File("").getAbsolutePath(); // 프로젝트 디렉토리 경로를 가져옴
-        String uploadDir = Paths.get(projectDir, "src", "main", "resources", "static", "img").toString(); // 업로드 경로를 설정함
 
-        System.out.println(uploadDir);
-        // 파일이름 중복 방지를 위한 유니크한 이름 생성
-        String filename = UUID.randomUUID().toString() + "." + file.getOriginalFilename().split("\\.")[1];
-
-        // 파일 저장
-        Path filePath = Paths.get(uploadDir, filename);
-        try {
-            Files.write(filePath, file.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("Upload Failed", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        // 업로드된 파일 이름 반환
-        return new ResponseEntity<>(filename, HttpStatus.OK);
-    }
-
-//    public String getUploadDir() {
-//        Path currentPath = Paths.get(System.getProperty("user.dir"));
-//        Path uploadPath = currentPath.resolveSibling("src").resolve("main").resolve("resources").resolve("static").resolve("img");
-//        return uploadPath.toString();
-//    }
 
 }

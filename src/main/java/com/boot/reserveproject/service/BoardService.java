@@ -29,9 +29,7 @@ public class BoardService {
 
         return board;
     }
-    public void insertBoard(String id, long no, String title, String content,String img ){
-        boardRepository.insertBoard(id,no,title,content,img);
-    }
+
     public void createOrUpdateBoard(Board board){
         boardRepository.save(board);
     }
