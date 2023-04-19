@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
@@ -38,12 +39,28 @@ public class SearchController {
         double southWestLng = boundsObjJson.getJSONObject("southWest").getDouble("x");
         double northEastLat = boundsObjJson.getJSONObject("northEast").getDouble("y");
         double northEastLng = boundsObjJson.getJSONObject("northEast").getDouble("x");
-
+//        double[]arr={southWestLat,southWestLng,northEastLng,northEastLat};
+//
+//        if (keyword == null|| type == null) {
+//
+//            return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, "/search/searchMap").build();
+//        }
 
         List<Camp> campList = new ArrayList<>();
         try {
             campList=searchWithBounds(southWestLat,southWestLng,northEastLat,northEastLng);
-
+//            campList=searchWithBounds(southWestLat,southWestLng,northEastLat,northEastLng);
+//            if (type.equals("name")) {
+//                campList = searchByName(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+//
+//
+//
+//
+//            } else if (type.equals("theme")) {
+//                campList = searchByTheme(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+//            } else if (type.equals("location")) {
+//                campList = searchByAddress(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
+//            }
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(campList);
             return new ResponseEntity<>(jsonString, HttpStatus.OK);
@@ -62,14 +79,41 @@ public class SearchController {
         campString(model);
         return "mobile/search/searchLocation";
     }
-
+//    @RequestMapping(value = "/search/addressSearch", method = RequestMethod.GET)
+//    @ResponseBody
+//    public String searchAddress(@RequestParam(value="sido") String sido, @RequestParam(value="sigoon") String sigoon) {
+//        System.out.println("sido:  "+sido);
+//        System.out.println("sigoon:   "+sigoon);
+//        String result = "abc";
+//        return result.toString();
+//    }
+//@GetMapping("/search/addressSearch")
+//public ResponseEntity<Object> showListByAddress(@RequestParam(value = "sido", required = false) String sido, @RequestParam(value="sigoon", required=false) String sigoon) {
+//    if(sido.equals("전체")){
+//        sido="";
+//    }
+//    if(sigoon.equals("전체")){
+//        sigoon="";
+//    }
+//        System.out.println("sido: "+sido+" sigoon:  "+sigoon);
+//    List<Camp> campList = searchByLocation(sido,sigoon);
+//    System.out.println("지역검색 캠프리스트 길이: "+campList.size());
+//    ObjectMapper mapper = new ObjectMapper();
+//    try {
+//        String jsonString = mapper.writeValueAsString(campList);
+//        return new ResponseEntity<>(jsonString, HttpStatus.OK);
+//    } catch (JsonProcessingException e) {
+//        e.printStackTrace();
+//        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
+//}
     @GetMapping("search/addressSearchTest")
     public ResponseEntity<Object> showListByAddressTest(
             Model model,
             @RequestParam(value="pageNum",required=false) int pageNum,
             @RequestParam(value = "sido", required = false) String sido,
             @RequestParam(value="sigoon", required=false) String sigoon,
-            @RequestParam(value="pageRequest", required = false) int pageRequest) {
+            @RequestParam(value="pageRequest", required = false) int pageRequest, HttpSession session) {
         if(sido.equals("전체")){
             sido="";
         }
@@ -77,6 +121,7 @@ public class SearchController {
             sigoon="";
         }
         System.out.println("sido: "+sido+" sigoon:  "+sigoon);
+        String log = (String) session.getAttribute("log");
         Long length=countListByLocation(sido,sigoon);
         List<Camp> campList = searchByLocationTest(model,sido,sigoon,pageNum,pageRequest);
         List<Long> memberLikesList = memberLikesRepository.selectMemberListByLoginId(log);
@@ -121,14 +166,41 @@ public class SearchController {
 
     }
 
-
+//    @GetMapping("/search/category")
+//    public String showCategoryList() {
+//
+//        return "pc/search/searchCategory";
+//    }
 public List<Camp> searchWithBounds(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng){
     List<Camp> campList= campService.getCampListByBounds(southWestLat,southWestLng,northEastLat,northEastLng);
 
     return campList;
 }
 
+//    public List<Camp> searchByName(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
+//        List<Camp> campList = campService.getCampListByName(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
+//
+//        return campList;
+//    }
 
+
+//    public List<Camp> searchByTheme(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
+//        List<Camp> campList = campService.getCampListByTheme(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
+//
+//        return campList;
+//    }
+//
+//    public List<Camp> searchByAddress(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
+//        List<Camp> campList = campService.getCampListByAddress(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
+//
+//        return campList;
+//
+//    }
+//
+//    public List<Camp> searchByLocation(String sido, String sigoon) {
+//        List<Camp> campList = campService.selectListByLocation(sido, sigoon);
+//        return campList;
+//    }
     public List<Camp> searchByLocationTest(Model model,String sido,String sigoon,int pageNum,int pageRequest){
         Pageable pageable = PageRequest.of(pageNum - 1, pageRequest); // 페이지 번호와 페이지 크기를 설정합니다.
 
