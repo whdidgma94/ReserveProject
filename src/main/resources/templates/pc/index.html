@@ -6,7 +6,6 @@
     <script th:src="@{/js/pcIndex.js}"></script>
     <link href="/css/pcIndexStyle.css" rel="stylesheet" type="text/css">
 </head>
-<body>
 <style>
     .RanView {
         background-color: #f2cfa0;
@@ -18,6 +17,7 @@
         justify-content: center;
         flex-direction: column;
         width: 100%;
+        margin-left: 0;
     }
 
     .slider {
@@ -81,6 +81,7 @@
     }
 
 </style>
+<body>
 <script>
     function categoryPage(id) {
         console.log(id)
@@ -129,7 +130,7 @@
             </tr>
         </table>
     </div>
-</div>
+
 <div class="row RanView">
     <div class="EanViewTitle">
         <button id="lctClLeftBtn" class="ranBtn">◀</button>
@@ -145,19 +146,19 @@
             <div class="slide-group">
                 <div class="slide-box" th:onclick="|details(${campImg.contentId})|">
                     <img class="imgSlide"
-                         th:src="${campImg.firstImageUrl}" onerror="this.src='../../img/어서와양_사진없음.png'"/>
+                         th:src="${campImg.firstImageUrl}" onerror="this.src='../../img/어서와영_사진없음.png'"/>
                     <div class="imgTitle" th:text="${campImg.facltNm}"></div>
                 </div>
                 <div class="slide-box" th:onclick="|details(${lctCls[campIdx.index + 1].contentId})|">
                     <img class="imgSlide"
                          th:src="${lctCls[campIdx.index + 1].firstImageUrl}"
-                         onerror="this.src='../../img/어서와양_사진없음.png'"/>
+                         onerror="this.src='../../img/어서와영_사진없음.png'"/>
                     <div class="imgTitle" th:text="${lctCls[campIdx.index + 1].facltNm}"></div>
                 </div>
                 <div class="slide-box" th:onclick="|details(${lctCls[campIdx.index + 2].contentId})|">
                     <img class="imgSlide"
                          th:src="${lctCls[campIdx.index + 2].firstImageUrl}"
-                         onerror="this.src='../../img/어서와양_사진없음.png'"/>
+                         onerror="this.src='../../img/어서와영_사진없음.png'"/>
                     <div class="imgTitle" th:text="${lctCls[campIdx.index + 2].facltNm}"></div>
                 </div>
             </div>
@@ -197,6 +198,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <hr>
 <div th:replace="~{pc/fragments/footer :: footer}"/>
