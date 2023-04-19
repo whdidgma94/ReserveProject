@@ -1,6 +1,7 @@
 package com.boot.reserveproject.controller;
 
 import com.boot.reserveproject.domain.Camp;
+import com.boot.reserveproject.repository.MemberLikesRepository;
 import com.boot.reserveproject.service.CampService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import javax.xml.transform.Result;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 public class SearchCategoryController {
     @Autowired
     private CampService campService;
+    private final MemberLikesRepository memberLikesRepository;
 
     @GetMapping("/pc/search/category")
     public String showCategoryList(Model model) {
@@ -119,7 +122,9 @@ public class SearchCategoryController {
     @GetMapping("/search/categoryCheck")
     public ResponseEntity<Object> campList(
             @RequestParam(value = "categories", required = false) String[] categories,
-            @RequestParam(value = "pageNum", required = false) int pageNum) {
+            @RequestParam(value = "pageNum", required = false) int pageNum, HttpSession session) {
+        String log = (String) session.getAttribute("log");
+        List<Long> memberLikesList = memberLikesRepository.selectMemberListByLoginId(log);
         List<Camp> mergedList = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
 
@@ -196,12 +201,23 @@ public class SearchCategoryController {
         int max = pageNum * 10;
         System.out.println("pageNum : " + pageNum + " / min : " + min + " / max : " + max);
         List<Camp> campList = new ArrayList<>();
+        List<String> likeList = new ArrayList<>();
         for (int i = min; i < max && i < mergedList.size(); i++) {
             campList.add(mergedList.get(i));
+            for(int j = 0;j<memberLikesList.size();j++){
+                if(mergedList.get(i).getContentId()==memberLikesList.get(j)){
+                    likeList.add("true");
+                    break;
+                }
+            }
+            if(campList.size()!=likeList.size()){
+                likeList.add("false");
+            }
             System.out.println("i = " + i + " / mergedList.get(i) : " + mergedList.get(i).getContentId());
         }
         resultMap.put("count", mergedList.size());
         resultMap.put("list", campList);
+        resultMap.put("likeList", likeList);
 
         try {
             String jsonString = mapper.writeValueAsString(resultMap);

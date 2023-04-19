@@ -1,6 +1,7 @@
 package com.boot.reserveproject.controller;
 
 import com.boot.reserveproject.domain.Camp;
+import com.boot.reserveproject.repository.MemberLikesRepository;
 import com.boot.reserveproject.service.CampService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +22,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class SearchController {
     private final CampService campService;
+    private final MemberLikesRepository memberLikesRepository;
     @GetMapping("/pc/search/map")
     public String showMapIntroPc() {
         return "pc/search/searchMap";
@@ -120,6 +122,8 @@ public class SearchController {
         System.out.println("sido: "+sido+" sigoon:  "+sigoon);
         Long length=countListByLocation(sido,sigoon);
         List<Camp> campList = searchByLocationTest(model,sido,sigoon,pageNum,pageRequest);
+        List<Long> memberLikesList = memberLikesRepository.selectMemberListByLoginId(log);
+        List<String> likeList = new ArrayList<>();
         System.out.println("지역검색 캠프리스트 길이: "+campList.size());
         Map<String, Object> response = new HashMap<>();
         response.put("campList", campList);

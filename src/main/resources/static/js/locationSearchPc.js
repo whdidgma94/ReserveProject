@@ -105,6 +105,7 @@ function search() {
             try {
                 var response = $.parseJSON(result);
                 var campList = response.campList;
+                let likeList = response.likeList;
                 총리스트의길이 = response.length;
                 if (campList == null || campList.length == 0) {
                     alert("검색결과가 존재하지 않습니다.");
@@ -147,8 +148,12 @@ function search() {
 
                 let campListHtml = '<div class="row">';
                 for (let i = 0; i < areaArr.length; i++) {
-                    campListHtml += '<div class="campLikeBox"><div> 추천수 : ' + campList[i].recommendCnt + '</div>'
-                    campListHtml += '<div><label for="memberLike" id="'+campList[i].contentId+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>'
+                    campListHtml += '<div class="campLikeBox"><div></div>'
+                    if (likeList[i] === "true") {
+                        campListBoxHtml += '<div><label for="memberLike" id="' + campList[i].contentId + '" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♥</label></div></div>';
+                    } else {
+                        campListBoxHtml += '<div><label for="memberLike" id="' + campList[i].contentId + '" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>';
+                    }
                     campListHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + areaArr[i].id + ' \'">';
                     campListHtml += '<div class="campBoxTop">';
                     campListHtml += '<div class="campBoxLeft">';
@@ -224,7 +229,7 @@ function paging(i) {
             try {
                 var response = $.parseJSON(result);
                 var campList = response.campList;
-
+                let likeList = response.likeList;
 
                 if (campList == null || campList.length == 0) {
                     alert("검색결과가 존재하지 않습니다.");
@@ -255,8 +260,12 @@ function paging(i) {
 
                 let campListHtml = '<div class="row">';
                 for (let i = 0; i < areaArr.length; i++) {
-                    campListHtml += '<div class="campLikeBox"><div> 추천수 : ' + campList[i].recommendCnt + '</div>'
-                    campListHtml += '<div><label for="memberLike" id="'+campList[i].contentId+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>'
+                    campListHtml += '<div class="campLikeBox"><div></div>'
+                    if (likeList[i] === "true") {
+                        campListBoxHtml += '<div><label for="memberLike" id="' + campList[i].contentId + '" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♥</label></div></div>';
+                    } else {
+                        campListBoxHtml += '<div><label for="memberLike" id="' + campList[i].contentId + '" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>';
+                    }
                     campListHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + areaArr[i].id + ' \'">';
                     campListHtml += '<div class="campBoxTop">';
                     campListHtml += '<div class="campBoxLeft">';
