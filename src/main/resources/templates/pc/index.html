@@ -203,10 +203,12 @@
 <div th:replace="~{pc/fragments/footer :: footer}"/>
 
 <script>
+    let slideIndex = 0;
     let timeoutset=null;
+    let type = null;
+
     let lctClList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];
     let lctClindex = 0;
-    let type = null;
     document.querySelector("#lctClLeftBtn").addEventListener("click", () => {
         lctClHandleButtonClick(-1);
     });
@@ -293,6 +295,7 @@
                     }else{
                         $('.slider2').html(LctClHtml);
                     }
+                    slideIndex = 0;
                     showSlides();
                 } catch (e) {
                     console.log(e);
@@ -305,8 +308,8 @@
             }
         });
     }
-    /*자동 뷰 부분   아 모르겟다 내일의 내가 알아서 하겠지~*/
-    let slideIndex = 0;
+
+
     showSlides();
 
     function showSlides() {
