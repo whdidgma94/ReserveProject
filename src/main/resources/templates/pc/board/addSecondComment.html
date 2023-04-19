@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{pc/fragments/header :: header}"/>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-<script th:src="@{/js/addBoard.js}"></script>
+<script th:src="@{/js/checkComment.js}"></script>
 
 <body>
 <div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
@@ -27,11 +27,11 @@
 
 
         <tr>
-          <form th:action="@{/pc/comments/addSecondCommentPro}" method="post" >
+          <form th:action="@{/pc/comments/addSecondCommentPro}" method="post" onsubmit="return validateFormComment()">
             <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
             </svg></td>
-            <td><input type="text" name="content"></td>&nbsp;&nbsp;
+            <td><input type="text" name="content" id="comment"></td>&nbsp;&nbsp;
             <td><input type="submit" value="작성하기" class="btn btn-primary"></td>&nbsp;&nbsp;
             <input type="hidden" name="id" th:value="${session.log}">
             <input type="hidden" name="ref" th:value="${comment.ref}">

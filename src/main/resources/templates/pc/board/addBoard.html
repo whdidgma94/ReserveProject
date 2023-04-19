@@ -3,6 +3,7 @@
 <head th:replace="~{pc/fragments/header :: header}"/>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script th:src="@{/js/addBoard.js}"></script>
+<script th:src="@{/js/checkBoard.js}"></script>
 
 <body>
 <div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
@@ -10,35 +11,67 @@
 
 <div class="view">
 
-  <input type="hidden" id="logValue" th:value="${session.log}" />
+    <input type="hidden" id="logValue" th:value="${session.log}" />
 
-  <form th:action="@{/pc/board/addBoardPro}" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="img" value=null>
-    <table class="table table-bordered">
-      <tbody>
-      <tr>
-        <td>제목</td>
-        <td><input type="text" name="title"></td>
-      </tr>
-      <tr>
-        <td>내용</td>
-        <td><textarea name="content" style="resize: none; width: 100%; min-height: 400px;"></textarea></td>
-      </tr>
-      </tbody>
-    </table>
-    <input type="submit" value="작성하기" class="btn btn-primary">
-    <input type="hidden" name="id" th:value="${session.log}" >
-    <input type="hidden" name="no" th:value="${no}">
-  </form>
-  <form id="upload-form" enctype="multipart/form-data">
-    <input type="file" id="file-input" name="file">
-    <button type="button" id="upload-button">Upload</button>
-  </form>
+    <form th:action="@{/pc/board/addBoardPro}" method="post" enctype="multipart/form-data" onsubmit="return validateFormBoard()">
+        <input type="hidden" name="img" value=null>
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td>제목</td>
+                <td><input type="text" name="title" id="title"></td>
+            </tr>
+            <tr>
+                <td>내용</td>
+                <td><textarea name="content" id="content" style="resize: none; width: 100%; min-height: 400px;"></textarea></td>
+            </tr>
+            </tbody>
+        </table>
+        <input type="submit" value="작성하기" class="btn btn-primary">
+        <input type="hidden" name="id" th:value="${session.log}" >
+        <input type="hidden" name="no" th:value="${no}">
+    </form>
+<!--    <div class="col-md-12">-->
+<!--        <div class="col-md-2">-->
+<!--            <form>-->
+<!--                <div class="form-group">-->
+<!--                    <label for="img">파일 업로드</label>-->
+<!--                    <input type="file" id="img">-->
+<!--                </div>-->
+<!--                <button type="button" class="btn btn-primary" id="btn-save">저장</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--        <div class="col-md-10">-->
+<!--            <p><strong>결과 이미지입니다.</strong></p>-->
+<!--            <img src="" id="result-image">-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <script>-->
+<!--        $('#btn-save').on('click', uploadImage);-->
+
+<!--        function uploadImage() {-->
+<!--            var file = $('#img')[0].files[0];-->
+<!--            var formData = new FormData();-->
+<!--            formData.append('data', file);-->
+
+<!--            $.ajax({-->
+<!--                type: 'POST',-->
+<!--                url: '/image-upload',-->
+<!--                data: formData,-->
+<!--                processData: false,-->
+<!--                contentType: false-->
+<!--            }).done(function (data) {-->
+<!--                $('#result-image').attr("src", data);-->
+<!--            }).fail(function (error) {-->
+<!--                alert(error);-->
+<!--            })-->
+<!--        }-->
+<!--    </script>-->
 
 
-  <div id="image-preview"></div>
 
-  <div th:replace="~{pc/fragments/footer :: footer}" />
+
+    <div th:replace="~{pc/fragments/footer :: footer}" />
 </div>
 
 
