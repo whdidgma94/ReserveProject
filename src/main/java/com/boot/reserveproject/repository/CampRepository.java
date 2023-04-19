@@ -73,7 +73,4 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
     @Query("SELECT c FROM Camp c WHERE c.siteBottom IN (:bottoms)")
     List<Camp> selectListByBottoms(@Param("bottoms") List<String> bottoms);
 
-    @Modifying
-    @Query("update Camp c set c.recommendCnt = :recommendCnt where c.contentId = :contentId")
-    void updateRecommendCnt(@Param("recommendCnt") int recommendCnt, @Param("contentId") Long contentId);
 }

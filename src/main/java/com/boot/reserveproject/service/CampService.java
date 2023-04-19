@@ -2,21 +2,25 @@ package com.boot.reserveproject.service;
 
 import com.boot.reserveproject.domain.Camp;
 import com.boot.reserveproject.repository.CampRepository;
+import com.boot.reserveproject.repository.MemberLikesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CampService {
     private final CampRepository campRepository;
+    private final MemberLikesRepository memberLikesRepository;
     @Autowired
-    public CampService(CampRepository campRepository) {
+    public CampService(CampRepository campRepository, MemberLikesRepository memberLikesRepository) {
         this.campRepository = campRepository;
+        this.memberLikesRepository = memberLikesRepository;
     }
 
     public void getAllCamps() {
@@ -29,16 +33,6 @@ public class CampService {
         List<Camp> campList = campRepository.findCampWithinBounds(southWestLat,southWestLng,northEastLat,northEastLng);
         return campList;
 
-    }
-@Transactional
-    public void updateRecommendCnt(Camp camp, String type){
-        int cnt = camp.getRecommendCnt();
-        if(type.equals("like")){
-            cnt++;
-        }else if(type.equals("delete")){
-            cnt--;
-        }
-        campRepository.updateRecommendCnt(cnt, camp.getContentId());
     }
 
 //    public List<Camp> getCampListByName(Double southWestLat,Double southWestLng,Double northEastLat,Double northEastLng,String keyword){
@@ -134,5 +128,12 @@ public class CampService {
         return campList;
     }
 
-
+    public List<Camp> selectMemberListByLoginId(String loginId){
+        List<Long> contentIdList = memberLikesRepository.selectMemberListByLoginId(loginId);
+        List<Camp> memberLikesList = new ArrayList<>();
+        for(int i=0;i<contentIdList.size();i++){
+            memberLikesList.add(campRepository.selectOneById(contentIdList.get(i)));
+        }
+        return memberLikesList;
+    }
 }

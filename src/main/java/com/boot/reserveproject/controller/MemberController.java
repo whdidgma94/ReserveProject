@@ -2,6 +2,7 @@ package com.boot.reserveproject.controller;
 
 import com.boot.reserveproject.domain.Camp;
 import com.boot.reserveproject.domain.Member;
+import com.boot.reserveproject.domain.MemberLikes;
 import com.boot.reserveproject.form.LoginForm;
 import com.boot.reserveproject.form.MemberForm;
 import com.boot.reserveproject.form.MemberUpdateForm;
@@ -9,6 +10,7 @@ import com.boot.reserveproject.service.CampService;
 import com.boot.reserveproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.*;
 
 @Slf4j
 @Controller
@@ -39,7 +42,7 @@ public class MemberController {
         int index = email.indexOf("@");
         String emailId = email.substring(0, index);
         String emailDomain = email.substring(index + 1);
-        model.addAttribute("phone", member.getPhone().replace("-",""));
+        model.addAttribute("phone", member.getPhone().replace("-", ""));
         model.addAttribute("emailId", emailId);
         model.addAttribute("emailDomain", emailDomain);
         model.addAttribute("memberUpdateForm", new MemberUpdateForm());
@@ -257,7 +260,6 @@ public class MemberController {
         String loginId = (String) session.getAttribute("log");
         Member member = memberService.selectMemberById(loginId);
         memberService.addMemberLikes(camp, member);
-        campService.updateRecommendCnt(camp, "like");
 
         return "true";
     }
@@ -269,7 +271,7 @@ public class MemberController {
         String loginId = (String) session.getAttribute("log");
         Member member = memberService.selectMemberById(loginId);
         memberService.deleteMemberLikes(camp, member);
-        campService.updateRecommendCnt(camp, "delete");
         return "true";
     }
+
 }

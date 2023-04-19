@@ -61,7 +61,7 @@ function paging(i) {
 
                 let campListBoxHtml = "";
                 for (let i = 0; i < campList.length; i++) {
-                    campListBoxHtml += '<div class="campLikeBox"><div> 추천수 : ' + campList[i].recommendCnt + '</div>'
+                    campListBoxHtml += '<div class="campLikeBox"><div></div>'
                     campListBoxHtml += '<div><label for="memberLike" id="' + campList[i].contentId + '" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>'
                     campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
                     campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';

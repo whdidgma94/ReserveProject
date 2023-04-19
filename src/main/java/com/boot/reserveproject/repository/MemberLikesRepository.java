@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface MemberLikesRepository extends JpaRepository<MemberLikes, Long> {
     @Modifying
     @Query("delete from MemberLikes ml where ml.camp.contentId = :contentId and ml.member.id = :id")
@@ -15,4 +17,6 @@ public interface MemberLikesRepository extends JpaRepository<MemberLikes, Long> 
 
     @Query("select ml from MemberLikes ml where ml.camp.contentId = :contentId and ml.member.id = :id")
     MemberLikes selectMemberLikesByInfo(@Param("contentId") Long contentId, @Param("id") Long id);
+    @Query("select ml.camp.contentId from MemberLikes  ml where ml.member.loginId = :loginId")
+    List<Long> selectMemberListByLoginId(@Param("loginId") String loginId);
 }

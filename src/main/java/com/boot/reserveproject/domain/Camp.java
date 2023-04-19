@@ -77,7 +77,6 @@ public class Camp {
     private String themaEnvrnCl; // 테마환경 ( ex.낚시,물놀이 등 )    -------  테마종류
     private String animalCmgCl; // 애완동물 출입 ( ex.가능, 소형견가능 등 )  -------  애완동물
     private String firstImageUrl; // 대표이미지
-    private int recommendCnt =0;
 
     @JsonIgnore
     @OneToMany(mappedBy = "camp",cascade = CascadeType.ALL,  fetch = FetchType.LAZY)

@@ -113,4 +113,5 @@ public class MemberService {
     public Member selectMemberById(String loginId) {
         return memberRepository.selectMemberByLoginId(loginId);
     }
+
 }
