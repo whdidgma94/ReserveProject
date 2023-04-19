@@ -141,18 +141,18 @@ function search() {
                         int: campList[i].intro,
                         phone: campList[i].tel,
                         facil: sbrsClList,
-                        id: campList[i].contentId
-
+                        id: campList[i].contentId,
+                        like:likeList[i]
                     });
                 }
 
                 let campListHtml = '<div class="row">';
                 for (let i = 0; i < areaArr.length; i++) {
                     campListHtml += '<div class="campLikeBox"><div></div>'
-                    if(likeList[i]==="true"){
-                    campListHtml += '<div><label for="memberLike" id="'+campList[i].contentId+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♥</label></div></div>'
+                    if(areaArr.like ==="true"){
+                    campListHtml += '<div><label for="memberLike" id="'+areaArr[i].id+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♥</label></div></div>'
                     }else{
-                    campListHtml += '<div><label for="memberLike" id="'+campList[i].contentId+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>'
+                    campListHtml += '<div><label for="memberLike" id="'+areaArr[i].id+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>'
                     }
                     campListHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + areaArr[i].id + ' \'">';
                     campListHtml += '<div class="campBoxTop">';
@@ -214,6 +214,7 @@ function search() {
 }
 
 function paging(i) {
+
     현재페이지 = i;
     $.ajax({
 
@@ -254,18 +255,18 @@ function paging(i) {
                         int: campList[i].intro,
                         phone: campList[i].tel,
                         facil: sbrsClList,
-                        id: campList[i].contentId
-
+                        id: campList[i].contentId,
+                        like:likeList[i]
                     });
                 }
 
                 let campListHtml = '<div class="row">';
                 for (let i = 0; i < areaArr.length; i++) {
                     campListHtml += '<div class="campLikeBox"><div></div>'
-                    if(likeList[i]==="true"){
-                        campListHtml += '<div><label for="memberLike" id="'+campList[i].contentId+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♥</label></div></div>'
+                    if(areaArr.like==="true"){
+                        campListHtml += '<div><label for="memberLike" id="'+areaArr[i].id+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♥</label></div></div>'
                     }else{
-                        campListHtml += '<div><label for="memberLike" id="'+campList[i].contentId+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>'
+                        campListHtml += '<div><label for="memberLike" id="'+areaArr[i].id+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>'
                     }
                     campListHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + areaArr[i].id + ' \'">';
                     campListHtml += '<div class="campBoxTop">';
