@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{mobile/fragments/header :: header}"/>
+<head th:replace="~{mobile/fragments/header :: header}"></head>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script th:src="@{/js/showContent.js}"></script>
 
 <body>
-<div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"/>
-<div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"/>
+<div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"></div>
+<div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"></div>
 
 <div class="view">
   <input type="hidden" id="boardNo" th:value="${board.no}" />
@@ -77,7 +77,7 @@
       <input type="submit" value="댓글 달기">
     </form>
   </div>
-  <div th:replace="~{mobile/fragments/footer :: footer}" />
+  <div th:replace="~{mobile/fragments/footer :: footer}"></div>
 </div>
 
 </body>

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<head th:replace="~{mobile/fragments/header :: header}"/>
+<head th:replace="~{mobile/fragments/header :: header}"></head>
 <script th:src="@{/js/categorySearchMobile.js}"></script>
 <style>
     .campListCount{
@@ -26,8 +26,8 @@
     }
 </style>
 <body>
-<div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"/>
-<div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"/>
+<div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"></div>
+<div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"></div>
 <div class="mainBox view">
     <h1>카테고리 검색</h1>
     <div class="categoryCheckBox">
@@ -134,7 +134,7 @@
         <div id="pagingInsert" class="d-flex justify-content-center align-items-center mt-3">
         </div>
     </div>
-    <div th:replace="~{mobile/fragments/footer :: footer}"/>
+    <div th:replace="~{mobile/fragments/footer :: footer}"></div>
 </div>
 </body>
 </html>

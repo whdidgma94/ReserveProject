@@ -3,10 +3,10 @@
 <link href="/css/memberFindAccount.css" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<head th:replace="mobile/fragments/header :: header"/>
+<head th:replace="mobile/fragments/header :: header"></head>
 <body>
-<div th:replace="mobile/fragments/bodyHeader :: bodyHeader"/>
-<div th:replace="mobile/fragments/bodyHeader :: side-bar"/>
+<div th:replace="mobile/fragments/bodyHeader :: bodyHeader"></div>
+<div th:replace="mobile/fragments/bodyHeader :: side-bar"></div>
 <div class="view">
     <div>
         <h3 th:text="${type == 'id'}? '아이디 찾기' : '비밀번호 찾기'"></h3>

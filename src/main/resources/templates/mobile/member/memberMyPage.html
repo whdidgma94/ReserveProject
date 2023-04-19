@@ -4,9 +4,10 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="/js/memberMyPage.js"></script>
-<head th:replace="mobile/fragments/header :: header"/>
+<head th:replace="mobile/fragments/header :: header"></head>
 <body>
-<div th:replace="mobile/fragments/bodyHeader :: bodyHeader"/>
+<div th:replace="mobile/fragments/bodyHeader :: bodyHeader"></div>
+<div th:replace="mobile/fragments/bodyHeader :: side-bar"></div>
 <div class="view">
     <div class="container my-5">
         <h1 class="text-center">마이 페이지</h1>
@@ -61,7 +62,7 @@
     </div>
 
 </div>
-<div th:replace="mobile/fragments/footer :: footer"/>
+<div th:replace="mobile/fragments/footer :: footer"></div>
 </body>
 <script>
 

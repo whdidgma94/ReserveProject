@@ -8,6 +8,7 @@
 <head th:replace="~{mobile/fragments/header :: header}"></head>
 <body>
 <div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"></div>
+<div th:replace="mobile/fragments/bodyHeader :: side-bar"></div>
 <div class="view">
   <div class="contentName">
     <h1>정보 수정</h1>
@@ -110,7 +111,7 @@
     <input id="phone1" type="hidden" th:field="*{phone}"/>
   </form>
 </div>
-<div th:replace="~{mobile/fragments/footer :: footer}"/>
+<div th:replace="~{mobile/fragments/footer :: footer}"></div>
 </body>
 <script>
 
