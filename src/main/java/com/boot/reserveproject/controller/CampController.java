@@ -113,8 +113,8 @@ public class CampController {
     }
 
     @GetMapping("/camp/themaList")
-    public ResponseEntity<Object> showListByThema(@RequestParam(value = "thema", required = false) String thema) {
-        List<Camp> campList = searchByThema(thema);
+    public ResponseEntity<Object> showListByThema(@RequestParam(value = "lctCl", required = false) String lctCl) {
+        List<Camp> campList = searchByThema(lctCl);
         ObjectMapper mapper = new ObjectMapper();
         try {
             String jsonString = mapper.writeValueAsString(campList);
