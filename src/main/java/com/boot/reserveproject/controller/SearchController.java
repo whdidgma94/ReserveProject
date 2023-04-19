@@ -141,7 +141,11 @@ public class SearchController {
 
     }
     @GetMapping("search/addressSearchTestTest")
-    public ResponseEntity<Object> showListByAddressTestTest(Model model, @RequestParam(value="pageNum",required=false) int pageNum, @RequestParam(value = "sido", required = false) String sido, @RequestParam(value="sigoon", required=false) String sigoon,@RequestParam(value="pageRequest", required = false) int pageRequest) {
+    public ResponseEntity<Object> showListByAddressTestTest(Model model,
+                                                            @RequestParam(value="pageNum",required=false) int pageNum,
+                                                            @RequestParam(value = "sido", required = false) String sido,
+                                                            @RequestParam(value="sigoon", required=false) String sigoon,
+                                                            @RequestParam(value="pageRequest", required = false) int pageRequest) {
         if(sido.equals("전체")){
             sido="";
         }
