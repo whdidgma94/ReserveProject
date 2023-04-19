@@ -24,7 +24,7 @@ public class SearchCategoryController {
     private CampService campService;
 
     @GetMapping("/pc/search/category")
-    public String showCategoryList(Model model, String id) {
+    public String showCategoryList(Model model) {
         return "pc/search/searchCategory";
     }
 
@@ -86,8 +86,9 @@ public class SearchCategoryController {
             }
         }
         List<Camp> searchAllList = new ArrayList<>(searchAllSet);
-        return searchAllList;
+        return checkList(searchAllList);
     }
+
 
     public List<Camp> searchByLctCls(List<String> lctCls) {
         String[] lctClNames = {"해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"};
@@ -103,22 +104,20 @@ public class SearchCategoryController {
         return searchAllList;
     }
 
-//    public List<Camp> searchByBottoms(List<String> bottoms) {
-//        String[] bottomNames = {"데크:", "파쇄석:", "잔디:", "자갈:", "맨흙:"};
-//        for (int i = 0; i < bottoms.size(); i++) {
-//            for (int j = 0; j < bottomNames.length; j++) {
-//                if (bottoms.get(i).equals("bottom" + String.format("%02d", j + 1))) {
-//                    bottoms.set(i, bottomNames[j]);
-//                    break;
-//                }
-//            }
-//        }
-//        List<Camp> searchAllList = campService.findByBottoms(bottoms);
-//        return searchAllList;
-//    }
+    public List<Camp> checkList (List<Camp> list) {
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = i+1; j < list.size(); j++) {
+                if (list.get(i).getContentId().equals(list.get(j).getContentId())){
+                    list.remove(j);
+                    j--;
+                }
+            }
+        }
+        return list;
+    }
 
     @GetMapping("/search/categoryCheck")
-    public ResponseEntity<Object> showListByLctCl(
+    public ResponseEntity<Object> campList(
             @RequestParam(value = "categories", required = false) String[] categories,
             @RequestParam(value = "pageNum", required = false) int pageNum) {
         List<Camp> mergedList = new ArrayList<>();
@@ -141,12 +140,6 @@ public class SearchCategoryController {
                 mergedList.addAll(searchByLctCls(lctCls));
             }
 
-//            List<String> bottoms = Arrays.stream(categories)
-//                    .filter(category -> category.contains("bottom"))
-//                    .collect(Collectors.toList());
-//            if (!bottoms.isEmpty()) {
-//                mergedList.addAll(searchByBottoms(bottoms));
-//            }
 
             for (String category : categories) {
                 switch (category) {
@@ -196,8 +189,8 @@ public class SearchCategoryController {
                 }
             }
         }
+        mergedList = checkList(mergedList);
         Map<String, Object> resultMap = new LinkedHashMap<>();
-        mergedList = new ArrayList<>(new LinkedHashSet<>(mergedList));
 
         int min = pageNum * 10 - 10;
         int max = pageNum * 10;
@@ -217,34 +210,5 @@ public class SearchCategoryController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    private void campString(Model model) {
-        List<Camp> campList = new ArrayList<>();
-
-        int min = 0;
-        int max = 10;
-        List<Camp> campListAll = campService.findAllList();
-        for (int i = min; i < max && i < campListAll.size(); i++) {
-            campList.add(campListAll.get(i));
-        }
-        model.addAttribute("campList", campList);
-        model.addAttribute("listCount", campListAll.size());
-
-        List<List<String>> sbrsClList = new ArrayList<>();
-        List<List<String>> themaList = new ArrayList<>();
-        for (int i = 0; i < campList.size(); i++) {
-            String tempSbrsCl = campList.get(i).getSbrsCl();
-            String[] sbrsCl = tempSbrsCl.split(",");
-            sbrsClList.add(Arrays.asList(sbrsCl));
-
-            String[] thema = {"즐거운캠핑"};
-            if (!campList.get(i).getThemaEnvrnCl().equals("")) {
-                thema = campList.get(i).getThemaEnvrnCl().split(",");
-            }
-            themaList.add(Arrays.asList(thema));
-        }
-        model.addAttribute("sbrsClList", sbrsClList);
-        model.addAttribute("themaList", themaList);
     }
 }

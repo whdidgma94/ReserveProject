@@ -15,7 +15,7 @@ window.onload = function() {
     const checkbox = document.querySelector(`input[type=checkbox][id='${id}']`);
     if (checkbox) {
         checkbox.checked = true;
-        document.getElementById("search-icon").click();
+        paging(1);
     }
     현재페이지 = 1;
     // makePageNum();

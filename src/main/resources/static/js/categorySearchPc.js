@@ -10,9 +10,10 @@ window.onload = function () {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('Id');
     const checkbox = document.querySelector(`input[type=checkbox][id='${id}']`);
+    console.log(checkbox + "checkbox")
     if (checkbox) {
         checkbox.checked = true;
-        document.getElementById("search-icon").click();
+        paging(1);
     }
 }
 

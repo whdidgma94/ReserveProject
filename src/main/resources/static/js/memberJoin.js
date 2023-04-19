@@ -47,7 +47,7 @@ function idCheck() {
             loginId: $("#loginId").val(),
         };
         $.ajax({
-            type: "post",
+            type: "get",
             url: "/validId",
             data: query,
             success: function (data) {
