@@ -10,7 +10,7 @@
 
 <div class="view">
 
-  <input type="hidden" id="boardNo" th:value="${board.get().no}" />
+  <input type="hidden" id="boardNo" th:value="${board.no}" />
   <form th:action="@{/pc/board/updateBoardPro}" method="post" >
     <input type="hidden" name="img" value=null>
   <table class="table table-bordered">
@@ -18,20 +18,20 @@
     <tr>
       <td>제목</td>
       <td><label>
-        <input type="text" name="title" th:value="${board.get().title}" >
+        <input type="text" name="title" th:value="${board.title}" >
       </label></td>
     </tr>
     <tr>
       <td>내용</td>
       <td>
-        <textarea name="content"  th:text="${board.get().content}" style="resize: none; width: 100%; min-height: 400px;"></textarea>
+        <textarea name="content"  th:text="${board.content}" style="resize: none; width: 100%; min-height: 400px;"></textarea>
       </td>
     </tr>
     </tbody>
   </table>
     <input type="submit" value="수정하기">
-      <input type="hidden" name="id" th:value="${board.get().id}">
-      <input type="hidden" name="no" th:value="${board.get().no}">
+      <input type="hidden" name="id" th:value="${board.id}">
+      <input type="hidden" name="no" th:value="${board.no}">
   </form>
 
 
