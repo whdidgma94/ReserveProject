@@ -119,8 +119,7 @@ function paging(i) {
 
                     let campListBoxHtml = '<div class="row">';
                     for (let i = 0; i < campList.length; i++) {
-
-                        campListBoxHtml += '<div class="btn memberLikeBtn" for="memberLike" id="'+campList[i].contentId+'" onclick="addLike(this)">♡</div>';
+                        campListBoxHtml += '<div class="btn memberLikeBtn" id="'+campList[i].contentId+'" onclick="addLike(this)">♡</div>';
                         campListBoxHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + campList[i].contentId + ' \'">';
                         campListBoxHtml += '<div class="campBoxTop">';
                         campListBoxHtml += '<div class="campBoxLeft">';

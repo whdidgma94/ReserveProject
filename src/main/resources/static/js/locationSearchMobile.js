@@ -143,11 +143,10 @@ function search() {
 
                 let campListHtml = '<div class="row">';
                 for (let i = 0; i < areaArr.length; i++) {
-                    campListHtml += '<div class="campLikeBox"><div></div>'
                     if (likeList[i] === "true") {
-                        campListBoxHtml += '<div><label for="memberLike" id="' + areaArr[i].contentId + '" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♥</label></div></div>';
+                        campListHtml += '<div class="btn memberLikeBtn" id="'+areaArr[i].id+'" onclick="addLike(this)">♥</div>';
                     } else {
-                        campListBoxHtml += '<div><label for="memberLike" id="' + areaArr[i].contentId + '" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>';
+                        campListHtml += '<div class="btn memberLikeBtn" id="'+areaArr[i].id+'" onclick="addLike(this)">♡</div>';
                     }
                     campListHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + areaArr[i].id + ' \'">';
                     campListHtml += '<div class="campBoxTop">';
@@ -221,11 +220,10 @@ function paging(i) {
 
                 let campListHtml = '<div class="row">';
                 for (let i = 0; i < areaArr.length; i++) {
-                    campListHtml += '<div class="campLikeBox"><div></div>'
                     if (likeList[i] === "true") {
-                        campListBoxHtml += '<div><label for="memberLike" id="' + areaArr[i].contentId + '" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♥</label></div></div>';
+                        campListHtml += '<div class="btn memberLikeBtn" id="'+areaArr[i].id+'" onclick="addLike(this)">♥</div>';
                     } else {
-                        campListBoxHtml += '<div><label for="memberLike" id="' + areaArr[i].contentId + '" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>';
+                        campListHtml += '<div class="btn memberLikeBtn" id="'+areaArr[i].id+'" onclick="addLike(this)">♡</div>';
                     }
                     campListHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + areaArr[i].id + ' \'">';
                     campListHtml += '<div class="campBoxTop">';
@@ -292,16 +290,37 @@ function insertPageNum(i) {
     paging(i);
 }
 
-function addLike(element){
-    if(element.innerHTML === '♡'){
+function addLike(element) {
+    if (log === null) {
+        swal('로그인 후 이용해주세요.', '', 'error').then(function () {
+            location.href = '/mobile/member/login';
+        });
+        return;
+    }
+    if (element.innerHTML === '♡') {
         $.ajax({
             url: "/addLikes",
-            type:"post",
-            data:{contentId : element.id},
-            success:function (result){
-                swal(element.id,"목록에 추가되었습니다","success");
+            type: "post",
+            data: {contentId: element.id},
+            success: function (result) {
                 element.innerHTML = '♥';
+                swal(element.id, "목록에 추가되었습니다", "success");
             }
         })
+
+
+    } else {
+        $.ajax({
+            url: "/deleteLikes",
+            type: "post",
+            data: {contentId: element.id},
+            success: function (result) {
+                element.innerHTML = '♡';
+                swal(element.id, "목록에서 제외되었습니다", "success");
+            }
+        })
+
+    }
+}
 
 
