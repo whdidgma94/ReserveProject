@@ -9,50 +9,75 @@
 <div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"/>
 
 <div class="view">
-  <input type="hidden" id="boardNo" th:value="${board.get().no}" />
-<!--  <input type="hidden" id="writerValue" th:value="${board.get().id}" />-->
+  <input type="hidden" id="boardNo" th:value="${board.no}" />
+  <!--  <input type="hidden" id="writerValue" th:value="${board.get().id}" />-->
   <table class="table table-bordered">
     <tbody>
     <tr>
-      <td>작성자</td>
-      <td><input type="text" name="id" th:value="${board.get().id}" readonly></td>
-    </tr>
-    <tr>
-      <td>게시글 번호</td>
-      <td><input type="text" name="no" th:value="${board.get().no}" readonly></td>
-    </tr>
-    <tr>
       <td>제목</td>
-      <td><input type="text" name="title" th:value="${board.get().title}" readonly></td>
+      <td colspan="3"><div name="title" th:text="${board.title}"/></td>
     </tr>
     <tr>
-      <td>내용</td>
-      <td><textarea name="content" readonly th:text="${board.get().content}"> </textarea></td>
+      <td>작성자</td>
+      <td><div name="id" th:text="${board.id}"/></td>
+      <td>작성 시간</td>
+      <td>
+        <div name="date" th:text="${board.date} +' '+ ${board.time}"/>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="4" class="boardContent"><div name="content" th:text="${board.content}"></div></td>
     </tr>
     </tbody>
   </table>
-  <div th:if="${session.log == board.get().id}">
-    <button onclick="deleteBoardMobile(document.getElementById('boardNo').value)">삭제</button>
-    <button onclick="updateBoardMobile(document.getElementById('boardNo').value)">수정</button>
+  <div th:if="${session.log == board.id}">
+    <button onclick="deleteBoardPc(document.getElementById('boardNo').value)" class="btn btn-danger">삭제</button>
+    <button onclick="updateBoardPc(document.getElementById('boardNo').value)" class="btn btn-primary">수정</button>
   </div>
   <div id="commentList">
+
   </div>
+
   <h5 >댓글(<span th:text="${#lists.size(comments)}"></span>)</h5>
+
+
   <table class="table">
-    <tr th:each="comments, iterStat : ${comments}" style="border-bottom: 1px solid black;">
-      <td th:text="${comments.id}" class="border-top"></td>
-      <td th:text="${comments.content}" class="border-top"></td>
-      <td th:text="${comments.date}" class="border-top"></td>
-      <td th:text="${comments.time}" class="border-top"></td>
-    </tr>
+    <th:block th:each="comments, iterStat : ${comments}">
+      <form th:action="@{/pc/comments/addSecondComment}" method="post" >
+        <tr style="border-bottom: 1px solid black;">
+          <input type="hidden" id="commentNo" th:value="${comments.no}">
+          <td th:text="${comments.id}" class="border-top"></td>
+          <td th:text="${comments.content}" class="border-top"></td>
+          <td th:text="${comments.date}" class="border-top"></td>
+          <td th:text="${comments.time}" class="border-top"></td>
+          <input type="hidden" name="no" th:value="${comments.no}">
+          <input type="hidden" name="id" th:value="${session.log}">
+          <div th:if="${session.log!=null}">
+            <td><input type="submit" value="현재댓글에 대댓글작성하기" class="btn btn-secondary"></td>
+          </div>
+        </tr>
+      </form>
+
+    </th:block>
   </table>
+
+
 
   <!-- 로그인하지 않은 경우 -->
   <div th:if="${session.log == null}">
     <p>댓글을 작성하려면 로그인이 필요합니다.</p>
-    <a href="/mobile/member/login">로그인</a>
+    <a href="/pc/member/login">로그인</a>
   </div>
-
+  <div th:if="${session.log !=null}">
+    <form action="/pc/comments/addComment" method="post">
+      <input type="text" name="comment">
+      <input type="hidden" name="no" th:value="${board.no}">
+      <input type="hidden" name="loginId" th:value="${session.log}">
+      <input type="submit" value="댓글 달기">
+    </form>
+  </div>
+  <div th:replace="~{mobile/fragments/footer :: footer}" />
 </div>
 
 </body>
