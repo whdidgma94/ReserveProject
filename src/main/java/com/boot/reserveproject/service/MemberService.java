@@ -96,7 +96,6 @@ public class MemberService {
     @Modifying
     @Transactional
     public void addMemberLikes(Camp camp, Member member){
-
         memberLikesRepository.save(MemberLikes.createMemberLikes(member, camp));
     }
 
@@ -113,5 +112,9 @@ public class MemberService {
     public Member selectMemberById(String loginId) {
         return memberRepository.selectMemberByLoginId(loginId);
     }
-
+    @Modifying
+    @Transactional
+    public void deleteMemberByLoginId(String loginId){
+        memberRepository.deleteMemberByLoginId(loginId);
+    }
 }

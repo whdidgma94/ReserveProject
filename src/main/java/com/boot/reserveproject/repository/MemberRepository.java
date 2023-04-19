@@ -42,4 +42,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Modifying
     @Query("update Member m set m.pw = :pw, m.postcode = :postcode, m.roadAddress = :roadAddress, m.jibunAddress = :jibunAddress, m.detailAddress = :detailAddress, m.phone = :phone, m.email = :email where m.loginId = :loginId")
     void updateMember(@Param("pw") String pw, @Param("postcode") String postcode, @Param("roadAddress") String roadAddress, @Param("jibunAddress") String jibunAddress, @Param("detailAddress") String detailAddress, @Param("phone") String phone, @Param("email") String email, @Param("loginId") String loginId);
+    @Modifying
+    @Query("delete from Member m where m.loginId=:loginId")
+    void deleteMemberByLoginId(@Param("loginId") String loginId);
 }

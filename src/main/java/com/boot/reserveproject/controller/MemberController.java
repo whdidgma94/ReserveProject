@@ -228,16 +228,15 @@ public class MemberController {
         return "mobile/member/memberMyPage";
     }
 
+    @ResponseBody
     @PostMapping("/member/delete")
-    public String deleteMember(@RequestParam("loginId") String loginId, HttpSession session, @RequestParam("type") String type) {
-        memberService.removeMember(memberService.selectMemberById(loginId).getId());
-        if (session.getAttribute("log").equals(loginId)) {
-            session.removeAttribute("log");
-        }
-        if (type.equals("pc")) {
-            return "redirect:/pc/main";
+    public String deleteMember(@RequestParam("pw") String pw, HttpSession session) {
+        String loginId = (String) session.getAttribute("log");
+        if (!memberService.checkLogin(loginId, pw)) {
+            memberService.deleteMemberByLoginId(loginId);
+            return "true";
         } else {
-            return "redirect:/mobile/main";
+            return "false";
         }
     }
 

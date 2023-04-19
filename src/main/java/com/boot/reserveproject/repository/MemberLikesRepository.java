@@ -19,4 +19,8 @@ public interface MemberLikesRepository extends JpaRepository<MemberLikes, Long> 
     MemberLikes selectMemberLikesByInfo(@Param("contentId") Long contentId, @Param("id") Long id);
     @Query("select ml.camp.contentId from MemberLikes  ml where ml.member.loginId = :loginId")
     List<Long> selectMemberListByLoginId(@Param("loginId") String loginId);
+
+    @Modifying
+    @Query("delete from MemberLikes ml where ml.member.loginId = :loginId")
+    void deleteMemberLikesByLoginId(@Param("loginId") String loginId);
 }
