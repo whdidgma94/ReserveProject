@@ -20,7 +20,7 @@
         margin-left: 0;
     }
 
-    .slider {
+    .slider1, .slider2 {
         height: 200px;
         display: flex;
         align-items: center;
@@ -139,7 +139,7 @@
         </div>
         <button id="lctClRightBtn" class="ranBtn">▶</button>
     </div>
-    <div class="slider" id="slider">
+    <div class="slider1" id="slider">
         <div class="slide-title">멋진경치와<br>함께하는<br>캠핑장!</div>
         <div class="slides"
              th:each="campImg, campIdx : ${lctCls}" th:if="${campIdx.index % 3 == 0}">
@@ -173,7 +173,7 @@
         </div>
         <button id="themaRightBtn" class="ranBtn">▶</button>
     </div>
-    <div class="slider">
+    <div class="slider2">
         <div class="slide-title">즐거운<br>테마별<br>캠핑지!</div>
         <div class="slides2"
              th:each="campImg, campIdx : ${themas}" th:if="${campIdx.index % 3 == 0}">
@@ -203,8 +203,10 @@
 <div th:replace="~{pc/fragments/footer :: footer}"/>
 
 <script>
+    let timeoutset=null;
     let lctClList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];
     let lctClindex = 0;
+    let type = null;
     document.querySelector("#lctClLeftBtn").addEventListener("click", () => {
         lctClHandleButtonClick(-1);
     });
@@ -222,6 +224,7 @@
         } else if (lctClindex >= lctClList.length) {
             lctClindex = 0;
         }
+        type = "lct";
         document.querySelector("#lctClName").innerHTML = lctClList[lctClindex];
         changeView(lctClList[lctClindex]);
         console.log("되고있는건가??")
@@ -246,16 +249,17 @@
         } else if (themaindex >= themaList.length) {
             themaindex = 0;
         }
+        type = "thema";
         document.querySelector("#themaName").innerHTML = themaList[themaindex];
-
+        changeView(themaList[themaindex]);
     }
     function changeView(lct) {
-        console.log("되고있는건가??????")
-        $.ajax({
+        $.ajax(
+            {
             type: "GET",
-            url: "/camp/cltList",
+            url: type=== 'lct' ? "/camp/cltList" : "/camp/themaList",
             data: {
-                lctCl: lct
+                lctCl : lct
             },
             success: function (result) {
                 try {
@@ -264,19 +268,32 @@
                         alert("검색결과가 존재하지 않습니다.");
                         return;
                     }
+
                     let LctClHtml = "";
-                    LctClHtml += '<div className="slide-title">멋진경치와<br>함께하는<br>캠핑장</div>'
-                    for (let i = 0; i < 6; i++){
-                        LctClHtml += '<div className="slides"><div className="slide-group">'
-                         for (let j = 0; j < 3; j++){
-                             LctClHtml += '<div className="slide-box" onClick="'+campList[(i*3)+j].contentId+'">'
-                             LctClHtml += '<img className="imgSlide" src="'+campList[(i*3)+j].firstImageUrl+'" onError="this.src=\'../../img/어서와양_사진없음.png\'"/>'
-                             LctClHtml += '<div className="imgTitle">'+campList[(i*3)+j].facltNm+'</div></div>'
-                             console.log("되고있는건가????!!!?!?!?!?!?!??!????")
-                         }
+                    if(type === "lct"){
+                        LctClHtml +='<div class="slide-title">멋진경치와<br>함께하는<br>캠핑장!</div>';
+                    }else{
+                        LctClHtml +='<div class="slide-title">즐거운<br>테마별<br>캠핑지!</div>';
                     }
-                    LctClHtml += '<div></div>'
-                    $('#slider').html(LctClHtml);
+                    for (let i = 0; i < 6; i++){
+                        if(type === "lct"){
+                            LctClHtml += '<div class="slides" style="display: none;"><div class="slide-group">'
+                        }else{
+                            LctClHtml += '<div class="slides2" style="display: none;"><div class="slide-group">'
+                        }
+                        for (let j = 0; j < 3; j++){
+                            LctClHtml += '<div class="slide-box" onClick="'+campList[(i*3)+j].contentId+'">'
+                            LctClHtml += '<img class="imgSlide" src="'+campList[(i*3)+j].firstImageUrl+'" onError="this.src=\'../../img/어서와양_사진없음.png\'"/>'
+                            LctClHtml += '<div class="imgTitle">'+campList[(i*3)+j].facltNm+'</div></div>'
+                        }
+                    LctClHtml += '</div></div>'
+                    }
+                    if(type==="lct"){
+                        $('.slider1').html(LctClHtml);
+                    }else{
+                        $('.slider2').html(LctClHtml);
+                    }
+                    showSlides();
                 } catch (e) {
                     console.log(e);
                     alert("오류가 발생했습니다.");
@@ -288,40 +305,52 @@
             }
         });
     }
-
-
     /*자동 뷰 부분   아 모르겟다 내일의 내가 알아서 하겠지~*/
     let slideIndex = 0;
     showSlides();
 
     function showSlides() {
+        if(timeoutset!=null){
+            clearTimeout(timeoutset);
+        }
         let i;
+        if(type==='lct'){
         const slides = document.getElementsByClassName("slides");
-        const slides2 = document.getElementsByClassName("slides2");
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
-            slides2[i].style.display = "none";
         }
         slideIndex++;
         if (slideIndex > slides.length) {
             slideIndex = 1;
         }
-        slides[slideIndex - 1].style.display = "block";
-        slides2[slideIndex - 1].style.display = "block";
-        setTimeout(showSlides, 2500);
+            slides[slideIndex - 1].style.display = "block";
+        }else if(type === 'thema'){
+            const slides2 = document.getElementsByClassName("slides2");
+            for (i = 0; i < slides2.length; i++) {
+                slides2[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides2.length) {
+                slideIndex = 1;
+            }
+            slides2[slideIndex - 1].style.display = "block";
+        }else{
+            const slides = document.getElementsByClassName("slides");
+            const slides2 = document.getElementsByClassName("slides2");
+            for (i = 0; i < slides2.length; i++) {
+                slides[i].style.display = "none";
+                slides2[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides2.length) {
+                slideIndex = 1;
+            }
+            slides[slideIndex - 1].style.display = "block";
+            slides2[slideIndex - 1].style.display = "block";
+        }
+        type=null;
+        timeoutset = setTimeout(showSlides, 2500);
     }
-
-    function plusSlides(n) {
-        showSlides((slideIndex += n));
-    }
-
-    document.querySelector(".prev").addEventListener("click", () => {
-        plusSlides(-1);
-    });
-    document.querySelector(".next").addEventListener("click", () => {
-        plusSlides(1);
-    });
-
 
 </script>
 </body>
