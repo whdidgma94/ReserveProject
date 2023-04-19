@@ -11,24 +11,24 @@
 <div class="view">
   <input type="hidden" id="boardNo" th:value="${board.no}" />
 <!--  <input type="hidden" id="writerValue" th:value="${board.get().id}" />-->
-  <table>
+  <table class="table table-bordered">
     <tbody>
     <tr>
+      <td>제목</td>
+      <td colspan="5"><div th:text="${board.title}" name="id"/></td>
+    </tr>
+    <tr>
       <td>작성자</td>
-      <td><input type="text" name="id" th:value="${board.id}" readonly></td>
-    </tr>
-    <tr>
+      <td><div th:text="${board.id}" name="id"/></td>
       <td>게시글 번호</td>
-      <td><input type="text" name="no" th:value="${board.no}" readonly></td>
-    </tr>
-    <tr>
+      <td><div name="no" th:text="${board.no}"/></td>
       <td>작성 시간</td>
       <td>
         <div name="date" th:text="${board.date} +' '+ ${board.time}"/>
       </td>
     </tr>
     <tr>
-      <td colspan="4" class="boardContent"><div name="content" th:text="${board.content}"></div></td>
+      <td colspan="6" class="boardContent"><div name="content" th:text="${board.content}"></div></td>
     </tr>
     </tbody>
   </table>
