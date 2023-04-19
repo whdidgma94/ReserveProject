@@ -5,10 +5,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/js/memberMyPage.js"></script>
-<head th:replace="pc/fragments/header :: header"/>
+<head th:replace="pc/fragments/header :: header"></head>
 <body>
-<div th:replace="pc/fragments/bodyHeader :: bodyHeader"/>
-<div th:replace="pc/fragments/bodyHeader :: side-bar"/>
+<div th:replace="pc/fragments/bodyHeader :: bodyHeader"></div>
+<div th:replace="pc/fragments/bodyHeader :: side-bar"></div>
 <div class="view">
     <div class="contentName">
         <h1>마이 페이지</h1>
@@ -55,8 +55,6 @@
                onclick="location.href='/pc/member/update'"/>
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">탈퇴</button>
     </div>
-
-
 </div>
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
      aria-hidden="true">
@@ -79,6 +77,6 @@
         </div>
     </div>
 </div>
-<div th:replace="pc/fragments/footer :: footer"/>
+<div th:replace="pc/fragments/footer :: footer"></div>
 </body>
 </html>

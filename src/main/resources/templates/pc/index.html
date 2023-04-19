@@ -284,7 +284,7 @@
                             LctClHtml += '<div class="slides2" style="display: none;"><div class="slide-group">'
                         }
                         for (let j = 0; j < 3; j++){
-                            LctClHtml += '<div class="slide-box" onClick="'+campList[(i*3)+j].contentId+'">'
+                            LctClHtml += '<div class="slide-box" onclick="details('+campList[(i*3)+j].contentId+')">'
                             LctClHtml += '<img class="imgSlide" src="'+campList[(i*3)+j].firstImageUrl+'" onError="this.src=\'../../img/어서와양_사진없음.png\'"/>'
                             LctClHtml += '<div class="imgTitle">'+campList[(i*3)+j].facltNm+'</div></div>'
                         }
