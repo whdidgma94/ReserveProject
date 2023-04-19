@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<link href="/css/memberLikes.css" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script th:src="@{/js/memberLikes.js}"></script>
+<head th:replace="~{pc/fragments/header :: header}"/>
+
+<body>
+<div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
+<div th:replace="~{pc/fragments/bodyHeader :: side-bar}"/>
+<div class="mainBox view">
+    <h1>찜 목록</h1>
+
+    <div id="campListBox" th:each="memberLikes:${memberLikesList}">
+        <div class="campLikeBox">
+            <div></div>
+            <div><label th:id="${memberLikes.getContentId()}" class="btn memberLikeBtn"
+                        style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold"
+                        onclick="addLike(this)">♥</label></div>
+        </div>
+        <div>
+            <div class="tempCampBox" th:id="${memberLikes.getContentId()}" onClick="details(this)">
+                <div class="campBoxTop">
+                    <div class="campBoxLeft">
+                        <img style="height: 98%" th:src="${memberLikes.getFirstImageUrl()}"
+                             onerror="this.src='../../img/어서와양_사진없음.png'"/></div>
+                    <div class="campBoxRight">
+                        <div class="campText"><span th:text="${memberLikes.getDoNm()}"></span>
+                            <span th:text="${memberLikes.getSigunguNm()}"></span></div>
+                        <div class="campText" th:text="${memberLikes.getFacltNm()}"></div>
+                        <div class="campText" th:text="${memberLikes.getLineIntro()}"></div>
+                        <div class="campSbrsClBox">
+                            <div class="campSbrsCl" th:if="${memberLikes.getSbrsCl().contains('전기')}">
+                                <div class="campSbrsClItem">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </div>
+                            </div>
+                            <div class="campSbrsCl" th:if="${memberLikes.getSbrsCl().contains('무선인터넷')}">
+                                <div class="campSbrsClItem">
+                                    <i class="fa-solid fa-wifi"></i>
+                                </div>
+                            </div>
+                            <div class="campSbrsCl" th:if="${memberLikes.getSbrsCl().contains('장작판매')}">
+                                <div class="campSbrsClItem">
+                                    <i class="fa-sharp fa-solid fa-fire"></i>
+                                </div>
+                            </div>
+                            <div class="campSbrsCl" th:if="${memberLikes.getSbrsCl().contains('온수')}">
+                                <div class="campSbrsClItem">
+                                    <i class="fa-solid fa-thermometer-full"></i>
+                                </div>
+                            </div>
+                            <div class="campSbrsCl" th:if="${memberLikes.getSbrsCl().contains('트렘폴린')}">
+                                <div class="campSbrsClItem">
+                                    <i class="fa-solid fa-person-arrow-up-from-line"></i>
+                                </div>
+                            </div>
+                            <div class="campSbrsCl" th:if="${memberLikes.getSbrsCl().contains('물놀이장')}">
+                                <div class="campSbrsClItem">
+                                    <i class="fa-solid fa-swimmer"></i>
+                                </div>
+                            </div>
+                            <div class="campSbrsCl" th:if="${memberLikes.getSbrsCl().contains('놀이터')}">
+                                <div class="campSbrsClItem">
+                                    <i class="fa-solid fa-rocket"></i>
+                                </div>
+                            </div>
+                            <div class="campSbrsCl" th:if="${memberLikes.getSbrsCl().contains('산책로')}">
+                                <div class="campSbrsClItem">
+                                    <i class="fa-solid fa-hiking"></i>
+                                </div>
+                            </div>
+                            <div class="campSbrsCl" th:if="${memberLikes.getSbrsCl().contains('운동시설')}">
+                                <div class="campSbrsClItem">
+                                    <i class="fa-solid fa-dumbbell"></i>
+                                </div>
+                            </div>
+                            <div class="campSbrsCl" th:if="${memberLikes.getSbrsCl().contains('마트.편의점')}">
+                                <div class="campSbrsClItem">
+                                    <i class="fa-solid fa-shopping-cart"></i>
+                                </div>
+                            </div>
+                            <div class="campSbrsCl" th:if="${memberLikes.getSbrsCl().contains('운동장')}">
+                                <div class="campSbrsClItem">
+                                    <i class="fa-solid fa-baseball-ball"></i>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--                <div class="campBoxBottom">-->
+            <!--                    <div class="campThema">-->
+
+            <!--                        if (campList[i].themaEnvrnCl === "") {-->
+            <!--                        campList[i].themaEnvrnCl = "즐거운캠핑";-->
+            <!--                        } else {-->
+            <!--                        campList[i].themaEnvrnCl += ",즐거운캠핑";-->
+            <!--                        }-->
+            <!--                        console.log(campList[i].themaEnvrnCl)-->
+            <!--                        let themaList = campList[i].themaEnvrnCl.split(",");-->
+            <!--                        console.log(themaList)-->
+            <!--                        for (let j = 0; j < themaList.length; j++) {-->
+            <!--                        campListBoxHtml += '#' + themaList[j] + ' '-->
+            <!--                        console.log(themaList[j])-->
+            <!--                        }-->
+            <!--                    </div>-->
+            <!--                </div>-->
+        </div>
+        <hr>
+    </div>
+    <div th:replace="~{pc/fragments/footer :: footer}"/>
+</body>
+<script th:inline="javascript">
+    let log = [[${session.log}]];
+</script>
+</html>

@@ -6,10 +6,10 @@ function details(contentId) {
 
 let cltList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];
 let index = 0;
-let ranCltBox = document.getElementById("rancltCl");
+let ranCltBox = document.getElementById("themaName");
 
 window.onload = function () {
-    ranCltBox = document.getElementById("rancltCl");
+    ranCltBox = document.getElementById("themaName");
     if (ranCltBox !== null) {
         ranCltBox.innerHTML = cltList[index];
         changeView(cltList[index]);

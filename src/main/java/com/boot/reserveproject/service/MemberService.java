@@ -2,6 +2,8 @@ package com.boot.reserveproject.service;
 
 import com.boot.reserveproject.domain.Camp;
 import com.boot.reserveproject.domain.Member;
+import com.boot.reserveproject.domain.MemberLikes;
+import com.boot.reserveproject.repository.MemberLikesRepository;
 import com.boot.reserveproject.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -14,10 +16,11 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
+    private final MemberLikesRepository memberLikesRepository;
     @Autowired
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, MemberLikesRepository memberLikesRepository) {
         this.memberRepository = memberRepository;
+        this.memberLikesRepository = memberLikesRepository;
     }
 
     public Long join(Member member) {
@@ -92,11 +95,26 @@ public class MemberService {
     }
     @Modifying
     @Transactional
-    public void updateMemberLikes(List<Camp> campLikes, Long id){
-        memberRepository.updateMemberLikes(campLikes, id);
+    public void addMemberLikes(Camp camp, Member member){
+        memberLikesRepository.save(MemberLikes.createMemberLikes(member, camp));
     }
 
+    @Modifying
+    @Transactional
+    public void deleteMemberLikes(Camp camp, Member member){
+        memberLikesRepository.deleteMemberLikesByInfo(camp.getContentId(), member.getId());
+    }
+
+    @Transactional
+    public void updateMember(Member member){
+        memberRepository.updateMember(member.getPw(), member.getPostcode(), member.getRoadAddress(),member.getJibunAddress(),member.getDetailAddress(),member.getPhone(),member.getEmail(),member.getLoginId());
+    }
     public Member selectMemberById(String loginId) {
         return memberRepository.selectMemberByLoginId(loginId);
+    }
+    @Modifying
+    @Transactional
+    public void deleteMemberByLoginId(String loginId){
+        memberRepository.deleteMemberByLoginId(loginId);
     }
 }

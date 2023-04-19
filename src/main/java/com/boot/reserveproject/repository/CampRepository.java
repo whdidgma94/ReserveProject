@@ -3,6 +3,7 @@ package com.boot.reserveproject.repository;
 import com.boot.reserveproject.domain.Camp;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
 //    @Query("SELECT c FROM Camp c WHERE c.mapY BETWEEN :southWestLat AND :northEastLat AND c.mapX BETWEEN :southWestLng AND :northEastLng AND c.addr1 LIKE %:keyword%")
 //    List<Camp> findCampWithinBoundsWithAddress(@Param("southWestLat") double southWestLat, @Param("southWestLng") double southWestLng, @Param("northEastLat") double northEastLat, @Param("northEastLng") double northEastLng, @Param("keyword") String keyword);
 
-    @Query("select c from Camp c where c.id = :id")
+    @Query("select c from Camp c where c.contentId = :id")
     Camp selectOneById(@Param("id") Long id);
 
 
@@ -42,10 +43,10 @@ public interface CampRepository extends JpaRepository<Camp, Long> {
 
 
     //시,도로 필터링해서 id순 정렬된 리스트
-    @Query("SELECT c FROM Camp c WHERE c.doNm LIKE %:sido% AND c.sigunguNm LIKE %:sigoon% ORDER BY c.id")
+    @Query("SELECT c FROM Camp c WHERE c.doNm LIKE %:sido% AND c.sigunguNm LIKE %:sigoon% ORDER BY c.contentId")
     List<Camp> selectListByLocationTest(@Param("sido") String sido, @Param("sigoon") String sigoon, @Param("pageAble") Pageable pageAble);
     //시,도로 필터링해서 id순 정렬된 리스트의 길이
-    @Query("SELECT COUNT(c.id) FROM Camp c WHERE c.doNm LIKE %:sido% AND c.sigunguNm LIKE %:sigoon%")
+    @Query("SELECT COUNT(c.contentId) FROM Camp c WHERE c.doNm LIKE %:sido% AND c.sigunguNm LIKE %:sigoon%")
     Long countListByLocation(@Param("sido") String sido, @Param("sigoon") String sigoon);
     @Query("SELECT c FROM Camp c WHERE c.lctCl LIKE %:lctCl%")
     List<Camp> selectListBylctCl(@Param("lctCl") String lctCl);

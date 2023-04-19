@@ -137,6 +137,9 @@ ul{
     width:100%;
     cursor:pointer;
 }
+.campImg:hover {
+    border: 4px solid #e49f41;
+}
 .campInfoTable td{
     width:50%;
 }
@@ -366,3 +369,5 @@ button.paging-btn:hover {
 .boardContent div{
     min-height:500px;
 }
+
+

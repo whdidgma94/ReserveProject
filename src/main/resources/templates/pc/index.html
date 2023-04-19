@@ -1,15 +1,95 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <head th:replace="~{pc/fragments/header :: header}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script th:src="@{/js/pcIndex.js}"></script>
     <link href="/css/pcIndexStyle.css" rel="stylesheet" type="text/css">
 </head>
+<style>
+    .RanView {
+        background-color: #f2cfa0;
+        border-radius: 20px;
+        height: 250px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .slider {
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .slide-title {
+        width: 10%;
+        text-align: center;
+    }
+
+    .slide-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .slides, .slides2 {
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .slide-box {
+        width: 30%;
+        height: 140px;
+        margin-right: 10px;
+    }
+
+    .imgTitle {
+        width: 100%;
+        font-size: 1rem;
+        text-align: center;
+    }
+    .imgSlide{
+        width: 100%; height: 100%;
+    }
+
+    .EanViewTitle {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .imgSlide:hover {
+        border: 4px solid #e49f41;
+        cursor: pointer;
+    }
+
+    .ranBtn {
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 5px;
+    }
+
+</style>
 <body>
 <script>
     function categoryPage(id) {
         console.log(id)
         location.href = "/pc/search/category?Id=" + id;
+    }
+
+    function details(contentId) {
+        location.href = "/pc/detailCamp?contentId=" + contentId;
     }
 </script>
 <div th:replace="~{pc/fragments/bodyHeader :: bodyHeader}"/>
@@ -19,7 +99,7 @@
         <img src="/img/어서와Yng메인.png">
     </div>
     <div class="row">
-        <table class="table table-bordered mainCategory">
+        <table class="table table-borderless mainCategory">
             <tr>
                 <td th:onclick="categoryPage(this.id)"
                     th:id="${iconTextId[0]}"><img src="/img/어서와영_오토캠핑.png">오토캠핑
@@ -50,10 +130,199 @@
             </tr>
         </table>
     </div>
-</div>
-<img src="https://gocamping.or.kr/upload/camp/17/thumb/thumb_720_24022VmFPmMGmFCKEl55nP58.jpg" onerror="this.onerror=null; this.src='/img/어서와영_사진없음.png';">
-<hr>
-<div th:replace="~{pc/fragments/footer :: footer}"/>
-</body>
 
+<div class="row RanView">
+    <div class="EanViewTitle">
+        <button id="lctClLeftBtn" class="ranBtn">◀</button>
+        <div style="height: 30px;">
+            <span id="lctClName">해변</span>
+        </div>
+        <button id="lctClRightBtn" class="ranBtn">▶</button>
+    </div>
+    <div class="slider">
+        <div class="slide-title">멋진경치와<br>함께하는<br>캠핑장!</div>
+        <div class="slides"
+             th:each="campImg, campIdx : ${lctCls}" th:if="${campIdx.index % 3 == 0}">
+            <div class="slide-group">
+                <div class="slide-box" th:onclick="|details(${campImg.contentId})|">
+                    <img class="imgSlide"
+                         th:src="${campImg.firstImageUrl}" onerror="this.src='../../img/어서와영_사진없음.png'"/>
+                    <div class="imgTitle" th:text="${campImg.facltNm}"></div>
+                </div>
+                <div class="slide-box" th:onclick="|details(${lctCls[campIdx.index + 1].contentId})|">
+                    <img class="imgSlide"
+                         th:src="${lctCls[campIdx.index + 1].firstImageUrl}"
+                         onerror="this.src='../../img/어서와영_사진없음.png'"/>
+                    <div class="imgTitle" th:text="${lctCls[campIdx.index + 1].facltNm}"></div>
+                </div>
+                <div class="slide-box" th:onclick="|details(${lctCls[campIdx.index + 2].contentId})|">
+                    <img class="imgSlide"
+                         th:src="${lctCls[campIdx.index + 2].firstImageUrl}"
+                         onerror="this.src='../../img/어서와영_사진없음.png'"/>
+                    <div class="imgTitle" th:text="${lctCls[campIdx.index + 2].facltNm}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row RanView">
+    <div class="EanViewTitle">
+        <button id="themaLeftBtn" class="ranBtn">◀</button>
+        <div style="height: 30px;">
+            <span id="themaName">낚시</span>
+        </div>
+        <button id="themaRightBtn" class="ranBtn">▶</button>
+    </div>
+    <div class="slider">
+        <div class="slide-title">즐거운<br>테마별<br>캠핑지!</div>
+        <div class="slides2"
+             th:each="campImg, campIdx : ${themas}" th:if="${campIdx.index % 3 == 0}">
+            <div class="slide-group">
+                <div class="slide-box" th:onclick="|details(${campImg.contentId})|">
+                    <img class="imgSlide"
+                         th:src="${campImg.firstImageUrl}" onerror="this.src='../../img/어서와양_사진없음.png'"/>
+                    <div class="imgTitle" th:text="${campImg.facltNm}"></div>
+                </div>
+                <div class="slide-box" th:onclick="|details(${lctCls[campIdx.index + 1].contentId})|">
+                    <img class="imgSlide"
+                         th:src="${themas[campIdx.index + 1].firstImageUrl}"
+                         onerror="this.src='../../img/어서와양_사진없음.png'"/>
+                    <div class="imgTitle" th:text="${themas[campIdx.index + 1].facltNm}"></div>
+                </div>
+                <div class="slide-box" th:onclick="|details(${lctCls[campIdx.index + 2].contentId})|">
+                    <img class="imgSlide"
+                         th:src="${themas[campIdx.index + 2].firstImageUrl}"
+                         onerror="this.src='../../img/어서와양_사진없음.png'"/>
+                    <div class="imgTitle" th:text="${themas[campIdx.index + 2].facltNm}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div th:replace="~{pc/fragments/footer :: footer}"/>
+
+<script>
+    let lctClList = ["해변", "섬", "산", "숲", "계곡", "강", "호수", "도심"];
+    let lctClindex = 0;
+    document.querySelector("#lctClLeftBtn").addEventListener("click", () => {
+        lctClHandleButtonClick(-1);
+    });
+    document.querySelector("#lctClRightBtn").addEventListener("click", () => {
+        lctClHandleButtonClick(1);
+    });
+
+    function lctClHandleButtonClick(n) {
+        lctClShowSlides((lctClindex += n));
+    }
+
+    function lctClShowSlides() {
+        if (lctClindex < 0) {
+            lctClindex = lctClList.length - 1;
+        } else if (lctClindex >= lctClList.length) {
+            lctClindex = 0;
+        }
+        document.querySelector("#lctClName").innerHTML = lctClList[lctClindex];
+        changeView(lctClList[lctClindex]);
+        console.log("되고있는건가??")
+    }
+
+    let themaList = ["낚시", "스키", "액티비티", "수상레저", "여름물놀이", "가을단풍명소", "걷기길", "봄꽃여행", "겨울눈꽃명소"];
+    let themaindex = 0;
+    document.querySelector("#themaLeftBtn").addEventListener("click", () => {
+        themaHandleButtonClick(-1);
+    });
+    document.querySelector("#themaRightBtn").addEventListener("click", () => {
+        themaHandleButtonClick(1);
+    });
+
+    function themaHandleButtonClick(n) {
+        themaShowSlides((themaindex += n));
+    }
+
+    function themaShowSlides() {
+        if (themaindex < 0) {
+            themaindex = themaList.length - 1;
+        } else if (themaindex >= themaList.length) {
+            themaindex = 0;
+        }
+        document.querySelector("#themaName").innerHTML = themaList[themaindex];
+
+    }
+    function changeView(lct) {
+        console.log("되고있는건가??????")
+        $.ajax({
+            type: "GET",
+            url: "/camp/cltList",
+            data: {
+                lctCl: lct
+            },
+            success: function (result) {
+                try {
+                    let campList = $.parseJSON(result);
+                    if (campList == null || campList.length == 0) {
+                        alert("검색결과가 존재하지 않습니다.");
+                        return;
+                    }
+                    let LctClHtml = "";
+                    LctClHtml += '<div className="slide-title">멋진경치와<br>함께하는<br>캠핑장</div>'
+                    for (let i = 0; i < 6; i++){
+                        LctClHtml += '<div className="slides"><div className="slide-group">'
+                         for (let j = 0; j < 3; j++){
+                             LctClHtml += '<div className="slide-box" onClick="'+campList[(i*3)+j].contentId+'">'
+                             LctClHtml += '<img className="imgSlide" src="'+campList[(i*3)+j].firstImageUrl+'" onError="this.src=\'../../img/어서와양_사진없음.png\'"/>'
+                             LctClHtml += '<div className="imgTitle">'+campList[(i*3)+j].facltNm+'</div></div>'
+                             console.log("되고있는건가????!!!?!?!?!?!?!??!????")
+                         }
+                    }
+                    LctClHtml += '<div></div>'
+                    $('#slider').html(LctClHtml);
+                } catch (e) {
+                    console.log(e);
+                    alert("오류가 발생했습니다.");
+                }
+            },
+            error: function () {
+                console.log("Error occurred during data fetching.");
+                alert("데이터를 불러오는 중 오류가 발생했습니다.");
+            }
+        });
+    }
+
+
+    /*자동 뷰 부분   아 모르겟다 내일의 내가 알아서 하겠지~*/
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        let i;
+        const slides = document.getElementsByClassName("slides");
+        const slides2 = document.getElementsByClassName("slides2");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+            slides2[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+        slides[slideIndex - 1].style.display = "block";
+        slides2[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 2500);
+    }
+
+    function plusSlides(n) {
+        showSlides((slideIndex += n));
+    }
+
+    document.querySelector(".prev").addEventListener("click", () => {
+        plusSlides(-1);
+    });
+    document.querySelector(".next").addEventListener("click", () => {
+        plusSlides(1);
+    });
+
+
+</script>
+</body>
 </html>

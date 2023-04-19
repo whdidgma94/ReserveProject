@@ -2,6 +2,7 @@ package com.boot.reserveproject.repository;
 
 import com.boot.reserveproject.domain.Camp;
 import com.boot.reserveproject.domain.Member;
+import com.boot.reserveproject.domain.MemberLikes;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -39,6 +40,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     void updateTempByEmail(@Param("code") String code, @Param("email") String email);
 
     @Modifying
-    @Query("update Member m set m.campLikes = :campLikes where m.id=:id")
-    void updateMemberLikes(@Param("campLikes") List<Camp> campLikes, @Param("id") Long id);
+    @Query("update Member m set m.pw = :pw, m.postcode = :postcode, m.roadAddress = :roadAddress, m.jibunAddress = :jibunAddress, m.detailAddress = :detailAddress, m.phone = :phone, m.email = :email where m.loginId = :loginId")
+    void updateMember(@Param("pw") String pw, @Param("postcode") String postcode, @Param("roadAddress") String roadAddress, @Param("jibunAddress") String jibunAddress, @Param("detailAddress") String detailAddress, @Param("phone") String phone, @Param("email") String email, @Param("loginId") String loginId);
+    @Modifying
+    @Query("delete from Member m where m.loginId=:loginId")
+    void deleteMemberByLoginId(@Param("loginId") String loginId);
 }

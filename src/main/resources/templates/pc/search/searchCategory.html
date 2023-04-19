@@ -109,53 +109,6 @@
     </div>
     <div id="campListCount"></div>
     <div id="campListBox"></div>
-<!--  !!!!!!!!!!!!!!  혹시몰라서 일단 여기 보관해두고 있습니다  -->
-<!--    <div class="campListCount" id="campListCount"-->
-<!--         th:text="'총 ' + ${listCount} + ' 개의 캠핑장이 검색되었습니다.'"></div>-->
-<!--    <div class="campListBox" id="campListBox">-->
-<!--        <div th:each="camp, idx : ${campList} ">-->
-<!--            <div class="tempCampBox" th:onclick="|details(${camp.contentId})|">-->
-<!--                <div class="campBoxTop">-->
-<!--                    <div class="campBoxLeft">-->
-<!--                        <img style="height: 98%" th:src="${camp.firstImageUrl}"/>-->
-<!--                    </div>-->
-<!--                    <div class="campBoxRight">-->
-<!--                        <div class="campText">-->
-<!--                            [ <span th:text="${camp.doNm}"></span>-->
-<!--                            <span th:text="${camp.sigunguNm}"></span> ]-->
-<!--                        </div>-->
-<!--                        <div class="campText" th:text="${camp.facltNm}"></div>-->
-<!--                        <div class="campText" th:text="${camp.lineIntro}"></div>-->
-<!--                        <div class="campSbrsClBox">-->
-<!--                            <div class="campSbrsCl" th:each="sbrsCl : ${sbrsClList[__${idx.index}__]}">-->
-<!--                                <div class="campSbrsClItem" th:each="C : ${sbrsCl}">-->
-<!--                                    <i th:if="${C == '전기'}" class="fa-solid fa-bolt"></i>-->
-<!--                                    <i th:if="${C == '무선인터넷'}" class="fa-solid fa-wifi"></i>-->
-<!--                                    <i th:if="${C == '장작판매'}" class="fa-sharp fa-solid fa-fire"></i>-->
-<!--                                    <i th:if="${C == '온수'}" class="fa-solid fa-thermometer-full"></i>-->
-<!--                                    <i th:if="${C == '트렘폴린'}" class="fa-solid fa-person-arrow-up-from-line"></i>-->
-<!--                                    <i th:if="${C == '물놀이장'}" class="fa-solid fa-swimmer"></i>-->
-<!--                                    <i th:if="${C == '놀이터'}" class="fa-solid fa-rocket"></i>-->
-<!--                                    <i th:if="${C == '산책로'}" class="fa-solid fa-hiking"></i>-->
-<!--                                    <i th:if="${C == '운동시설'}" class="fa-solid fa-dumbbell"></i>-->
-<!--                                    <i th:if="${C == '마트.편의점'}" class="fa-solid fa-shopping-cart"></i>-->
-<!--                                    <i th:if="${C == '운동장'}" class="fa-solid fa-baseball-ball"></i>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="campBoxBottom">-->
-<!--                            <div class="campThema">-->
-<!--                                <div class="campThemaList">-->
-<!--                                    <span></span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <hr>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
         <div class="pageBox">
             <div id="paging"></div>
             <div id="pagingInsert" class="d-flex justify-content-center align-items-center mt-3">
@@ -164,4 +117,7 @@
     <div th:replace="~{pc/fragments/footer :: footer}"/>
 </div>
 </body>
+<script th:inline="javascript">
+    let log = [[${session.log}]];
+</script>
 </html>

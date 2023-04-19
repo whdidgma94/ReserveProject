@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<head th:replace="mobile/fragments/header :: header"/>
+<head th:replace="mobile/fragments/header :: header"></head>
 <body>
-<div th:replace="mobile/fragments/bodyHeader :: bodyHeader"/>
-<div th:replace="mobile/fragments/bodyHeader :: side-bar"/>
+<div th:replace="mobile/fragments/bodyHeader :: bodyHeader"></div>
+<div th:replace="mobile/fragments/bodyHeader :: side-bar"></div>
 <div class="view">
     <div class="contentName">
         <h1>로그인</h1>
@@ -32,6 +32,6 @@
         <a href="/mobile/member/new">회원가입</a>
     </div>
 </div>
-<div th:replace="mobile/fragments/footer :: footer"/>
+<div th:replace="mobile/fragments/footer :: footer"></div>
 </body>
 </html>

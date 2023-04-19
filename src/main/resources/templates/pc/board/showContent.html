@@ -24,22 +24,17 @@
     <tr>
       <td>작성 시간</td>
       <td>
-        <input type="text" name="date" th:value="${board.date} + ${board.time}" readonly>
+        <div name="date" th:text="${board.date} +' '+ ${board.time}"/>
       </td>
     </tr>
     <tr>
-      <td>제목</td>
-      <td><input type="text" name="title" th:value="${board.title}" readonly></td>
-    </tr>
-    <tr>
-      <td>내용</td>
-      <td><textarea name="content" readonly th:text="${board.content}"> </textarea></td>
+      <td colspan="4" class="boardContent"><div name="content" th:text="${board.content}"></div></td>
     </tr>
     </tbody>
   </table>
   <div th:if="${session.log == board.id}">
-    <button onclick="deleteBoardPc(document.getElementById('boardNo').value)">삭제</button>
-    <button onclick="updateBoardPc(document.getElementById('boardNo').value)">수정</button>
+    <button onclick="deleteBoardPc(document.getElementById('boardNo').value)" class="btn btn-danger">삭제</button>
+    <button onclick="updateBoardPc(document.getElementById('boardNo').value)" class="btn btn-primary">수정</button>
   </div>
   <div id="commentList">
 

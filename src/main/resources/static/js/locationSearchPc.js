@@ -147,10 +147,12 @@ function search() {
 
                 let campListHtml = '<div class="row">';
                 for (let i = 0; i < areaArr.length; i++) {
+                    campListHtml += '<div class="campLikeBox"><div> 추천수 : ' + campList[i].recommendCnt + '</div>'
+                    campListHtml += '<div><label for="memberLike" id="'+campList[i].contentId+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>'
                     campListHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + areaArr[i].id + ' \'">';
                     campListHtml += '<div class="campBoxTop">';
                     campListHtml += '<div class="campBoxLeft">';
-                    campListHtml += '<img src="' + (areaArr[i].img || '../../img/어서와영_사진없음.png') + '" alt="">';
+                    campListHtml += '<img style="height: 98%" src="' + campList[i].firstImageUrl + '" onerror="this.src=\'../../img/어서와양_사진없음.png\'"/>';
                     campListHtml += '</div>';
                     campListHtml += '<div class="campBoxRight">';
                     campListHtml += '<div>';
@@ -175,7 +177,22 @@ function search() {
                         else if(areaArr[i].facil[j]==="운동장"){campListHtml += '<i class="fa-solid fa-baseball-ball"></i>';}
                         campListHtml += '</div>';
                     }
-                    campListHtml += '</div></div></div></div>';
+                    campListHtml += '</div></div></div>'
+                    campListHtml += '<div class="campBoxBottom"><div class="campThema">'
+
+                    if (campList[i].themaEnvrnCl === "") {
+                        campList[i].themaEnvrnCl = "즐거운캠핑";
+                    } else {
+                        campList[i].themaEnvrnCl += ",즐거운캠핑";
+                    }
+                    console.log(campList[i].themaEnvrnCl)
+                    let themaList = campList[i].themaEnvrnCl.split(",");
+                    console.log(themaList)
+                    for (let j = 0; j < themaList.length; j++) {
+                        campListHtml += '#' + themaList[j] + ' '
+                        console.log(themaList[j])
+                    }
+                    campListHtml += '</div></div></div>';
                     campListHtml += '<hr>';
                 }
 
@@ -238,10 +255,12 @@ function paging(i) {
 
                 let campListHtml = '<div class="row">';
                 for (let i = 0; i < areaArr.length; i++) {
+                    campListHtml += '<div class="campLikeBox"><div> 추천수 : ' + campList[i].recommendCnt + '</div>'
+                    campListHtml += '<div><label for="memberLike" id="'+campList[i].contentId+'" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>'
                     campListHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + areaArr[i].id + ' \'">';
                     campListHtml += '<div class="campBoxTop">';
                     campListHtml += '<div class="campBoxLeft">';
-                    campListHtml += '<img src="' + (areaArr[i].img || '../../img/어서와영_사진없음.png') + '" alt="">';
+                    campListHtml += '<img style="height: 98%" src="' + campList[i].firstImageUrl + '" onerror="this.src=\'../../img/어서와양_사진없음.png\'"/>';
                     campListHtml += '</div>';
                     campListHtml += '<div class="campBoxRight">';
                     campListHtml += '<div>';
@@ -266,7 +285,22 @@ function paging(i) {
                         else if(areaArr[i].facil[j]==="운동장"){campListHtml += '<i class="fa-solid fa-baseball-ball"></i>';}
                         campListHtml += '</div>';
                     }
-                    campListHtml += '</div></div></div></div>';
+                    campListHtml += '</div></div></div>'
+                    campListHtml += '<div class="campBoxBottom"><div class="campThema">'
+
+                    if (campList[i].themaEnvrnCl === "") {
+                        campList[i].themaEnvrnCl = "즐거운캠핑";
+                    } else {
+                        campList[i].themaEnvrnCl += ",즐거운캠핑";
+                    }
+                    console.log(campList[i].themaEnvrnCl)
+                    let themaList = campList[i].themaEnvrnCl.split(",");
+                    console.log(themaList)
+                    for (let j = 0; j < themaList.length; j++) {
+                        campListHtml += '#' + themaList[j] + ' '
+                        console.log(themaList[j])
+                    }
+                    campListHtml += '</div></div></div>';
                     campListHtml += '<hr>';
                 }
 

@@ -41,15 +41,4 @@ class CampServiceTest {
         System.out.println(Arrays.toString(result));
     }
 
-    @Test
-    public void likeTest() {
-        List<String> testest = new ArrayList<>();
-        testest.add("낚시");
-        List<Camp> t = service.findByThemas(testest);
-        for (int i = 0; i < t.size(); i++){
-            Random rd = new Random();
-            t.get(i).setRecommendCnt(rd.nextInt(10)+1);
-        }
-    }
-
 }
