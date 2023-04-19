@@ -1,44 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{mobile/fragments/header :: header}"></head>
+<head th:replace="~{mobile/fragments/header :: header}"/>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script th:src="@{/js/addBoard.js}"></script>
+<script th:src="@{/js/checkBoard.js}"></script>
 
 <body>
-<div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"></div>
-<div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"></div>
+<div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"/>
+<div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"/>
 
 <div class="view">
 
   <input type="hidden" id="logValue" th:value="${session.log}" />
 
-  <form th:action="@{/mobile/board/addBoardPro}" method="post" enctype="multipart/form-data">
+  <form th:action="@{/mobile/board/addBoardPro}" method="post" enctype="multipart/form-data" onsubmit="return validateFormBoard()">
     <input type="hidden" name="img" value=null>
     <table class="table table-bordered">
       <tbody>
       <tr>
         <td>제목</td>
-        <td><input type="text" name="title">
-          <input type="hidden" name="id" th:value="${session.log}">
-          <input type="hidden" name="no" th:value="${no}"></td>
+        <td><input type="text" name="title" id="title"></td>
       </tr>
       <tr>
         <td>내용</td>
-        <td><textarea name="content"></textarea></td>
+        <td><textarea name="content" id="content" style="resize: none; width: 100%; min-height: 400px;"></textarea></td>
       </tr>
       </tbody>
     </table>
-    <input type="submit" value="작성하기">
-  </form>
-  <form id="upload-form" enctype="multipart/form-data">
-    <input type="file" id="file-input" name="file">
-    <button type="button" id="upload-button">Upload</button>
+    <input type="submit" value="작성하기" class="btn btn-primary">
+    <input type="hidden" name="id" th:value="${session.log}" >
+    <input type="hidden" name="no" th:value="${no}">
   </form>
 
 
-  <div id="image-preview"></div>
 
-  <div th:replace="~{mobile/fragments/footer :: footer}"></div>
+
+
+  <div th:replace="~{mobile/fragments/footer :: footer}" />
 </div>
 
 

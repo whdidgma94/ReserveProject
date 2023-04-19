@@ -12,20 +12,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+
+import java.util.*;
 
 @Controller@RequiredArgsConstructor
 public class BoardControllerMobile {
@@ -37,23 +34,25 @@ public class BoardControllerMobile {
 
     @GetMapping("/mobile/board/boardList")
     private String showBoardList(Model model){
+//        List<Board>boardList=boardService.selectAllBoard();
         List<BoardWithCommentsCount>boardList=boardService.findBoardWithCommentsCountByNo();
+        System.out.println(boardList.size());
         model.addAttribute("boardList",boardList);
         return"mobile/board/boardList";
     }
     @GetMapping("/mobile/board/addBoard")
     private String addBoard(Model model){
-    Long length= boardService.getBoardLength();
+        Long length= boardService.getBoardLength();
         System.out.println("length:"+length);
-    if(length==0){
-        model.addAttribute("no",1);
-    }
-    else{
-        Optional<Board> board= boardService.getLastBoard();
-        Long no=board.get().getNo();
-        no++;
-        model.addAttribute("no",no);
-    }
+        if(length==0){
+            model.addAttribute("no",1);
+        }
+        else{
+            Optional<Board> board= boardService.getLastBoard();
+            Long no=board.get().getNo();
+            no++;
+            model.addAttribute("no",no);
+        }
         return"mobile/board/addBoard";
     }
 
@@ -66,6 +65,7 @@ public class BoardControllerMobile {
                                @RequestParam("content") String content,
                                @RequestParam("img") String img,
                                Model model){
+
         Board board=new Board();
         Member member= new Member();
 
@@ -86,7 +86,7 @@ public class BoardControllerMobile {
     }
     @GetMapping("/mobile/board/showContent")
     private String showContent(Model model,@RequestParam("no") long no){
-
+        System.out.println("no:"+no);
         Board board =boardService.findOneBoardByNo(no);
         Long readCnt=board.getReadCnt();
         readCnt++;
@@ -102,8 +102,10 @@ public class BoardControllerMobile {
     private String deleteBoard(Model model,@RequestParam("no") long no){
 
         boardService.deleteBoard(no);
+//        List<Board>boardList=boardService.selectAllBoard();
         List<BoardWithCommentsCount>boardList=boardService.findBoardWithCommentsCountByNo();
         model.addAttribute("boardList",boardList);
+
         return"mobile/board/boardList";
     }
     @GetMapping("/mobile/board/updateBoard")
@@ -115,6 +117,7 @@ public class BoardControllerMobile {
     @PostMapping("/mobile/board/updateBoardPro")
     private String updateBoardPro(Model model,@RequestParam("id") String id,
                                   @RequestParam("no") long no,
+
                                   @RequestParam("title") String title,
                                   @RequestParam("content") String content,
                                   @RequestParam("img") String img){
@@ -135,6 +138,7 @@ public class BoardControllerMobile {
         model.addAttribute("comments",newComments);
         return "mobile/board/showContent";
     }
+
     @PostMapping("mobile/board/postImg")
     @ResponseBody
     public ResponseEntity<String> uploadImg(@RequestParam("file") MultipartFile file) {
@@ -158,9 +162,11 @@ public class BoardControllerMobile {
         // 업로드된 파일 이름 반환
         return new ResponseEntity<>(filename, HttpStatus.OK);
     }
-    public String getUploadDir() {
-        Path currentPath = Paths.get(System.getProperty("user.dir"));
-        Path uploadPath = currentPath.resolveSibling("src").resolve("main").resolve("resources").resolve("static").resolve("img");
-        return uploadPath.toString();
-    }
+
+//    public String getUploadDir() {
+//        Path currentPath = Paths.get(System.getProperty("user.dir"));
+//        Path uploadPath = currentPath.resolveSibling("src").resolve("main").resolve("resources").resolve("static").resolve("img");
+//        return uploadPath.toString();
+//    }
+
 }

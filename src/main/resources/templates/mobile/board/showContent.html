@@ -3,7 +3,7 @@
 <head th:replace="~{mobile/fragments/header :: header}"></head>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script th:src="@{/js/showContent.js}"></script>
-
+<script th:src="@{/js/checkComment.js}"></script>
 <body>
 <div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"></div>
 <div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"></div>
@@ -15,49 +15,73 @@
     <tbody>
     <tr>
       <td>제목</td>
-      <td colspan="3"><div name="title" th:text="${board.title}"/></td>
+      <td colspan="5"><div th:text="${board.title}" name="id"/></td>
     </tr>
     <tr>
       <td>작성자</td>
-      <td><div name="id" th:text="${board.id}"/></td>
+      <td><div th:text="${board.id}" name="id"/></td>
+      <td>게시글 번호</td>
+      <td><div name="no" th:text="${board.no}"/></td>
       <td>작성 시간</td>
       <td>
         <div name="date" th:text="${board.date} +' '+ ${board.time}"/>
       </td>
     </tr>
-
     <tr>
-      <td colspan="4" class="boardContent"><div name="content" th:text="${board.content}"></div></td>
+      <td colspan="6" class="boardContent"><div name="content" th:text="${board.content}"></div></td>
     </tr>
     </tbody>
   </table>
   <div th:if="${session.log == board.id}">
-    <button onclick="deleteBoardMobile(document.getElementById('boardNo').value)" class="btn btn-danger">삭제</button>
-    <button onclick="updateBoardMobile(document.getElementById('boardNo').value)" class="btn btn-primary">수정</button>
+    <button onclick="deleteBoardPc(document.getElementById('boardNo').value)" class="btn btn-danger">삭제</button>
+    <button onclick="updateBoardPc(document.getElementById('boardNo').value)" class="btn btn-primary">수정</button>
   </div>
-  <div id="commentList">
 
-  </div>
 
   <h5 >댓글(<span th:text="${#lists.size(comments)}"></span>)</h5>
 
 
   <table class="table">
     <th:block th:each="comments, iterStat : ${comments}">
-      <form th:action="@{/pc/comments/addSecondComment}" method="post" >
-        <tr style="border-bottom: 1px solid black;">
-          <input type="hidden" id="commentNo" th:value="${comments.no}">
+      <tr>
+
+        <form th:action="@{/mobile/comments/addSecondComment}" method="post" >
+
+          <div th:if="${comments.depth!=1}">
+            <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
+            </svg></td>
+          </div>
+          </td>
+
           <td th:text="${comments.id}" class="border-top"></td>
           <td th:text="${comments.content}" class="border-top"></td>
           <td th:text="${comments.date}" class="border-top"></td>
           <td th:text="${comments.time}" class="border-top"></td>
           <input type="hidden" name="no" th:value="${comments.no}">
           <input type="hidden" name="id" th:value="${session.log}">
-          <div th:if="${session.log!=null}">
-            <td><input type="submit" value="현재댓글에 대댓글작성하기" class="btn btn-secondary"></td>
+
+          <div th:if="${session.log!=null && comments.depth==1}">
+            <td><input type="submit" value="답글 작성" class="btn btn-primary"></td>
           </div>
-        </tr>
-      </form>
+        </form>
+
+        <div th:if="${session.log==comments.id}">
+          <form th:action="@{/mobile/comments/deleteComment}" method="post">
+            <input type="hidden" name="no" th:value="${comments.no}">
+            <td><input type="submit" value="삭제" class="btn btn-danger"></td>
+          </form>
+          <form th:action="@{/mobile/comments/updateComment}" method="post">
+            <input type="hidden" name="no" th:value="${comments.no}">
+            <td><input type="submit" value="수정" class="btn btn-primary"></td>
+          </form>
+
+        </div>
+
+      </tr>
+
+
+
 
     </th:block>
   </table>
@@ -70,15 +94,15 @@
     <a href="/pc/member/login">로그인</a>
   </div>
   <div th:if="${session.log !=null}">
-    <form action="/pc/comments/addComment" method="post">
-      <input type="text" name="comment">
+    <form th:action="@{/mobile/comments/addComment}" method="post" onsubmit="return validateFormComment()">
+      <input type="text" name="comment" id="comment">
       <input type="hidden" name="no" th:value="${board.no}">
       <input type="hidden" name="loginId" th:value="${session.log}">
-      <input type="submit" value="댓글 달기">
+      <input type="submit" value="댓글 달기" class="btn btn-primary">
     </form>
   </div>
-  <div th:replace="~{mobile/fragments/footer :: footer}"></div>
-</div>
 
+</div>
+<div th:replace="~{mobile/fragments/footer :: footer}"></div>
 </body>
 </html>
