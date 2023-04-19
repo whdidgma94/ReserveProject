@@ -161,8 +161,7 @@ public class MemberController {
     }
 
     @GetMapping("/pc/member/login")
-    public String loginFormPc(Model model) {
-        model.addAttribute("loginForm", new LoginForm());
+    public String loginFormPc() {
         return "pc/member/memberLoginForm";
     }
 
@@ -172,18 +171,22 @@ public class MemberController {
         return "mobile/member/memberLoginForm";
     }
 
-    @PostMapping("/pc/member/login")
-    private String loginMemberPc(@Valid LoginForm form, BindingResult result, HttpSession session) {
-        if (result.hasErrors()) {
-            return "redirect:/pc/member/login";
-        }
-        if (memberService.checkLogin(form.getLoginId(), form.getPw())) {
-            session.setAttribute("log", form.getLoginId());
-            if (form.getLoginId().equals("admin")) {
-                return "admin/index";
+    @GetMapping("/pc/login")
+    @ResponseBody
+    private String loginMemberPc(@RequestParam("loginId") String loginId, @RequestParam("pw") String pw, HttpSession session) {
+        System.out.println("1");
+        if (memberService.checkLogin(loginId, pw)) {
+            System.out.println("2");
+            session.setAttribute("log", loginId);
+            if (loginId.equals("admin")) {
+                System.out.println("3");
+                return "admin";
             }
+            return "true";
+        } else {
+            System.out.println("4");
+            return "false";
         }
-        return "redirect:/pc/main";
     }
 
     @PostMapping("/mobile/member/login")
