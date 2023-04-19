@@ -47,12 +47,12 @@ function idCheck() {
             loginId: $("#loginId").val(),
         };
         $.ajax({
-            type: "post",
+            type: "get",
             url: "/validId",
             data: query,
             success: function (data) {
                 if (data === "false") {
-                    swal('중복체크', '이미 존재하는 아이디 입니다', 'error');
+                    swal('중복체크', '이미 존재하는 아이디 입니다', 'error');   
                     $("#loginId").val('');
                 } else {
                     swal('중복체크', '사용 가능한 아이디 입니다', 'success');

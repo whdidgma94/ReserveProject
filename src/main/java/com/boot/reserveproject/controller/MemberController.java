@@ -213,7 +213,7 @@ public class MemberController {
     }
 
     @ResponseBody
-    @PostMapping("/validId")
+    @GetMapping("/validId")
     public String validId(@RequestParam("loginId") String loginId) {
         if (memberService.validId(loginId)) {
             return "true";
