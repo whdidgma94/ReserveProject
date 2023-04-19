@@ -8,6 +8,7 @@ import com.boot.reserveproject.form.MemberForm;
 import com.boot.reserveproject.form.MemberUpdateForm;
 import com.boot.reserveproject.service.CampService;
 import com.boot.reserveproject.service.MemberService;
+import com.boot.reserveproject.service.QnAService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.query.Param;
@@ -16,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.*;
@@ -27,6 +30,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final CampService campService;
+    private final QnAService qnAService;
 
     @GetMapping("/pc/member/new")
     public String joinFormPc(Model model) {
@@ -157,49 +161,50 @@ public class MemberController {
     }
 
     @GetMapping("/pc/member/login")
-    public String loginFormPc(Model model) {
-        model.addAttribute("loginForm", new LoginForm());
+    public String loginFormPc() {
         return "pc/member/memberLoginForm";
     }
 
     @GetMapping("/mobile/member/login")
-    public String loginFormMobile(Model model) {
-        model.addAttribute("loginForm", new LoginForm());
+    public String loginFormMobile() {
         return "mobile/member/memberLoginForm";
     }
 
-    @PostMapping("/pc/member/login")
-    private String loginMemberPc(@Valid LoginForm form, BindingResult result, HttpSession session) {
-        if (result.hasErrors()) {
-            return "redirect:/pc/member/login";
-        }
-        if (memberService.checkLogin(form.getLoginId(), form.getPw())) {
-            session.setAttribute("log", form.getLoginId());
-            if (form.getLoginId().equals("admin")) {
-                return "admin/index";
+    @GetMapping("/pc/login")
+    @ResponseBody
+    private String loginMemberPc(@RequestParam("loginId") String loginId, @RequestParam("pw") String pw, HttpSession session) {
+        if (memberService.checkLogin(loginId, pw)) {
+            session.setAttribute("log", loginId);
+            if (loginId.equals("admin")) {
+                return "admin";
             }
+            return "true";
+        } else {
+            System.out.println("4");
+            return "false";
         }
-        return "redirect:/pc/main";
     }
 
-    @PostMapping("/mobile/member/login")
-    private String loginMemberMobile(@Valid LoginForm form, BindingResult result, HttpSession session) {
-        if (result.hasErrors()) {
-            return "redirect:/mobile/member/login";
+    @GetMapping("/mobile/login")
+    @ResponseBody
+    private String loginMemberMobile(@RequestParam("loginId") String loginId, @RequestParam("pw") String pw, HttpSession session) {
+        if (memberService.checkLogin(loginId, pw)) {
+            session.setAttribute("log", loginId);
+            return "true";
+        } else {
+            System.out.println("4");
+            return "false";
         }
-        if (memberService.checkLogin(form.getLoginId(), form.getPw())) {
-            session.setAttribute("log", form.getLoginId());
-            System.out.println("form.getLoginId() = " + form.getLoginId());
-            System.out.println("form.getPw() = " + form.getPw());
-        }
-        return "redirect:/mobile/main";
     }
 
     @GetMapping("/pc/member/logout")
-    private String logoutPc(HttpSession session) {
+    public String logout(HttpServletRequest request, HttpSession session) throws ServletException {
         session.removeAttribute("log");
+        request.logout();
+
         return "redirect:/pc/main";
     }
+
 
     @GetMapping("/mobile/member/logout")
     private String logoutMobile(HttpSession session) {
@@ -232,8 +237,12 @@ public class MemberController {
     @PostMapping("/member/delete")
     public String deleteMember(@RequestParam("pw") String pw, HttpSession session) {
         String loginId = (String) session.getAttribute("log");
-        if (!memberService.checkLogin(loginId, pw)) {
+        System.out.println(memberService.checkLogin(loginId, pw));
+        if (memberService.checkLogin(loginId, pw)) {
             memberService.deleteMemberByLoginId(loginId);
+            campService.deleteMemberLikesByLoginId(loginId);
+            qnAService.deleteBySender(loginId);
+            session.removeAttribute("log");
             return "true";
         } else {
             return "false";

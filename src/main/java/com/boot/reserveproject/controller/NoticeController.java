@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -60,4 +61,12 @@ public class NoticeController {
         Notice notice = noticeService.getOneNotice(id);
         return ResponseEntity.ok(notice);
     }
+
+    @PostMapping("/noticeUpdate")
+    @ResponseBody
+    public String noticeUpdate(@RequestParam("id") Long id, @RequestParam("subject") String subject, @RequestParam("context")String context) {
+        noticeService.updateNotice(id, subject,context);
+        return "true";
+    }
+
 }

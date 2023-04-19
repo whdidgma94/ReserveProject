@@ -78,8 +78,4 @@ public class Camp {
     private String animalCmgCl; // 애완동물 출입 ( ex.가능, 소형견가능 등 )  -------  애완동물
     private String firstImageUrl; // 대표이미지
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "camp",  cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<MemberLikes> memberLikes = new ArrayList<>();
-
 }

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/header :: header}"/>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/admin/js/showContent.js"></script>
+<body>
+<div th:replace="~{admin/fragments/bodyHeader :: bodyHeader}"/>
+<div class="container">
+    <input type="hidden" id="boardNo" th:value="${board.no}" />
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <td>작성자</td>
+            <td><div th:text="${board.id}"></div></td>
+        </tr>
+        <tr>
+            <td>게시글 번호</td>
+            <td><div th:text="${board.no}"></div></td>
+        </tr>
+        <tr>
+            <td>작성 시간</td>
+            <td>
+                <div name="date" th:text="${board.date} +' '+ ${board.time}"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" class="boardContent"><div name="content" th:text="${board.content}"></div></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button onclick="deleteBoardAdmin(document.getElementById('boardNo').value)" class="btn btn-danger">삭제</button>
+    <br>
+    <div>
+    <h5 style="margin-right: 1000px;">댓글(<span th:text="${#lists.size(comments)}"></span>)</h5>
+    </div>
+
+
+    <table class="table">
+        <th:block th:each="comments, iterStat : ${comments}">
+            <tr>
+
+
+
+                    <div th:if="${comments.depth!=1}">
+                        <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-return-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"/>
+                        </svg></td>
+                    </div>
+                    </td>
+
+                    <td th:text="${comments.id}" class="border-top"></td>
+                    <td th:text="${comments.content}" class="border-top"></td>
+                    <td th:text="${comments.date}" class="border-top"></td>
+                    <td th:text="${comments.time}" class="border-top"></td>
+                    <input type="hidden" name="no" th:value="${comments.no}">
+                    <input type="hidden" name="id" th:value="${session.log}">
+
+<!--                    <div th:if="${session.log!=null && comments.depth==1}">-->
+<!--                        <td><input type="submit" value="현재댓글에 대댓글작성하기"></td>-->
+<!--                    </div>-->
+
+
+                    <div th:if="${comments.depth==1}">
+                        <td></td>
+                    </div>
+                    <form th:action="@{/admin/board/deleteComment}" method="post">
+                        <input type="hidden" name="no" th:value="${comments.no}">
+                        <td><input type="submit" value="삭제" class="btn btn-danger"></td>
+                    </form>
+
+
+
+
+            </tr>
+
+
+
+
+        </th:block>
+    </table>
+</div>
+
+
+
+</body>
+</html>

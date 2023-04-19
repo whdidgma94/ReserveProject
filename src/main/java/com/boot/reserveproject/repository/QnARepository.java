@@ -31,5 +31,9 @@ public interface QnARepository extends JpaRepository<QnA, Long> {
     @Query("update QnA q set q.status = 'Done' where q.id = :id")
     void updateStatusDone(@Param("id") Long id);
 
+    @Modifying
+    @Query("delete from QnA q where q.sender = :sender")
+    void deleteBySender(@Param("sender") String sender);
+
 
 }
