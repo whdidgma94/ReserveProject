@@ -31,8 +31,12 @@
           <td th:text="${notice.id}"></td>
           <td th:text="${notice.subject}"></td>
           <td th:text="${notice.date}"></td>
-          <td><a href="#" class="btn btn-info" th:id="${notice.id}">상세보기</a></td>
-          <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" th:id="${notice.id}">삭제</button></td>
+          <td>
+            <a href="#" class="btn btn-info" data-toggle="modal" data-target="#detailModal" th:id="${notice.id}">수정</a>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" th:id="${notice.id}">삭제</button>
+          </td>
         </tr>
         <tr>
           <td colspan="5" style="text-align: right;"><a href="/admin/notice/new" class="btn btn-info">공지사항 작성</a></td>
@@ -73,29 +77,31 @@
           <tbody>
           <tr>
             <th scope="row">공지사항 번호</th>
-            <td id="id"></td>
+            <td> <input type="text" class="form-control" id="id" readonly /></td>
           </tr>
           <tr>
             <th scope="row">제목</th>
-            <td id="subject"></td>
+            <td> <input type="text" class="form-control" id="subject"/></td>
           </tr>
           <tr>
-            <th scope="row"></th>
-            <td id="date">등록일</td>
+            <th scope="row">등록일</th>
+            <td> <input type="text" class="form-control" id="date" readonly /></td>
           </tr>
           <tr>
             <th scope="row">내용</th>
-            <td id="context"></td>
+            <td><textarea class="form-control" id="context" rows="10"></textarea></td>
           </tr>
           </tbody>
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">수정</button>
+        <button type="button" class="btn btn-secondary updateModal" data-dismiss="modal" onclick="update()">수정하기</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
       </div>
     </div>
   </div>
 </div>
+
+
 </body>
 </html>

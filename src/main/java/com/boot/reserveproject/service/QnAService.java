@@ -49,4 +49,10 @@ public class QnAService {
     public void updateStatusDone(Long id){
         qnARepository.updateStatusDone(id);
     }
-}
+
+    @Modifying
+    @Transactional
+    public void deleteBySender(String sender){
+        qnARepository.deleteBySender(sender);
+    }
+    }

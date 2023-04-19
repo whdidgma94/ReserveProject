@@ -8,6 +8,9 @@ import com.boot.reserveproject.domain.Member;
 import com.boot.reserveproject.service.AdminService;
 import com.boot.reserveproject.service.BoardService;
 import com.boot.reserveproject.service.CommentsService;
+import com.boot.reserveproject.service.CampService;
+import com.boot.reserveproject.service.MemberService;
+import com.boot.reserveproject.service.QnAService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,6 +30,9 @@ public class AdminController {
     private final BoardService boardService;
     private final CommentsService commentsService;
 
+    private final QnAService qnAService;
+    private final MemberService memberService;
+    private final CampService campService;
     @GetMapping("/admin/memberList")
     public String getMembers(Model model) {
         model.addAttribute("memberList", adminService.allMembers());
@@ -35,7 +41,10 @@ public class AdminController {
 
     @PostMapping("/admin/deleteMember")
     public String deleteMember(@RequestParam("id") Long id) {
-
+        Member member = memberService.findMember(id);
+        String loginId = member.getLoginId();
+        qnAService.deleteBySender(loginId);
+        campService.deleteMemberLikesByLoginId(loginId);
         adminService.removeMember(id);
         return "/admin/member/memberList";
     }
