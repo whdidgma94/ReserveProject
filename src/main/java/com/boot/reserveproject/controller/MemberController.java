@@ -200,7 +200,7 @@ public class MemberController {
     @GetMapping("/pc/member/logout")
     public String logout(HttpServletRequest request, HttpSession session) throws ServletException {
         session.removeAttribute("log");
-        request.logout();
+//        request.logout();
 
         return "redirect:/pc/main";
     }
