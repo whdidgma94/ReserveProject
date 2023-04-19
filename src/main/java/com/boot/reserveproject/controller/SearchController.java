@@ -24,16 +24,19 @@ import java.util.*;
 public class SearchController {
     private final CampService campService;
     private final MemberLikesRepository memberLikesRepository;
+
     @GetMapping("/pc/search/map")
     public String showMapIntroPc() {
         return "pc/search/searchMap";
     }
+
     @GetMapping("/mobile/search/map")
     public String showMapIntroMobile() {
         return "mobile/search/searchMap";
     }
+
     @GetMapping("/search/mapSearch")
-    public ResponseEntity<Object> showMap(@RequestParam(value = "boundsObj", required = false) String boundsObjStr, @RequestParam(value="keyword", required=false) String keyword, @RequestParam(value = "type", required = false) String type) {
+    public ResponseEntity<Object> showMap(@RequestParam(value = "boundsObj", required = false) String boundsObjStr, @RequestParam(value = "keyword", required = false) String keyword, @RequestParam(value = "type", required = false) String type) {
         JSONObject boundsObjJson = new JSONObject(boundsObjStr);
         double southWestLat = boundsObjJson.getJSONObject("southWest").getDouble("y");
         double southWestLng = boundsObjJson.getJSONObject("southWest").getDouble("x");
@@ -48,7 +51,7 @@ public class SearchController {
 
         List<Camp> campList = new ArrayList<>();
         try {
-            campList=searchWithBounds(southWestLat,southWestLng,northEastLat,northEastLng);
+            campList = searchWithBounds(southWestLat, southWestLng, northEastLat, northEastLng);
 //            campList=searchWithBounds(southWestLat,southWestLng,northEastLat,northEastLng);
 //            if (type.equals("name")) {
 //                campList = searchByName(southWestLat,southWestLng,northEastLat,northEastLng,keyword);
@@ -69,17 +72,20 @@ public class SearchController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping("/pc/search/location")
-    public String showAddressListPc(Model model){
+    public String showAddressListPc(Model model) {
         campString(model);
         return "pc/search/searchLocation";
     }
+
     @GetMapping("/mobile/search/location")
-    public String showAddressListMobile(Model model){
+    public String showAddressListMobile(Model model) {
         campString(model);
         return "mobile/search/searchLocation";
     }
-//    @RequestMapping(value = "/search/addressSearch", method = RequestMethod.GET)
+
+    //    @RequestMapping(value = "/search/addressSearch", method = RequestMethod.GET)
 //    @ResponseBody
 //    public String searchAddress(@RequestParam(value="sido") String sido, @RequestParam(value="sigoon") String sigoon) {
 //        System.out.println("sido:  "+sido);
@@ -110,26 +116,36 @@ public class SearchController {
     @GetMapping("search/addressSearchTest")
     public ResponseEntity<Object> showListByAddressTest(
             Model model,
-            @RequestParam(value="pageNum",required=false) int pageNum,
+            @RequestParam(value = "pageNum", required = false) int pageNum,
             @RequestParam(value = "sido", required = false) String sido,
-            @RequestParam(value="sigoon", required=false) String sigoon,
-            @RequestParam(value="pageRequest", required = false) int pageRequest, HttpSession session) {
-        if(sido.equals("전체")){
-            sido="";
+            @RequestParam(value = "sigoon", required = false) String sigoon,
+            @RequestParam(value = "pageRequest", required = false) int pageRequest, HttpSession session) {
+        if (sido.equals("전체")) {
+            sido = "";
         }
-        if(sigoon.equals("전체")){
-            sigoon="";
+        if (sigoon.equals("전체")) {
+            sigoon = "";
         }
-        System.out.println("sido: "+sido+" sigoon:  "+sigoon);
+        System.out.println("sido: " + sido + " sigoon:  " + sigoon);
         String log = (String) session.getAttribute("log");
-        Long length=countListByLocation(sido,sigoon);
-        List<Camp> campList = searchByLocationTest(model,sido,sigoon,pageNum,pageRequest);
+        Long length = countListByLocation(sido, sigoon);
+        List<Camp> campList = searchByLocationTest(model, sido, sigoon, pageNum, pageRequest);
         List<Long> memberLikesList = memberLikesRepository.selectMemberListByLoginId(log);
         List<String> likeList = new ArrayList<>();
-        System.out.println("지역검색 캠프리스트 길이: "+campList.size());
+        for (int i = 0; i < campList.size(); i++) {
+            for (int j = 0; j < memberLikesList.size(); j++) {
+                if (campList.get(i).getContentId() == memberLikesList.get(j)) {
+                    likeList.add("true");
+                    break;
+                }
+            }
+            likeList.add("false");
+        }
+        System.out.println("지역검색 캠프리스트 길이: " + campList.size());
         Map<String, Object> response = new HashMap<>();
         response.put("campList", campList);
         response.put("length", length);
+        response.put("likeList", likeList);
         ObjectMapper mapper = new ObjectMapper();
         try {
             String jsonString = mapper.writeValueAsString(response);
@@ -140,25 +156,38 @@ public class SearchController {
         }
 
     }
+
     @GetMapping("search/addressSearchTestTest")
-    public ResponseEntity<Object> showListByAddressTestTest(Model model,
-                                                            @RequestParam(value="pageNum",required=false) int pageNum,
+    public ResponseEntity<Object> showListByAddressTestTest(Model model, HttpSession session,
+                                                            @RequestParam(value = "pageNum", required = false) int pageNum,
                                                             @RequestParam(value = "sido", required = false) String sido,
-                                                            @RequestParam(value="sigoon", required=false) String sigoon,
-                                                            @RequestParam(value="pageRequest", required = false) int pageRequest) {
-        if(sido.equals("전체")){
-            sido="";
+                                                            @RequestParam(value = "sigoon", required = false) String sigoon,
+                                                            @RequestParam(value = "pageRequest", required = false) int pageRequest) {
+        if (sido.equals("전체")) {
+            sido = "";
         }
-        if(sigoon.equals("전체")){
-            sigoon="";
+        if (sigoon.equals("전체")) {
+            sigoon = "";
         }
-        System.out.println("sido: "+sido+" sigoon:  "+sigoon);
+        System.out.println("sido: " + sido + " sigoon:  " + sigoon);
 
-        List<Camp> campList = searchByLocationTest(model,sido,sigoon,pageNum,pageRequest);
-        System.out.println("지역검색 캠프리스트 길이: "+campList.size());
+        List<Camp> campList = searchByLocationTest(model, sido, sigoon, pageNum, pageRequest);
+        System.out.println("지역검색 캠프리스트 길이: " + campList.size());
         Map<String, Object> response = new HashMap<>();
+        String log = (String) session.getAttribute("log");
+        List<Long> memberLikesList = memberLikesRepository.selectMemberListByLoginId(log);
+        List<String> likeList = new ArrayList<>();
+        for (int i = 0; i < campList.size(); i++) {
+            for (int j = 0; j < memberLikesList.size(); j++) {
+                if (campList.get(i).getContentId() == memberLikesList.get(j)) {
+                    likeList.add("true");
+                    break;
+                }
+            }
+                likeList.add("false");
+        }
         response.put("campList", campList);
-
+        response.put("likeList", likeList);
         ObjectMapper mapper = new ObjectMapper();
         try {
             String jsonString = mapper.writeValueAsString(response);
@@ -170,16 +199,16 @@ public class SearchController {
 
     }
 
-//    @GetMapping("/search/category")
+    //    @GetMapping("/search/category")
 //    public String showCategoryList() {
 //
 //        return "pc/search/searchCategory";
 //    }
-public List<Camp> searchWithBounds(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng){
-    List<Camp> campList= campService.getCampListByBounds(southWestLat,southWestLng,northEastLat,northEastLng);
+    public List<Camp> searchWithBounds(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng) {
+        List<Camp> campList = campService.getCampListByBounds(southWestLat, southWestLng, northEastLat, northEastLng);
 
-    return campList;
-}
+        return campList;
+    }
 
 //    public List<Camp> searchByName(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
 //        List<Camp> campList = campService.getCampListByName(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
@@ -188,7 +217,7 @@ public List<Camp> searchWithBounds(Double southWestLat, Double southWestLng, Dou
 //    }
 
 
-//    public List<Camp> searchByTheme(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
+    //    public List<Camp> searchByTheme(Double southWestLat, Double southWestLng, Double northEastLat, Double northEastLng, String keyword) {
 //        List<Camp> campList = campService.getCampListByTheme(southWestLat, southWestLng, northEastLat, northEastLng, keyword);
 //
 //        return campList;
@@ -205,7 +234,7 @@ public List<Camp> searchWithBounds(Double southWestLat, Double southWestLng, Dou
 //        List<Camp> campList = campService.selectListByLocation(sido, sigoon);
 //        return campList;
 //    }
-    public List<Camp> searchByLocationTest(Model model,String sido,String sigoon,int pageNum,int pageRequest){
+    public List<Camp> searchByLocationTest(Model model, String sido, String sigoon, int pageNum, int pageRequest) {
         Pageable pageable = PageRequest.of(pageNum - 1, pageRequest); // 페이지 번호와 페이지 크기를 설정합니다.
 
         List<Camp> campList = campService.findByDoNmContainingAndSigunguNmContainingOrderById(sido, sigoon, pageable);
@@ -213,6 +242,7 @@ public List<Camp> searchWithBounds(Double southWestLat, Double southWestLng, Dou
         model.addAttribute("campList", campList);
         return campList;
     }
+
     private void campString(Model model) {
         List<Camp> campList = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
@@ -243,8 +273,9 @@ public List<Camp> searchWithBounds(Double southWestLat, Double southWestLng, Dou
         model.addAttribute("sbrsClList", sbrsClList);
         model.addAttribute("themaList", themaList);
     }
-    public Long countListByLocation(String sido,String sigoon){
-        Long length= campService.countListByLocation(sido,sigoon);
+
+    public Long countListByLocation(String sido, String sigoon) {
+        Long length = campService.countListByLocation(sido, sigoon);
         return length;
     }
 }
