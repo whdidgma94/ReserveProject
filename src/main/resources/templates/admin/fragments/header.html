@@ -1,8 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="header">
   <meta charset="UTF-8">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery 라이브러리 추가 -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $.ajax({
+        url: '/get_session',
+        type: 'get',
+        success: function(response) {
+          if (response === 'false') {
+            alert("관리자만 접근할 수 있습니다");
+            window.location.href = '/pc/main';
+          }else{
+            alert("관리자 페이지 입니다");
+            document.body.style.display = "block";
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        }
+      });
+    });
+  </script>
   <link href="/admin/css/bootstrap.css" rel="stylesheet">
   <link href="/admin/css/bootstrap-reboot.css" rel="stylesheet">
   <link href="/admin/css/bootstrap-grid.css" rel="stylesheet">
@@ -11,14 +31,13 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="/admin/js/sidebar.js"></script>
   <title>AdminPage</title>
-</head>
-<script th:inline="javascript">
-  let log = "${session.log}";
-  $(document).ready(function() {
-    console.log(log);
-    console.log("123");
-    if(log !== 'admin'){
-      location.href='/pc/main'
+  <style>
+    body {
+      display: none;
     }
-  });
-</script>
+  </style>
+</head>
+<body>
+
+</body>
+</html>
