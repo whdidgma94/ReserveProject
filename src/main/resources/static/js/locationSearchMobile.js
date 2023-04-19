@@ -292,4 +292,16 @@ function insertPageNum(i) {
     paging(i);
 }
 
+function addLike(element){
+    if(element.innerHTML === '♡'){
+        $.ajax({
+            url: "/addLikes",
+            type:"post",
+            data:{contentId : element.id},
+            success:function (result){
+                swal(element.id,"목록에 추가되었습니다","success");
+                element.innerHTML = '♥';
+            }
+        })
+
 

@@ -282,7 +282,7 @@ ul{
 .view .tempCampBox{
     border:2px solid black;
     padding: 30px;
-    margin: 0 40px 40px 40px;
+    margin: 0 40px 0 40px;
     border-radius:20px;
     width: 80%;
 }
@@ -410,4 +410,7 @@ textarea{
     resize:none;
     width:100%;
     height:400px;
+}
+.row .memberLikeBtn{
+    color:red;
 }

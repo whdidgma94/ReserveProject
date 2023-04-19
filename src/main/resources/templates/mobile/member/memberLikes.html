@@ -1,40 +1,34 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<link href="/css/memberLikes.css" rel="stylesheet" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script th:src="@{/js/memberLikes.js}"></script>
 <head th:replace="~{mobile/fragments/header :: header}"/>
-
 <body>
 <div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"/>
 <div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"/>
 <div class="mainBox view">
     <h1>찜 목록</h1>
-
     <div id="campListBox" th:each="memberLikes:${memberLikesList}">
-        <div class="campLikeBox">
-            <div></div>
-            <div><label th:id="${memberLikes.getContentId()}" class="btn memberLikeBtn"
-                        style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold"
-                        onclick="addLike(this)">♥</label></div>
-        </div>
-        <div>
-            <div class="tempCampBox" th:id="${memberLikes.getContentId()}" onClick="details(this)">
+    <div class="row">
+
+        <div class="btn memberLikeBtn" th:id="${memberLikes.getContentId()}"  onclick="addLike(this)">♡</div>
+            <div class="tempCampBox" th:id="${memberLikes.getContentId()}" onclick="details(this)">
                 <div class="campBoxTop">
                     <div class="campBoxLeft">
-                        <img style="height: 98%" th:src="${memberLikes.getFirstImageUrl()}"
+                        <img th:src="${memberLikes.getFirstImageUrl()}"
                              onerror="this.src='../../img/어서와양_사진없음.png'"/></div>
                     <div class="campBoxRight">
-                        <div class="campText"><span th:text="${memberLikes.getDoNm()}"></span>
-                            <span th:text="${memberLikes.getSigunguNm()}"></span></div>
-                        <div class="campText" th:text="${memberLikes.getFacltNm()}"></div>
+                        <div>
+                            <h4 class="campText" th:text="${memberLikes.getFacltNm()}"></h4>
+                            <div class="campText" th:text="${memberLikes.getDoNm() + ' ' + memberLikes.getSigunguNm()}"></div>
+                        </div>
                         <div class="campText" th:text="${memberLikes.getLineIntro()}"></div>
                     </div>
                 </div>
             </div>
-        </div>
-        <hr>
+            </div>
+
     </div>
 </div>
     <div th:replace="~{mobile/fragments/footer :: footer}"/>

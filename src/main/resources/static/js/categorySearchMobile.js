@@ -117,78 +117,35 @@ function paging(i) {
                 let campCountHTML = "총 " + 총리스트의길이 + " 개의 캠핑장이 검색되었습니다."
                 $('#campListCount').html(campCountHTML);
 
-                let campListBoxHtml = "";
-                for (let i = 0; i < campList.length; i++) {
-                    campListBoxHtml += '<div class="campLikeBox"><div></div>'
-                    if (likeList[i] === "true") {
-                        campListBoxHtml += '<div><label for="memberLike" id="' + campList[i].contentId + '" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♥</label></div></div>';
-                    } else {
-                        campListBoxHtml += '<div><label for="memberLike" id="' + campList[i].contentId + '" class="btn memberLikeBtn" style="width: 100%;height: 100%; border:red 0px solid;color: red;font-size: 40px;font-weight: bold" onclick="addLike(this)">♡</label></div></div>';
-                    }
-                    campListBoxHtml += '<div><div class="tempCampBox" onClick="details(' + campList[i].contentId + ')">';
-                    campListBoxHtml += '<div class="campBoxTop"><div class="campBoxLeft">';
-                    campListBoxHtml += '<img style="height: 98%" src="' + campList[i].firstImageUrl + '" onerror="this.src=\'../../img/어서와양_사진없음.png\'"/></div>';
-                    campListBoxHtml += '<div class="campBoxRight"><div class="campText">[ <span>' + campList[i].doNm + '</span> <span>' + campList[i].sigunguNm + '</span> ]</div>';
-                    campListBoxHtml += '<div class="campText">' + campList[i].facltNm + '</div>';
-                    campListBoxHtml += '<div class="campText">' + campList[i].lineIntro + '</div>';
-                    campListBoxHtml += '<div class="campSbrsClBox">';
-                    let sbrsClList = campList[i].sbrsCl.split(",");
-                    for (let j = 0; j < sbrsClList.length; j++) {
-                        campListBoxHtml += '<div class="campSbrsCl"><div class="campSbrsClItem">';
-                        if (sbrsClList[j] == "전기") {
-                            campListBoxHtml += '<i class="fa-solid fa-bolt"></i>'
-                        } else if (sbrsClList[j] == "무선인터넷") {
-                            campListBoxHtml += '<i class="fa-solid fa-wifi"></i>'
-                        } else if (sbrsClList[j] == "장작판매") {
-                            campListBoxHtml += '<i class="fa-sharp fa-solid fa-fire"></i>'
-                        } else if (sbrsClList[j] == "온수") {
-                            campListBoxHtml += '<i class="fa-solid fa-thermometer-full"></i>'
-                        } else if (sbrsClList[j] == "트렘폴린") {
-                            campListBoxHtml += '<i class="fa-solid fa-person-arrow-up-from-line"></i>'
-                        } else if (sbrsClList[j] == "물놀이장") {
-                            campListBoxHtml += '<i class="fa-solid fa-swimmer"></i>'
-                        } else if (sbrsClList[j] == "놀이터") {
-                            campListBoxHtml += '<i class="fa-solid fa-rocket"></i>'
-                        } else if (sbrsClList[j] == "산책로") {
-                            campListBoxHtml += '<i class="fa-solid fa-hiking"></i>'
-                        } else if (sbrsClList[j] == "운동시설") {
-                            campListBoxHtml += '<i class="fa-solid fa-dumbbell"></i>'
-                        } else if (sbrsClList[j] == "마트.편의점") {
-                            campListBoxHtml += '<i class="fa-solid fa-shopping-cart"></i>'
-                        } else if (sbrsClList[j] == "운동장") {
-                            campListBoxHtml += '<i class="fa-solid fa-baseball-ball"></i>'
-                        }
-                        campListBoxHtml += '</div></div>'
-                    }
-                    campListBoxHtml += '</div></div></div>'
-                    campListBoxHtml += '<div class="campBoxBottom"><div class="campThema">'
+                    let campListBoxHtml = '<div class="row">';
+                    for (let i = 0; i < campList.length; i++) {
 
-                    if (campList[i].themaEnvrnCl === "") {
-                        campList[i].themaEnvrnCl = "즐거운캠핑";
-                    } else {
-                        campList[i].themaEnvrnCl += ",즐거운캠핑";
+                        campListBoxHtml += '<div class="btn memberLikeBtn" for="memberLike" id="'+campList[i].contentId+'" onclick="addLike(this)">♡</div>';
+                        campListBoxHtml += '<div class="tempCampBox" onclick="location.href=\'../detailCamp?contentId= ' + campList[i].contentId + ' \'">';
+                        campListBoxHtml += '<div class="campBoxTop">';
+                        campListBoxHtml += '<div class="campBoxLeft">';
+                        campListBoxHtml += '<img src="' + campList[i].firstImageUrl + '" onerror="this.src=\'../../img/어서와양_사진없음.png\'"/>';
+                        campListBoxHtml += '</div>';
+                        campListBoxHtml += '<div class="campBoxRight">';
+                        campListBoxHtml += '<div>';
+                        campListBoxHtml += '<h4 class="campText">' + campList[i].facltNm + '</h4>';
+                        campListBoxHtml += '<div class="campText">[ ' + campList[i].doNm + ' ' + campList[i].sigunguNm + ' ]</div>';
+                        campListBoxHtml += '</div>';
+                        campListBoxHtml += '<div class="campText">' + campList[i].lineIntro + '</div>';
+                        campListBoxHtml += '</div></div></div>';
                     }
-                    console.log(campList[i].themaEnvrnCl)
-                    let themaList = campList[i].themaEnvrnCl.split(",");
-                    console.log(themaList)
-                    for (let j = 0; j < themaList.length; j++) {
-                        campListBoxHtml += '#' + themaList[j] + ' '
-                        console.log(themaList[j])
-                    }
-                    campListBoxHtml += '</div></div></div></div><hr></div>';
+                    $('#campListBox').html(campListBoxHtml);
+                    console.log("ajax반복끝")
+                    makePageNum();
+                } catch (e) {
+                    console.log(e);
+                    alert("오류가 발생했습니다.");
                 }
-                $('#campListBox').html(campListBoxHtml);
-                console.log("ajax반복끝")
-                makePageNum();
-            } catch (e) {
-                console.log(e);
-                alert("오류가 발생했습니다.");
+            },
+            error: function (xhr, status, error) {
             }
-        },
-        error: function (xhr, status, error) {
-        }
-    });
-}
+        });
+    };
 
 function makePageNum() {
     $('#paging').html('');
@@ -251,4 +208,5 @@ function addLike(element) {
 
     }
 }
+
 

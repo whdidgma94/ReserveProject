@@ -5,10 +5,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/js/memberMyPageMobile.js"></script>
-<head th:replace="moblie/fragments/header :: header"/>
+<head th:replace="~{mobile/fragments/header :: header}"/>
 <body>
-<div th:replace="moblie/fragments/bodyHeader :: bodyHeader"/>
-<div th:replace="moblie/fragments/bodyHeader :: side-bar"/>
+<div th:replace="~{mobile/fragments/bodyHeader :: bodyHeader}"/>
+<div th:replace="~{mobile/fragments/bodyHeader :: side-bar}"/>
 <div class="view">
     <div class="contentName">
         <h1>마이 페이지</h1>
@@ -79,6 +79,6 @@
         </div>
     </div>
 </div>
-<div th:replace="mobile/fragments/footer :: footer"/>
+<div th:replace="~{mobile/fragments/footer :: footer}"/>
 </body>
 </html>
