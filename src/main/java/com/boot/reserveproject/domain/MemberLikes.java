@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 public class MemberLikes {
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberNo")
     private Member member;
     @JsonIgnore

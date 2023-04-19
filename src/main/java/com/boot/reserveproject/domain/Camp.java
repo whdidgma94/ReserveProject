@@ -79,7 +79,7 @@ public class Camp {
     private String firstImageUrl; // 대표이미지
 
     @JsonIgnore
-    @OneToMany(mappedBy = "camp",cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "camp",  cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MemberLikes> memberLikes = new ArrayList<>();
 
 }
