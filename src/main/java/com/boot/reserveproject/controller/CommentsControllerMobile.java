@@ -6,7 +6,7 @@ import com.boot.reserveproject.service.BoardService;
 import com.boot.reserveproject.service.CommentsService;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.*;
+
 
 
 import org.springframework.stereotype.Controller;
@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-import java.util.Map;
+
 
 
 @Controller
 @RequiredArgsConstructor
-public class CommentsController {
+public class CommentsControllerMobile {
     private final BoardService boardService;
     private final CommentsService commentsService;
 
-    @PostMapping("/pc/comments/addComment")
+    @PostMapping("/mobile/comments/addComment")
     private String addComment(Model model, @RequestParam("loginId") String id,@RequestParam("comment") String comment,
                               @RequestParam("no") Long no){
         System.out.println("들어오나");
@@ -52,15 +52,15 @@ public class CommentsController {
         model.addAttribute("board",newBoard);
         List<Comments> newComments=commentsService.getCommentsByBoardNo(no);
         model.addAttribute("comments",newComments);
-        return"pc/board/showContent";
+        return"mobile/board/showContent";
     }
-    @PostMapping("/pc/comments/addSecondComment")
+    @PostMapping("/mobile/comments/addSecondComment")
     private String addSecondComment(Model model,@RequestParam("id") String id,@RequestParam("no") Long no){
-    Comments comment= commentsService.findOneCommentByBoardNo(no);
-    model.addAttribute("comment",comment);
-        return"pc/board/addSecondComment";
+        Comments comment= commentsService.findOneCommentByBoardNo(no);
+        model.addAttribute("comment",comment);
+        return"mobile/board/addSecondComment";
     }
-    @PostMapping("/pc/comments/addSecondCommentPro")
+    @PostMapping("/mobile/comments/addSecondCommentPro")
     private String addSecondCommentPro(Model model,@RequestParam("id")String id,@RequestParam("content") String content,
                                        @RequestParam("ref") long ref, @RequestParam("level") long level, @RequestParam("boardNo") long boardNo){
         Comments comment =new Comments();
@@ -78,11 +78,11 @@ public class CommentsController {
         model.addAttribute("comments",newComments);
         Board newBoard =boardService.findOneBoardByNo(boardNo);
         model.addAttribute("board",newBoard);
-        return "pc/board/showContent";
+        return "mobile/board/showContent";
     }
 
 
-    @PostMapping("/pc/comments/deleteComment")
+    @PostMapping("/mobile/comments/deleteComment")
 
     private String deleteComment(Model model,@RequestParam("no") long no){
         Comments comment=commentsService.getOneCommentByCommentNo(no);
@@ -111,9 +111,9 @@ public class CommentsController {
 
 
 
-        return "pc/board/showContent";
+        return "mobile/board/showContent";
     }
-    @PostMapping("/pc/comments/updateComment")
+    @PostMapping("/mobile/comments/updateComment")
 
 
     private String updateComment(Model model,@RequestParam("no") long no){
@@ -121,12 +121,12 @@ public class CommentsController {
         System.out.println("updateComment");
         Comments comment=commentsService.getOneCommentByCommentNo(no);
         model.addAttribute("comment",comment);
-        return "pc/board/updateComment";
+        return "mobile/board/updateComment";
 
 
 
     }
-    @PostMapping("/pc/comments/updateCommentPro")
+    @PostMapping("/mobile/comments/updateCommentPro")
     private String updateCommentPro(Model model,@RequestParam("commentNo") long no,@RequestParam("content") String content){
         Comments comment=commentsService.findOneCommentByBoardNo(no);
         comment.setContent(content);
@@ -135,8 +135,9 @@ public class CommentsController {
         model.addAttribute("board",board);
         List<Comments> comments=commentsService.getCommentsByBoardNo(comment.getBoard().getNo());
         model.addAttribute("comments",comments);
-        return "pc/board/showContent";
+        return "mobile/board/showContent";
     }
 
 
 }
+

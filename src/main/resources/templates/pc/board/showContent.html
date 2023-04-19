@@ -94,7 +94,7 @@
     <a href="/pc/member/login">로그인</a>
   </div>
   <div th:if="${session.log !=null}">
-  <form action="/pc/comments/addComment" method="post" onsubmit="return validateFormComment()">
+  <form th:action="@{/pc/comments/addComment}" method="post" onsubmit="return validateFormComment()">
     <input type="text" name="comment" id="comment">
     <input type="hidden" name="no" th:value="${board.no}">
     <input type="hidden" name="loginId" th:value="${session.log}">
