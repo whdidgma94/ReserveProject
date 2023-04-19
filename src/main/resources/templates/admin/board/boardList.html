@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/header :: header}"/>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<body>
+<div th:replace="~{admin/fragments/bodyHeader :: bodyHeader}"/>
+<div class="container">
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th style="width: 50%;">제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>작성시간</th>
+            <th>조회수</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- 게시글 데이터를 동적으로 출력하는 부분 -->
+        <tr th:each="board, iterStat : ${boardList}">
+            <td th:text="${board.no}"></td> <!-- iterStat.count는 1부터 시작하는 게시글 번호를 의미합니다. -->
+            <td style="width: 50%; cursor:pointer;"><a th:href="@{/admin/board/showContent(no=${board.no})}" th:text="${board.title}"></a>
+                <span th:text="'(' + ${board.commentsCount} + ')'"></span>
+            </td>
+
+            <td th:text="${board.id}"></td>
+            <td th:text="${board.date}"></td>
+            <td th:text="${board.time}"></td> <!-- 날짜 형식을 지정하는 방법입니다. -->
+            <td th:text="${board.readCnt}"></td> <!-- 시간 형식을 지정하는 방법입니다. -->
+        </tr>
+        <!-- 게시글이 없는 경우에 대한 예외처리 -->
+        <tr th:if="${boardList == null or boardList.size() == 0}">
+            <td colspan="6">게시글이 없습니다.</td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+
+
+</body>
+</html>

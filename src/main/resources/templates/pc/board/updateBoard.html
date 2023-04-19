@@ -30,12 +30,12 @@
     </tr>
     </tbody>
   </table>
-    <input type="submit" value="수정하기">
+    <input type="submit" value="수정하기" class="btn btn-primary">
       <input type="hidden" name="id" th:value="${board.id}">
       <input type="hidden" name="no" th:value="${board.no}">
   </form>
 
-
+  <div th:replace="~{pc/fragments/footer :: footer}" />
 </div>
 
 </body>
