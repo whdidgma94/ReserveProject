@@ -166,20 +166,16 @@ public class MemberController {
     }
 
     @GetMapping("/mobile/member/login")
-    public String loginFormMobile(Model model) {
-        model.addAttribute("loginForm", new LoginForm());
+    public String loginFormMobile() {
         return "mobile/member/memberLoginForm";
     }
 
     @GetMapping("/pc/login")
     @ResponseBody
     private String loginMemberPc(@RequestParam("loginId") String loginId, @RequestParam("pw") String pw, HttpSession session) {
-        System.out.println("1");
         if (memberService.checkLogin(loginId, pw)) {
-            System.out.println("2");
             session.setAttribute("log", loginId);
             if (loginId.equals("admin")) {
-                System.out.println("3");
                 return "admin";
             }
             return "true";
@@ -189,17 +185,16 @@ public class MemberController {
         }
     }
 
-    @PostMapping("/mobile/member/login")
-    private String loginMemberMobile(@Valid LoginForm form, BindingResult result, HttpSession session) {
-        if (result.hasErrors()) {
-            return "redirect:/mobile/member/login";
+    @GetMapping("/mobile/login")
+    @ResponseBody
+    private String loginMemberMobile(@RequestParam("loginId") String loginId, @RequestParam("pw") String pw, HttpSession session) {
+        if (memberService.checkLogin(loginId, pw)) {
+            session.setAttribute("log", loginId);
+            return "true";
+        } else {
+            System.out.println("4");
+            return "false";
         }
-        if (memberService.checkLogin(form.getLoginId(), form.getPw())) {
-            session.setAttribute("log", form.getLoginId());
-            System.out.println("form.getLoginId() = " + form.getLoginId());
-            System.out.println("form.getPw() = " + form.getPw());
-        }
-        return "redirect:/mobile/main";
     }
 
     @GetMapping("/pc/member/logout")
