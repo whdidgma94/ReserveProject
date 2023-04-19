@@ -8,6 +8,7 @@ import com.boot.reserveproject.form.MemberForm;
 import com.boot.reserveproject.form.MemberUpdateForm;
 import com.boot.reserveproject.service.CampService;
 import com.boot.reserveproject.service.MemberService;
+import com.boot.reserveproject.service.QnAService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.query.Param;
@@ -27,6 +28,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final CampService campService;
+    private final QnAService qnAService;
 
     @GetMapping("/pc/member/new")
     public String joinFormPc(Model model) {
@@ -232,8 +234,12 @@ public class MemberController {
     @PostMapping("/member/delete")
     public String deleteMember(@RequestParam("pw") String pw, HttpSession session) {
         String loginId = (String) session.getAttribute("log");
-        if (!memberService.checkLogin(loginId, pw)) {
+        System.out.println(memberService.checkLogin(loginId, pw));
+        if (memberService.checkLogin(loginId, pw)) {
             memberService.deleteMemberByLoginId(loginId);
+            campService.deleteMemberLikesByLoginId(loginId);
+            qnAService.deleteBySender(loginId);
+            session.removeAttribute("log");
             return "true";
         } else {
             return "false";

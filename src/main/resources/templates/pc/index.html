@@ -139,7 +139,7 @@
         </div>
         <button id="lctClRightBtn" class="ranBtn">▶</button>
     </div>
-    <div class="slider" id="slider">
+    <div class="slider">
         <div class="slide-title">멋진경치와<br>함께하는<br>캠핑장!</div>
         <div class="slides"
              th:each="campImg, campIdx : ${lctCls}" th:if="${campIdx.index % 3 == 0}">
@@ -216,7 +216,7 @@
         lctClShowSlides((lctClindex += n));
     }
 
-    function lctClShowSlides(lctClindex) {
+    function lctClShowSlides() {
         if (lctClindex < 0) {
             lctClindex = lctClList.length - 1;
         } else if (lctClindex >= lctClList.length) {
