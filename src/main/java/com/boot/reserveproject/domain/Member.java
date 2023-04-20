@@ -31,7 +31,7 @@ public class Member {
     private String gender;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy ="member",cascade = CascadeType.ALL)
     private List<Board> boards = new ArrayList<>();
 
 
