@@ -4,6 +4,7 @@ package com.boot.reserveproject.service;
 import com.boot.reserveproject.domain.EmailMessage;
 import lombok.RequiredArgsConstructor;
 import net.nurigo.java_sdk.api.Message;
+import org.json.simple.JSONObject;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -43,13 +44,12 @@ public class AuthService {
         params.put("text", msg);
         params.put("app_version", "test app 1.2");
 
-//            try {
-//                JSONObject obj = sms.send(params);
-//                System.out.println("obj="+ obj.toString());
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//                System.out.println(e.getCode());
-//            }
+            try {
+                JSONObject obj = sms.send(params);
+                System.out.println("obj="+ obj.toString());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         return code;
     }
 

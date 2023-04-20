@@ -102,12 +102,11 @@ public class CampApiService {
     public void updateApi(int getDate) {
         String base_url = "https://apis.data.go.kr/B551011/GoCamping/";
         String subject = "basedSyncList";
-        String page = "?MobileOS=ETC&MobileApp=welcomeY";
-        String api_key = "&serviceKey=qm8FKb8D52kHWNgstNLDyuuLD%2Bh2H8dvHvULfHsDN23RLMAPmvGDcv%2BG7P%2B5fAEonCEHTQTl%2F1X2WJvP9IUM4Q%3D%3D";
-        String date = "&yncModTime=" + getDate;
+        String page = "?MobileOS=WIN&MobileApp=welcomeY";
+        String api_key = "&serviceKey=qm8FKb8D52kHWNgstNLDyuuLD%2Bh2H8dvHvULfHsDN23RLMAPmvGDcv%2BG7P%2B5fAEonCEHTQTl%2F1X2WJvP9IUM4Q%3D%3D&_type=json";
+        String date = "&syncModTime=" + getDate;
 
         String apiUrl = base_url + subject + page + api_key + date;
-        List<HashMap<String, Object>> basedSyncList = null;
 
         try {
             URL url = new URL(apiUrl);
@@ -128,11 +127,11 @@ public class CampApiService {
             JSONArray objArray = obj2.getJSONObject("items").getJSONArray("item");
 
             //api분해
-            basedSyncList = new ArrayList<HashMap<String, Object>>();
             for (int i = 0; i < objArray.length(); i++) {
                 HashMap<String, Object> basedMap = new HashMap<>();
                 JSONObject jb = (JSONObject) objArray.get(i);
                 Long contentId = Long.parseLong(jb.get("contentId").toString());
+                System.out.println("jb.get(\"syncStatus\") = " + jb.get("syncStatus"));
                 if (jb.get("syncStatus").toString().equals("D")) {
                     campRepository.deleteById(contentId);
                     System.out.println("D");

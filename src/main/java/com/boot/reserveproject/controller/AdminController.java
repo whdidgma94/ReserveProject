@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -122,14 +124,24 @@ public class AdminController {
 
     @PostMapping("/updateDatabase")
     @ResponseBody
-    private int updateDatabase(@RequestParam("lastUpdate") String lastUpdate) {
+    private int updateDatabase() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        int leastUpdateDay = Integer.parseInt(lastUpdate);
-        System.out.println("leastUpdateDay = " + leastUpdateDay);
+        sdf.setLenient(false);
+
         int today = Integer.parseInt(sdf.format(new Date()));
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.YEAR, -1); // 1년 전
+        int leastUpdateDay = Integer.parseInt(sdf.format(calendar.getTime()));
+        System.out.println("leastUpdateDay = " + leastUpdateDay);
         System.out.println("today = " + today);
         for (int i = leastUpdateDay; i <= today; i++) {
-            campApiService.updateApi(i);
+            try {
+                sdf.parse(String.valueOf(i));
+                campApiService.updateApi(i);
+            } catch (ParseException e) {
+                System.err.println("Invalid date format: " + i);
+            }
         }
         return today;
     }
