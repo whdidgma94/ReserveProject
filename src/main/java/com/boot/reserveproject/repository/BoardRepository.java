@@ -31,11 +31,9 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
             "FROM Board b LEFT JOIN b.comments c ON b.no = c.board.no " +
             "GROUP BY b.no")
     List<BoardWithCommentsCount> findBoardWithCommentsCountByNo();
-    @Transactional
     @Modifying
     @Query("delete from Board b where b.id=:loginId")
     void deleteBoardByLoginId(@Param("loginId") String loginId);
-
 
 
 }
