@@ -244,7 +244,6 @@ public class MemberController {
         if (memberService.checkLogin(loginId, pw)) {
             commentsService.deleteCommentsByLoginId(loginId);
             boardService.deleteBoardByLoginId(loginId);
-
             memberService.deleteMemberByLoginId(loginId);
             campService.deleteMemberLikesByLoginId(loginId);
             qnAService.deleteBySender(loginId);
