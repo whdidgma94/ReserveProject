@@ -21,14 +21,14 @@
         <input type="password" id="pw" class="form-control">
 
     </div>
-    <div class="form-group">
-        <input type="button" id="loginBtn" class="btn btn-primary" onclick="chkLogin()" value="로그인"/>
+    <div class="form-group" style="display: flex; justify-content:center; align-items: center; margin: 20px">
+        <input type="button" style="width: 150px" id="loginBtn" class="btn btn-primary" onclick="chkLogin()" value="로그인"/>
     </div>
     </form>
-    <div class="">
-        <a href="/pc/member/find?type=pw">비밀번호 찾기</a>
-        <a href="/pc/member/find?type=id">아이디 찾기</a>
-        <a href="/pc/member/new">회원가입</a>
+    <div class="form-group" style="display: flex; justify-content:center; align-items: center; margin: 10px">
+        <a href="/pc/member/find?type=pw" style="font-size: 30px; margin:15px">비밀번호 찾기</a>
+        <a href="/pc/member/find?type=id" style="font-size: 30px; margin:15px">아이디 찾기</a>
+        <a href="/pc/member/new" style="font-size: 30px; margin:15px">회원가입</a>
     </div>
 </div>
 <div th:replace="pc/fragments/footer :: footer"/>

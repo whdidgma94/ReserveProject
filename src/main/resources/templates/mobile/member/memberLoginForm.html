@@ -49,7 +49,10 @@
                     swal("로그인 성공", "", "success").then(function () {
                         location.href = '/mobile/main';
                     })
-                } else {
+                }else if(result === "admin"){
+                    swal("로그인 실패", "관리자 페이지는 pc를 이용해 주세요.", "error");
+                }
+                else {
                     swal("로그인 실패", "회원 정보를 확인해주세요.", "error");
                 }
             },

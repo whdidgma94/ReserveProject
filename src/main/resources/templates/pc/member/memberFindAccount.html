@@ -27,42 +27,53 @@
         <label for="phone">전화번호</label>
         <input type="number" id="phone" class="form-control number-only"
                placeholder="-를 제외한 숫자만 입력하세요"/>
-        <input type="button" id="phoneBtn" class="btn btn-primary" onclick="sendPhone()" value="인증번호 받기"/>
-        <div class="timer"></div>
+        <div align="center" style="margin: 20px">
+            <input type="button" id="phoneBtn" class="btn btn-primary" onclick="sendPhone()" value="인증번호 받기"/>
+        </div>
+        <div id="phoneAuth" style="display: none;">
         <label for="authNumber">인증번호</label>
-        <input type="number" id="authNumber" class="form-control number-only" disabled>
-        <input type="button" id="authBtn" class="btn btn-primary" onclick="AuthCode('#authNumber')" value="확인"
-               style="display: none;"/>
+        <input type="number" id="authNumber" class="form-control number-only">
+        <div class="timer" align="end"></div>
+        <div align="center" style="margin: 20px">
+            <input type="button" id="authBtn" class="btn btn-primary" onclick="AuthCode('#authNumber')" value="확인"
+                  />
+        </div>
+        </div>
     </div>
 
-<div id="byEmail">
-    <label th:style="${type=='id'}? 'display:none'">ID</label>
-    <input type="text" id="emailname" class="form-control number-only" th:style="${type=='id'}? 'display:none'"/>
-    <label th:for="emailId">Email</label>
-    <div class="input-group">
-        <input type="text" id="emailId" class="form-control">
-        <span class="input-group-text">@</span>
-        <input type="text" id="emailDomain" class="form-control">
-        <select class="select form-control" onchange="setEmailDomain(this.value);">
-            <option value="">직접입력</option>
-            <option value="naver.com">naver.com</option>
-            <option value="gmail.com">gmail.com</option>
-            <option value="hanmail.net">hanmail.net</option>
-            <option value="hotmail.com">hotmail.com</option>
-            <option value="korea.com">korea.com</option>
-            <option value="nate.com">nate.com</option>
-            <option value="yahoo.com">yahoo.com</option>
-        </select>
+    <div id="byEmail">
+        <label th:style="${type=='id'}? 'display:none'">ID</label>
+        <input type="text" id="emailname" class="form-control number-only" th:style="${type=='id'}? 'display:none'"/>
+        <label th:for="emailId">Email</label>
+        <div class="input-group">
+            <input type="text" id="emailId" class="form-control">
+            <span class="input-group-text">@</span>
+            <input type="text" id="emailDomain" class="form-control">
+            <select class="select form-control" onchange="setEmailDomain(this.value);">
+                <option value="">직접입력</option>
+                <option value="naver.com">naver.com</option>
+                <option value="gmail.com">gmail.com</option>
+                <option value="hanmail.net">hanmail.net</option>
+                <option value="hotmail.com">hotmail.com</option>
+                <option value="korea.com">korea.com</option>
+                <option value="nate.com">nate.com</option>
+                <option value="yahoo.com">yahoo.com</option>
+            </select>
+        </div>
+        <div align="center" style="margin: 20px">
+            <input type="button" id="emailBtn" class="btn btn-primary" onclick="sendEmail()" value="인증번호 받기"/>
+        </div>
+        <div id="emailAuth" style="display: none;">
+        <label for="authNumber">인증번호</label>
+        <input type="text" id="emailauthNumber" class="form-control number-only" >
+        <div class="timer" align="end"></div>
+        <div align="center" style="margin: 20px">
+            <input type="button" id="emailauthBtn" class="btn btn-primary"
+                   onclick="AuthCode('#emailauthNumber')"
+                   value="확인"/>
+        </div>
+        </div>
     </div>
-    <input type="button" id="emailBtn" class="btn btn-primary" onclick="sendEmail()" value="인증번호 받기"/>
-    <div class="timer"></div>
-    <label for="authNumber">인증번호</label>
-    <input type="text" id="emailauthNumber" class="form-control number-only" disabled>
-    <input type="button" id="emailauthBtn" class="btn btn-primary"
-           onclick="AuthCode('#emailauthNumber')"
-           value="확인" style="display: none;"/>
-
-</div>
 </div>
 <div th:replace="pc/fragments/footer :: footer"></div>
 </body>
@@ -124,7 +135,7 @@
                         $("#emailId").prop('disabled', true);
                         $("#emailBtn").prop('disabled', true);
                         $("#emailauthNumber").prop('disabled', false);
-                        $("#emailauthBtn").show();
+                        $("#emailAuth").show();
                         $("#emailauthNumber").focus();
                         $("#emailBtn").val("재전송");
 
@@ -181,7 +192,7 @@
                         $("#phone").prop('disabled', true);
                         $("#phoneBtn").prop('disabled', true);
                         $("#authNumber").prop('disabled', false);
-                        $("#authBtn").show();
+                        $("#phoneAuth").show();
                         $("#authNumber").focus();
                         $("#phoneBtn").val("재전송");
 
