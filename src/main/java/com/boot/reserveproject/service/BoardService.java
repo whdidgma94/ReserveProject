@@ -50,4 +50,7 @@ public class BoardService {
     public List<BoardWithCommentsCount> findBoardWithCommentsCountByNo(){
         return boardRepository.findBoardWithCommentsCountByNo();
     }
+    public void deleteBoardByLoginId(String loginId){
+        boardRepository.deleteBoardByLoginId(loginId);
+    }
 }

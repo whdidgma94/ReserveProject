@@ -29,7 +29,9 @@ public interface CommentsRepository extends JpaRepository<Comments, Long> {
     @Transactional
     @Query("delete from Comments c where c.ref= :ref")
     void deleteCommentsBySameRef(@Param("ref") long ref);
-//    @Query("delete Comments c where c.no = :no")
-//    void deleteComment(@Param("no") long no);
+    @Modifying
+    @Transactional
+    @Query("delete from Comments c where c.id= :loginId")
+    void deleteCommentsByLoginId(@Param("loginId") String loginId);
 
-}
+    }
