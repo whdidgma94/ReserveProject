@@ -1,16 +1,9 @@
 package com.boot.reserveproject.controller;
 
-import com.boot.reserveproject.domain.Board;
-import com.boot.reserveproject.domain.BoardWithCommentsCount;
-import com.boot.reserveproject.domain.Comments;
-import com.boot.reserveproject.domain.Member;
+import com.boot.reserveproject.api.CampApiController;
+import com.boot.reserveproject.domain.*;
 
-import com.boot.reserveproject.service.AdminService;
-import com.boot.reserveproject.service.BoardService;
-import com.boot.reserveproject.service.CommentsService;
-import com.boot.reserveproject.service.CampService;
-import com.boot.reserveproject.service.MemberService;
-import com.boot.reserveproject.service.QnAService;
+import com.boot.reserveproject.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -29,10 +23,11 @@ public class AdminController {
     private final AdminService adminService;
     private final BoardService boardService;
     private final CommentsService commentsService;
-
+    private final CampApiService campApiService;
     private final QnAService qnAService;
     private final MemberService memberService;
     private final CampService campService;
+    private final CampApiController campApiController;
 
     @GetMapping("/admin/main")
     public String adminPage(Model model) {
@@ -119,4 +114,16 @@ public class AdminController {
         return"admin/board/boardList";
     }
 
+    @GetMapping("/updateDatabase")
+    private void updateDatabase(){
+        int i =0;
+        while (true) {
+            i++;
+            List<HashMap<String, Object>> campList = campApiController.getBasedList(String.valueOf(i));
+            if(campList==null) {
+                break;
+            }
+            campApiService.saveCamps(campList);
+        }
+    }
 }

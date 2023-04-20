@@ -92,4 +92,8 @@ public class CampApiService {
             campApiRepository.save(camp);
         }
     }
+
+    public void updateApi(){
+
+    }
 }
