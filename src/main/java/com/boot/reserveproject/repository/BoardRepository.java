@@ -29,7 +29,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     Board getOneBoardByNo(@Param("no") long no);
     @Query("SELECT new com.boot.reserveproject.domain.BoardWithCommentsCount(b.no, b.id, b.title, b.content, b.readCnt, b.img, b.date, b.time, COUNT(c)) " +
             "FROM Board b LEFT JOIN b.comments c ON b.no = c.board.no " +
-            "GROUP BY b.no")
+            "GROUP BY b.no "
+            +"ORDER BY b.date desc , b.time desc")
     List<BoardWithCommentsCount> findBoardWithCommentsCountByNo();
     @Modifying
     @Query("delete from Board b where b.id=:loginId")
