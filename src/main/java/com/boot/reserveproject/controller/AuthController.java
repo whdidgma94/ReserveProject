@@ -1,17 +1,13 @@
 package com.boot.reserveproject.controller;
 
 import com.boot.reserveproject.domain.EmailMessage;
-import com.boot.reserveproject.domain.Member;
 import com.boot.reserveproject.service.AuthService;
 import com.boot.reserveproject.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 @Controller
 @RequiredArgsConstructor
