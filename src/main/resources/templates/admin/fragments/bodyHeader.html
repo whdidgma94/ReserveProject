@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
+<head th:replace="~{admin/fragments/header :: header}"/>
+<body>
 <div id="header" th:fragment="bodyHeader" style="display: flex;">
-    <button type="button" id="menuBtn" >
+
+    <button type="button" id="menuBtn">
         <i class="fa fa-bars"></i>
     </button>
     <h3><a>ADMIN</a></h3>
     <a href="/pc/member/logout" class="logout-link">logout</a>
-    </header>
 
-  <nav id="sidebar">
-    <ul>
-      <li><a href="/noticeList?type=admin" id="notice">공지사항</a></li>
-      <li><a href="/admin/memberList" id="member">회원관리</a></li>
-        <li><a href="/admin/board/boardList" id="board">게시판관리</a></li>
-        <li><a href="/sendQnAList?type=admin" id="customer">문의사항</a></li>
-      <li><a href="/updateDatabase" id="database    ">데이터 갱신</a></li>
-    </ul>
-  </nav>
+    <nav id="sidebar">
+        <ul>
+            <li><a href="/noticeList?type=admin" id="notice">공지사항</a></li>
+            <li><a href="/admin/memberList" id="member">회원관리</a></li>
+            <li><a href="/admin/board/boardList" id="board">게시판관리</a></li>
+            <li><a href="/sendQnAList?type=admin" id="customer">문의사항</a></li>
+            <li>
+                <button id="database" onclick="databaseUpdate()">데이터 갱신<br><span
+                        style="font-size: 12px">최근 갱신일 : </span><span id="updateDate"
+                                                                      style="font-size: 12px">20230101</span></button>
+            </li>
+        </ul>
+    </nav>
 </div>
+</body>
+
+</html>

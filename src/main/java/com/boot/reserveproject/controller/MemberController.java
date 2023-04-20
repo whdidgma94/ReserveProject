@@ -189,6 +189,9 @@ public class MemberController {
     @ResponseBody
     private String loginMemberMobile(@RequestParam("loginId") String loginId, @RequestParam("pw") String pw, HttpSession session) {
         if (memberService.checkLogin(loginId, pw)) {
+            if(loginId.equals("admin")){
+                return "admin";
+            }
             session.setAttribute("log", loginId);
             return "true";
         } else {
