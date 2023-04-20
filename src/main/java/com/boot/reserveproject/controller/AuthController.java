@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -82,7 +79,7 @@ public class AuthController {
     }
 
     @ResponseBody
-    @GetMapping("/email")
+    @PostMapping("/email")
     public String sendAuthMail(@RequestParam("email") String email, HttpSession session, @RequestParam(name = "loginId", required = false) String loginId) {
         if(loginId==null) {
             if (memberService.validEmail(email)) {
