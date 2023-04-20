@@ -6,9 +6,7 @@ import com.boot.reserveproject.domain.MemberLikes;
 import com.boot.reserveproject.form.LoginForm;
 import com.boot.reserveproject.form.MemberForm;
 import com.boot.reserveproject.form.MemberUpdateForm;
-import com.boot.reserveproject.service.CampService;
-import com.boot.reserveproject.service.MemberService;
-import com.boot.reserveproject.service.QnAService;
+import com.boot.reserveproject.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.query.Param;
@@ -31,6 +29,8 @@ public class MemberController {
     private final MemberService memberService;
     private final CampService campService;
     private final QnAService qnAService;
+    private final BoardService boardService;
+    private final CommentsService commentsService;
 
     @GetMapping("/pc/member/new")
     public String joinFormPc(Model model) {
@@ -242,6 +242,9 @@ public class MemberController {
         String loginId = (String) session.getAttribute("log");
         System.out.println(memberService.checkLogin(loginId, pw));
         if (memberService.checkLogin(loginId, pw)) {
+            commentsService.deleteCommentsByLoginId(loginId);
+            boardService.deleteBoardByLoginId(loginId);
+
             memberService.deleteMemberByLoginId(loginId);
             campService.deleteMemberLikesByLoginId(loginId);
             qnAService.deleteBySender(loginId);

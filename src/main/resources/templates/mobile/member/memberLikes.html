@@ -13,7 +13,7 @@
     <div class="row">
 
         <div class="btn memberLikeBtn" th:id="${memberLikes.getContentId()}"  onclick="addLike(this)">♥</div>
-            <div class="tempCampBox" th:id="${memberLikes.getContentId()}" onclick="details(this)">
+            <div class="tempCampBox" th:id="${memberLikes.getContentId()}" onclick="location.href = '/mobile/detailCamp?contentId='+this.id">
                 <div class="campBoxTop">
                     <div class="campBoxLeft">
                         <img th:src="${memberLikes.getFirstImageUrl()}"
@@ -35,5 +35,8 @@
 </body>
 <script th:inline="javascript">
     let log = [[${session.log}]];
+    function details(contentId) {
+        location.href = "/mobile/detailCamp?contentId=" + contentId;
+    }
 </script>
 </html>

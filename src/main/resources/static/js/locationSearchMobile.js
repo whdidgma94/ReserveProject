@@ -257,12 +257,12 @@ function makePageNum() {
     for (let i = 1; i <= 한번에보여줄페이지단위; i++) {
 
         if (i == 1 && 현재페이지인덱스 != 1) {
-            pageBtn += '<button onclick="previousPageIndex()">이전</button>'
+            pageBtn += '<button <button class="paging-btn" onclick="previousPageIndex()">이전</button>'
         }
         if(한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i == 현재페이지){pageBtn += '<a class="curPageNum" href="#" onclick="paging(' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + ')">' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + '</a>'}
         else{pageBtn += '<a href="#" onclick="paging(' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + ')">' + (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) + '</a>'}
         if (i == 한번에보여줄페이지단위 && (한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) < 총페이지수) {
-            pageBtn += '<button onclick="nextPageIndex()">다음</button>'
+            pageBtn += '<button <button class="paging-btn" onclick="nextPageIndex()">다음</button>'
         }
         if ((한번에보여줄페이지단위 * (현재페이지인덱스 - 1) + i) == 총페이지수) {
             break;
@@ -285,8 +285,13 @@ function previousPageIndex() {
 }
 
 function insertPageNum(i) {
+    if(i<1){
+        alert("1이상만 입력가능");return;
+    }
     현재페이지인덱스 = Math.ceil($('#inputPageNum').val() / 10);
-    makePageNum();
+    if(i<총리스트의길이/한페이지에보여줄게시글수) {
+        makePageNum();
+    }
     paging(i);
 }
 

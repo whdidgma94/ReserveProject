@@ -414,3 +414,7 @@ textarea{
 .row .memberLikeBtn{
     color:red;
 }
+.modal .modal-dialog{
+    max-width:100%;
+    width:90%;
+}

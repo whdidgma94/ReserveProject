@@ -44,5 +44,7 @@ public class CommentsService {
     public void deleteCommentsBySameRef(long ref){
         commentsRepository.deleteCommentsBySameRef(ref);
     }
-
+    public void deleteCommentsByLoginId(String loginId){
+        commentsRepository.deleteCommentsByLoginId(loginId);
+    }
 }
