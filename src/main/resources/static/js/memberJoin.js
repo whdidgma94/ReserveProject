@@ -44,7 +44,7 @@ function idCheck() {
     }
     if ($("#loginId").val()) {
         let query = {
-            loginId: $("#loginId").val(),
+            loginId: $("#loginId").val()
         };
         $.ajax({
             type: "get",

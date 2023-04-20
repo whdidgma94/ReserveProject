@@ -82,7 +82,7 @@ public class AuthController {
     }
 
     @ResponseBody
-    @PostMapping("/email")
+    @GetMapping("/email")
     public String sendAuthMail(@RequestParam("email") String email, HttpSession session, @RequestParam(name = "loginId", required = false) String loginId) {
         if(loginId==null) {
             if (memberService.validEmail(email)) {
